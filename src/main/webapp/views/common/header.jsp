@@ -5,12 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
+ <!-- Bootstrap 사용을 위한 CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- ------------------------- -->
+
+      <style>
         header{height: 150px}
         header a{color:black;}
         .nav-link{
           color:black;
-          width: 250px; 
+          width: 200px; 
           font-size: 20px; 
           text-align: center;
           transition-property: background-color;
@@ -40,19 +47,15 @@
           text-decoration: none;
           color: #007AFF;
         }
+        .helloworld-main{
+          max-width: 1200px;
+          margin: auto;
+        }
         
       </style>
-      <!-- Bootstrap 사용을 위한 CDN -->
-		  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-		  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-		  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-		  <!-- ------------------------- -->
-      
-</head>
 <body>
-	  <!-- Header, Nav start -->
-      
+	<!-- Header, Nav start -->
+      <div class="helloworld-main">
       <header class="row m-3">
         <div class="col-3 d-flex justify-content-center align-items-center">
           <a href=""><img src="./assets/img/logo.png"></a>
@@ -73,6 +76,7 @@
   
         </div>
       </header>
+      <div id="head-nav">
       <nav class="navbar m-3 navbar-expand-sm d-flex justify-content-center">
         <ul class="navbar-nav">
           <li class="nav-item">
@@ -93,6 +97,7 @@
         </ul>
       </nav>
       <hr>
+      </div>
       <!-- case2. 사용자로그인후 -->
       <!--
           <div>
@@ -134,12 +139,13 @@
             <li class="nav-item"><a href="">로그아웃</a></li>
           </ul>
           </div>
-            
+
   -->
         
 
 
-  <!--   Header, Nav end -->
+      <!--   Header, Nav end -->
+
 	
 </body>
 </html>

@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <style>
+  <style>
+   
     footer{
       height: 200px;
       border-top: 1px solid lightgray;
@@ -17,7 +18,6 @@
     }
     .footer-copyright{text-align:center}
     .footer-top{
-      margin-top: 20px;
       display: flex;
      
     }
@@ -30,7 +30,9 @@
 </head>
 <body>
 <body>
-  <!-- Footer start -->
+ <!-- Footer start -->
+ 
+  </div>
   <footer class="m-3">
     <div class="footer-top">
       <ul class="footer-info1">
@@ -55,8 +57,10 @@
       Copyright ⓒ GooDee Academy. All rights reserved.
     </div>
   </footer>
- 
-  <!--   Footer end -->
+  
+  <!--  Footer end -->
+
+
 
 </body>
 </html>
