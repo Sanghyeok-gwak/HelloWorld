@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+			<%@ include file="/views/common/header.jsp" %>
+			 <section class="row m-3" style="min-height: 500px">
+			 asdl;fkaposdkfop askdopfkasopdkfopskop
+			 
+			 </section>
+			<%@ include file="/views/common/footer.jsp" %>
 </body>
 </html>
