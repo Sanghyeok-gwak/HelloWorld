@@ -12,7 +12,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
   <!-- ------------------------- -->
 
-      <style>
+   <style>
         header{height: 150px}
         header a{color:black;}
         .nav-link{
@@ -52,52 +52,74 @@
           margin: auto;
         }
         
+        /* 공통 스타일 */
+		    /* font */
+		    h1{
+		      font-size: 30px;
+		    }
+		    h3{
+		      font-size: 24px;
+		    }
+		    h5{
+		      font-size: 15px;
+		    }
+		    /* button */
+		    #btn-1{
+		      background-color: #007AFF;
+		      color: white;
+		    }
+		    #btn-2{
+		      background-color: #e8eaeb;
+		      color: black;
+		    }
+	        
+        
       </style>
-<body>
+	<body>
 	<!-- Header, Nav start -->
       <div class="helloworld-main">
-      <header class="row m-3">
-        <div class="col-3 d-flex justify-content-center align-items-center">
-          <a href=""><img src="./assets/img/logo.png"></a>
-        </div>
-        <div class="col-6"></div>
-        <div class="col-3 d-flex justify-content-center align-items-center">
-  
-        
-          <!-- case1. 로그인전 -->
-          <div>
-          <ul id="head-info">
-            <li class="nav-item"><a href="">로그인</a></li>
-            <li class="nav-item"><a href="">회원가입</a></li>
-            <li class="nav-item"><a href="">고객센터</a></li>
-          </ul>
+        <header class="row m-3">
+          <div class="col-3 d-flex justify-content-center align-items-center">
+            <a href=""><img src="./assets/image/logo.png"></a>
           </div>
+          <div class="col-6"></div>
+          <div class="col-3 d-flex justify-content-center align-items-center">
+      
           
-  
+            <!-- case1. 로그인전 -->
+            <div>
+            <ul id="head-info">
+              <li class="nav-item"><a href=""><h5>로그인</h5></a></li>
+              <li class="nav-item"><a href=""><h5>회원가입</h5></a></li>
+              <li class="nav-item"><a href=""><h5>고객센터</h5></a></li>
+            </ul>
+            </div>
+            
+      
+          </div>
+        </header>
+        <div id="head-nav">
+        <nav class="navbar m-3 navbar-expand-sm d-flex justify-content-center">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#"><h3>미국</h3></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><h3>유럽</h3></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><h3>남미</h3></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><h3>일본</h3></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><h3>동남아</h3></a>
+            </li>
+          </ul>
+        </nav>
+        <hr>
         </div>
-      </header>
-      <div id="head-nav">
-      <nav class="navbar m-3 navbar-expand-sm d-flex justify-content-center">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="#">미국</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">유럽</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">남미</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">일본</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">동남아</a>
-          </li>
-        </ul>
-      </nav>
-      <hr>
-      </div>
       <!-- case2. 사용자로그인후 -->
       <!--
           <div>
@@ -144,8 +166,7 @@
         
 
 
-      <!--   Header, Nav end -->
-
+      <!-- Header, Nav end -->
 	
 </body>
 </html>
