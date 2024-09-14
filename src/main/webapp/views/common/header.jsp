@@ -52,16 +52,22 @@
           margin: auto;
         }
         
-        /* 공통 스타일 */
-		    /* font */
+       /* 공통 스타일 */
+		   /* font */
 		    h1{
 		      font-size: 30px;
+		      margin-top: 5px;
+		      margin-bottom: 5px;
 		    }
 		    h3{
 		      font-size: 24px;
+		      margin-top: 5px;
+		      margin-bottom: 5px;
 		    }
 		    h5{
 		      font-size: 15px;
+		      margin-top: 5px;
+		      margin-bottom: 5px;
 		    }
 		    /* button */
 		    #btn-1{
@@ -69,10 +75,12 @@
 		      color: white;
 		    }
 		    #btn-2{
-		      background-color: #e8eaeb;
+		      background-color: #ffffff;
+		      border: 1px solid lightgray;
 		      color: black;
 		    }
-	        
+
+
         
       </style>
 	<body>
