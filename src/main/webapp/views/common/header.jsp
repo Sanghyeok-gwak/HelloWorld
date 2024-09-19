@@ -13,72 +13,50 @@
   <!-- ------------------------- -->
 
    <style>
-        header{height: 150px}
-        header a{color:black;}
-        .nav-link{
-          color:black;
-          width: 200px; 
-          font-size: 20px; 
-          text-align: center;
-          transition-property: background-color;
-          transition-duration: 1s;
-          border-radius: 10px;
-        }
-        .nav-link:hover{
-          color: white;
-          background-color: #007AFF;
-          border-radius: 10px;
-          
-        }
-
-        #head-info{
-          display: flex;
-        }
-        #head-info li {
-          width: 90px;
-          list-style: none;
-          text-align: center;
-          
-        }
-        #head-info li a {
-          text-decoration: none;
-        }
-        #head-info li a:hover {
-          text-decoration: none;
-          color: #007AFF;
-        }
-        .helloworld-main{
-          max-width: 1200px;
+        /* 전체영역  */
+    .helloworld-main{
+      max-width: 1200px;
+      margin: auto;
+    }
+    .helloworld-main-sub{ 
+          max-width: 1000px;
           margin: auto;
-        }
-        
-       /* 공통 스타일 */
-		   /* font */
-		    h1{
-		      font-size: 30px;
-		      margin-top: 5px;
-		      margin-bottom: 5px;
-		    }
-		    h3{
-		      font-size: 24px;
-		      margin-top: 5px;
-		      margin-bottom: 5px;
-		    }
-		    h5{
-		      font-size: 15px;
-		      margin-top: 5px;
-		      margin-bottom: 5px;
-		    }
-		    /* button */
-		    #btn-1{
-		      background-color: #007AFF;
-		      color: white;
-		    }
-		    #btn-2{
-		      background-color: #ffffff;
-		      border: 1px solid lightgray;
-		      color: black;
-		    }
+    }
+
+    /* header */
+    header{height: 150px}
+    header a{color:black;}
+    .nav-link{
+      color:black;
+      width: 200px; 
+      font-size: 20px; 
+      text-align: center;
+      transition-property: background-color;
+      transition-duration: 1s;
+      border-radius: 10px;
+    }
+    .nav-link:hover{
+      color: white;
+      background-color: #007AFF;
+      border-radius: 10px;
+      
+    }
+    #head-info{
+      display: flex;
+    }
+    #head-info li {
+      width: 90px;
+      list-style: none;
+      text-align: center;
+      
+    }
+    #head-info li a {
+      text-decoration: none;
+    }
+    #head-info li a:hover {
+      text-decoration: none;
+      color: #007AFF;
+    }
 
 
         

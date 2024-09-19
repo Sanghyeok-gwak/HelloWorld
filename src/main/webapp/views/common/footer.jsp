@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
    <style>
-    /* footer */
+   /* footer */
     footer{
       height: 200px;
       border-top: 1px solid lightgray;
@@ -27,7 +27,7 @@
       justify-content: space-evenly;
     }
     #footer-box{
-      margin-top: 200px!important;
+      margin-top: 0px!important;
     }
 
   </style>
