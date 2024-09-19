@@ -6,51 +6,38 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<style>
-		.admin-page-head {
-	      display: flex;
-	      flex-direction: column;
-	      border-bottom: 1px solid lightgray;
-	    }
-	
-	    .admin-page-head-logo,
-	    .admin-page-main-menu {
-	      border-right: 1px solid lightgray;
-	      width: 15%;
-	      height: 100%;
-	    }
-	
-	    .admin-page-head-gongback,
-	    .admin-page-main-item {
-	      width: 85%;
-	      height: 100%;
-	    }
-	
-	    .admin-page-main {
-	      height: 100%;
-	
-	    }
-	
-	    .amdin-page-side-btn1 button,
-	    .amdin-page-side-btn2 button,
-	    .amdin-page-side-btn3 button,
-	    .amdin-page-side-btn4 button {
-	      width: 100%;
-	      height: 45px;
-	      margin-top: 10px;
-	      border-radius: 10px;
-	      cursor: pointer;
-	    }
-	
-	    .amdin-page-side-btn1,
-	    .amdin-page-side-btn2,
-	    .amdin-page-side-btn3,
-	    .amdin-page-side-btn4 {
-	      padding: 20px
-	    }
-	
-	    .admin-page-main {
-	      display: flex;
-	    }
+	.admin-page-head{
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid lightgray;
+    }
+    .admin-page-head-logo,.admin-page-main-menu{
+      border-right: 1px solid lightgray;
+      width: 15%;
+      height: 100%;
+    }
+    .admin-page-head-gongback,.admin-page-main-item{
+      width: 85%;
+      height: 100%;
+    }
+    .admin-page-main{
+      height: 100%;
+      
+    }
+    #btn-1{
+      background-color: #007AFF;
+      color: white;
+
+    }
+    .amdin-page-side-btn1 button ,.amdin-page-side-btn2 button ,.amdin-page-side-btn3 button ,.amdin-page-side-btn4 button{
+      width: 100%;
+      height: 45px;
+      margin-top: 10px;
+      border-radius:10px ;
+    }
+    .amdin-page-side-btn1,.amdin-page-side-btn2,.amdin-page-side-btn3,.amdin-page-side-btn4{
+      padding: 20px
+    }
 
      /* 공통 스타일 */
     /* font */

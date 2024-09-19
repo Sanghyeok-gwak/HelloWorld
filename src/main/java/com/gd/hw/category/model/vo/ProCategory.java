@@ -4,36 +4,55 @@ public class ProCategory {
 	
 	private int categoryId;
 	private String categoryName;
+	private String categoryEngName;
 	
 	
-	public ProCategory() {};
-	
-	
-	@Override
-	public String toString() {
-		return "ProCategory [categoryId=" + categoryId + ", categoryName=" + categoryName + "]";
-	}
-	public ProCategory(int categoryId, String categoryName) {
+	public ProCategory() {}
+
+
+	public ProCategory(int categoryId, String categoryName, String categoryEngName) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
+		this.categoryEngName = categoryEngName;
 	}
-	public ProCategory(String categoryName) {
-		super();
-		this.categoryName = categoryName;
+
+
+	@Override
+	public String toString() {
+		return "ProCategory [categoryId=" + categoryId + ", categoryName=" + categoryName + ", categoryEngName="
+				+ categoryEngName + "]";
 	}
+
+
 	public int getCategoryId() {
 		return categoryId;
 	}
+
+
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
+
+
 	public String getCategoryName() {
 		return categoryName;
 	}
+
+
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+
+
+	public String getCategoryEngName() {
+		return categoryEngName;
+	}
+
+
+	public void setCategoryEngName(String categoryEngName) {
+		this.categoryEngName = categoryEngName;
+	};
 	
 	
 	

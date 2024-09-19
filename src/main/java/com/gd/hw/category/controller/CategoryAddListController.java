@@ -1,8 +1,6 @@
 package com.gd.hw.category.controller;
 
 import java.io.IOException;
-import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.gd.hw.category.model.service.CategoryService;
 
 /**
- * Servlet implementation class CategoryListController
+ * Servlet implementation class CategoryAddListController
  */
-@WebServlet("/list.cg")
-public class CategoryListController extends HttpServlet {
+@WebServlet("/addList.cg")
+public class CategoryAddListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CategoryListController() {
+    public CategoryAddListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,14 +28,14 @@ public class CategoryListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Map<String, Object> map = new CategoryService().selectCategoryList();
+		String categoryName = (String) request.getAttribute("categories-add-title");
 		
-		request.setAttribute("map", map);
+		System.out.println(categoryName);
+		int result =  new CategoryService().addCategory();
 		
+			
 		
-		request.getRequestDispatcher("/views/admin/category-admin.jsp").forward(request, response);
-		
-		
+	
 	}
 
 	/**

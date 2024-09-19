@@ -1,7 +1,16 @@
+<%@page import="java.util.Map"%>
+<%@page import="com.gd.hw.category.model.vo.ProCategory"%>
+<%@page import="com.gd.hw.category.model.vo.Region"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 	String contextPath = request.getContextPath();
+	Map<String,Object> map = (Map<String,Object>)request.getAttribute("map");
+
+	List<ProCategory> pList = (List<ProCategory>)map.get("category"); 
+	List<Region> rList = (List<Region>)map.get("region"); 
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -157,7 +166,7 @@ ul {
 	padding-right: 20px;
 }
 
-.modal-body input[name=categories-title] {
+.modal-body input[name=categories-title] ,.modal-body input[name=categories-add-title] {
 	border: 1px solid lightgray;
 	border-radius: 5px;
 	width: 100%;
@@ -200,7 +209,7 @@ h5 {
 	<div class="admin-page">
 		<div class="admin-page-head">
 			<div class="admin-page-head-logo">
-				<img src="../../assets/image/logo.png" alt="logo" width="100%">
+				<img src="<%= contextPath %>/assets/image/logo.png" alt="logo" width="100%">
 			</div>
 			<div class="admin-page-head-gongback"></div>
 		</div>
@@ -250,35 +259,18 @@ h5 {
 					</div>
 					<hr>
 					<div class="category-left-box">
+					
 						<!-- 기능들어갈때 target에 카테고리 명을 넣던가 아님 카테고리2와 조인되는 값을 넣기 -->
-						<!-- 임시로 설정한값들 -->
-
-						<!-- 6개이상 추가 x -->
+					
 						<ul id="categories1">
-							<li data-target="usaCities"><span id="categories-no">01</span>
-								<span id="categories-name">미국</span>
-								<button id="btn-3" type="button" class="btn" data-toggle="modal"
-									data-target="#categories1-edit">수정하기</button></li>
-							<li data-target="europeCities"><span id="categories-no">
-									02</span> <span id="categories-name">유럽</span>
-								<button id="btn-3" type="button" class="btn" data-toggle="modal"
-									data-target="#categories1-edit">수정하기</button></li>
-							<li data-target="southAmericaCities"><span
-								id="categories-no">03</span> <span id="categories-name">남미</span>
-								<button id="btn-3" type="button" class="btn" data-toggle="modal"
-									data-target="#categories1-edit">수정하기</button></li>
-							<li data-target="japanCities"><span id="categories-no">04</span>
-								<span id="categories-name">일본</span>
-								<button id="btn-3" type="button" class="btn" data-toggle="modal"
-									data-target="#categories1-edit">수정하기</button></li>
-							<li data-target="chinaCities"><span id="categories-no">05</span>
-								<span id="categories-name">중국</span>
-								<button id="btn-3" type="button" class="btn" data-toggle="modal"
-									data-target="#categories1-edit">수정하기</button></li>
-							<li data-target="southeastAsiaCities"><span
-								id="categories-no">06</span> <span id="categories-name">동남아</span>
-								<button id="btn-3" type="button" class="btn" data-toggle="modal"
-									data-target="#categories1-edit">수정하기</button></li>
+							<%for(ProCategory pC : pList){ %>
+									<li data-target="<%=pC.getCategoryEngName() %>">
+										<span id="categories-no"><%=pC.getCategoryId() %></span>
+										<span id="categories-name"><%=pC.getCategoryName() %></span>
+										<button id="btn-3" type="button" class="btn" data-toggle="modal"
+											data-target="#categories1-edit">수정하기</button>
+									</li>
+							<%} %>
 						</ul>
 					</div>
 					<!-- 수정하기버튼 팝업 -->
@@ -327,10 +319,10 @@ h5 {
 					<!-- 등록하기버튼 팝업 -->
 					<div class="add-categories-btn">
 						<button id="btn-1" type="button" class="btn" data-toggle="modal"
-							data-target="#categories1-add" style="float: inline-end;">등록하기</button>
+							data-target="<%=pList.size()>=6 ? "#categories1-error":"#categories1-add"  %>" style="float: inline-end;">등록하기</button>
 
 						<!-- left Add modal -->
-						<!-- The Modal -->
+						<!-- The AddModal -->
 						<div class="modal" id="categories1-add">
 							<div class="modal-dialog">
 								<div class="modal-content">
@@ -342,22 +334,51 @@ h5 {
 									</div>
 
 									<!-- Modal body -->
+									
 									<div class="modal-body">
 										<div id="modal-text-box">카테고리 명</div>
-										<input type="text" name="categories-title">
+										<input type="text" name="categories-add-title">
 									</div>
 
 									<!-- Modal footer -->
 									<div class="modal-footer">
-										<button type="button" id="btn-3" class="btn"
-											data-dismiss="modal">등록</button>
+										<button type="submit" id="btn-3" class="btn"
+											data-dismiss="modal" onclick="location.href='<%= contextPath%>/addList.cg'" >등록</button>
 										<button type="button" id="btn-1" class="btn"
 											data-dismiss="modal">취소</button>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					<!-- The errorModal -->
+					<div class="modal" id="categories1-error">
+							<div class="modal-dialog">
+								<div class="modal-content">
+
+									<!-- Modal Header -->
+									<div class="modal-header">
+										<h3 class="modal-title">Error</h3>
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+									</div>
+
+									<!-- Modal body -->
+									<div class="modal-body">
+										<div id="modal-text-box">6개 초과 되었습니다. 삭제 후 이용 해주세요.</div>
+										
+									</div>
+
+									<!-- Modal footer -->
+									<div class="modal-footer">
+										
+										<button type="button" id="btn-1" class="btn"
+											data-dismiss="modal">확인</button>
 									</div>
 
 								</div>
 							</div>
-						</div>
+						</div>	
+						
 					</div>
 
 				</div>
@@ -368,120 +389,29 @@ h5 {
 					</div>
 					<hr>
 					<div class="category-right-box">
-						<div id="usaCities">
+					<%for(int i=0; i<pList.size(); i++){ %>
+					<%int count =1; %>
+						<div id="<%= pList.get(i).getCategoryEngName() %>">
 							<ul class="categories2">
-								<li><span id="categories-no">01</span> <span
-									class="categories-name2">뉴욕</span>
-									<button id="btn-3" type="button" data-toggle="modal"
+								<%for(int j=0; j<rList.size(); j++) {	%>
+									<%if(pList.get(i).getCategoryEngName().equals(rList.get(j).getRegionEngName())){ %>
+								<li>
+										<span id="categories-no"><%=count++ %></span> 
+										<span class="categories-name2"><%=rList.get(j).getRegionName() %></span>
+										<button id="btn-3" type="button" data-toggle="modal"
 										data-target="#categories2-edit" style="float: inline-end;">수정하기</button>
 								</li>
-								<li><span id="categories-no">02</span> <span
-									class="categories-name2">샌프란시스코</span>
-									<button id="btn-3" type="button" data-toggle="modal"
-										data-target="#categories2-edit" style="float: inline-end;">수정하기</button>
-								</li>
+								<%}} %>
+								
 								<li style="text-align: end;">
 									<button type="button" id="btn-1" class="add-btn"
 										data-toggle="modal" data-target="#categories2-add"
-										data-area="usaCities">추가</button>
+										data-area="<%=pList.get(i).getCategoryEngName()%>">추가</button>
 								</li>
 							</ul>
 						</div>
-						<div id="europeCities">
-							<ul class="categories2">
-								<li><span id="categories-no">01</span> <span
-									class="categories-name2">파리</span>
-									<button id="btn-3" type="button" data-toggle="modal"
-										data-target="#categories2-edit" style="float: inline-end;">수정하기</button>
-								</li>
-								<li><span id="categories-no">02</span> <span
-									class="categories-name2">로마</span>
-									<button id="btn-3" type="button" data-toggle="modal"
-										data-target="#categories2-edit" style="float: inline-end;">수정하기</button>
-								</li>
-								<li style="text-align: end;">
-									<button type="button" id="btn-1" class="add-btn"
-										data-toggle="modal" data-target="#categories2-add"
-										data-area="europeCities">추가</button>
-								</li>
-							</ul>
-						</div>
-						<div id="southAmericaCities">
-							<ul class="categories2">
-								<li><span id="categories-no">01</span> <span
-									class="categories-name2">부에노스아이레스</span>
-									<button id="btn-3" type="button" data-toggle="modal"
-										data-target="#categories2-edit" style="float: inline-end;">수정하기</button>
-								</li>
-								<li><span id="categories-no">02</span> <span
-									class="categories-name2">리우데자네이루</span>
-									<button id="btn-3" type="button" data-toggle="modal"
-										data-target="#categories2-edit" style="float: inline-end;">수정하기</button>
-								</li>
-								<li style="text-align: end;">
-									<button type="button" id="btn-1" class="add-btn"
-										data-toggle="modal" data-target="#categories2-add"
-										data-area="southAmericaCities">추가</button>
-								</li>
-							</ul>
-						</div>
-						<div id="japanCities">
-							<ul class="categories2">
-								<li><span id="categories-no">01</span> <span
-									class="categories-name2">오사카</span>
-									<button id="btn-3" type="button" data-toggle="modal"
-										data-target="#categories2-edit" style="float: inline-end;">수정하기</button>
-								</li>
-								<li><span id="categories-no">02</span> <span
-									class="categories-name2">도쿄</span>
-									<button id="btn-3" type="button" data-toggle="modal"
-										data-target="#categories2-edit" style="float: inline-end;">수정하기</button>
-								</li>
-								<li style="text-align: end;">
-									<button type="button" id="btn-1" class="add-btn"
-										data-toggle="modal" data-target="#categories2-add"
-										data-area="japanCities">추가</button>
-								</li>
-							</ul>
-						</div>
-						<div id="chinaCities">
-							<ul class="categories2">
-								<li><span id="categories-no">01</span> <span
-									class="categories-name2">상하이</span>
-									<button id="btn-3" type="button" data-toggle="modal"
-										data-target="#categories2-edit" style="float: inline-end;">수정하기</button>
-								</li>
-								<li><span id="categories-no">02</span> <span
-									class="categories-name2">베이징</span>
-									<button id="btn-3" type="button" data-toggle="modal"
-										data-target="#categories2-edit" style="float: inline-end;">수정하기</button>
-								</li>
-								<li style="text-align: end;">
-									<button type="button" id="btn-1" class="add-btn"
-										data-toggle="modal" data-target="#categories2-add"
-										data-area="chinaCities">추가</button>
-								</li>
-							</ul>
-						</div>
-						<div id="southeastAsiaCities">
-							<ul class="categories2">
-								<li><span id="categories-no">01</span> <span
-									class="categories-name2">방콕</span>
-									<button id="btn-3" type="button" data-toggle="modal"
-										data-target="#categories2-edit" style="float: inline-end;">수정하기</button>
-								</li>
-								<li><span id="categories-no">02</span> <span
-									class="categories-name2">호치민</span>
-									<button id="btn-3" type="button" data-toggle="modal"
-										data-target="#categories2-edit" style="float: inline-end;">수정하기</button>
-								</li>
-								<li style="text-align: end;">
-									<button type="button" id="btn-1" class="add-btn"
-										data-toggle="modal" data-target="#categories2-add"
-										data-area="southeastAsiaCities">추가</button>
-								</li>
-							</ul>
-						</div>
+							<%} %>
+						
 					</div>
 					<!-- 수정하기버튼 팝업 -->
 
