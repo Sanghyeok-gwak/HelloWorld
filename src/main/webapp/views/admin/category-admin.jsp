@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <!-- Bootstrap 사용을 위한 CDN -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -212,7 +216,7 @@ h5 {
 					<button id="btn-2" class="btn" onclick="location.href='#'">리뷰
 						관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">카테고리
+					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.cg'">카테고리
 						관리</button>
 				</div>
 				<div class="amdin-page-side-btn2">

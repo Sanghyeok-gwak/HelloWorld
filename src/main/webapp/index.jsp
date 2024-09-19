@@ -25,6 +25,9 @@
     .main-deadline-imminent,.main-event{
       margin-top: 50px;
     }
+    .main-event{
+    	margin-bottom: 200px;
+    }
   </style>
 	<body>
 					<%@ include file="/views/common/header.jsp" %>

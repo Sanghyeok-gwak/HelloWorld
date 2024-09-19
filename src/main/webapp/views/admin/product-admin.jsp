@@ -227,7 +227,7 @@ h5 {
 						</div>
 
 						<div class="search-container-btn">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							
 							<button id="btn-3">
 								<h5>조회</h5>
 							</button>
