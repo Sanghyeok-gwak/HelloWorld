@@ -80,7 +80,7 @@
       <div class="helloworld-main">
         <header class="row m-3">
           <div class="col-3 d-flex justify-content-center align-items-center">
-            <a href=""><img src="./assets/image/logo.png"></a>
+            <a href=""><img src="<%=contextPath %>/assets/image/logo.png"></a>
           </div>
           <div class="col-6"></div>
           <div class="col-3 d-flex justify-content-center align-items-center">
