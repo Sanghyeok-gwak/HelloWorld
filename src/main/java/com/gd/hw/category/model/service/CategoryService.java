@@ -29,12 +29,6 @@ public class CategoryService {
 		list.put("category", pList);
 		list.put("region", rList);
 		
-		for(int i =0; i<rList.size(); i++) {
-			System.out.println(i);
-		}
-		for(int i =0; i<pList.size(); i++) {
-			System.out.println(i);
-		}
 		
 		
 		close(conn);
@@ -42,12 +36,12 @@ public class CategoryService {
 		return list;
 	}
 	
-	public int addCategory() {
+	public int addCategory(ProCategory pc) {
 		Connection conn = getConnection();
 		
-		int result = cDao.addCategory(conn);
-		
-		
+		int result = cDao.addCategory(conn,pc);
+	
+		System.out.println("dao에서 받아온 result : "+ result);
 		if(result>0) {
 			commit(conn);
 		}else {
@@ -58,6 +52,24 @@ public class CategoryService {
 		return result;
 	
 	}
+	
+	public int modifyCategory(ProCategory pc) {
+		Connection conn = getConnection();
+		
+		int result = cDao.modifyCategory(conn,pc);
+		
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result ;
+		
+	}
+	
+	
 	
 	
 	

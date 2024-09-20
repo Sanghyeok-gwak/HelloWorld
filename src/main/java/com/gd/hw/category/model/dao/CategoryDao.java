@@ -79,18 +79,43 @@ public class CategoryDao {
 		return list ;
 	}
 	
-	public int addCategory(Connection conn) {
+	public int addCategory(Connection conn, ProCategory pc) {
 		
 		int result  = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("addCategory");
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, sql);
-			
+			pstmt.setString(1, pc.getCategoryName());
+			pstmt.setString(2, pc.getCategoryEngName());
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+		
+		
+		
+	}
+	public int modifyCategory(Connection conn, ProCategory pc) {
+		
+		int result  = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("modifyCategory");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pc.getCategoryName());
+			pstmt.setString(2, pc.getCategoryEngName());
+			pstmt.setInt(3, pc.getCategoryId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		
 		

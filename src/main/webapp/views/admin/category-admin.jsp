@@ -6,18 +6,18 @@
 	pageEncoding="UTF-8"%>
 <%
 	String contextPath = request.getContextPath();
+	
 	Map<String,Object> map = (Map<String,Object>)request.getAttribute("map");
 
 	List<ProCategory> pList = (List<ProCategory>)map.get("category"); 
 	List<Region> rList = (List<Region>)map.get("region"); 
-	
+	String alertMsg = (String)session.getAttribute("msg");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
 <!-- Bootstrap 사용을 위한 CDN -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -166,7 +166,11 @@ ul {
 	padding-right: 20px;
 }
 
-.modal-body input[name=categories-title] ,.modal-body input[name=categories-add-title] {
+.modal-body input[name=categories-title] ,
+.modal-body input[name=categories-add-title] ,
+.modal-body input[name=categories-add-eng-title],
+.modal-body input[name=categories-modify-title],
+.modal-body input[name=categories-modify-eng-title]{
 	border: 1px solid lightgray;
 	border-radius: 5px;
 	width: 100%;
@@ -206,6 +210,11 @@ h5 {
 </style>
 </head>
 <body>
+	<%if(alertMsg!= null){ %>
+	<script>
+		alert('<%= alertMsg%>');
+	</script>
+	<% session.removeAttribute("msg");} %>
 	<div class="admin-page">
 		<div class="admin-page-head">
 			<div class="admin-page-head-logo">
@@ -267,8 +276,8 @@ h5 {
 									<li data-target="<%=pC.getCategoryEngName() %>">
 										<span id="categories-no"><%=pC.getCategoryId() %></span>
 										<span id="categories-name"><%=pC.getCategoryName() %></span>
-										<button id="btn-3" type="button" class="btn" data-toggle="modal"
-											data-target="#categories1-edit">수정하기</button>
+										<button id="btn-3" type="button" class="btn" data-toggle="modal" data-target="#categories1-edit">수정하기</button>
+										<input type="hidden"  class="categories-eng-name" value="<%=pC.getCategoryEngName() %>">	
 									</li>
 							<%} %>
 						</ul>
@@ -287,31 +296,53 @@ h5 {
 								</div>
 
 								<!-- Modal body -->
-								<div class="modal-body">
-									<div id="modal-text-box">카테고리 명</div>
-									<input type="text" id="modal-input" name="categories-title">
-								</div>
-
-								<!-- Modal footer -->
-								<div class="modal-footer">
-									<button type="button" id="btn-3" class="btn"
-										data-dismiss="modal">등록</button>
-									<button type="button" id="btn-1" class="btn"
-										data-dismiss="modal">취소</button>
-								</div>
-
+									<div class="modal-body">
+											<div id="modal-text-box">한글 명</div>
+											<input type="text" id="modal-input-title" name="categories-modify-title">
+											<div id="modal-text-box">영문 명</div>
+											<input type="text" id="modal-input-eng-title" name="categories-modify-eng-title">
+											<input type="hidden" id="modal-input-no" name="categories-modify-no">
+									</div>
+	
+									<!-- Modal footer -->
+									<div class="modal-footer">
+										<button type="button"  onclick="fnCategoriesEdit();" id="btn-3" class="btn" >수정</button>
+										<button type="button" id="btn-1" class="btn" data-dismiss="modal">취소</button>
+									</div>
 							</div>
 						</div>
 					</div>
+						<script>
+							function fnCategoriesEdit(){
+								$.ajax({
+									url:'<%= contextPath%>/modifyList.cg',
+									data:{},
+									success: function(){
+										
+									},
+									error: function(){
+										
+									}
+									
+								})
+							}	
+						</script>
+						
+					
+					
 					<script>
             document.querySelectorAll('#categories1 button').forEach(button => {
               button.addEventListener('click', function() {
                 // 부모 li 요소에서 카테고리명 추출
                 const li = this.parentElement;
                 const categoryName = li.querySelector('#categories-name').textContent;
-        
+                const categoryEngName = li.querySelector('.categories-eng-name').value;
+                const categoryNo = li.querySelector('#categories-no').textContent;
+        				console.log(categoryEngName);
                 // 모달의 인풋 박스에 카테고리명 설정
-                document.getElementById('modal-input').value = categoryName;
+                document.getElementById('modal-input-title').value = categoryName;
+                document.getElementById('modal-input-eng-title').value = categoryEngName;
+                document.getElementById('modal-input-no').value = categoryNo;
               });
             });
           </script>
@@ -334,19 +365,20 @@ h5 {
 									</div>
 
 									<!-- Modal body -->
-									
-									<div class="modal-body">
-										<div id="modal-text-box">카테고리 명</div>
-										<input type="text" name="categories-add-title">
-									</div>
-
-									<!-- Modal footer -->
-									<div class="modal-footer">
-										<button type="submit" id="btn-3" class="btn"
-											data-dismiss="modal" onclick="location.href='<%= contextPath%>/addList.cg'" >등록</button>
-										<button type="button" id="btn-1" class="btn"
-											data-dismiss="modal">취소</button>
-									</div>
+									<form action="<%= contextPath%>/addList.cg" method="POST">
+										<div class="modal-body">
+											<div id="modal-text-box">한글 명</div>
+											<input type="text" name="categories-add-title">
+											<div id="modal-text-box">영문 명</div>
+											<input type="text" name="categories-add-eng-title">
+										</div>
+	
+										<!-- Modal footer -->
+										<div class="modal-footer">
+											<button type="submit" id="btn-3" class="btn">등록</button>
+											<button type="button" id="btn-1" class="btn" data-dismiss="modal">취소</button>
+										</div>
+									</form>
 									
 								</div>
 							</div>
@@ -364,7 +396,7 @@ h5 {
 
 									<!-- Modal body -->
 									<div class="modal-body">
-										<div id="modal-text-box">6개 초과 되었습니다. 삭제 후 이용 해주세요.</div>
+										<div id="modal-text-box">6개 초과 되었습니다. 더 이상 추가 할 수 없습니다.</div>
 										
 									</div>
 
@@ -434,10 +466,8 @@ h5 {
 
 								<!-- Modal footer -->
 								<div class="modal-footer">
-									<button type="button" id="btn-3" class="btn"
-										data-dismiss="modal">등록</button>
-									<button type="button" id="btn-1" class="btn"
-										data-dismiss="modal">취소</button>
+									<button type="submit" id="btn-3" class="btn" >등록</button>
+									<button type="button" id="btn-1" class="btn" data-dismiss="modal">취소</button>
 								</div>
 
 							</div>

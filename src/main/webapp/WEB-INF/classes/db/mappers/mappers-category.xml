@@ -6,6 +6,7 @@
 	<entry key="selectCategoryList">
 		SELECT *
 		  FROM PRO_CATEGORY
+	ORDER BY CATEGORY_ID 
 	</entry>
 	
 	
@@ -15,7 +16,15 @@
 	</entry>
 	
 	<entry key="addCategory">
-		INSERT INTO PRO_CATEGORY (CATEGORY_NAME) VALUES (?)
+		INSERT INTO PRO_CATEGORY VALUES (SEQ_CATEGORY.NEXTVAL,?,?)
+	</entry>
+	
+	<entry key="modifyCategory">
+		UPDATE PRO_CATEGORY
+   		 SET CATEGORY_NAME = ?,
+   	       CATEGORY_ENG_NAME = ?
+     WHERE CATEGORY_ID = ?
+	
 	</entry>
 
 

@@ -9,6 +9,14 @@ public class ProCategory {
 	
 	public ProCategory() {}
 
+	
+	public ProCategory(String categoryName, String categoryEngName) {
+		super();
+		this.categoryName = categoryName;
+		this.categoryEngName = categoryEngName;
+	}
+	
+	
 
 	public ProCategory(int categoryId, String categoryName, String categoryEngName) {
 		super();

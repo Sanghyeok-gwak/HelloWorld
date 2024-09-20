@@ -11,16 +11,16 @@ import com.gd.hw.category.model.service.CategoryService;
 import com.gd.hw.category.model.vo.ProCategory;
 
 /**
- * Servlet implementation class CategoryAddListController
+ * Servlet implementation class CategoryModifyListController
  */
-@WebServlet("/addList.cg")
-public class CategoryAddListController extends HttpServlet {
+@WebServlet("/modifyList.cg")
+public class CategoryModifyListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CategoryAddListController() {
+    public CategoryModifyListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,26 +31,28 @@ public class CategoryAddListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
-		String categoryName = request.getParameter("categories-add-title");
-		String categoryEngName =request.getParameter("categories-add-eng-title");
+		String categoryName = request.getParameter("categories-modify-title");
+		String categoryEngName =request.getParameter("categories-modify-eng-title");
+		int no = Integer.parseInt(request.getParameter("categories-modify-no")) ;
 		
-		ProCategory pc = new ProCategory(categoryName,categoryEngName);
+		ProCategory pc = new ProCategory(no,categoryName,categoryEngName);
+		
+		int result = new CategoryService().modifyCategory(pc);
 		
 		
-//		추 후 로그인 한 유저 추가 
 		
-		int result =  new CategoryService().addCategory(pc);
-		
-			
-		if(result > 0) {
-			response.sendRedirect(request.getContextPath()+"/list.cg");
+		if(result>0) {
 			System.out.println("성공");
+			response.sendRedirect(request.getContextPath()+"/list.cg");
+			
 		}else {
 			System.out.println("실패");
 		}
-	
+		
+		
+		
 	}
-
+ 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
