@@ -7,20 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gd.hw.category.model.service.CategoryService;
-import com.gd.hw.category.model.vo.ProCategory;
-
 /**
- * Servlet implementation class CategoryModifyListController
+ * Servlet implementation class CityAddListController
  */
-@WebServlet("/modifyList.cg")
-public class CategoryModifyListController extends HttpServlet {
+@WebServlet("/addCity.cg")
+public class CityAddListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CategoryModifyListController() {
+    public CityAddListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,28 +28,15 @@ public class CategoryModifyListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
-		String categoryName = request.getParameter("categories-modify-title");
-		String categoryEngName =request.getParameter("categories-modify-eng-title");
-		int no = Integer.parseInt(request.getParameter("categories-modify-no")) ;
-		
-		ProCategory pc = new ProCategory(no,categoryName,categoryEngName);
-		
-		int result = new CategoryService().modifyCategory(pc);
+//		String title = request.getParameter();
+//		String engTitle = request.getParameter();
 		
 		
-		
-		if(result>0) {
-			System.out.println("성공");
-			response.sendRedirect(request.getContextPath()+"/list.cg");
-			
-		}else {
-			System.out.println("실패");
-		}
 		
 		
 		
 	}
- 
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

@@ -170,7 +170,9 @@ ul {
 .modal-body input[name=categories-add-title] ,
 .modal-body input[name=categories-add-eng-title],
 .modal-body input[name=categories-modify-title],
-.modal-body input[name=categories-modify-eng-title]{
+.modal-body input[name=categories-modify-eng-title],
+#new-city-input1,
+#new-city-input2 {
 	border: 1px solid lightgray;
 	border-radius: 5px;
 	width: 100%;
@@ -316,12 +318,13 @@ h5 {
 							function fnCategoriesEdit(){
 								$.ajax({
 									url:'<%= contextPath%>/modifyList.cg',
-									data:{},
+									data:{value1:$('#modal-input-title').val(),value2:$('#modal-input-eng-title').val(),value3:$('#modal-input-no').val()},
 									success: function(){
-										
+										alert("수정 성공");
+										location.reload();
 									},
 									error: function(){
-										
+										alert("수정 실패");
 									}
 									
 								})
@@ -430,16 +433,14 @@ h5 {
 								<li>
 										<span id="categories-no"><%=count++ %></span> 
 										<span class="categories-name2"><%=rList.get(j).getRegionName() %></span>
-										<button id="btn-3" type="button" data-toggle="modal"
-										data-target="#categories2-edit" style="float: inline-end;">수정하기</button>
+										<button id="btn-3" type="button" data-toggle="modal" data-target="#categories2-edit" style="float: inline-end;">수정하기</button>
 								</li>
 								<%}} %>
 								
 								<li style="text-align: end;">
-									<button type="button" id="btn-1" class="add-btn"
-										data-toggle="modal" data-target="#categories2-add"
-										data-area="<%=pList.get(i).getCategoryEngName()%>">추가</button>
+									<button type="button" id="btn-1" class="add-btn" data-toggle="modal" data-target="#categories2-add" data-area="<%=pList.get(i).getCategoryEngName()%>">추가</button>
 								</li>
+							
 							</ul>
 						</div>
 							<%} %>
@@ -499,27 +500,29 @@ h5 {
 								</div>
 
 								<!-- Modal body -->
-								<div class="modal-body">
-									<div id="modal-text-box">도시명</div>
-									<input type="text" id="new-city-input" name="new-city-title"
-										placeholder="도시 이름 입력">
-									<div id="current-cities">
-										<h4>현재 도시 목록</h4>
-										<ul id="city-list"></ul>
+								<form action="<%= contextPath%>/addCity.cg?" method="POST">
+									<div class="modal-body">
+										<div id="modal-text-box">도시명</div>
+										<input type="text" id="new-city-input1" name="new-city-title" placeholder="도시 이름 입력">
+										<br>
+										<input type="text" id="new-city-input2" name="new-city-title" placeholder="도시 영문 입력">
+										<div id="current-cities">
+											<h4>현재 도시 목록</h4>
+											<ul id="city-list"></ul>
+										</div>
 									</div>
-								</div>
-
-								<!-- Modal footer -->
-								<div class="modal-footer">
-									<button type="button" id="add-city-btn" class="btn"
-										data-dismiss="modal">추가</button>
-									<button type="button" id="btn-1" class="btn"
-										data-dismiss="modal">취소</button>
-								</div>
-
+	
+									<!-- Modal footer -->
+									<div class="modal-footer">
+										<button type="button" id="add-city-btn"  class="btn">추가</button>
+										<button type="button" id="btn-1" class="btn" data-dismiss="modal">취소</button>
+									</div>
+							  </form>
 							</div>
 						</div>
 					</div>
+					
+					
 					<script>
             // 클릭된 영역에 맞는 도시 목록을 모달에 표시하고 새로운 도시 추가
             document.querySelectorAll('.add-btn').forEach(button => {

@@ -67,7 +67,7 @@ public class CategoryDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Region(rset.getInt("REGION_ID"),rset.getString("REGION_NAME"),rset.getString("REGION_ENG_NAME"),rset.getInt("CATEGORY_ID")));
+				list.add(new Region(rset.getInt("REGION_ID"),rset.getString("REGION_NAME"),rset.getString("REGION_ENG_NAME")));
 			}
 			
 		} catch (SQLException e) {

@@ -5,25 +5,28 @@ public class Region {
 	private int regionId;
 	private String regionName;
 	private String regionEngName;
-	private int categoryId;
 
 	
 	public Region() {}
+	
+	public Region(String regionName, String regionEngName) {
+		super();
+		this.regionName = regionName;
+		this.regionEngName = regionEngName;
+	}
 
-
-	public Region(int regionId, String regionName, String regionEngName, int categoryId) {
+	public Region(int regionId, String regionName, String regionEngName) {
 		super();
 		this.regionId = regionId;
 		this.regionName = regionName;
 		this.regionEngName = regionEngName;
-		this.categoryId = categoryId;
 	}
 
 
 	@Override
 	public String toString() {
 		return "Region [regionId=" + regionId + ", regionName=" + regionName + ", regionEngName=" + regionEngName
-				+ ", categoryId=" + categoryId + "]";
+				+ ", categoryId=" + "]";
 	}
 
 
@@ -57,14 +60,7 @@ public class Region {
 	}
 
 
-	public int getCategoryId() {
-		return categoryId;
-	}
-
-
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
-	}
+	
 
 	
 	
