@@ -1,16 +1,48 @@
+<%@page import="com.gd.hw.category.model.vo.Region"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	String contextPath = request.getContextPath();
-
+	
 %>
- <!-- Bootstrap 사용을 위한 CDN -->
+ 	<!-- Bootstrap 사용을 위한 CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
   <!-- ------------------------- -->
-
+  <!-- 
+<li id="world-navbav-nav" class="nav-item">
+<a class="nav-link" href="#">
+<h3>미국</h3>
+</a>
+</li>
+  
+   -->
+  
+	<script>
+		window.onload=function (){
+			$.ajax({
+				url:'<%= contextPath%>/list.mcc',
+				success: function(res){
+					//world-navbar-nav
+					let liEl ='';
+					for(let i =0; i<res.length; i++){
+						liEl += '<li id="world-navbav-nav" class="nav-item">'
+										+'<a class="nav-link" href="#">'
+										+'<h3>'+res[i].categoryName+'</h3>'
+										+'</a></li>';
+					}
+					$('#world-navbar-nav').html(liEl);
+				}
+			})
+			
+		}
+		
+	</script>
+	
    <style>
     		header{height: 150px}
         header a{color:black;}
@@ -77,6 +109,8 @@
       </style>
 	<body>
 	<!-- Header, Nav start -->
+	
+	
       <div class="helloworld-main">
         <header class="row m-3">
           <div class="col-3 d-flex justify-content-center align-items-center">
@@ -99,23 +133,12 @@
           </div>
         </header>
         <div id="head-nav">
+        <script>
+        	
+				</script>
         <nav class="navbar m-3 navbar-expand-sm d-flex justify-content-center">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#"><h3>미국</h3></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><h3>유럽</h3></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><h3>남미</h3></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><h3>일본</h3></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><h3>동남아</h3></a>
-            </li>
+          <ul id="world-navbar-nav" class="navbar-nav">
+            
           </ul>
         </nav>
         <hr>

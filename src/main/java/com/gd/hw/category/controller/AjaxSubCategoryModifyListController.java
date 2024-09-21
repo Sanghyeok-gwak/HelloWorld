@@ -11,16 +11,16 @@ import com.gd.hw.category.model.service.CategoryService;
 import com.gd.hw.category.model.vo.Region;
 
 /**
- * Servlet implementation class CityAddListController
+ * Servlet implementation class AjaxSubCategoryModifyListController
  */
-@WebServlet("/addCity.cg")
-public class CityAddListController extends HttpServlet {
+@WebServlet("/subModifyList.cg")
+public class AjaxSubCategoryModifyListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CityAddListController() {
+    public AjaxSubCategoryModifyListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,22 +31,19 @@ public class CityAddListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
-		String title = request.getParameter("new-city-title");
-		String engTitle = request.getParameter("new-city-eng-title");
+		String subTietle = request.getParameter("value1");
+		String subEngTietle = request.getParameter("value2");
+		int subNo = Integer.parseInt(request.getParameter("value3"));
 		
-		Region r = new Region(title,engTitle);
+		Region r = new Region(subNo,subTietle,subEngTietle);
+	
+		int result = new CategoryService().subModifyList(r);
 		
-		int result = new CategoryService().addRegion(r);
 		
 		if(result>0) {
-			response.sendRedirect(request.getContextPath()+"/list.cg");
-			System.out.println("성공");
-		}else {
-			System.out.println("실패");
+			response.setContentType("text/html; charset=UTF-8");
+			response.getWriter().print(result);
 		}
-		
-		
-		
 	}
 
 	/**

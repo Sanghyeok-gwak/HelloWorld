@@ -64,11 +64,75 @@ public class CategoryService {
 		}else {
 			rollback(conn);
 		}
-		
+		close(conn);
 		return result ;
 		
 	}
 	
+	public int addRegion(Region r) {
+		Connection conn = getConnection();
+		
+		int result = cDao.addRegion(conn,r);
+		System.out.println("service : "+result);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result ;
+	}
+	public int deleteCategoryList(String deleteEngTietle) {
+		Connection conn = getConnection();
+		// 카테고리2 가 있을시 카테고리 2도 삭제 하는 dao 생성하기 
+		int result = cDao.deleteCategoryList(conn, deleteEngTietle);
+		
+		if(result>0) {
+			result = cDao.deleteRegionList(conn, deleteEngTietle);
+			if(result>0) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	public int subModifyList(Region r) {
+		Connection conn = getConnection();
+		int result = cDao.subModifyList(conn,r);
+		
+		
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	public int subCategoryDelete(int no) {
+		Connection conn = getConnection();
+		int result = cDao.subCategoryDelete(conn,no);
+		
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		
+		close(conn);
+		return result ;
+	}
 	
 	
 	

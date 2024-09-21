@@ -121,11 +121,112 @@ public class CategoryDao {
 		
 		return result;
 		
+	}
+	public int addRegion(Connection conn , Region r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("addRegion");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, r.getRegionName());
+			pstmt.setString(2, r.getRegionEngName());
+			
+			
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result ;
+	}
+	
+	public int deleteCategoryList(Connection conn, String deleteEngTietle) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteCategoryList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, deleteEngTietle);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 		
 		
 	}
 	
+	public int deleteRegionList(Connection conn, String deleteEngTietle) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteRegionList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, deleteEngTietle);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+	public int subModifyList(Connection conn , Region r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("subModifyList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, r.getRegionName());
+			pstmt.setString(2, r.getRegionEngName());
+			pstmt.setInt(3, r.getRegionId());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
+	
+	public int subCategoryDelete(Connection conn ,int no) {	
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("subCategoryDelete");
+		
+		try {
+			pstmt =conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return result;
+	}
 	
 	
 	

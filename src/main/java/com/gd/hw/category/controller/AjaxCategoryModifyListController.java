@@ -38,7 +38,6 @@ public class AjaxCategoryModifyListController extends HttpServlet {
 		System.out.println(categoryEngName);
 		
 		ProCategory pc = new ProCategory(no,categoryName,categoryEngName);
-//		ProCategory pc = new ProCategory(categoryName,categoryEngName);
 		
 		int result = new CategoryService().modifyCategory(pc);
 		

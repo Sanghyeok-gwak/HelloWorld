@@ -134,7 +134,12 @@
 	font-size: 15px;
 	text-align: center;
 }
-
+#btn-5{
+	background-color: #ea0000;
+	color: white;
+	width: 100px;
+	border-radius: 5px;
+}
 #btn-3, #add-city-btn {
 	width: 100px;
 	border-radius: 5px;
@@ -172,7 +177,8 @@ ul {
 .modal-body input[name=categories-modify-title],
 .modal-body input[name=categories-modify-eng-title],
 #new-city-input1,
-#new-city-input2 {
+#new-city-input2,
+#modal-eng-input2 {
 	border: 1px solid lightgray;
 	border-radius: 5px;
 	width: 100%;
@@ -209,6 +215,7 @@ h5 {
 	border: 1px solid lightgray;
 	color: black;
 }
+
 </style>
 </head>
 <body>
@@ -284,6 +291,8 @@ h5 {
 							<%} %>
 						</ul>
 					</div>
+					
+					
 					<!-- 수정하기버튼 팝업 -->
 
 					<!-- The Modal -->
@@ -309,12 +318,28 @@ h5 {
 									<!-- Modal footer -->
 									<div class="modal-footer">
 										<button type="button"  onclick="fnCategoriesEdit();" id="btn-3" class="btn" >수정</button>
-										<button type="button" id="btn-1" class="btn" data-dismiss="modal">취소</button>
+										<button id="btn-5" type="button" onclick="fnDelete();" class="btn" >삭제</button>
 									</div>
 							</div>
 						</div>
 					</div>
 						<script>
+							function fnDelete(){
+								$.ajax({
+									url:'<%=contextPath%>/deleteList.cg',
+									data:{value1:$('#modal-input-eng-title').val()},
+									success: function(){
+										alert("성공적으로 삭제되었습니다.");
+										location.reload();
+									},
+									error: function(){
+										alert("삭제하는데 실패하였습니다.");
+									}
+								})
+							}
+						
+						
+						//카테고리 수정 Ajax
 							function fnCategoriesEdit(){
 								$.ajax({
 									url:'<%= contextPath%>/modifyList.cg',
@@ -433,6 +458,8 @@ h5 {
 								<li>
 										<span id="categories-no"><%=count++ %></span> 
 										<span class="categories-name2"><%=rList.get(j).getRegionName() %></span>
+										<input type="hidden" class="categories-eng-name2" value="<%=rList.get(j).getRegionEngName()%>">
+										<input type="hidden" class="categories-no2" value ="<%=rList.get(j).getRegionId() %>">
 										<button id="btn-3" type="button" data-toggle="modal" data-target="#categories2-edit" style="float: inline-end;">수정하기</button>
 								</li>
 								<%}} %>
@@ -455,34 +482,77 @@ h5 {
 
 								<!-- Modal Header -->
 								<div class="modal-header">
-									<h3 class="modal-title">카테고리 유형</h3>
+									<h3 class="modal-title">서브카테고리 유형</h3>
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 								</div>
 
 								<!-- Modal body -->
 								<div class="modal-body">
-									<div id="modal-text-box">카테고리 명</div>
+									<div id="modal-text-box">서브 명</div>
 									<input type="text" id="modal-input2" name="categories-title">
+									<div id="modal-text-box">서브영문 명</div>
+									<input type="text" id="modal-eng-input2" name="categories-eng-title">
+									<input type="hidden" id="modal-no" name="sub-categories-no">
+									
 								</div>
 
 								<!-- Modal footer -->
 								<div class="modal-footer">
-									<button type="submit" id="btn-3" class="btn" >등록</button>
-									<button type="button" id="btn-1" class="btn" data-dismiss="modal">취소</button>
+									<button type="submit" id="btn-3" onclick="fnEditRegion();" class="btn" >수정</button>
+									<button type="button" id="btn-5" onclick="fnDeleteRegion();" class="btn" >삭제</button>
+								
 								</div>
 
 							</div>
 						</div>
 					</div>
 					<script>
+						function fnEditRegion(){
+							$.ajax({
+								url:'<%= contextPath%>/subModifyList.cg',
+								data:{value1:$('#modal-input2').val(),value2:$('#modal-eng-input2').val(),value3:$('#modal-no').val()},
+								success: function(){
+									alert("수정 성공");
+									location.reload();
+								},
+								error: function(){
+									alert("수정 실패");
+								}
+								
+							})
+						}	
+						
+						function fnDeleteRegion(){
+							$.ajax({
+								url:'<%= contextPath%>/subDeleteList.cg',
+								data:{value1:$('#modal-no').val()},
+								success: function(){
+									alert("삭제 성공");
+									location.reload();
+								},
+								error: function(){
+									alert("삭제 실패");
+								}
+								
+							})
+						}
+						
+					</script>
+					
+					
+					<script>
             document.querySelectorAll('.categories2 button').forEach(button => {
               button.addEventListener('click', function() {
                 // 부모 li 요소에서 카테고리명 추출
                 const li = this.parentElement;
                 const categoryName = li.querySelector('.categories-name2').textContent;
+                const categoryEngName = li.querySelector('.categories-eng-name2').value;
+                const categoryNo = li.querySelector('.categories-no2').value;
           
                 // 모달의 인풋 박스에 카테고리명 설정
                 document.getElementById('modal-input2').value = categoryName;
+                document.getElementById('modal-eng-input2').value = categoryEngName;
+                document.getElementById('modal-no').value = categoryNo;
               });
             });
           </script>
@@ -495,17 +565,17 @@ h5 {
 
 								<!-- Modal Header -->
 								<div class="modal-header">
-									<h3 class="modal-title">도시 추가</h3>
+									<h3 class="modal-title">서브카테고리 추가</h3>
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 								</div>
 
 								<!-- Modal body -->
-								<form action="<%= contextPath%>/addCity.cg?" method="POST">
+								<form action="<%= contextPath%>/addCity.cg" method="POST">
 									<div class="modal-body">
-										<div id="modal-text-box">도시명</div>
+										<div id="modal-text-box">서브카테고리 명</div>
 										<input type="text" id="new-city-input1" name="new-city-title" placeholder="도시 이름 입력">
 										<br>
-										<input type="text" id="new-city-input2" name="new-city-title" placeholder="도시 영문 입력">
+										<input type="text" id="new-city-input2" name="new-city-eng-title" placeholder="도시 영문 입력">
 										<div id="current-cities">
 											<h4>현재 도시 목록</h4>
 											<ul id="city-list"></ul>
@@ -514,7 +584,7 @@ h5 {
 	
 									<!-- Modal footer -->
 									<div class="modal-footer">
-										<button type="button" id="add-city-btn"  class="btn">추가</button>
+										<button type="submit" id="add-city-btn"  class="btn">추가</button>
 										<button type="button" id="btn-1" class="btn" data-dismiss="modal">취소</button>
 									</div>
 							  </form>

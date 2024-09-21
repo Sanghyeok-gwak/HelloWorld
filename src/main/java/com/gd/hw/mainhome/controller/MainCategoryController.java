@@ -1,26 +1,29 @@
-package com.gd.hw.category.controller;
+package com.gd.hw.mainhome.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gd.hw.category.model.service.CategoryService;
-import com.gd.hw.category.model.vo.Region;
+import com.gd.hw.category.model.vo.ProCategory;
+import com.gd.hw.mainhome.model.service.MainService;
+import com.google.gson.Gson;
 
 /**
- * Servlet implementation class CityAddListController
+ * Servlet implementation class MainCategoryController
  */
-@WebServlet("/addCity.cg")
-public class CityAddListController extends HttpServlet {
+@WebServlet("/list.mcc")
+public class MainCategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CityAddListController() {
+    public MainCategoryController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,20 +32,13 @@ public class CityAddListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		
-		String title = request.getParameter("new-city-title");
-		String engTitle = request.getParameter("new-city-eng-title");
 		
-		Region r = new Region(title,engTitle);
+		List<ProCategory> list = new MainService().selectList();
 		
-		int result = new CategoryService().addRegion(r);
-		
-		if(result>0) {
-			response.sendRedirect(request.getContextPath()+"/list.cg");
-			System.out.println("성공");
-		}else {
-			System.out.println("실패");
+		if(!list.isEmpty()) {
+			response.setContentType("application/json; charset=UTF-8");
+			new Gson().toJson(list, response.getWriter());
 		}
 		
 		
