@@ -5,11 +5,12 @@ public class Product {
 	 private int productId;
 	 private String productName;
 	 private String productImg;
-	 private int regionId;
+	 private String regionName;
+	 private String categoryName;
 	 private String startDate;
 	 private String endDate;
-	 private char status;
-	 private char stay;
+	 private String status;
+	 private String stay;
 	 private int aPrice;
 	 private int cPrice;
 	 private int amount;
@@ -17,19 +18,23 @@ public class Product {
 	 private String infoEditor;
 	 private String scheduleEditor;
 	 private String detailEditor;
+	 private String registrationDate;
+	 private String modificationDate;
 	 
 	 
 	 public Product() {}
 
 
-	public Product(int productId, String productName, String productImg, int regionId, String startDate, String endDate,
-			char status, char stay, int aPrice, int cPrice, int amount, String flight, String infoEditor,
-			String scheduleEditor, String detailEditor) {
+	public Product(int productId, String productName, String productImg, String regionName, String categoryName,
+			String startDate, String endDate, String status, String stay, int aPrice, int cPrice, int amount,
+			String flight, String infoEditor, String scheduleEditor, String detailEditor, String registrationDate,
+			String modificationDate) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
 		this.productImg = productImg;
-		this.regionId = regionId;
+		this.regionName = regionName;
+		this.categoryName = categoryName;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.status = status;
@@ -41,16 +46,19 @@ public class Product {
 		this.infoEditor = infoEditor;
 		this.scheduleEditor = scheduleEditor;
 		this.detailEditor = detailEditor;
+		this.registrationDate = registrationDate;
+		this.modificationDate = modificationDate;
 	}
 
 
 	@Override
 	public String toString() {
 		return "Product [productId=" + productId + ", productName=" + productName + ", productImg=" + productImg
-				+ ", regionId=" + regionId + ", startDate=" + startDate + ", endDate=" + endDate + ", status=" + status
-				+ ", stay=" + stay + ", aPrice=" + aPrice + ", cPrice=" + cPrice + ", amount=" + amount + ", flight="
-				+ flight + ", infoEditor=" + infoEditor + ", scheduleEditor=" + scheduleEditor + ", detailEditor="
-				+ detailEditor + "]";
+				+ ", regionName=" + regionName + ", categoryName=" + categoryName + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", status=" + status + ", stay=" + stay + ", aPrice=" + aPrice + ", cPrice="
+				+ cPrice + ", amount=" + amount + ", flight=" + flight + ", infoEditor=" + infoEditor
+				+ ", scheduleEditor=" + scheduleEditor + ", detailEditor=" + detailEditor + ", registrationDate="
+				+ registrationDate + ", modificationDate=" + modificationDate + "]";
 	}
 
 
@@ -84,13 +92,23 @@ public class Product {
 	}
 
 
-	public int getRegionId() {
-		return regionId;
+	public String getRegionName() {
+		return regionName;
 	}
 
 
-	public void setRegionId(int regionId) {
-		this.regionId = regionId;
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
+	}
+
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 
@@ -114,22 +132,22 @@ public class Product {
 	}
 
 
-	public char getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
 
-	public void setStatus(char status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
 
-	public char getStay() {
+	public String getStay() {
 		return stay;
 	}
 
 
-	public void setStay(char stay) {
+	public void setStay(String stay) {
 		this.stay = stay;
 	}
 
@@ -201,7 +219,33 @@ public class Product {
 
 	public void setDetailEditor(String detailEditor) {
 		this.detailEditor = detailEditor;
-	};
+	}
+
+
+	public String getRegistrationDate() {
+		return registrationDate;
+	}
+
+
+	public void setRegistrationDate(String registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+
+	public String getModificationDate() {
+		return modificationDate;
+	}
+
+
+	public void setModificationDate(String modificationDate) {
+		this.modificationDate = modificationDate;
+	}
+
+
+	
 	 
+
+	 
+	
 	 
 }

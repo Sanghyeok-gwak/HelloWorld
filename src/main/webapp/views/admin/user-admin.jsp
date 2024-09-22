@@ -106,7 +106,7 @@ h5 {
 		<div class="admin-page-main">
 			<div class="admin-page-main-menu">
 				<div class="amdin-page-side-btn1">
-					<button id="btn-2" class="btn" onclick="location.href='#'">상품
+					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.pro'">상품
 						관리</button>
 					<br>
 					<button id="btn-2" class="btn" onclick="location.href='#'">배너

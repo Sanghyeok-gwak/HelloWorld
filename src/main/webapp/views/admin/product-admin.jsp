@@ -1,5 +1,14 @@
+<%@page import="com.gd.hw.product.model.vo.Product"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%
+	String contextPath = request.getContextPath();
+	List<Product> list = (List<Product>)request.getAttribute("list");
+	
+	
+	
+	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -170,37 +179,43 @@ h5 {
 	<div class="admin-page">
 		<div class="admin-page-head">
 			<div class="admin-page-head-logo">
-				<img src="../../assets/image/logo.png" alt="logo" width="100%">
+				<img src="<%= contextPath %>/assets/image/logo.png" alt="logo" width="100%">
 			</div>
 			<div class="admin-page-head-gongback"></div>
 		</div>
 		<div class="admin-page-main">
 			<div class="admin-page-main-menu">
 				<div class="amdin-page-side-btn1">
-					<button id="btn-2" class="btn" onclick="location.href='#'">상품
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.pro'">
+						상품 관리
+					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">배너
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='#'">
+						배너 관리
+					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">리뷰
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='#'">
+						리뷰 관리
+					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">카테고리
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.cg'">
+						카테고리 관리
+					</button>
 				</div>
 				<div class="amdin-page-side-btn2">
-					<button id="btn-2" class="btn" onclick="location.href='#'">회원
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.us'">
+					회원 관리
+					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">블랙리스트
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='#'">
+					블랙리스트 관리
+					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">이벤트
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='#'">
+					이벤트 관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">결제
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='#'">
+					결제 관리</button>
 				</div>
 				<div class="amdin-page-side-btn3">
 					<button id="btn-2" class="btn" onclick="location.href='#'">FAQ</button>
@@ -273,62 +288,26 @@ h5 {
                 -->
 
 							<!-- case2. 조회된 게시글이 있을 경우 -->
-							<tr>
-								<td><input type="checkbox" name="list-checkBox" id=""></td>
-								<td>5</td>
-								<td>일본</td>
-								<td>상품제목</td>
-								<td>2024-01-12</td>
-								<td>2024-01-12</td>
-								<td><button id="btn-3">
-										<h5>수정</h5>
-									</button></td>
+							<%int count =1; %>
+							<%for(int i=0; i<list.size(); i++){ %>
+								<tr>
+									<td>
+										<input type="checkbox" name="list-checkBox" id="">
+									</td>
+									<td><%=count++ %></td>
+									<td><%=list.get(i).getCategoryName() %></td>
+									<td><%=list.get(i).getProductName() %></td>
+									<td><%=list.get(i).getStartDate()%></td>
+									<td><%=list.get(i).getEndDate()%></td>
+									<td>
+										<button id="btn-3">
+											<h5>수정</h5>
+										</button></td>
 
-							</tr>
-							<tr>
-								<td><input type="checkbox" name="list-checkBox" id=""></td>
-								<td>4</td>
-								<td>유럽</td>
-								<td>상품제목</td>
-								<td>2024-01-12</td>
-								<td>2024-01-12</td>
-								<td><button id="btn-3">
-										<h5>수정</h5>
-									</button></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" name="list-checkBox" id=""></td>
-								<td>3</td>
-								<td>미국</td>
-								<td>상품제목</td>
-								<td>2024-01-12</td>
-								<td>2024-01-12</td>
-								<td><button id="btn-3">
-										<h5>수정</h5>
-									</button></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" name="list-checkBox" id=""></td>
-								<td>2</td>
-								<td>중국</td>
-								<td>상품제목</td>
-								<td>2024-01-12</td>
-								<td>2024-01-12</td>
-								<td><button id="btn-3">
-										<h5>수정</h5>
-									</button></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" name="list-checkBox" id=""></td>
-								<td>1</td>
-								<td>동남아</td>
-								<td>상품제목</td>
-								<td>2024-01-12</td>
-								<td>2024-01-12</td>
-								<td><button id="btn-3">
-										<h5>수정</h5>
-									</button></td>
-							</tr>
+								</tr>
+							<%} %>
+							
+							
 						</tbody>
 					</table>
 
