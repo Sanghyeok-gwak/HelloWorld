@@ -33,11 +33,7 @@
       margin-bottom: 5px;
     }
     /* button */
-    #btn-2{
-      background-color: #ffffff;
-      border: 1px solid lightgray;
-      color: black;
-    }
+
 	
     #btn-1 {
       background-color: #007AFF;
