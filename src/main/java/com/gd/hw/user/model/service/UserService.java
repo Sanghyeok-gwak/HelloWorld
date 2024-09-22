@@ -53,10 +53,43 @@ public class UserService {
 		return result;
 	}
 
+	/**관리자 페이지-해당 회원정보를 db에 insert
+	 * @param user 추가하고자하는 회원정보가 담긴 객체
+	 * @return
+	 */
 	public int addUser(User user) {
 		Connection conn = getConnection();
 		
 		int result = uDao.addUser(conn,user);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	/**관리자 페이지-userNo에 해당하는 회원의 정보를 select하기위한 메소드
+	 * @param userNo
+	 * @return 검색된 user객체
+	 */
+	public User selectUserByUserNo(int userNo) {
+		Connection conn = getConnection();
+		User user = uDao.selectUserByUserNo(conn, userNo);
+		close(conn);
+		return user;
+	}
+
+	/**관리자 페이지-수정하고자 하는 회원을 update
+	 * @param user
+	 * @return 수정된 행의 갯수
+	 */
+	public int modifyUser(User user) {
+		Connection conn = getConnection();
+		
+		int result = uDao.modifyUser(conn,user);
 		
 		if(result>0) {
 			commit(conn);

@@ -55,7 +55,16 @@ public class User {
 		this.email = email;
 		this.phone = phone;
 	}
-
+	/*관리자 회원수정용 매개변수생성자*/
+	public User(int userNo, String userId, String userPwd, String userName, String email, String phone) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.email = email;
+		this.phone = phone;
+	}
 	public int getUserNo() {
 		return userNo;
 	}

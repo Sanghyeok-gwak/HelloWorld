@@ -45,5 +45,26 @@
 		      ,'U'
 		      ,'U')
 	</entry>
+	<entry key="selectUserByUserNo">
+		SELECT
+			  USER_NO
+			 ,USER_ID
+			 ,USER_PWD
+			 ,USER_NAME
+			 ,EMAIL
+			 ,PHONE
+		FROM "USER"
+	   WHERE
+			 USER_NO = ?
+	</entry>
+	<entry key="modifyUser">
+		UPDATE "USER"
+   	 	   SET USER_PWD = ?,
+       		   USER_NAME = ?,
+      	       EMAIL = ?,
+       		   PHONE = ?,
+       		   MODIFY_DATE = SYSDATE
+ 		 WHERE USER_NO = ?
+	</entry>
 	<!-- admin파트 종료 -->
 </properties>

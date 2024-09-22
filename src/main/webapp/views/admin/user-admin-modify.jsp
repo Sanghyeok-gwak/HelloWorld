@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%
 String contextPath = request.getContextPath();
+User user = (User)request.getAttribute("user");
 %>
 <!DOCTYPE html>
 <html>
@@ -142,29 +143,29 @@ h5 {
 					<h1>회원관리</h1>
 				</div>
 				<div class="pb-5 text-center">
-					<h3>회원 추가</h3>
+					<h3>회원 수정</h3>
 				</div>
 
 				<div id="add-member-form" class="w-50 m-0 m-auto">
-					<form action="<%= contextPath %>/insertAd.us" method="post" class="was-validated">
+					<form action="<%= contextPath %>/updateAd.us" method="post" class="was-validated">
 						<div class="form-group row mb-0">
 							<label for="userid" class="col-sm-2 p-2">아이디</label>
 							<div class="col-sm-10">
-								<input type="text" id="userid" name="userid"  class="form-control" required>
-								<div class="invalid-feedback"><h5>아이디를 작성해주세요</h5></div>
+								<input type="text" id="userid" name="userid"  class="form-control" disabled value="<%= user.getUserId()%>">
+								<input type="hidden" id="userNo" name="userNo"  class="form-control"  value="<%= user.getUserNo()%>">
 							</div>
 						</div>
 						<div class="form-group row mb-0">
 							<label for="userpwd" class="col-sm-2  p-2">비밀번호</label>
 							<div class="col-sm-10">
-								<input type="password" id="userpwd" name="userpwd" class="form-control" required>
+								<input type="password" id="userpwd" name="userpwd" class="form-control" required value="<%= user.getUserPwd()%>">
 								<div class="invalid-feedback"><h5>비밀번호를 작성해주세요</h5></div>
 							</div>
 						</div>
 						<div class="form-group row mb-0">
 							<label for="name" class="col-sm-2  p-2">이름</label>
 							<div class="col-sm-10">
-								<input type="text" id="name" name="name" class="form-control" required>
+								<input type="text" id="name" name="name" class="form-control" required value="<%= user.getUserName()%>">
 								<div class="invalid-feedback"><h5>이름을 작성해주세요</h5></div>
 							</div>
 						</div>
@@ -172,19 +173,20 @@ h5 {
 						<div class="form-group row mb-0">
 							<label for="email" class="col-sm-2  p-2">이메일</label>
 							<div class="col-sm-10">
-								<input type="email" id="email" name="email" class="form-control" required>
+								<input type="email" id="email" name="email" class="form-control" required value="<%= user.getEmail()%>">
 								<div class="invalid-feedback"><h5>이메일을 작성해주세요</h5></div>
 							</div>
 						</div>
 						<div class="form-group row mb-0">
 							<label for="phone" class="col-sm-2 p-2">전화번호</label>
 							<div class="col-sm-10">
-							<input type="text" class="form-control" maxlength="13" id="phone" name="phone" required placeholder="-를 포함하여 입력해주세요">
+							<input type="text" class="form-control" maxlength="13" id="phone" name="phone" 
+								required placeholder="-를 포함하여 입력해주세요" value="<%= user.getPhone()%>">
 								<div class="invalid-feedback"><h5>전화번호를 작성해주세요</h5></div>
 							</div>
 						</div>
 						<div id="buttons" align="center" class="pt-4">
-							<button type="submit" class="btn btn-primary btn-sm w-25">추가하기</button>
+							<button type="submit" class="btn btn-primary btn-sm w-25">수정하기</button>
 							<button type="button" class="btn btn-danger btn-sm w-25"
 							onclick="location.href='<%=contextPath%>/list.us'">목록으로</button>
 						</div>
@@ -197,32 +199,6 @@ h5 {
 	</div>
 	<script>
 		$(document).ready(function() {
-			$("#userid").blur(function() {
-	  			// blur : 포커스 벗어날 때
-	            var userid = $("#userid").val();
-			
-	            $.ajax({
-					url:'<%=contextPath%>/idCheck.us',
-					method: 'POST',
-					data:{inputid:userid},
-					success: function(res){
-						if(res == 0){
-							if(confirm(userid+"는 사용 가능한 아이디입니다 사용하시겠습니까?")){
-								$("#userid").prop('readonly', true);
-							}else{
-								$("#userid").val("");
-							}	
-						}else{
-							alert(userid+"는 사용 불가능한 아이디입니다.");
-							$("#userid").val("");
-						}
-					},
-					error: function(){
-						alert('왜인지 실패');
-					}
-				})
-	        });
-			
 			$("#phone").blur(function() {
 
 	            var phoneNumber = $("#phone").val();

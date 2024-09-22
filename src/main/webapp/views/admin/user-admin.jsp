@@ -179,7 +179,7 @@ h5 {
 							</tr>
 						</thead>
 						<tbody>
-							<!-- 데이터가 없을 경우 (맞나..?)-->
+							<!-- 데이터가 없을 경우-->
 							<%
 							if (list != null && list.isEmpty()) {
 							%>
@@ -223,12 +223,18 @@ h5 {
 								} else if (u.getStatus().equals("B")) {
 								%>
 								<td style="color: blue;">블랙리스트</td>
-								<td><button class="btn btn-primary btn-sm w-100">수정</button></td>
+								<td>
+									<a href="<%= contextPath %>/modiAd.us?no=<%=u.getUserNo()%>" 
+									class="btn btn-primary btn-sm w-100" >수정</a>
+								</td>
 								<%
 								} else {
 								%>
 								<td>일반</td>
-								<td><button class="btn btn-primary btn-sm w-100">수정</button></td>
+								<td>
+									<a href="<%= contextPath %>/modiAd.us?no=<%=u.getUserNo()%>"
+									 class="btn btn-primary btn-sm w-100">수정</a>
+								</td>
 								<%
 								}
 								%>

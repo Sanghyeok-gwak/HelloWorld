@@ -9,43 +9,39 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gd.hw.user.model.service.UserService;
+import com.gd.hw.user.model.vo.User;
 
 /**
- * Servlet implementation class DeleteUserFromAdmin
+ * Servlet implementation class ModifyPagefromAdmin
  */
-@WebServlet("/deleteUser.us")
-public class DeleteUserFromAdmin extends HttpServlet {
+@WebServlet("/modiAd.us")
+public class ModifyPagefromAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteUserFromAdmin() {
+    public ModifyPagefromAdmin() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**선택된 User를 탈퇴처리
-	 * @see 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String delUser = request.getParameter("delUser");
+		int userNo = Integer.parseInt(request.getParameter("no"));
+		System.out.println(userNo);
 		
-		delUser=delUser.replace("\"", "").replace("[", "").replace("]", "");
+		// 해당 회원의 정보를 가져옴
+		User user = new UserService().selectUserByUserNo(userNo);
 		
-		String[] arr = delUser.split(",");
-
-		
-		if (arr != null) {
-		    
-		    int result = new UserService().deletUser(arr);
-		    if(result == arr.length) {
-		    	System.out.println("탈퇴처리 성공");
-	    	response.setContentType("text/html; charset=UTF-8");
-				response.getWriter().print(result);
-		    }
-		} else {
-		    System.out.println("안됨");
+		if(user != null) {// 가져온 정보가 있으면  수정페이지로 
+			request.setAttribute("user", user);
+			request.getRequestDispatcher("/views/admin/user-admin-modify.jsp").forward(request, response);
+		}else {// 없으면 msg와함께 회원메인페이지로
+			request.getSession().setAttribute("msg", "회원이 존재하지 않습니다.");
+			response.sendRedirect(request.getContextPath() + "/list.us");
 		}
 	}
 

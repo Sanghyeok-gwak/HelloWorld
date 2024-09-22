@@ -122,6 +122,10 @@ public class UserDao {
 		return result;
 	}
 
+	/**관리자 페이지-해당 회원정보를 db에 insert
+	 * @param user 추가하고자하는 회원정보가 담긴 객체
+	 * @return
+	 */
 	public int addUser(Connection conn, User user) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -143,6 +147,61 @@ public class UserDao {
 
 		return result;
 
+	}
+
+	/**관리자 페이지-userNo에 해당하는 회원의 정보를 select하기위한 메소드
+	 * @param userNo
+	 * @return 검색된 user객체
+	 */
+	public User selectUserByUserNo(Connection conn, int userNo) {
+		User user = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectUserByUserNo");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				user = new User(rset.getInt("USER_NO"), rset.getString("USER_ID"), rset.getString("USER_PWD"),
+						rset.getString("USER_NAME"), rset.getString("EMAIL"), rset.getString("PHONE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return user;
+	}
+
+	/**관리자 페이지-수정하고자 하는 회원을 update
+	 * @param user
+	 * @return 수정된 행의 갯수
+	 */
+	public int modifyUser(Connection conn, User user) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("modifyUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user.getUserPwd());
+			pstmt.setString(2, user.getUserName());
+			pstmt.setString(3, user.getEmail());
+			pstmt.setString(4, user.getPhone());
+			pstmt.setInt(5, user.getUserNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 }
