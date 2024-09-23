@@ -67,6 +67,17 @@
  		 WHERE USER_NO = ?
 	</entry>
 	<!-- admin파트 종료 -->
+	
+	<!--  user파트 시작 -->
+		<entry key="longincheck">
+	SELECT COUNT(*) as COUNT 
+  	FROM "USER"
+	 WHERE USER_ID =?
+  	 AND USER_PWD =?
+	</entry>
+	
+	
+	
 
 	<!-- 사용자 파트 -->
 	<entry key="loginUser">
