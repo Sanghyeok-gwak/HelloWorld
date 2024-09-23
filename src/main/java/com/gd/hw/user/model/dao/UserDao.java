@@ -4,6 +4,7 @@ import static com.gd.hw.common.template.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +15,8 @@ import java.util.Properties;
 
 import com.gd.hw.category.model.dao.CategoryDao;
 import com.gd.hw.user.model.vo.User;
+
+import oracle.net.aso.r;
 
 /**
  * 
@@ -203,5 +206,35 @@ public class UserDao {
 
 		return result;
 	}
+
+	public int longincheck(Connection conn, String userId, String userPwd) {
+		int count = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("longincheck");
+		ResultSet result = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			result = pstmt.executeQuery();
+			
+			if(result.next()) {
+				count = result.getInt("user_id");
+			}
+				
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+			
+		return count;
+	}
+
+		
+
 
 }
