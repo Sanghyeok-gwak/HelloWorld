@@ -203,5 +203,41 @@ public class UserDao {
 
 		return result;
 	}
+	
+	/* * 사용자 페이지-로그인 */
+	
+	public User loginMember(Connection conn, String userId, String userPwd) {
+		User u = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("loginMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				u = new User(rset.getInt("user_no")
+						   , rset.getString("user_id")
+						   , rset.getString("user_pwd")
+						   , rset.getString("user_name")
+						   , rset.getString("email")
+						   , rset.getString("phone")
+						   , rset.getDate("enroll_date")
+						   , rset.getDate("modify_date")
+						   , rset.getString("roll")
+						   , rset.getString("status"));
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return u;
+	}
 
 }

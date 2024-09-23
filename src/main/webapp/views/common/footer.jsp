@@ -8,7 +8,7 @@
    <style>
    /* footer */
     footer{
-      height: 200px;
+      height: 100px;
       border-top: 1px solid lightgray;
     }
     footer a{color:black}
@@ -27,7 +27,7 @@
       justify-content: space-evenly;
     }
     #footer-box{
-      margin-top: 0px!important;
+      margin-top:0px!important;
     }
 
   </style>
