@@ -1,3 +1,4 @@
+<%@page import="com.gd.hw.common.model.vo.PageInfo"%>
 <%@page import="com.gd.hw.product.model.vo.Product"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -5,10 +6,11 @@
 	<%
 	String contextPath = request.getContextPath();
 	List<Product> list = (List<Product>)request.getAttribute("list");
-	
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
 	
 	%>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,11 +38,10 @@
 .admin-page-head-logo, .admin-page-main-menu {
 	width: 15%;
 	height: 100%;
-}
-
-.admin-page-head-logo {
 	border-right: 1px solid lightgray;
 }
+
+
 
 .admin-page-head-gongback, .admin-page-main-item {
 	width: 85%;
@@ -69,9 +70,7 @@
 	display: flex;
 }
 
-.admin-page-main-item {
-	border-left: 1px solid lightgray;
-}
+
 
 /* 메인 리스트 부분 */
 .admin-page-main-item-text {
@@ -134,7 +133,7 @@
 }
 
 .admin-page-main-item-list {
-	margin-top: 100px;
+	margin-top: 50px;
 	margin-left: 20px;
 	margin-right: 30px;
 }
@@ -142,7 +141,16 @@
 .admin-page-main-item-list table {
 	text-align: center;
 }
-
+.dropdown-category-select{
+	width: 200px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+}
+.dropdown-category{
+	text-align: end;
+  margin-bottom: 20px;
+}
 /* 공통 스타일 */
 /* font */
 h1 {
@@ -174,6 +182,7 @@ h5 {
 	color: black;
 }
 </style>
+
 </head>
 <body>
 	<div class="admin-page">
@@ -234,29 +243,9 @@ h5 {
 				<div class="admin-page-main-item-btn">
 					<div class="admin-page-main-item-search">
 
-						<div class="search-container">
-							<input type="text" class="form-control" id="searchInput"
-								placeholder="제목을 입력하세요."> <span class="clear-button"
-								id="clearButton"> <i class="fas fa-times"></i>
-							</span>
-						</div>
-
-						<div class="search-container-btn">
-							
-							<button id="btn-3">
-								<h5>조회</h5>
-							</button>
-						</div>
-
 					</div>
-					<!-- 검색어 초기화 스크립트 -->
-					<script>
-            document.getElementById('clearButton').addEventListener('click', function () {
-              const searchInput = document.getElementById('searchInput');
-              searchInput.value = ''; // 검색어를 지움
-              searchInput.focus(); // 포커스를 다시 검색바로 이동
-            });
-          </script>
+					
+					
 					<div class="admin-page-main-item-btns">
 						<button id="btn-3">
 							<h5>추가</h5>
@@ -267,13 +256,111 @@ h5 {
 					</div>
 				</div>
 				<div class="admin-page-main-item-list">
-					<table class="table">
+					<div class="dropdown-category">
+						<select class="dropdown-category-select">
+							
+						</select>
+						<script>
+						window.onload=function (){
+							$.ajax({
+								url:'<%= contextPath%>/list.mcc',
+								success: function(res){
+									let optionEl = '<option>전체</option>'
+									for(let i =0; i<res.length; i++){
+										optionEl +='<option value="' + res[i].categoryName + '">'
+															 +res[i].categoryName
+															 +'</option>'
+														
+									}
+									$('.dropdown-category-select').html(optionEl);
+								}
+							})
+							
+						}
+						$('.dropdown-category-select').change(function() {
+						    const selectedCategory = $(this).val();
+						    loadProducts(selectedCategory, 1); // 처음 페이지 로드
+						});
+
+						function loadProducts(category, page) {
+						    $.ajax({
+						        url: '<%= contextPath %>/filterByCategory.pro',
+						        type: 'GET',
+						        data: { category: category, page: page },
+						        success: function(data) {
+						            const tbody = $('#product-table tbody');
+						            tbody.empty(); // 기존 내용 삭제
+						            if (data.list.length === 0) {
+						                  tbody.append('<tr><td colspan="7" style="text-align: center;">존재하는 게시글이 없습니다.</td></tr>');
+						            }else{
+						            // 새로운 데이터로 테이블 업데이트
+							            data.list.forEach(function(product) {
+							                const row = '<tr>' +
+							                    '<td><input type="checkbox" name="list-checkBox"></td>' +
+							                    '<td>' + product.productId + '</td>' +
+							                    '<td>' + product.categoryName + '</td>' +
+							                    '<td>' + product.productName + '</td>' +
+							                    '<td>' + product.startDate + '</td>' +
+							                    '<td>' + product.endDate + '</td>' +
+							                    '<td><button id="btn-3"><h5>수정</h5></button></td>' +
+							                    '</tr>';
+							                tbody.append(row);
+							            });
+						            }
+
+						            // 페이지네이션 업데이트
+						            updatePagination(data.pi);
+						        },
+						       
+						    });
+						}
+
+						function updatePagination(pi) {
+						    const pagination = $('#pagination-product');
+						    pagination.empty(); // 기존 페이지네이션 삭제
+
+						    const previousDisabled = pi.currentPage === 1 ? 'disabled' : '';
+						    pagination.append(
+						        '<li class="page-item ' + previousDisabled + '">' +
+						        '<a class="page-link" href="#" data-page="' + (pi.currentPage - 1) + '"> < </a>' +
+						        '</li>'
+						    );
+
+						    for (let p = pi.startPage; p <= pi.endPage; p++) {
+						        const active = p === pi.currentPage ? 'active' : '';
+						        pagination.append(
+						            '<li class="page-item ' + active + '">' +
+						            '<a class="page-link" href="#" data-page="' + p + '">' + p + '</a>' +
+						            '</li>'
+						        );
+						    }
+
+						    const nextDisabled = pi.currentPage === pi.maxPage ? 'disabled' : '';
+						    pagination.append(
+						        '<li class="page-item ' + nextDisabled + '">' +
+						        '<a class="page-link" href="#" data-page="' + (pi.currentPage + 1) + '"> > </a>' +
+						        '</li>'
+						    );
+
+						    // 페이지 클릭 이벤트 핸들러
+						    pagination.find('.page-link').click(function(e) {
+						        e.preventDefault();
+						        const page = $(this).data('page');
+						        loadProducts($('.dropdown-category-select').val(), page); // 선택된 카테고리와 페이지를 전달
+						    });
+						}
+
+						</script>
+						
+						
+					</div>
+					<table id="product-table" class="table">
 						<thead>
 							<tr>
 								<th width="100px"></th>
 								<th width="100px">번호</th>
 								<th width="150px">카테고리</th>
-								<th width="400px">상품명</th>
+								<th width="600px">상품명</th>
 								<th>시작일</th>
 								<th>종료일</th>
 								<th></th>
@@ -281,46 +368,49 @@ h5 {
 						</thead>
 						<tbody>
 							<!-- case1. 조회된 게시글이 없을 경우 -->
-							<!--
+							
+							<% if(list.isEmpty()){%>
                 <tr>
                   <td colspan="6" style="text-align: center;">존재하는 게시글이 없습니다.</td>
                 </tr>
-                -->
-
-							<!-- case2. 조회된 게시글이 있을 경우 -->
-							<%int count =1; %>
-							<%for(int i=0; i<list.size(); i++){ %>
-								<tr>
-									<td>
-										<input type="checkbox" name="list-checkBox" id="">
-									</td>
-									<td><%=count++ %></td>
-									<td><%=list.get(i).getCategoryName() %></td>
-									<td><%=list.get(i).getProductName() %></td>
-									<td><%=list.get(i).getStartDate()%></td>
-									<td><%=list.get(i).getEndDate()%></td>
-									<td>
-										<button id="btn-3">
-											<h5>수정</h5>
-										</button></td>
-
-								</tr>
+							<%}else{ %>	
+								<!-- case2. 조회된 게시글이 있을 경우 -->
+								<%int count =1; %>
+									<%for(int i=0; i<list.size(); i++){ %>
+										<tr>
+											<td>
+												<input type="checkbox" name="list-checkBox" id="">
+											</td>
+											<td><%=list.get(i).getProductId()%></td>
+											<td><%=list.get(i).getCategoryName() %></td>
+											<td><%=list.get(i).getProductName() %></td>
+											<td><%=list.get(i).getStartDate()%></td>
+											<td><%=list.get(i).getEndDate()%></td>
+											<td>
+												<button id="btn-3">
+													<h5>수정</h5>
+												</button>
+											</td>
+										</tr>
+									<%} %>
 							<%} %>
-							
 							
 						</tbody>
 					</table>
 
-					<ul class="pagination d-flex justify-content-center text-dark"
-						style="margin-top: 80px;">
-						<li class="page-item disabled"><a class="page-link" href="">
-								< </a></li>
-						<li class="page-item active"><a class="page-link" href="">1</a></li>
-						<li class="page-item"><a class="page-link" href="">2</a></li>
-						<li class="page-item"><a class="page-link" href="">3</a></li>
-						<li class="page-item"><a class="page-link" href="">4</a></li>
-						<li class="page-item"><a class="page-link" href="">5</a></li>
-						<li class="page-item"><a class="page-link" href="">></a></li>
+					<ul id="pagination-product" class="pagination d-flex justify-content-center text-dark" style="margin-top: 80px;">
+						<li class='page-item <%=pi.getCurrentPage() == 1 ? "disabled" : ""%>'>
+          		<a class="page-link" href="<%=contextPath%>/list.pro?page=<%=pi.getCurrentPage()-1%>"> < </a>
+          	</li>
+						<% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++) { %>
+	          	<li class='page-item <%=p == pi.getCurrentPage() ? "active" : ""%>'>
+	          		<a class="page-link" href="<%= contextPath %>/list.pro?page=<%=p%>"><%= p %></a>
+	          	</li>
+          	<% } %>
+          	 
+						<li class='page-item <%=pi.getCurrentPage() == pi.getMaxPage() ? "disabled" : ""%>'>
+          		<a class="page-link" href="<%=contextPath%>/list.pro?page=<%=pi.getCurrentPage()+1%>"> > </a>
+         	 	</li>
 					</ul>
 				</div>
 			</div>
