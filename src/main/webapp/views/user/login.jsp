@@ -98,17 +98,17 @@
         <div class="form-text">
           <h3><b>로그인</b></h3>
         </div>
-        <form action="#" class="was-validated">
+        <form action="<%=contextPath %>/login.me" method="post" class="was-validated">
           <label for="id">아이디</label>
-          <input type="text" class="form-control" placeholder="아이디를 입력하세요." id="id"
+          <input type="text" class="form-control" placeholder="아이디를 입력하세요." name="userId" id="id"
             style="width: 100%; height: 45px; border-radius: 5px; border: 1px solid rgb(181, 181, 181);" required invalid-feedback>
           <label for="pwd">비밀번호</label>
-          <input type="password" class="form-control" placeholder="비밀번호를 입력하세요." id="pwd"
+          <input type="password" class="form-control" placeholder="비밀번호를 입력하세요." name="userPwd" id="pwd"
             style="width: 100%; height: 45px; border-radius: 5px; border: 1px solid rgb(181, 181, 181);" required invalid-feedback><br>
           <label class="form-check-label">
-            <input name="" type="checkbox"> 아이디 저장
+            <input name="rememberMe" type="checkbox"> 아이디 저장
           </label>
-          <button type="submit" id="btn-1" class="btn btn-primary" onclick="location.href='#'">로그인</button>
+          <button type="submit" id="btn-1" class="btn btn-primary" >로그인</button>
           <div class="AuthModule">
             <a href="#">회원가입</a>&nbsp; |&nbsp; <a href="#">아이디찾기</a>&nbsp; |&nbsp; <a href="#">비밀번호찾기</a>
           </div>
