@@ -39,7 +39,7 @@ public class BlackListController extends HttpServlet {
 		 * 페이징처리 나중에
 		 */
 		
-//		request.setAttribute("list", list);
+		request.setAttribute("list", list);
 		request.getRequestDispatcher("/views/admin/black-admin.jsp").forward(request, response);
 	}
 
