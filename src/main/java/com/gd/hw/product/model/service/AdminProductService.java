@@ -24,7 +24,13 @@ public class AdminProductService {
 	}
 	public int selectProductCategoryListCount(String selectFilterByCategory) {
 		Connection conn = getConnection();
-		int listCount = apDao.selectProductListCount(conn,selectFilterByCategory);
+		int listCount =0;
+		if(selectFilterByCategory.equals("전체")) {
+			listCount = apDao.selectProductListCount(conn);
+		}else {
+			
+			listCount = apDao.selectProductListCount(conn,selectFilterByCategory);
+		}
 		
 		
 		return listCount;
