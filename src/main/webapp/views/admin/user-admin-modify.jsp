@@ -117,7 +117,7 @@ h5 {
 					<button id="btn-2" class="btn"
 						onclick="location.href='<%=contextPath%>/list.us'">회원 관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">블랙리스트
+					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.bk'">블랙리스트
 						관리</button>
 					<br>
 					<button id="btn-2" class="btn" onclick="location.href='#'">이벤트

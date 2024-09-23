@@ -34,7 +34,7 @@
 		INSERT 
 		  INTO "USER" 
 		VALUES (
-		        SEQ_UNO.NEXTVAL
+		        SEQ_USER.NEXTVAL
 		      , ?
 		      , ?
 		      , ?
@@ -67,7 +67,7 @@
  		 WHERE USER_NO = ?
 	</entry>
 	<!-- admin파트 종료 -->
-	
+
 	<!-- 사용자 파트 -->
 	<entry key="loginUser">
 		SELECT
@@ -87,4 +87,5 @@
 	  		USER_ID = ?
 	  	AND USER_PWD = ?
 	</entry>
+
 </properties>

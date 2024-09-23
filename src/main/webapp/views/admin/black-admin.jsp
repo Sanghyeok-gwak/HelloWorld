@@ -122,7 +122,7 @@ h5 {
 					<button id="btn-2" class="btn"
 						onclick="location.href='<%=contextPath%>/list.us'">회원 관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.bk'">블랙리스트
+					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.bk''">블랙리스트
 						관리</button>
 					<br>
 					<button id="btn-2" class="btn" onclick="location.href='#'">이벤트
@@ -144,7 +144,7 @@ h5 {
 			<div class="admin-page-main-item w-75 m-auto">
 				<!-- 여기부터 -->
 				<div class="pb-5 ">
-					<h1>회원관리</h1>
+					<h1>블랙리스트 관리</h1>
 				</div>
 				<div id="search-bar">
 					<form class="navbar-form pull-left">
@@ -158,8 +158,8 @@ h5 {
 					</form>
 				</div>
 				<div id="buttons" class="d-flex justify-content-end pr-2 pb-2">
-					<button class="btn btn-primary btn-sm" style="width: 100px" id="addBtn">추가</button>
-					<button class="btn btn-danger btn-sm" style="width: 100px; display:none;" id="delBtn">탈퇴</button>
+					<button class="btn btn-primary btn-sm" style="width: 100px" data-toggle="modal" data-target="#myModal">추가</button>
+					<button class="btn btn-danger btn-sm" style="width: 100px; display:none;" id="delBtn">삭제</button>
 				</div>
 				<div id="table-contain">
 					<table class="table table-bordered">
@@ -168,14 +168,9 @@ h5 {
 								<th></th>
 								<th>번호</th>
 								<th>아이디</th>
-								<th>비밀번호</th>
-								<th>이름</th>
-								<th>이메일</th>
-								<th>전화번호</th>
-								<th>가입일</th>
-								<th>수정일</th>
+								<th>제재사유</th>
+								<th>제재날짜</th>
 								<th>상태</th>
-								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -184,7 +179,7 @@ h5 {
 							if (list != null && list.isEmpty()) {
 							%>
 							<tr>
-								<td colspan="11" style="text-align: center;">불러올 회원 정보가
+								<td colspan="7" style="text-align: center;">불러올 회원 정보가
 									없습니다.</td>
 							</tr>
 							<%
@@ -194,51 +189,20 @@ h5 {
 							<%
 							for (User u : list) {
 							%>
-							<tr>
-								<%
-								if (u.getStatus().equals("R")) {
-								%>
-								<th><input type="checkbox" disabled></th>
-								<%
-								} else {
-								%>
 								<th><input type="checkbox" value=<%=u.getUserNo()%> class="chk"></th>
-								<%
-								}
-								%>
 								<td><%=u.getUserNo()%></td>
 								<td><%=u.getUserId()%></td>
 								<td><%=u.getUserPwd()%></td>
-								<td><%=u.getUserName()%></td>
-								<td><%=u.getEmail()%></td>
-								<td><%=u.getPhone()%></td>
-								<td><%=u.getEnrollDate()%></td>
-								<td><%=u.getModifyDate()%></td>
+								<td><%=u.getUserPwd()%></td>
 								<%
 								if (u.getStatus().equals("R")) {
 								%>
 								<td style="color: red;">탈퇴</td>
-								<td><button class="btn btn-primary btn-sm w-100" disabled>수정</button></td>
 								<%
 								} else if (u.getStatus().equals("B")) {
 								%>
 								<td style="color: blue;">블랙리스트</td>
-								<td>
-									<a href="<%= contextPath %>/modiAd.us?no=<%=u.getUserNo()%>" 
-									class="btn btn-primary btn-sm w-100" >수정</a>
-								</td>
-								<%
-								} else {
-								%>
-								<td>일반</td>
-								<td>
-									<a href="<%= contextPath %>/modiAd.us?no=<%=u.getUserNo()%>"
-									 class="btn btn-primary btn-sm w-100">수정</a>
-								</td>
-								<%
-								}
-								%>
-							</tr>
+								<%} %>
 							<%}}%>
 						</tbody>
 					</table>
@@ -272,32 +236,82 @@ h5 {
 	      
 	   $('#delBtn').click(function(evt){
 		   const count = $(':checkbox:checked').length;
-			if(confirm( count+'명의 회원을 탈퇴처리 하시겠습니까?')){
+			if(confirm( count+'명의 회원을 삭제처리 하시겠습니까?')){
 				let arr = [];
 				$(":checkbox:checked").each(function(){
 					arr.push($(this).val());
 				});		
 				$.ajax({
-					url:'<%=contextPath%>/deleteUser.us',
+					url:'<%=contextPath%>/delBlack.bk',
 					method: 'POST',
 					data:{delUser:JSON.stringify(arr)},
 					success: function(res){
-						alert(res+"명의 회원이 성공적으로 탈퇴 처리되었습니다.");
+						alert(res+"명의 회원이 성공적으로 삭제 처리되었습니다.");
 						location.reload(); 
 					},
 					error: function(){
-						alert("탈퇴처리에 실패하였습니다.");
+						alert("삭제처리에 실패하였습니다.");
 					}
 				})
 			}
 	   })
-	  
-	  document.getElementById("addBtn").addEventListener("click", () => {
-      	location.href = "<%=contextPath%>/add.us";
-      })
 	})
 	
 	</script>
+
+	<!--모달시작-->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header pb-3">
+          <h1 class="modal-title">블랙리스트 추가</h1>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <form action="<%=contextPath%>/addlBlack.bk">
+          <!-- Modal body -->
+          <div class="modal-body pt-5" style="min-height: 300px;">
+            <table class="table">
+              <thead>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>아이디</td>
+                  <td><input type="text"></td>
+                </tr>
+                <tr>
+                  <td>제재사유</td>
+                  <td><textarea class="w-100"></textarea></td>
+                </tr>
+                <tr>
+                  <td>상태</td>
+                  <td>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="op" id="inlineRadio1" value="option1" checked>
+                      <label class="form-check-label" for="inlineRadio1">로그인 제한</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="op" id="inlineRadio2" value="option2">
+                      <label class="form-check-label" for="inlineRadio2">탈퇴</label>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer"> 
+            <button type="submit" class="btn btn-primary" >추가</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--모달끝-->
 
 	<!-- Footer start -->
 	<%@ include file="/views/common/footer.jsp"%>

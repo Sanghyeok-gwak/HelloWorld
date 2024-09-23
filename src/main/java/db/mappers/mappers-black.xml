@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+	<entry key="insertBlack">
+		INSERT 
+			INTO BLACKLIST 
+	  VALUES (
+	  			  ?
+	  		  , ?
+	  		  , SYSDATE
+	  		    )
+	</entry>
+	<entry key="updateUserToBlack">
+		UPDATE "USER"
+       SET STATUS = 'B',
+       	   MODIFY_DATE = SYSDATE
+     WHERE USER_NO = ?
+	</entry>
+	<entry key="selectAllBlack">
+		SELECT USER_NO
+		      ,USER_ID
+		      ,REASON
+		      ,BLACK_DATE
+		      ,STATUS
+      FROM BLACKLIST
+      JOIN "USER" USING(USER_NO)
+	</entry>
+	<entry key="selectOneBlack">
+		SELECT USER_NO
+		      ,USER_ID
+		      ,REASON
+		      ,BLACK_DATE
+		      ,STATUS
+      FROM BLACKLIST
+      JOIN "USER" USING(USER_NO)
+     WHERE USER_NO = 11
+	</entry>
+	<entry key="deleteBleak">
+			DELETE  
+  	   	FROM BLACKlIST
+ 	     WHERE USER_NO = 11
+	</entry>
+	<entry key="updateUserToU">
+		UPDATE "USER"
+       SET STATUS = 'U',
+           MODIFY_DATE = SYSDATE
+     WHERE USER_NO = 11
+	</entry>
+</properties>

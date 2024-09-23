@@ -26,8 +26,38 @@
      WHERE CATEGORY_ID = ?
 	
 	</entry>
+	
+	<entry key="addRegion">
+		INSERT INTO REGION VALUES (SEQ_REGION.NEXTVAL,?,?)
+	</entry>
 
+	<entry key="deleteCategoryList">
+		DELETE  
+  		FROM PRO_CATEGORY
+ 	   WHERE CATEGORY_ENG_NAME = ?
 
+	</entry>
+	<entry key="deleteRegionList">
+		DELETE  
+  		FROM REGION
+ 	   WHERE REGION_ENG_NAME = ?
+
+	</entry>
+	
+	<entry key="subModifyList">
+		UPDATE REGION
+   		 SET REGION_NAME = ?,
+   	       REGION_ENG_NAME = ?
+     WHERE REGION_ID = ?
+	
+	</entry>
+	
+	<entry key="subCategoryDelete">
+		DELETE  
+  		FROM REGION
+ 	   WHERE REGION_ID = ?
+
+	</entry>
 
 
 </properties>

@@ -116,7 +116,7 @@ h5 {
 					<button id="btn-2" class="btn"
 						onclick="location.href='<%=contextPath%>/list.us'">회원 관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">블랙리스트
+					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.bk'">블랙리스트
 						관리</button>
 					<br>
 					<button id="btn-2" class="btn" onclick="location.href='#'">이벤트
@@ -207,8 +207,10 @@ h5 {
 					data:{inputid:userid},
 					success: function(res){
 						if(res == 0){
-							if(confirm(userid+"는 사용 가능한 아이디입니다 사용하시겠습니까?")){
+							if($("#userid").val()!="" && confirm(userid+"는 사용 가능한 아이디입니다 사용하시겠습니까?")){
 								$("#userid").prop('readonly', true);
+							}else if($("#userid").val()==""){
+								alert('공백이 아닌 아이디를 입력해주세요');
 							}else{
 								$("#userid").val("");
 							}	
