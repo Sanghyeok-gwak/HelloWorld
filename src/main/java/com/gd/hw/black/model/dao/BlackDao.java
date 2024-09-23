@@ -1,0 +1,194 @@
+package com.gd.hw.black.model.dao;
+
+import static com.gd.hw.common.template.JDBCTemplate.close;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import com.gd.hw.black.model.vo.BlackList;
+import com.gd.hw.user.model.vo.User;
+
+
+public class BlackDao {
+private Properties prop = new Properties();
+	
+	public BlackDao(){
+		
+		try {
+			prop.loadFromXML(new FileInputStream(BlackDao.class.getResource("/db/mappers/mappers-black.xml").getPath()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	} 
+	
+	/**관리자 페이지-해당 회원을 블랙리스트 테이블에 insert
+	 * @param black 추가하고자하는 정보가 담긴 객체
+	 * @return
+	 */
+	public int insertBlack(Connection conn, BlackList black) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertBlack");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, black.getUserNo());
+			pstmt.setString(2, black.getReason());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+
+	}
+	
+	/**
+	 * 관리자 페이지-블랙리스트 insert 이후 회원정보 update
+	 * 
+	 * @param conn
+	 * @return 성공한 행의 총 갯수
+	 */
+	public int updateUserToBlack(Connection conn, BlackList black) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateUserToBlack");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, black.getUserNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	/**
+	 * 관리자 페이지-모든 블랙리스트 회원 조회용 메소드
+	 * 
+	 * @param conn
+	 * @return 모든 black의 정보를 담은 List<BlackList> 반환
+	 */
+	public List<BlackList> selectAllBlack(Connection conn) {
+		
+		List<BlackList> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectAllBlack");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				list.add(new BlackList(rset.getInt("USER_NO"), rset.getString("USER_ID"), rset.getString("REASON")
+						 ,rset.getDate("BLACK_DATE"), rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	/**
+	 * 관리자 페이지-특정 블랙리스트 회원 조회용 메소드
+	 * 
+	 * @param conn
+	 * @return 특정 black의 정보를 담은 BlackList 반환
+	 */
+	public BlackList selectOneBlack(Connection conn, int userNo) {
+
+		BlackList black = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectOneBlack");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				black = new BlackList(rset.getInt("USER_NO"), rset.getString("USER_ID"), rset.getString("REASON")
+						 ,rset.getDate("BLACK_DATE"), rset.getString("STATUS"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return black;
+	}
+
+	/**
+	 * 관리자 페이지-체크박스를 통한 다중 삭제 메소드
+	 * 
+	 * @param conn
+	 * @param arr  삭제할 유저의 userNo을 담은 배열
+	 * @return 성공한 행의 총 갯수
+	 */
+	public int deleteBleak(Connection conn, String[] arr) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteBleak");
+
+		try {
+			for (int i = 0; i < arr.length; i++) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, Integer.parseInt(arr[i]));
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+	/**
+	 * 관리자 페이지-체크박스를 통한 다중 삭제된 회원의 정보 수정
+	 * 
+	 * @param conn
+	 * @param arr  삭제한 유저의 userNo을 담은 배열
+	 * @return 성공한 행의 총 갯수
+	 */
+	public int updateUserToU(Connection conn, String[] arr) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateUserToU");
+
+		try {
+			for (int i = 0; i < arr.length; i++) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, Integer.parseInt(arr[i]));
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+
+}
