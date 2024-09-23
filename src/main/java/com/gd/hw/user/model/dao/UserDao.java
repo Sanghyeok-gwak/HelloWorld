@@ -213,7 +213,7 @@ public class UserDao {
 		User u = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("loginMember");
+		String sql = prop.getProperty("loginUser");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

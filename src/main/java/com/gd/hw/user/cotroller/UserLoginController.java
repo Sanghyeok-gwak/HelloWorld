@@ -35,7 +35,7 @@ public class UserLoginController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
-//		System.out.println("가져온 아이디 비밀번호: " + userId + userPwd);
+		System.out.println("가져온 아이디 비밀번호: " + userId + userPwd);
 		User loginUser = new UserService().loginMember(userId, userPwd);
 		
 		if(loginUser == null) {

@@ -82,7 +82,7 @@
 			, ROLL
 			, STATUS
 		FROM
-		    USER
+		    "USER"
 	  WHERE
 	  		USER_ID = ?
 	  	AND USER_PWD = ?
