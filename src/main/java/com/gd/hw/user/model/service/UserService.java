@@ -99,4 +99,17 @@ public class UserService {
 		close(conn);
 		return result;
 	}
+	/**
+	 * -마이페이지- 회원정보수정 들어가기전 로그인
+	 * 
+	 * @return 유저 아이디
+	 */
+	 public int longincheck(String userId , String userPwd) {
+		 Connection conn = getConnection();
+		 int selectId = uDao.longincheck(conn, userId, userPwd);
+		 close(conn);
+		 
+		 return selectId;
+	 }
+	
 }
