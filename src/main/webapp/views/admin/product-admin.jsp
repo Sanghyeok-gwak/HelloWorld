@@ -314,7 +314,7 @@ h5 {
 						       
 						    });
 						}
-
+		
 						function updatePagination(pi) {
 						    const pagination = $('#pagination-product');
 						    pagination.empty(); // 기존 페이지네이션 삭제
