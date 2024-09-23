@@ -92,26 +92,27 @@
       </div>
       <br><br>
       <!-- form  -->
-      <form action="/addqna.bo" class="was-validated">
+      <form action="/myinfo_Co.us" class="was-validated"  method="post">
         <!-- ID , PWD , table-->
         <table class="correction">
           <tr>
             <th><h3>ID</h3></th>
             <td>
-              <input type="text" class="form-control" value="" disabled id="user-id">
+              <input type="text" class="form-control" value="<%= loginUser.getUserId() %>" disabled id="userid">
             </td>
           </tr>
           <tr>
             <th><h3>Password</h3></th>
             <td>
-              <input type="password" class="form-control" id="uesr-pwd" required placeholder="비밀번호를 입력">
+              <input type="password" class="form-control" id="uesrpwd" required placeholder="비밀번호를 입력">
             </td>
           </tr>
         </table>
         <!-- button -->
         <div class="button-group">
           <button id="btn-1" class="btn">확인</button>
-          <button id="btn-2" class="btn">취소</button>
+          <button id="btn-2" class="btn" onclick="history.back();">취소</button>
+       		
         </div>
       </form>
     </div>

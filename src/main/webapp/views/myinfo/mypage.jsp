@@ -156,7 +156,7 @@
               <div class="card-body">
                 <h5 class="card-title">이준님<br>WELCOME</h5>
                 <p class="card-text">
-                <h5><a href="#" style="color: gray; text-decoration-line: none;">내정보 관리<i class="fa-solid fa-play">
+                <h5><a href="<%= contextPath %>/myinfo.us" style="color: gray; text-decoration-line: none;">내정보 관리<i class="fa-solid fa-play">
                 </h5></i></a></p>
                 <p>
                 <h5>적립금 0P</h5>

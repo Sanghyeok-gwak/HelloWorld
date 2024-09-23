@@ -1,3 +1,4 @@
+<%@page import="com.gd.hw.user.model.vo.User" %>
 <%@page import="com.gd.hw.category.model.vo.Region"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
@@ -5,7 +6,8 @@
     pageEncoding="UTF-8"%>
 <%
 	String contextPath = request.getContextPath();
-	
+  User loginUser = (User)session.getAttribute("loginUser");
+  String alertMsg = (String)session.getAttribute("alertMsg");
 %>
  	<!-- Bootstrap 사용을 위한 CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -19,9 +21,14 @@
 <h3>미국</h3>
 </a>
 </li>
-  
+ 	
    -->
-  
+  <% if(alertMsg != null ) { %>
+<script>
+	alert('<%=alertMsg %>');
+</script>
+<% session.removeAttribute("alertMsg"); } %>
+ 
 	<script>
 		window.onload=function (){
 			$.ajax({
@@ -40,7 +47,6 @@
 			})
 			
 		}
-		
 	</script>
 	
    <style>
@@ -119,7 +125,6 @@
           <div class="col-6"></div>
           <div class="col-3 d-flex justify-content-center align-items-center">
       
-          
             <!-- case1. 로그인전 -->
             <div>
             <ul id="head-info">

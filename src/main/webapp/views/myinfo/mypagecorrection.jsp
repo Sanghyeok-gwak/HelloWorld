@@ -96,8 +96,12 @@
         .modal-content{
             width: 611px;
         }
-        #user-id{
+        #userid{
             background-color: gainsboro;
+        }
+        #btn-3 {
+            background-color: #e8eaeb;
+        		color: black;
         }
 
 </style>
@@ -111,7 +115,7 @@
                     <div class="card-body">
                         <h5 class="card-title">이준님<br>WELCOME</h5>
                         <p class="card-text">
-                        <h5><a href="#" style="color: gray; text-decoration-line: none;">내정보 관리<i
+                        <h5><a href="<%= contextPath %>/myinfo.us" style="color: gray; text-decoration-line: none;">내정보 관리<i
                                     class="fa-solid fa-play"></i></a></h5>
                         </p>
                         <p>
@@ -129,7 +133,7 @@
                 <table class="correction">
                     <tr>
                         <th><h5>아이디</h5></th>
-                        <td><input type="text" value="user01" disabled id="user-id"></td>
+                        <td><input type="text" value="user01" disabled id="userid"></td>
                     </tr>
                     <tr>
                         <th><h5>이름</h5></th>
@@ -145,13 +149,36 @@
                     </tr>
                 </table>
                 <div class="buttons">
-                    <button id="btn-2" class="btn">취소</button>
+                    <button id="btn-2" class="btn" onclick="history.back();">취소</button>
                     <button id="btn-1" class="btn" data-toggle="modal" data-target="#myModal-1">비밀번호변경</button>
-                    <button id="btn-2" class="btn">확인</button>
+                    <button type="button" id="btn-3" class="btn" >확인</button>
                 </div>
             </div>
         </div>
     </div>
+        <script>
+        <%-- 버튼 스크립트 --%>
+        document.getElementById("btn-3").addEventListener("click",()=>{
+        location.href="<%=contextPath%>/myinfo_Ch.us"})
+        <%-- 버튼 스크립트 끝 --%>
+        <%-- 전화번호 형식 스크립트 --%>
+     	$(document).ready(function() {
+			
+			$("#phone").blur(function() {
+
+	            var phoneNumber = $("#phone").val();
+	            if(phoneNumber) {
+	                var regex = /^(01[0-9]{1}-?[0-9]{4}-?[0-9]{4}|01[0-9]{8})$/;
+
+	                if (regex.test(phoneNumber)) {
+	                } else {
+	                    alert("잘못된 형식의 전화번호 입니다.");
+	                    $("#phone").val("");
+	                }
+	            }
+	        });
+		})
+   </script>
 
 <!-- The Modal -->
 <div class="modal" id="myModal-1">
