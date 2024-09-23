@@ -1,10 +1,10 @@
 <%@ page import="java.util.List"%>
-<%@ page import="com.gd.hw.user.model.vo.User"%>
+<%@ page import="com.gd.hw.black.model.vo.BlackList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 String contextPath = request.getContextPath();
-List<User> list = (List<User>) request.getAttribute("list");
+List<BlackList> list = (List<BlackList>) request.getAttribute("list");
 String msg = (String)session.getAttribute("msg");
 %>
 <!DOCTYPE html>
@@ -187,23 +187,25 @@ h5 {
 							%>
 							<!-- 데이터가 있을 경우 -->
 							<%
-							for (User u : list) {
+							for (BlackList b : list) {
 							%>
-								<th><input type="checkbox" value=<%=u.getUserNo()%> class="chk"></th>
-								<td><%=u.getUserNo()%></td>
-								<td><%=u.getUserId()%></td>
-								<td><%=u.getUserPwd()%></td>
-								<td><%=u.getUserPwd()%></td>
+							<tr>
+								<th><input type="checkbox" value=<%=b.getUserNo()%> class="chk"></th>
+								<td><%=b.getUserNo()%></td>
+								<td><%=b.getUserId()%></td>
+								<td><%=b.getReason()%></td>
+								<td><%=b.getBlackDate()%></td>
 								<%
-								if (u.getStatus().equals("R")) {
+								if (b.getStatus().equals("R")) {
 								%>
 								<td style="color: red;">탈퇴</td>
 								<%
-								} else if (u.getStatus().equals("B")) {
+								} else if (b.getStatus().equals("B")) {
 								%>
 								<td style="color: blue;">블랙리스트</td>
 								<%} %>
 							<%}}%>
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -282,7 +284,7 @@ h5 {
                 </tr>
                 <tr>
                   <td>제재사유</td>
-                  <td><textarea class="w-100"></textarea></td>
+                  <td><textarea class="w-100" style="height:150px"></textarea></td>
                 </tr>
                 <tr>
                   <td>상태</td>
