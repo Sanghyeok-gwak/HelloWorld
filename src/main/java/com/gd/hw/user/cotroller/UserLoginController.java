@@ -32,22 +32,39 @@ public class UserLoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//  인코딩 설정
 		request.setCharacterEncoding("utf-8");
+		
+		// 요청 파라미터 가져오기
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		System.out.println("가져온 아이디 비밀번호: " + userId + userPwd);
+		// 사용자 서비스 호출
 		User loginUser = new UserService().loginMember(userId, userPwd);
-		
+		// 로그인 처리
 		if(loginUser == null) {
-			request.setAttribute("msg", "로그인 실패 로그인 페이지로 이동합니다");
-			request.getRequestDispatcher("/views/user/login.jsp").forward(request, response);
+			// 로그인 실패시 실패메세지를 저장하고 로그인 페이지로 리다이렉트
+			request.setAttribute("alertMsg", "아이디 또는 비밀번호가 잘못되었습니다. 다시 입력해 주세요.");
+	        request.getRequestDispatcher("/views/user/login.jsp").forward(request, response);
 			
-		}else {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
-			response.sendRedirect(request.getContextPath());
-		}
-	}
+        } else {
+            // 로그인 성공 시, 세션에 사용자 정보 저장 및 메인 페이지로 리디렉트
+            HttpSession session = request.getSession();
+            session.setAttribute("loginUser", loginUser); // 여기서 loginUser를 더 구체적인 이름으로 변경 가능
+            session.setAttribute("alertMsg", "로그인에 성공했습니다.");
+          
+            String roll = loginUser.getRoll(); // 역할 가져오기
+            if ("A".equals(roll)) {
+                response.sendRedirect(request.getContextPath() + "/views/common/header2.jsp");
+            } else if ("M".equals(roll)) {
+                response.sendRedirect(request.getContextPath() + "/views/common/header2.jsp");
+            } else {
+                response.sendRedirect(request.getContextPath()); // 일반 사용자
+            }
+            
+            
+        }
+    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
