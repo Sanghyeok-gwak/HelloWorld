@@ -165,7 +165,7 @@ h5 {
 									class="dropdown-item" href="#"><h5>문의/신고</h5></a> <a
 									class="dropdown-item" href="#"><h5>고객센터</h5></a>
 							</div></li>
-						<li class="nav-item"><a href=""><h5>로그아웃</h5></a></li>
+						<li class="nav-item"><a href="<%=contextPath%>/logout.me"><h5>로그아웃</h5></a></li>
 					</ul>
 				</div>
 
@@ -185,7 +185,7 @@ h5 {
 									class="dropdown-item" href="#"><h5>문의/신고</h5></a> <a
 									class="dropdown-item" href="#"><h5>고객센터</h5></a>
 							</div></li>
-						<li class="nav-item"><a href=""><h5>로그아웃</h5></a></li>
+						<li class="nav-item"><a href="<%=contextPath%>/logout.me"><h5>로그아웃</h5></a></li>
 					</ul>
 				</div>
 
