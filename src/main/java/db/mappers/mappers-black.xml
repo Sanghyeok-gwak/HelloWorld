@@ -11,12 +11,6 @@
 	  		  , SYSDATE
 	  		    )
 	</entry>
-	<entry key="updateUserToBlack">
-		UPDATE "USER"
-       SET STATUS = 'B',
-       	   MODIFY_DATE = SYSDATE
-     WHERE USER_NO = ?
-	</entry>
 	<entry key="selectBlackListCount">
 		SELECT
 		       COUNT(*) as COUNT
@@ -30,6 +24,7 @@
 										 USER_NO
 						      	,USER_ID
 						      	,REASON
+						      	,TREATMENT
 						      	,BLACK_DATE
 						      	,STATUS
 						      	, ROW_NUMBER() OVER(ORDER BY USER_NO DESC) as RNUM
@@ -49,15 +44,9 @@
       JOIN "USER" USING(USER_NO)
      WHERE USER_NO = 11
 	</entry>
-	<entry key="deleteBleak">
+	<entry key="delBlackList">
 			DELETE  
   	   	FROM BLACKlIST
- 	     WHERE USER_NO = 11
-	</entry>
-	<entry key="updateUserToU">
-		UPDATE "USER"
-       SET STATUS = 'U',
-           MODIFY_DATE = SYSDATE
-     WHERE USER_NO = 11
+ 	     WHERE USER_NO = ?
 	</entry>
 </properties>

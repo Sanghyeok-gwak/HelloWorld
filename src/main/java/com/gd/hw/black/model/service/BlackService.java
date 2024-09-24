@@ -15,30 +15,6 @@ import com.gd.hw.common.model.vo.PageInfo;
 public class BlackService {
 	private BlackDao bDao = new BlackDao();
 	
-	/**관리자 페이지-해당 회원을 블랙리스트로 추가하는 메서드
-	 * @param black 추가하고자하는 정보가 담긴 객체
-	 * @return
-	 */
-	public int insertBlack(BlackList black) {
-		Connection conn = getConnection();
-		// 블랙리스트 테이블에 insert 하고 결과 가져옴
-		int result = bDao.insertBlack(conn, black);
-		if(result > 0) {
-			System.out.println();
-			// 블랙리스트 테이블에 잘 insert 됐으면
-			// 회원정보 update
-			result = bDao.updateUserToBlack(conn, black);
-		}
-		
-		if(result > 0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-		close(conn);
-		
-		return result;
-	}
 	/**
 	 * 관리자 페이지-모든 블랙리스트 회원 조회용 메소드
 	 * @return 모든 black의 정보를 담은 List<BlackList> 반환
@@ -59,5 +35,19 @@ public class BlackService {
 		int listCount = bDao.selectBlackListCount(conn);
 		close(conn);
 		return listCount;
+	}
+	public int delBlackList(String[] arr) {
+		Connection conn = getConnection();
+		
+		int result = bDao.delBlackList(conn,arr);
+		
+		
+		if(result == arr.length) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result ;
 	}
 }

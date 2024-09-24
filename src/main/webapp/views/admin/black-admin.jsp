@@ -124,7 +124,7 @@ h5 {
 					<button id="btn-2" class="btn"
 						onclick="location.href='<%=contextPath%>/list.us'">회원 관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.bk''">블랙리스트
+					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.bk'">블랙리스트
 						관리</button>
 					<br>
 					<button id="btn-2" class="btn" onclick="location.href='#'">이벤트
@@ -161,7 +161,7 @@ h5 {
 				</div>
 				<div id="buttons" class="d-flex justify-content-end pr-2 pb-2">
 					<button class="btn btn-primary btn-sm" style="width: 100px" data-toggle="modal" data-target="#myModal">추가</button>
-					<button class="btn btn-danger btn-sm" style="width: 100px; display:none;" id="delBtn">삭제</button>
+					<button class="btn btn-danger btn-sm" style="width: 100px; display:none;" id="delBtn">해제</button>
 				</div>
 				<div id="table-contain">
 					<table class="table table-bordered">
@@ -171,8 +171,9 @@ h5 {
 								<th>번호</th>
 								<th>아이디</th>
 								<th>제재사유</th>
+								<th>처리방식</th>
 								<th>제재날짜</th>
-								<th>상태</th>
+								<th>현재상태</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -196,6 +197,15 @@ h5 {
 								<td><%=b.getUserNo()%></td>
 								<td><%=b.getUserId()%></td>
 								<td><%=b.getReason()%></td>
+								<%
+								if (b.getTreatment().equals("R")) {
+								%>
+								<td style="color: red;">탈퇴 처리</td>
+								<%
+								} else if (b.getTreatment().equals("B")) {
+								%>
+								<td style="color: blue;">블랙리스트 처리</td>
+								<%} %>
 								<td><%=b.getBlackDate()%></td>
 								<%
 								if (b.getStatus().equals("R")) {
@@ -233,6 +243,7 @@ h5 {
 	</div>
 	<script>
 	$(document).ready(function () {
+		
 		$(':checkbox').click(function (evt) {
 			if($(':checkbox:checked').length >= 1){
 		        $('#delBtn').css('display', '');
@@ -243,7 +254,7 @@ h5 {
 	      
 	   $('#delBtn').click(function(evt){
 		   const count = $(':checkbox:checked').length;
-			if(confirm( count+'명의 회원을 삭제처리 하시겠습니까?')){
+			if(confirm( count+'명의 회원을 블랙리스트에서 해제 하시겠습니까?')){
 				let arr = [];
 				$(":checkbox:checked").each(function(){
 					arr.push($(this).val());
@@ -253,7 +264,7 @@ h5 {
 					method: 'POST',
 					data:{delUser:JSON.stringify(arr)},
 					success: function(res){
-						alert(res+"명의 회원이 성공적으로 삭제 처리되었습니다.");
+						alert(res+"명의 블랙리스트 회원이 성공적으로 삭제 처리되었습니다.");
 						location.reload(); 
 					},
 					error: function(){

@@ -6,29 +6,40 @@ public class BlackList {
 	 private int userNo;
 	 private String userId;
 	 private String reason;
+	 private String treatment;
 	 private Date blackDate;
 	 private String status;
 	 
 	 public BlackList() {}
 	 
 	 // 조회용
-	 public BlackList(int userNo, String userId, String reason, Date blackDate, String status) {
+	 public BlackList(int userNo, String userId, String reason, String treatment, Date blackDate, String status) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
 		this.reason = reason;
+		this.treatment = treatment;
 		this.blackDate = blackDate;
 		this.status = status;
 	}
 	 
 	 // 추가용
-	 public BlackList(int userNo, String reason, String status) {
+	 public BlackList(int userNo, String reason, String treatement, String status) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
 		this.reason = reason;
+		this.treatment = treatment;
 		this.blackDate = blackDate;
 		this.status = status;
+	}
+
+	public String getTreatment() {
+		return treatment;
+	}
+
+	public void setTreatment(String treatment) {
+		this.treatment = treatment;
 	}
 
 	public int getUserNo() {
@@ -73,8 +84,10 @@ public class BlackList {
 
 	@Override
 	public String toString() {
-		return "BlackList [userNo=" + userNo + ", userId=" + userId + ", reason=" + reason + ", blackDate=" + blackDate
-				+ ", status=" + status + "]";
+		return "BlackList [userNo=" + userNo + ", userId=" + userId + ", reason=" + reason + ", treatment=" + treatment
+				+ ", blackDate=" + blackDate + ", status=" + status + "]";
 	}
+
+
 	
 }

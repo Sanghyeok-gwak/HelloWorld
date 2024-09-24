@@ -53,29 +53,6 @@ private Properties prop = new Properties();
 	}
 	
 	/**
-	 * 관리자 페이지-블랙리스트 insert 이후 회원정보 update
-	 * 
-	 * @param conn
-	 * @return 성공한 행의 총 갯수
-	 */
-	public int updateUserToBlack(Connection conn, BlackList black) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("updateUserToBlack");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, black.getUserNo());
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-	
-	/**
 	 * 관리자 페이지-모든 블랙리스트 회원 조회용 메소드
 	 * 
 	 * @param conn
@@ -100,7 +77,7 @@ private Properties prop = new Properties();
 
 			while (rset.next()) {
 				list.add(new BlackList(rset.getInt("USER_NO"), rset.getString("USER_ID"), rset.getString("REASON")
-						 ,rset.getDate("BLACK_DATE"), rset.getString("STATUS")));
+						 ,rset.getString("TREATMENT"), rset.getDate("BLACK_DATE"), rset.getString("STATUS")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -132,7 +109,7 @@ private Properties prop = new Properties();
 
 			if(rset.next()) {
 				black = new BlackList(rset.getInt("USER_NO"), rset.getString("USER_ID"), rset.getString("REASON")
-						 ,rset.getDate("BLACK_DATE"), rset.getString("STATUS"));
+						,rset.getString("TREATMENT"),rset.getDate("BLACK_DATE"), rset.getString("STATUS"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -222,6 +199,26 @@ private Properties prop = new Properties();
 		}
 		
 		return listCount;
+	}
+
+	public int delBlackList(Connection conn, String[] arr) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("delBlackList");
+
+		try {
+			for (int i = 0; i < arr.length; i++) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, Integer.parseInt(arr[i]));
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 
