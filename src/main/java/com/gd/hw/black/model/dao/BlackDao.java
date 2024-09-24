@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.gd.hw.black.model.vo.BlackList;
+import com.gd.hw.common.model.vo.PageInfo;
 import com.gd.hw.user.model.vo.User;
 
 
@@ -80,7 +81,7 @@ private Properties prop = new Properties();
 	 * @param conn
 	 * @return 모든 black의 정보를 담은 List<BlackList> 반환
 	 */
-	public List<BlackList> selectAllBlack(Connection conn) {
+	public List<BlackList> selectAllBlack(Connection conn, PageInfo pi) {
 		
 		List<BlackList> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -90,6 +91,11 @@ private Properties prop = new Properties();
 
 		try {
 			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
@@ -188,6 +194,34 @@ private Properties prop = new Properties();
 		}
 
 		return result;
+	}
+
+	/**관리자-페이지 페이징처리를 위한 행 갯수 알아가는 매소드
+	 * @param conn
+	 * @return 
+	 */
+	public int selectBlackListCount(Connection conn) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectBlackListCount");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
 	}
 
 

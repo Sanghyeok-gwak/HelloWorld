@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gd.hw.black.model.service.BlackService;
 import com.gd.hw.black.model.vo.BlackList;
+import com.gd.hw.common.model.vo.PageInfo;
+import com.gd.hw.user.model.service.UserService;
+import com.gd.hw.user.model.vo.User;
 
 /**
  * Servlet implementation class BlackListController
@@ -32,12 +35,30 @@ public class BlackListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("admin-blackList 서블릿 호출됨");
-		List<BlackList> list = new BlackService().selectAllBlack();
-		System.out.println("가져오는 행의 갯수 : "+ list.size());
 		
-		/*
-		 * 페이징처리 나중에
-		 */
+		
+		int listCount = new BlackService().selectBlackListCount();
+		
+		int currentPage = 1;
+		if(request.getParameter("page") != null) {
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		}
+		int pageLimit = 5;
+		int boardLimit = 10;
+		
+		int maxPage = (int)Math.ceil( (double)listCount / boardLimit );
+		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+		int endPage = startPage + pageLimit - 1;
+		
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		
+		List<BlackList> list = new BlackService().selectAllBlack(pi);
+		request.setAttribute("pi", pi);
+		
 		
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/views/admin/black-admin.jsp").forward(request, response);

@@ -28,7 +28,7 @@
 						     "USER"
 	  		    WHERE
 			           ROLL IN('U','M')
-		        ORDER BY ROLL, USER_NO DESC
+		        ORDER BY USER_NO DESC
 		        )
 		  WHERE RNUM BETWEEN ? AND ?
 		    
