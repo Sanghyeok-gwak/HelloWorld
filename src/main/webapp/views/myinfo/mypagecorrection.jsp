@@ -166,7 +166,7 @@
         location.href="<%=contextPath%>/myinfoCh.us"})
         <%-- 버튼 스크립트 끝 --%>
         document.getElementById("btn-4").addEventListener("click",()=>{
-        location.href="<%=contextPath%>/MyinfoDe.us"})
+        location.href="<%=contextPath%>/myinfoDe.us"})
         <%-- 전화번호 형식 스크립트 --%>
      	$(document).ready(function() {
 			
