@@ -65,7 +65,6 @@ public class UserLoginController extends HttpServlet {
 	            // 로그인 성공 시, 세션에 사용자 정보 저장 및 메인 페이지로 리다이렉트
 	            HttpSession session = request.getSession();
 	            session.setAttribute("loginUser", loginUser); 
-	            session.setAttribute("alertMsg", "로그인에 성공했습니다.");
 	          
 	            String roll = loginUser.getRoll(); // 역할 가져오기
 	            if ("A".equals(roll)) {
