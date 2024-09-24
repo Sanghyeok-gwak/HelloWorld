@@ -116,8 +116,6 @@ public class UserService {
 		 
 		 return selectId;
 	 }
-	
-	
 	/**사용자 페이지-로그인*/
 	public User loginMember(String userId, String userPwd) {
 		Connection conn = getConnection();
@@ -128,4 +126,32 @@ public class UserService {
 		
 		return loginUser;
 	}
+	
+	/*
+	 * 마이페이지 회원정보수정 
+	 */
+	public User updateU(User u) {
+		Connection conn = getConnection();
+		
+		// 회원정보 변경
+		int result = uDao.updateU(conn, u);
+		
+		User updateU = null;
+		
+		if(result > 0) {
+			commit(conn);
+		// 조회
+			updateU = uDao.selectUserById(conn, u.getUserId());	 
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateU;
+	}
+	
+	
+	
+	
 }
+

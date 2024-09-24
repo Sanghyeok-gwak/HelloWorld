@@ -242,7 +242,7 @@ public class UserDao {
 		}
 		return u;
 	}
-
+	// 마이페이지 로그인 확인
 	public int longincheck(Connection conn, String userId, String userPwd) {
 		int count = 0;
 		
@@ -269,8 +269,60 @@ public class UserDao {
 			
 		return count;
 	}
-
+	public int updateU (Connection conn , User u) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateU");
 		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, u.getUserName());
+			pstmt.setString(2, u.getEmail());
+			pstmt.setString(3, u.getPhone());
+			pstmt.setString(4, u.getUserId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+		public User selectUserById(Connection conn , String userId) {
+			User u = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectUserById");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userId);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					u = new User(rset.getInt("user_no")
+								,rset.getString("user_id")
+								,rset.getString("user_pwd")
+								,rset.getString("user_name")
+								,rset.getString("email")
+								,rset.getString("phone")
+								,rset.getDate("enroll_date")
+								,rset.getDate("modify_date")
+								,rset.getString("roll")
+								,rset.getString("status"));
+				}
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return u;
+		}
 
 
 }
