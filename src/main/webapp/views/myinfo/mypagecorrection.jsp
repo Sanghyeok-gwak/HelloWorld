@@ -161,6 +161,8 @@
         document.getElementById("btn-3").addEventListener("click",()=>{
         location.href="<%=contextPath%>/myinfo_Ch.us"})
         <%-- 버튼 스크립트 끝 --%>
+        document.getElementById("btn-4").addEventListener("click",()=>{
+        location.href="<%=contextPath%>/Myinfo_De.us"})
         <%-- 전화번호 형식 스크립트 --%>
      	$(document).ready(function() {
 			
@@ -241,12 +243,12 @@
           
           <!-- Modal body -->
           <div class="modal-body">
-            <h5 style="text-align: center;">정말 탈퇴 하시겠습니까 ?</h5>
+            <h5 style="text-align: center;">정말 탈퇴 하시겠습니까 ? </h5>
           </div>
           
           <!-- Modal footer -->
           <div class="modal-footer" style="justify-content: center;">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">확인</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn-4">확인</button>
             <button type="button" id="btn-1"class="btn" data-dismiss="modal">취소</button>
           </div>
           
