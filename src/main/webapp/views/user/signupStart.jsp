@@ -87,10 +87,14 @@ h5 {
 	margin-top: 50px;
 	margin-bottom: 150px;
 }
+section {
+	padding-top: 50px;
+}
+
 </style>
 </head>
 <body>
-	<section class="mt-5">
+	<section>
 		<div class="signup-mian">
 			<div class="helloworld-login-logo">
 				<img src="<%=contextPath %>/assets/image/logo.png" " alt="로고이미지">
@@ -100,7 +104,7 @@ h5 {
 				<h3>지금 회원가입 하신 후 HELLO WORLD에서 다양한 서비스를 경험해 보세요!</h3>
 			</div>
 			<div class="helloworld-signup">
-				<button id="btn-1" class="btn" onclick="location.href='#'">
+				<button id="btn-1" class="btn" onclick="location.href='<%=contextPath %>/views/user/signup.jsp'">
 					<h3>회원가입</h3>
 				</button>
 			</div>

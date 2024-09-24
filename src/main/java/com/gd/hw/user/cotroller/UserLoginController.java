@@ -38,7 +38,7 @@ public class UserLoginController extends HttpServlet {
 		// 요청 파라미터 가져오기
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
-		System.out.println("가져온 아이디 비밀번호: " + userId + userPwd);
+
 		// 사용자 서비스 호출
 		User loginUser = new UserService().loginMember(userId, userPwd);
 		// 로그인 처리
@@ -48,21 +48,36 @@ public class UserLoginController extends HttpServlet {
 	        request.getRequestDispatcher("/views/user/login.jsp").forward(request, response);
 			
         } else {
-            // 로그인 성공 시, 세션에 사용자 정보 저장 및 메인 페이지로 리디렉트
-            HttpSession session = request.getSession();
-            session.setAttribute("loginUser", loginUser); // 여기서 loginUser를 더 구체적인 이름으로 변경 가능
-            session.setAttribute("alertMsg", "로그인에 성공했습니다.");
-          
-            String roll = loginUser.getRoll(); // 역할 가져오기
-            if ("A".equals(roll)) {
-                response.sendRedirect(request.getContextPath());
-            } else if ("M".equals(roll)) {
-                response.sendRedirect(request.getContextPath());
+        	String status = loginUser.getStatus(); // 상태 가져오기 (탈퇴, 블랙리스트 등)
+            
+            if ("R".equals(status)) {
+                // 탈퇴 회원일 경우
+
+                request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
+                
+            } else if ("B".equals(status)) {
+                // 블랙리스트 회원일 경우
+
+                request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
+                
             } else {
-                response.sendRedirect(request.getContextPath()); // 일반 사용자
+
+	            // 로그인 성공 시, 세션에 사용자 정보 저장 및 메인 페이지로 리다이렉트
+	            HttpSession session = request.getSession();
+	            session.setAttribute("loginUser", loginUser); 
+	            session.setAttribute("alertMsg", "로그인에 성공했습니다.");
+	          
+	            String roll = loginUser.getRoll(); // 역할 가져오기
+	            if ("A".equals(roll)) {
+	                response.sendRedirect(request.getContextPath());
+	            } else if ("M".equals(roll)) {
+	                response.sendRedirect(request.getContextPath());
+	            } else {
+	                response.sendRedirect(request.getContextPath()); // 일반 사용자
+	            }
+
+            
             }
-            
-            
         }
     }
 
