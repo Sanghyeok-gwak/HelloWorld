@@ -273,6 +273,32 @@ h5 {
 				})
 			}
 	   })
+	   
+	   $("#userid").blur(function() {
+ 			// blur : 포커스 벗어날 때
+           var userid = $("#userid").val();
+		
+           $.ajax({
+				url:'<%=contextPath%>/idCheck.bk',
+				method: 'POST',
+				data:{inputid:userid},
+				success: function(res){
+					if(res == 'B'){
+						alert('이미 블랙리스트에 등록된 회원입니다.');
+						$("#userid").val("");
+					}else if(res == 'R'){
+						alert('탈퇴한 회원입니다.');
+						$("#userid").val("");
+					}else if(res =='admin'){
+						alert('존재하지 않는 회원입니다.');
+						$("#userid").val("");
+					}
+				},
+				error: function(){
+					alert('왜인지 실패');
+				}
+			})
+       });
 	})
 	
 	</script>
@@ -287,7 +313,7 @@ h5 {
           <h1 class="modal-title">블랙리스트 추가</h1>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        <form action="<%=contextPath%>/addlBlack.bk">
+        <form action="<%=contextPath%>/addlBlack.bk" method="post" class="was-validated">
           <!-- Modal body -->
           <div class="modal-body pt-5" style="min-height: 300px;">
             <table class="table">
@@ -296,30 +322,29 @@ h5 {
               <tbody>
                 <tr>
                   <td>아이디</td>
-                  <td><input type="text"></td>
+                  <td><input type="text" required id="userid" name="userid"></td>
                 </tr>
                 <tr>
                   <td>제재사유</td>
-                  <td><textarea class="w-100" style="height:150px"></textarea></td>
+                  <td><textarea class="w-100" style="height:150px" required name="reason"></textarea></td>
                 </tr>
                 <tr>
                   <td>상태</td>
                   <td>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="op" id="inlineRadio1" value="option1" checked>
+                      <input class="form-check-input" type="radio" name="op" id="inlineRadio1" value="B" checked>
                       <label class="form-check-label" for="inlineRadio1">로그인 제한</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="op" id="inlineRadio2" value="option2">
+                      <input class="form-check-input" type="radio" name="op" id="inlineRadio2" value="R">
                       <label class="form-check-label" for="inlineRadio2">탈퇴</label>
                     </div>
                   </td>
                 </tr>
               </tbody>
             </table>
-
           </div>
-
+          
           <!-- Modal footer -->
           <div class="modal-footer"> 
             <button type="submit" class="btn btn-primary" >추가</button>

@@ -24,14 +24,11 @@ public class BlackList {
 	}
 	 
 	 // 추가용
-	 public BlackList(int userNo, String reason, String treatement, String status) {
+	 public BlackList(String userId, String reason, String treatment) {
 		super();
-		this.userNo = userNo;
 		this.userId = userId;
 		this.reason = reason;
 		this.treatment = treatment;
-		this.blackDate = blackDate;
-		this.status = status;
 	}
 
 	public String getTreatment() {

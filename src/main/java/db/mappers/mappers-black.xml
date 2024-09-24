@@ -49,4 +49,20 @@
   	   	FROM BLACKlIST
  	     WHERE USER_NO = ?
 	</entry>
+	<entry key="idCheck">
+			SELECT STATUS
+ 		 		FROM "USER"
+			 WHERE ROLL = 'U'
+   			 AND USER_ID = ?
+	</entry>
+	<entry key="addBlackList">
+			INSERT INTO BLACKLIST VALUES(
+																		(SELECT USER_NO
+                                			 FROM "USER"
+                               				WHERE USER_ID = ?
+                               			)
+                          			,?
+                          			,?
+                          			,SYSDATE)
+	</entry>
 </properties>

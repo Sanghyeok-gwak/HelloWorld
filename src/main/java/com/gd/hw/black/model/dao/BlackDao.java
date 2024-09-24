@@ -33,25 +33,28 @@ private Properties prop = new Properties();
 	 * @param black 추가하고자하는 정보가 담긴 객체
 	 * @return
 	 */
-	public int insertBlack(Connection conn, BlackList black) {
+	public int addBlackList(Connection conn,BlackList b) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertBlack");
-		
+		String sql = prop.getProperty("addBlackList");
+
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, black.getUserNo());
-			pstmt.setString(2, black.getReason());
-			result = pstmt.executeUpdate();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, b.getUserId());
+				pstmt.setString(2, b.getReason());
+				pstmt.setString(3, b.getTreatment());
+				result = pstmt.executeUpdate();
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		return result;
 
+		return result;
+		
 	}
-	
+
 	/**
 	 * 관리자 페이지-모든 블랙리스트 회원 조회용 메소드
 	 * 
@@ -219,6 +222,29 @@ private Properties prop = new Properties();
 		}
 
 		return result;
+	}
+
+	public String idCheck(Connection conn, String inputId) {
+		String status = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("idCheck");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, inputId);
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				status =rset.getString("STATUS");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return status;
 	}
 
 

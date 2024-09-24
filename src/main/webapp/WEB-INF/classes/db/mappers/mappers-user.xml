@@ -126,9 +126,9 @@
 	</entry>
 	
 	<entry key="SelectUserById" >
-		SELECT 
-     			  USER_NO
-      		 ,USER_ID
+	SELECT 
+     	    USER_NO
+      	   ,USER_ID
            ,USER_PWD
            ,USER_NAME
            ,EMAIL
@@ -143,5 +143,16 @@
             USER_ID = ?
 	</entry>
 	
-
+	<entry key="DeleteUser">
+	UPDATE 
+       	    "USER"
+       SET 
+            STATUS ='R'
+           ,MODIFY_DATE = SYSDATE
+     WHERE 
+           USER_ID  = ?
+	</entry>
+	
+	
+	
 </properties>
