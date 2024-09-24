@@ -154,7 +154,8 @@ h5 {
 				<% }else if(loginUser.getRoll().equals("U")){  %>
 				<div>
 					<ul id="head-info">
-						<li class="nav-item"><a href=""><h5>홍길동님</h5></a></li>
+						<li class="nav-item"><a href="#"><h5><%= ((User)session.getAttribute("loginUser")).getUserName() %>님</h5></a>
+						
 						<li class="nav-item"><a href=""><h5>마이페이지</h5></a></li>
 						<li class="nav-item dropdown"><a class="dropdown-toggle"
 							href="#" id="navbardrop" data-toggle="dropdown">
@@ -174,7 +175,7 @@ h5 {
 				<div>
 					<ul id="head-info">
 						<li class="nav-item"><h5>
-								<a href=""><h5>관리자님</h5></a></li>
+								<a href=""><h5><%= ((User)session.getAttribute("loginUser")).getUserName() %>님</h5></a></li>
 						<li class="nav-item"><a href=""><h5>관리자페이지</h5></a></li>
 						<li class="nav-item dropdown"><a class="dropdown-toggle"
 							href="#" id="navbardrop" data-toggle="dropdown">
