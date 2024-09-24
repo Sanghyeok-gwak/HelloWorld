@@ -30,7 +30,7 @@
     }
   </style>
 	<body>
-					<%@ include file="/views/common/header2.jsp" %>
+					<%@ include file="/views/common/header.jsp" %>
 					 <section>
 					 <div id="main-top" class="carousel slide" data-ride="carousel">
 		

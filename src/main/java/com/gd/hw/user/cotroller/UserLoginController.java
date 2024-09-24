@@ -55,9 +55,9 @@ public class UserLoginController extends HttpServlet {
           
             String roll = loginUser.getRoll(); // 역할 가져오기
             if ("A".equals(roll)) {
-                response.sendRedirect(request.getContextPath() + "/views/common/header2.jsp");
+                response.sendRedirect(request.getContextPath());
             } else if ("M".equals(roll)) {
-                response.sendRedirect(request.getContextPath() + "/views/common/header2.jsp");
+                response.sendRedirect(request.getContextPath());
             } else {
                 response.sendRedirect(request.getContextPath()); // 일반 사용자
             }
