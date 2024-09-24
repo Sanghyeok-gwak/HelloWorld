@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Properties;
 
 import com.gd.hw.category.model.dao.CategoryDao;
+import com.gd.hw.common.model.vo.PageInfo;
+import com.gd.hw.product.model.vo.Product;
 import com.gd.hw.user.model.vo.User;
 
 import oracle.net.aso.r;
@@ -43,16 +45,20 @@ public class UserDao {
 	 * @param conn
 	 * @return 모든 user의 정보를 담은 List<User> 반환
 	 */
-	public List<User> selectAllUser(Connection conn) {
+	public List<User> selectAllUser(Connection conn, PageInfo pi) {
 
 		List<User> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-
 		String sql = prop.getProperty("selectAllUser");
 
 		try {
 			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
@@ -69,6 +75,34 @@ public class UserDao {
 		return list;
 	}
 
+	/**관리자-페이지 페이징처리를 위한 User행 갯수 알아가는 매소드
+	 * @param conn
+	 * @return 
+	 */
+	public int selectUserListCount(Connection conn) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectUserListCount");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
 	/**
 	 * 관리자 페이지-체크박스를 통한 다중 삭제 메소드
 	 * 
@@ -269,6 +303,7 @@ public class UserDao {
 			
 		return count;
 	}
+
 
 		
 

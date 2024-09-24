@@ -4,21 +4,34 @@
 <properties>
 
 	<!-- admin파트 시작 -->
-	<entry key="selectAllUser">
+	<entry key="selectUserListCount">
 		SELECT
-			  USER_NO
-			 ,USER_ID
-			 ,USER_PWD
-			 ,USER_NAME
-			 ,EMAIL
-			 ,PHONE
-			 ,ENROLL_DATE
-			 ,MODIFY_DATE
-			 ,STATUS
-		FROM "USER"
-	   WHERE
-			 ROLL IN('U','M')
-		ORDER BY ROLL, USER_NO DESC
+		       COUNT(*) as COUNT
+		  FROM 
+		       "USER"
+	</entry>
+	<entry key="selectAllUser">
+		SELECT *
+		  FROM (
+						SELECT
+			  					 USER_NO
+								 , USER_ID
+								 , USER_PWD
+								 , USER_NAME
+								 , EMAIL
+								 , PHONE
+								 , ENROLL_DATE
+								 , MODIFY_DATE
+								 , STATUS
+								 , ROW_NUMBER() OVER(ORDER BY USER_NO DESC) as RNUM
+						 FROM 
+						     "USER"
+	  		    WHERE
+			           ROLL IN('U','M')
+		        ORDER BY ROLL, USER_NO DESC
+		        )
+		  WHERE RNUM BETWEEN ? AND ?
+		    
 	</entry>
 	<entry key="deletUser">
 		UPDATE "USER"
@@ -68,17 +81,6 @@
 	</entry>
 	<!-- admin파트 종료 -->
 	
-	<!--  user파트 시작 -->
-		<entry key="longincheck">
-	SELECT COUNT(*) as COUNT 
-  	FROM "USER"
-	 WHERE USER_ID =?
-  	 AND USER_PWD =?
-	</entry>
-	
-	
-	
-
 	<!-- 사용자 파트 -->
 	<entry key="loginUser">
 		SELECT
@@ -93,10 +95,19 @@
 			, ROLL
 			, STATUS
 		FROM
-		    USER
+		    "USER"
 	  WHERE
 	  		USER_ID = ?
 	  	AND USER_PWD = ?
 	</entry>
+	
+	<entry key="longincheck">
+	SELECT COUNT(*) as COUNT 
+  	FROM "USER"
+	 WHERE USER_ID =?
+  	 AND USER_PWD =?
+	</entry>
+	
+	
 
 </properties>

@@ -1,4 +1,5 @@
 <%@ page import="java.util.List"%>
+<%@page import="com.gd.hw.common.model.vo.PageInfo"%>
 <%@ page import="com.gd.hw.user.model.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -6,6 +7,7 @@
 String contextPath = request.getContextPath();
 List<User> list = (List<User>) request.getAttribute("list");
 String msg = (String)session.getAttribute("msg");
+PageInfo pi = (PageInfo)request.getAttribute("pi");
 %>
 <!DOCTYPE html>
 <html>
@@ -244,16 +246,19 @@ h5 {
 					</table>
 				</div>
 				<div id="paging-bar">
-					<ul class="pagination d-flex justify-content-center text-dark"
-						style="margin-top: 80px;">
-						<li class="page-item disabled"><a class="page-link" href="">
-								< </a></li>
-						<li class="page-item active"><a class="page-link" href="">1</a></li>
-						<li class="page-item"><a class="page-link" href="">2</a></li>
-						<li class="page-item"><a class="page-link" href="">3</a></li>
-						<li class="page-item"><a class="page-link" href="">4</a></li>
-						<li class="page-item"><a class="page-link" href="">5</a></li>
-						<li class="page-item"><a class="page-link" href="">></a></li>
+						<ul id="pagination-user-admin" class="pagination d-flex justify-content-center text-dark" style="margin-top: 80px;">
+						<li class='page-item <%=pi.getCurrentPage() == 1 ? "disabled" : ""%>'>
+          		<a class="page-link" href="<%=contextPath%>/list.us?page=<%=pi.getCurrentPage()-1%>"> < </a>
+          	</li>
+						<% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++) { %>
+	          	<li class='page-item <%=p == pi.getCurrentPage() ? "active" : ""%>'>
+	          		<a class="page-link" href="<%= contextPath %>/list.us?page=<%=p%>"><%= p %></a>
+	          	</li>
+          	<% } %>
+          	 
+						<li class='page-item <%=pi.getCurrentPage() == pi.getMaxPage() ? "disabled" : ""%>'>
+          		<a class="page-link" href="<%=contextPath%>/list.us?page=<%=pi.getCurrentPage()+1%>"> > </a>
+         	 	</li>
 					</ul>
 				</div>
 				<!-- 여기까지 -->
