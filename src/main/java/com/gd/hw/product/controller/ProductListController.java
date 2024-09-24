@@ -1,41 +1,46 @@
 package com.gd.hw.product.controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ProductListController
- */
-@WebServlet("/ProductListController")
+import com.gd.hw.common.template.JDBCTemplate;
+import com.gd.hw.product.model.service.ProductService;
+import com.gd.hw.product.model.vo.Product;
+
+@WebServlet("/productList.pr")
 public class ProductListController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    private static final long serialVersionUID = 1L;
+
     public ProductListController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+        String categoryName = request.getParameter("categoryName");
 
+        Connection conn = JDBCTemplate.getConnection();
+        ProductService productService = new ProductService();
+
+        List<Product> productList = productService.getProductList(conn, categoryName);
+
+        request.setAttribute("productList", productList);
+        request.setAttribute("categoryName", categoryName); 
+
+        request.getRequestDispatcher("/views/product/productList.jsp").forward(request, response);
+
+        JDBCTemplate.close(conn);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
 }

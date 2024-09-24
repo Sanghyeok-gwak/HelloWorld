@@ -1,41 +1,16 @@
 package com.gd.hw.product.model.service;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.sql.Connection;
+import java.util.List;
 
-/**
- * Servlet implementation class ProductService
- */
-@WebServlet("/ProductService")
-public class ProductService extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ProductService() {
-        super();
-        // TODO Auto-generated constructor stub
+import com.gd.hw.product.model.dao.ProductDao;
+import com.gd.hw.product.model.vo.Product;
+
+public class ProductService {
+
+    private ProductDao productDao = new ProductDao();
+
+    public List<Product> getProductList(Connection conn, String categoryName) {
+        return productDao.selectProductList(conn, categoryName);
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

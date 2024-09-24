@@ -1,41 +1,66 @@
 package com.gd.hw.product.model.dao;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import static com.gd.hw.common.template.JDBCTemplate.close;
 
-/**
- * Servlet implementation class ProductDao
- */
-@WebServlet("/ProductDao")
-public class ProductDao extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import com.gd.hw.product.model.vo.Product;
+
+public class ProductDao {
+
+    private Properties prop = new Properties();
+
     public ProductDao() {
-        super();
-        // TODO Auto-generated constructor stub
+        try {
+            // XML 파일에서 SQL 쿼리 로드
+            prop.loadFromXML(new FileInputStream(ProductDao.class.getResource("/db/mappers/mappers-product.xml").getPath()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+    public List<Product> selectProductList(Connection conn, String categoryName) {
+        List<Product> productList = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+        String sql = prop.getProperty("selectProductListByCategory");
 
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, categoryName);
+            rset = pstmt.executeQuery();
+
+            while (rset.next()) {
+                Product product = new Product();
+                product.setProductId(rset.getInt("PRODUCT_ID"));
+                product.setProductName(rset.getString("PRODUCT_NAME"));
+                product.setProductImg(rset.getString("PRODUCT_IMG"));
+                product.setStartDate(rset.getString("START_DATE"));
+                product.setEndDate(rset.getString("END_DATE"));
+                product.setaPrice(rset.getInt("A_PRICE"));
+                product.setCategoryName(rset.getString("CATEGORY_NAME"));
+
+                productList.add(product);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();  // SQLException 로그 출력
+        } finally {
+            close(rset);
+            close(pstmt);
+        }
+
+        return productList;
+    }
+    
+   
 }

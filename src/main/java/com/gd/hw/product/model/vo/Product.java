@@ -49,6 +49,8 @@ public class Product {
 		this.registrationDate = registrationDate;
 		this.modificationDate = modificationDate;
 	}
+	
+	
 
 
 	@Override
