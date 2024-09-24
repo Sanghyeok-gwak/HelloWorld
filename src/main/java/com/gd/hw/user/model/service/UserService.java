@@ -162,8 +162,18 @@ public class UserService {
 		
 		return updateU;
 	}
-	
-	
+	 // 회원상태 탈퇴로 변경
+	 public int deleteUser(String userId) {
+		 Connection conn = getConnection();
+		 int result = uDao.deleteUser(conn, userId);
+		 if(result > 0) {
+			 commit(conn);
+		 }else {
+			 rollback(conn);
+		 }
+		 close(conn);
+		 return result;
+	 }
 	
 	
 }
