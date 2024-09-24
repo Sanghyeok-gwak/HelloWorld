@@ -44,6 +44,7 @@ public class AdminProductFilterListController extends HttpServlet {
 		if(request.getParameter("page") != null) {
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		}
+		
 		int pageLimit = 5;
 		int boardLimit = 5;
 		

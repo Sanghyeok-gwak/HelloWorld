@@ -8,6 +8,8 @@ import static com.gd.hw.common.template.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.List;
 
+import com.gd.hw.common.model.vo.PageInfo;
+import com.gd.hw.product.model.vo.Product;
 import com.gd.hw.user.model.dao.UserDao;
 import com.gd.hw.user.model.vo.User;
 
@@ -17,12 +19,23 @@ public class UserService {
 	
 	
 	//--------------------------관리자 파트-------------------------------
+	
+	/**user의 수 알아오는 메소드
+	 * @return 유저의 수
+	 */
+	public int selectUserListCount() {
+		Connection conn = getConnection();
+		int listCount = uDao.selectUserListCount(conn);
+		close(conn);
+		return listCount;
+	}
+	
 	/**관리자 페이지-모든 회원정보 조회용 메소드
 	 * @return dao로부터 조회해온 list를 반환
 	 */
-	public List<User> selectAllUser(){
+	public List<User> selectAllUser(PageInfo pi){
 		Connection conn = getConnection();
-		List<User> list = uDao.selectAllUser(conn);
+		List<User> list = uDao.selectAllUser(conn, pi);
 		close(conn);
 		return list;
 	}
