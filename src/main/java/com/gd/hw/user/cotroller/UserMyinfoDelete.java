@@ -15,7 +15,7 @@ import com.gd.hw.user.model.vo.User;
 /**
  * Servlet implementation class UserMyinfoDelete
  */
-@WebServlet("/Myinfo_De.us")
+@WebServlet("/MyinfoDe.us")
 public class UserMyinfoDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,6 +35,15 @@ public class UserMyinfoDelete extends HttpServlet {
 		String userId = ((User)session.getAttribute("loginUser")).getUserId();
 
 		int result = new UserService().deleteUser(userId);
+		
+		if(result > 0 ) {
+			session.removeAttribute("loginUser");
+			session.setAttribute("alertMsg", "성공적으로 탈퇴되었습니다. 그동안 이용해 주셔서 감사합니다.");
+			response.sendRedirect(request.getContextPath());
+		}else {
+			session.setAttribute("alertMsg", "회원 탈퇴 실패");
+			response.sendRedirect(request.getContextPath() + "/myinfo.us");
+		}
 	}
 
 	/**

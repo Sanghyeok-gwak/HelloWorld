@@ -103,6 +103,10 @@
             background-color: #e8eaeb;
         		color: black;
         }
+        #btn-4{
+						background-color: #e8eaeb;
+        		color: black;
+        }
 
 </style>
 <body>
@@ -127,7 +131,7 @@
             <div class="edit">
                 <div class="edit-button">
                     <h3>회원정보 수정</h3>
-                    <button id="btn-2" class="btn" data-toggle="modal" data-target="#myModal-2">탈퇴</button>
+                    <button id="btn-4" class="btn" data-toggle="modal" data-target="#myModal-2">탈퇴</button>
                 </div>
                 <hr>
                 <table class="correction">
@@ -159,10 +163,10 @@
         <script>
         <%-- 버튼 스크립트 --%>
         document.getElementById("btn-3").addEventListener("click",()=>{
-        location.href="<%=contextPath%>/myinfo_Ch.us"})
+        location.href="<%=contextPath%>/myinfoCh.us"})
         <%-- 버튼 스크립트 끝 --%>
         document.getElementById("btn-4").addEventListener("click",()=>{
-        location.href="<%=contextPath%>/Myinfo_De.us"})
+        location.href="<%=contextPath%>/MyinfoDe.us"})
         <%-- 전화번호 형식 스크립트 --%>
      	$(document).ready(function() {
 			
