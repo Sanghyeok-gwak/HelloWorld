@@ -82,8 +82,8 @@ h5 {
 /* Heart Icon Styles */
 .heart-icon {
 	position: absolute;
-	top: 10px;
-	right: 5px;
+	top : 8px;
+	right: 300px;
 	color: red;
 	font-size: 24px;
 	cursor: pointer;
@@ -91,8 +91,8 @@ h5 {
 
 .share-icon {
 	position: absolute;
-	top: 10px;
-	right: 5px;
+	top : 8px;
+	right: 260px;
 	color: black;
 	font-size: 24px;
 	cursor: pointer;
@@ -217,6 +217,14 @@ button:hover {
 	cursor: pointer;
 }
 
+.rating span {
+	font-size: 25px;
+	color: lightgray;
+	/* 비활성화된 색상 */
+	cursor: pointer;
+	/* 포인터 변경 */
+}
+
 .rating span:hover {
 	color: gold;
 }
@@ -236,7 +244,8 @@ button:hover {
 
 <section>
 	<div class="main-img">
-			<img class="product-img" src="<%=contextPath%>/assets/image/london.png">
+		<img class="product-img"
+			src="<%=contextPath%>/assets/image/london.png">
 	</div>
 	<br>
 
@@ -254,19 +263,21 @@ button:hover {
 
 			<br>
 			<div class="col-md-12 Rating">
-				<span class="fa fa-star"></span> <span class="fa fa-star"
-					data-value="2"></span> <span class="fa fa-star" data-value="3"></span>
-				<span class="fa fa-star" data-value="4"></span> <span
-					class="fa fa-star" data-value="5"></span> <a href=""
-					style="color: black;"> (4.9) 리뷰 (4) </a>
+				<span class="fa fa-star"></span> 
+				<span class="fa fa-star"data-value="2"></span>
+			  <span class="fa fa-star" data-value="3"></span>
+				<span class="fa fa-star" data-value="4"></span> 
+				<span class="fa fa-star" data-value="5"></span> 
+				<a href="" style="color: black;"> (4.9) 리뷰 (4) </a>
 			</div>
 
 			<br>
 
-			<div class="col-md-12">
-				<h1>28282821원~</h1>
-				<i class="col-md-4 fas fa-share-alt share-icon"></i> <i
-					class="col-md-3 far fa-heart heart-icon"></i>
+			<div class="col-12">
+				<h1>28282821원~
+				<i class="fas fa-share-alt share-icon"></i>
+				 <i class="far fa-heart heart-icon"></i>
+				</h1>
 			</div>
 		</div>
 
@@ -348,7 +359,7 @@ button:hover {
 
 			<div id="content">
 				<div id="product-info" class="tabContent" style="display: block;">
-					<img src="<%=contextPath%>/assets/image/상품소개.png"> 
+					<img src="<%=contextPath%>/assets/image/상품소개.png">
 				</div>
 				<div id="itinerary" class="tabContent" style="display: none;">
 					<img src="<%=contextPath%>/assets/image/일정표.png">
