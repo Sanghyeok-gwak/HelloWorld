@@ -91,31 +91,41 @@
         <h5>비밀번호가 타인에게 노출되지 않도록 주의해주세요</h5>
       </div>
       <br><br>
+      
+      
       <!-- form  -->
-      <form action="/myinfo_Co.us" class="was-validated"  method="post">
+      <form action="<%= contextPath%>/myinfoLo.us" class="was-validated"  method="post"> 
+     <!--  <div class="was-validated"> -->
         <!-- ID , PWD , table-->
         <table class="correction">
           <tr>
             <th><h3>ID</h3></th>
             <td>
-              <input type="text" class="form-control" value="<%= loginUser.getUserId() %>" disabled id="userid">
+              <input type="text" class="form-control" value="<%= loginUser.getUserId() %>" readonly id="userId" name="userId">
             </td>
           </tr>
           <tr>
             <th><h3>Password</h3></th>
             <td>
-              <input type="password" class="form-control" id="uesrpwd" required placeholder="비밀번호를 입력">
+              <input type="password" class="form-control" id="userPwd" required placeholder="비밀번호를 입력"  name="userPwd">
             </td>
           </tr>
         </table>
         <!-- button -->
         <div class="button-group">
-          <button id="btn-1" class="btn">확인</button>
+          <button id="btn-1" class="btn"  type="submit">확인</button>
           <button id="btn-2" class="btn" onclick="history.back();">취소</button>
        		
         </div>
       </form>
+    <script>
+ 
+    
+    </script>
     </div>
+    
+    
+    
         <%@ include file="/views/common/footer.jsp" %>
     
 </body>

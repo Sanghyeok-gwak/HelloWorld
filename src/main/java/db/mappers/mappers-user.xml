@@ -102,14 +102,14 @@
 	</entry>
 	
 	<entry key="longincheck">
-	SELECT 
-				 COUNT(*) as COUNT 
-  	FROM 
-  	 		 "USER"
-	 WHERE 
-	 			 USER_ID =?
-  	 AND 
-  	 		 USER_PWD =?
+  SELECT 
+  			 USER_PWD 
+    FROM 
+    		 "USER"
+   WHERE 
+   			 USER_ID = ?
+   	AND  USER_PWD= ?
+
 	</entry>
 	
 	<entry key ="updateU" >

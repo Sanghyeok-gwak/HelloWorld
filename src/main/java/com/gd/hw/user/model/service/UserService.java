@@ -122,13 +122,16 @@ public class UserService {
 	 * 
 	 * @return 유저 아이디
 	 */
-	 public int longincheck(String userId , String userPwd) {
+	 public String longincheck(String userId, String userPwd ) {
 		 Connection conn = getConnection();
-		 int selectId = uDao.longincheck(conn, userId, userPwd);
+		 String checkPwd = uDao.longincheck(conn, userId,userPwd);
 		 close(conn);
 		 
-		 return selectId;
+		 return checkPwd;
 	 }
+	 
+	 
+	 
 	/**사용자 페이지-로그인*/
 	public User loginMember(String userId, String userPwd) {
 		Connection conn = getConnection();

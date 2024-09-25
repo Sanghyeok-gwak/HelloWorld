@@ -30,21 +30,27 @@ public class UserMyinfoLogin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setCharacterEncoding("utf-8");
+				
 		String userId = request.getParameter("userId");
+		System.out.println(userId);
 		String userPwd = request.getParameter("userPwd");
+		System.out.println(userPwd);
 		
-		int selectId = new UserService().longincheck(userId,userPwd);
 		
-		if(selectId > 0) {
+		String checkPwd = new UserService().longincheck(userId,userPwd);
+		
+		System.out.println(checkPwd);
+		
+		
+		if(checkPwd != null && userPwd.equals(checkPwd)) {
 			request.getRequestDispatcher("/views/myinfo/mypagecorrection.jsp").forward(request, response);
 		}else {
 			HttpSession session = request.getSession();
-			session.setAttribute("alertMsg","비밀번호를 확인해주세요");
+			session.setAttribute("alertMsg", "비밀번호가 다릅니다");
+			response.sendRedirect(request.getContextPath() + "/myinfo.us");
 		}
-		
-		
+		                                                                   
+	
 		
 		
 		
