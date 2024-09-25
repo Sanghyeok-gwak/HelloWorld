@@ -115,7 +115,7 @@ label {
 <section>
     <div class="login-main">
         <div class="helloworld-login-logo">
-            <img src="<%=contextPath %>/assets/image/logo.png" alt="로고이미지">
+           <a href="<%=contextPath %>"> <img src="<%=contextPath %>/assets/image/logo.png" alt="로고이미지"> </a>
         </div>
         <div class="helloworld-login">
             <div class="form-text">
