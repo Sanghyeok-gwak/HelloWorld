@@ -15,7 +15,7 @@ import com.gd.hw.user.model.vo.User;
 /**
  * Servlet implementation class UserMyinfoDelete
  */
-@WebServlet("/myinfoDe.us")
+@WebServlet("/myinfode.us")
 public class UserMyinfoDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

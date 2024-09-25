@@ -34,25 +34,30 @@ public class UserMyinfoChange extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	request.setCharacterEncoding("utf-8");
+	int userNo = Integer.parseInt(request.getParameter("userNo"));
 	String userId = request.getParameter("userId");
 	String userName = request.getParameter("userName");
 	String email = request.getParameter("email");
 	String phone = request.getParameter("phone");
-	String modifyDate = request.getParameter("modify_date");
 	
-	User u = new User(userId,userName,email,phone,modifyDate);
+	User u = new User(userNo,userId,userName,email,phone);
 	
-	User updateU = new UserService().updateU(u);
+	User updateUn = new UserService().updateU(u);
 	
-	if(updateU == null) {
-	  request.setAttribute("alerMsg", "회원 정보 변경 실패");
-	  
+	System.out.println(updateUn);
+	System.out.println(u);
+	
+	HttpSession session = request.getSession();
+	if(updateUn == null) {
+	  session.setAttribute("alerMsg", "회원 정보 변경 실패");
+      request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
+
 	}else {
-		HttpSession session = request.getSession();
-		session.setAttribute("loginUser", updateU);
+		session.setAttribute("loginUser", updateUn);
 		
 		session.setAttribute("alerMsg", "성공적으로 회원정보를 수정");
-		response.sendRedirect(request.getContextPath()+"/myinfo.us");
+		response.sendRedirect(request.getContextPath()+"/myinfoCo.us");
+
 	}
 	
 	

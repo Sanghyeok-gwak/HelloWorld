@@ -94,7 +94,7 @@
       
       
       <!-- form  -->
-      <form action="<%= contextPath%>/myinfoLo.us" class="was-validated"  method="post"> 
+      <form action="<%= contextPath%>/myinfolo.us" class="was-validated"  method="post"> 
      <!--  <div class="was-validated"> -->
         <!-- ID , PWD , table-->
         <table class="correction">

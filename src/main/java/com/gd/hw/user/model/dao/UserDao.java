@@ -334,7 +334,7 @@ public class UserDao {
 			User u = null;
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
-			String sql = prop.getProperty("selectUserById");
+			String sql = prop.getProperty("SelectUserById");
 			
 			try {
 				pstmt = conn.prepareStatement(sql);

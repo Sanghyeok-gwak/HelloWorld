@@ -152,18 +152,21 @@ public class UserService {
 		// 회원정보 변경
 		int result = uDao.updateU(conn, u);
 		
-		User updateU = null;
+		User updateUn = null;
 		
 		if(result > 0) {
 			commit(conn);
 		// 조회
-			updateU = uDao.selectUserById(conn, u.getUserId());	 
+			System.out.println("=======");
+			System.out.println(u.getUserId());
+			updateUn = uDao.selectUserById(conn, u.getUserId());	 
+			
 		}else {
 			rollback(conn);
 		}
 		close(conn);
 		
-		return updateU;
+		return updateUn;
 	}
 	 // 회원상태 탈퇴로 변경
 	 public int deleteUser(String userId) {

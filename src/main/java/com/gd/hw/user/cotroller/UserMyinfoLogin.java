@@ -14,7 +14,7 @@ import com.gd.hw.user.model.service.UserService;
 /**
  * Servlet implementation class UserMyinfoLogin
  */
-@WebServlet("/myinfoLo.us")
+@WebServlet("/myinfolo.us")
 public class UserMyinfoLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
