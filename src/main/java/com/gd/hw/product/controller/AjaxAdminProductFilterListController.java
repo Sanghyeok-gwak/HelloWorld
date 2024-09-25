@@ -21,13 +21,13 @@ import com.google.gson.Gson;
  * Servlet implementation class AdminProductFilterListController
  */
 @WebServlet("/filterByCategory.pro")
-public class AdminProductFilterListController extends HttpServlet {
+public class AjaxAdminProductFilterListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminProductFilterListController() {
+    public AjaxAdminProductFilterListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,12 +39,12 @@ public class AdminProductFilterListController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		String selectFilterByCategory = request.getParameter("category");
+		System.out.println(selectFilterByCategory);
 		int listCount = new AdminProductService().selectProductCategoryListCount(selectFilterByCategory);
 		int currentPage = 1;
 		if(request.getParameter("page") != null) {
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		}
-		
 		int pageLimit = 5;
 		int boardLimit = 5;
 		

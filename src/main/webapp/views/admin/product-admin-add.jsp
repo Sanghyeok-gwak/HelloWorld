@@ -1,29 +1,39 @@
+<%@page import="java.util.List"%>
+<%@page import="com.gd.hw.product.model.vo.Product"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%
+	String contextPath = request.getContextPath();
+	
+	
+	%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <!-- Bootstrap 사용을 위한 CDN -->
 <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+<!-- jQuery 로드 (slim 버전이 아닌 일반 버전 사용) -->
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- ------------------------- -->
+
 <!-- SummerNote -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-	crossorigin="anonymous"></script>
 <link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
-	rel="stylesheet">
+    href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
+    rel="stylesheet">
 <script
-	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <!-- ------------------------- -->
 <style>
 .admin-page-head {
@@ -97,7 +107,14 @@
 	border: 1px solid lightgray;
 	color: black;
 }
-
+#category,#subCategory{
+	width: 150px;
+	border-radius: 5px;
+	background-color: #ffffff;
+	border: 1px solid lightgray;
+	color: black;
+	height: 30px;
+}
 #btn-4 {
 	margin-right: 5px;
 	width: 150px;
@@ -118,17 +135,17 @@
 	padding-right: 50px;
 }
 
-.title-name, .title-price {
+.title-name, .title-price,.file {
 	display: flex;
 	padding-left: 50px;
 	padding-right: 50px;
 }
 
-.title-name-1, .title-price-1 {
+.title-name-1, .title-price-1,.file-1 {
 	width: 50%;
 }
 
-.title-name-2, .title-price-2 {
+.title-name-2, .title-price-2,.file-2 {
 	width: 50%;
 }
 
@@ -188,37 +205,44 @@ h5 {
 	<div class="admin-page">
 		<div class="admin-page-head">
 			<div class="admin-page-head-logo">
-				<img src="../../assets/image/logo.png" alt="logo" width="100%">
+				<img src="<%=contextPath%>/assets/image/logo.png" alt="logo"
+					width="100%">
 			</div>
 			<div class="admin-page-head-gongback"></div>
 		</div>
 		<div class="admin-page-main">
-			<div class="admin-page-main-menu">
+		<div class="admin-page-main-menu">
 				<div class="amdin-page-side-btn1">
-					<button id="btn-2" class="btn" onclick="location.href='#'">상품
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.pro'">
+						상품 관리
+					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">배너
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='#'">
+						배너 관리
+					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">리뷰
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='#'">
+						리뷰 관리
+					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">카테고리
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.cg'">
+						카테고리 관리
+					</button>
 				</div>
 				<div class="amdin-page-side-btn2">
-					<button id="btn-2" class="btn" onclick="location.href='#'">회원
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.us'">
+					회원 관리
+					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">블랙리스트
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='#'">
+					블랙리스트 관리
+					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">이벤트
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='#'">
+					이벤트 관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">결제
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='#'">
+					결제 관리</button>
 				</div>
 				<div class="amdin-page-side-btn3">
 					<button id="btn-2" class="btn" onclick="location.href='#'">FAQ</button>
@@ -232,55 +256,113 @@ h5 {
 			</div>
 			<div class="admin-page-main-item">
 				<h3 style="margin: 50px;">상품등록</h3>
+					<form action="<%=contextPath%>/productAdd.pro" method="post" class="was-validated">
 				<div class="admin-page-product">
-					<form action="">
 						<div class="category">
 							<span style="font-size: 15px;">카테고리</span><br>
-							<button id="btn-3">1차 카테고리</button>
-							<button id="btn-3">2차 카테고리</button>
+							<select id ="category">
+								
+							</select>
+							<select id ="subCategory">
+								
+							</select>
+							<input type="hidden"  id="categoryValue" name ="categoryValue">
+							<input type="hidden" id="subCategoryValue" name ="subCategoryValue">
+							<script>
+							window.onload=function (){
+								$.ajax({
+									url:'<%= contextPath%>/list.mcc',
+									success: function(res){
+										let optionEl = ''
+										for(let i =0; i<res.length; i++){
+											optionEl +='<option value="' + res[i].categoryEngName + '" data-id="'+ res[i].categoryId +'">'
+																 +res[i].categoryName
+																
+																 +'</option>'
+															
+										}
+										$('#category').html(optionEl);
+									}
+								})
+								// 카테고리 선택 시 서브 카테고리 불러오기
+						        $('#category').change(function() {
+						            const selectedCategory = $(this).val(); // 선택된 카테고리
+						            const selectedCategoryId = $('#category option:selected').data('id');
+						            $('#categoryValue').val(selectedCategoryId);
+						            
+						            $.ajax({
+						            		url:'<%= contextPath%>/subList.pro',
+						                data: { categoryName: selectedCategory }, // 선택한 카테고리 이름 전달
+						                success: function(subRes) {
+						                    let subOptionEl = '';
+						                    for (let j = 0; j < subRes.length; j++) {
+						                    	 subOptionEl += '<option value="' + subRes[j].regionEngName + '" data-id="'+ subRes[j].regionId +'">' 
+					                             + subRes[j].regionName 
+					                             + '</option>';
+						                    }
+						                    $('#subCategory').html(subOptionEl); // 서브 카테고리 업데이트
+						                }
+						            });
+						         // 서브 카테고리 선택 시 값을 hidden input에 저장
+						            $('#subCategory').change(function() {
+						                const selectedSubCategoryId = $('#subCategory option:selected').data('id'); // data-id에서 값을 가져옴
+						                $('#subCategoryValue').val(selectedSubCategoryId); // 선택된 서브 카테고리 값을 hidden input에 저장
+						                console.log(selectedSubCategoryId);
+						            });
+						        });
+							}
+							</script>
+							
 							<hr color="lightgray">
 						</div>
 						<div class="title-name">
 							<div class="title-name-1">
-								<span style="font-size: 15px;">상품명</span><br> <input
-									type="text" name="" id="">
+								<span style="font-size: 15px;">상품명</span><br> 
+								<input type="text" name="productName" id="productName" required>
 								<hr color="lightgray">
 							</div>
 							<div class="title-name-2">
-								<span style="font-size: 15px;">항공</span><br> <input
-									type="text" name="" id="">
+								<span style="font-size: 15px;">항공</span><br> 
+								<input type="text" name="flight" id="flight" required>
 								<hr color="lightgray">
 							</div>
 						</div>
 
 						<div class="file">
-							<span style="font-size: 15px;">기본이미지</span><br> <input
-								type="text" name="" id="">
-							<hr color="lightgray">
+							<div class="file-1">
+								<span style="font-size: 15px;">기본이미지</span><br> 
+								<input type="text" name="productImg" id="productImg" required>
+								<hr color="lightgray">
+							</div>
+							<div class="file-1">
+								<span style="font-size: 15px;">수량</span><br> 
+								<input type="number" name="amount" id="amount" required>
+								<hr color="lightgray">
+							</div>
 						</div>
 
 						<div class="title-name">
 							<div class="title-name-1">
-								<span style="font-size: 15px;">여행 시작</span><br> <input
-									type="text" name="" id="">
+								<span style="font-size: 15px;">여행 시작</span><br> 
+								<input type="text" name="startDate" id="startDate" required>
 								<hr color="lightgray">
 							</div>
 							<div class="title-name-2">
-								<span style="font-size: 15px;">여행 끝</span><br> <input
-									type="text" name="" id="">
+								<span style="font-size: 15px;">여행 끝</span><br> 
+								<input type="text" name="endDate" id="endDate" required>
 								<hr color="lightgray">
 							</div>
 						</div>
 
 						<div class="title-price">
 							<div class="title-price-1">
-								<span style="font-size: 15px;">성인 가격</span><br> <input
-									type="text" name="" id="">
+								<span style="font-size: 15px;">성인 가격</span><br> 
+								<input type="number" name="aPrice" id="aPrice" required>
 								<hr color="lightgray">
 							</div>
 							<div class="title-price-2">
-								<span style="font-size: 15px;">소아 가격</span><br> <input
-									type="text" name="" id="">
+								<span style="font-size: 15px;">소아 가격</span><br> 
+								<input type="number" name="cPrice" id="cPrice" required>
 								<hr color="lightgray">
 							</div>
 						</div>
@@ -293,19 +375,18 @@ h5 {
 				<div class="summernote-editor1">
 					<h3>상품소개</h3>
 					<hr color="lightgray">
-					<textarea id="summernote1" name="editordata"></textarea>
+					<textarea id="summernote1" name="summernote1" required></textarea>
 				</div>
 				<div class="summernote-editor2">
 					<h3>일정표</h3>
 					<hr color="lightgray">
-					<textarea id="summernote2" name="editordata"></textarea>
+					<textarea id="summernote2" name="summernote2" required></textarea>
 				</div>
 				<div class="summernote-editor3">
 					<h3>상세정보</h3>
 					<hr color="lightgray">
-					<textarea id="summernote3" name="editordata"></textarea>
+					<textarea id="summernote3" name="summernote3" required></textarea>
 				</div>
-				</form>
 				<div class="admin-page-main-btn">
 					<button id="btn-4" type="submit">
 						<h5>등록</h5>
@@ -314,6 +395,7 @@ h5 {
 						<h5>취소</h5>
 					</button>
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>

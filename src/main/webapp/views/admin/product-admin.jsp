@@ -247,10 +247,10 @@ h5 {
 					
 					
 					<div class="admin-page-main-item-btns">
-						<button id="btn-3">
+						<button id="btn-3" onclick="location.href='<%=contextPath%>/views/admin/product-admin-add.jsp'">
 							<h5>추가</h5>
 						</button>
-						<button id="btn-3">
+						<button id="btn-3" onclick="fnDeleteSelected()">
 							<h5>삭제</h5>
 						</button>
 					</div>
@@ -291,12 +291,12 @@ h5 {
 						            const tbody = $('#product-table tbody');
 						            tbody.empty(); // 기존 내용 삭제
 						            if (data.list.length === 0) {
-						                  tbody.append('<tr><td colspan="7" style="text-align: center;">존재하는 게시글이 없습니다.</td></tr>');
+						                  tbody.append('<tr style="border-bottom: 1px solid lightgrey;"><td colspan="7" style="text-align: center;">존재하는 게시글이 없습니다.</td></tr>');
 						            }else{
 						            // 새로운 데이터로 테이블 업데이트
 							            data.list.forEach(function(product) {
-							                const row = '<tr>' +
-							                    '<td><input type="checkbox" name="list-checkBox"></td>' +
+							                const row = '<tr style="border-bottom: 1px solid lightgrey;">' +
+							                    '<td><input type="checkbox" class="product-checkBox" name="list-checkBox" value="'+product.productId+'"></td>' +
 							                    '<td>' + product.productId + '</td>' +
 							                    '<td>' + product.categoryName + '</td>' +
 							                    '<td>' + product.productName + '</td>' +
@@ -371,15 +371,15 @@ h5 {
 							
 							<% if(list.isEmpty()){%>
                 <tr>
-                  <td colspan="6" style="text-align: center;">존재하는 게시글이 없습니다.</td>
+                  <td colspan="7" style="text-align: center;">존재하는 게시글이 없습니다.</td>
                 </tr>
 							<%}else{ %>	
 								<!-- case2. 조회된 게시글이 있을 경우 -->
 								<%int count =1; %>
 									<%for(int i=0; i<list.size(); i++){ %>
-										<tr>
+										<tr style="border-bottom: 1px solid lightgray;">
 											<td>
-												<input type="checkbox" name="list-checkBox" id="">
+												<input type="checkbox" class="product-checkBox" name="list-checkBox" value="<%=list.get(i).getProductId() %>">
 											</td>
 											<td><%=list.get(i).getProductId()%></td>
 											<td><%=list.get(i).getCategoryName() %></td>
@@ -397,21 +397,57 @@ h5 {
 							
 						</tbody>
 					</table>
+					<script>
+					function fnDeleteSelected() {
+					    const checkboxes = document.querySelectorAll('.product-checkBox:checked'); // 체크된 체크박스 선택
+					    const checkedValues = [];
+					    checkboxes.forEach(checkbox => {
+					        checkedValues.push(checkbox.value); // 체크된 체크박스의 value를 배열에 추가
+					    });
 
+					    if (checkedValues.length === 0) {
+					        alert('삭제할 상품을 선택해주세요.'); // 체크된 상품이 없으면 알림
+					        return;
+					    }
+
+					    const confirmation = confirm('선택한 상품을 삭제하시겠습니까?'); // 삭제 확인 다이얼로그
+					    if (confirmation) {
+
+					        $.ajax({
+			            		
+					        	url:'<%= contextPath%>/deleteProduct.pro',
+			            		traditional: true, 
+			            		data: { checkedValues: checkedValues }, // 선택한 카테고리 이름 전달
+			            		success: function(result) {
+			                        if (result>0) {
+			                            alert('상품이 삭제되었습니다.'); // 삭제 성공 시 알림
+			                            location.reload(); // 페이지 새로 고침
+			                        } else {
+			                            alert('삭제에 실패했습니다.'); // 삭제 실패 시 알림
+			                        }
+			                    },
+			                    
+			            		
+			            	});
+					    }
+					}
+
+					
+					</script>
 					<ul id="pagination-product" class="pagination d-flex justify-content-center text-dark" style="margin-top: 80px;">
 						<li class='page-item <%=pi.getCurrentPage() == 1 ? "disabled" : ""%>'>
-          		<a class="page-link" href="<%=contextPath%>/list.pro?page=<%=pi.getCurrentPage()-1%>"> < </a>
-          	</li>
-						<% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++) { %>
-	          	<li class='page-item <%=p == pi.getCurrentPage() ? "active" : ""%>'>
-	          		<a class="page-link" href="<%= contextPath %>/list.pro?page=<%=p%>"><%= p %></a>
+	          		<a class="page-link" href="<%=contextPath%>/list.pro?page=<%=pi.getCurrentPage()-1%>"> < </a>
 	          	</li>
-          	<% } %>
-          	 
-						<li class='page-item <%=pi.getCurrentPage() == pi.getMaxPage() ? "disabled" : ""%>'>
-          		<a class="page-link" href="<%=contextPath%>/list.pro?page=<%=pi.getCurrentPage()+1%>"> > </a>
-         	 	</li>
-					</ul>
+							<% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++) { %>
+		          	<li class='page-item <%=p == pi.getCurrentPage() ? "active" : ""%>'>
+		          		<a class="page-link" href="<%= contextPath %>/list.pro?page=<%=p%>"><%= p %></a>
+		          	</li>
+	          	<% } %>
+	          	 
+							<li class='page-item <%=pi.getCurrentPage() == pi.getMaxPage() ? "disabled" : ""%>'>
+	          		<a class="page-link" href="<%=contextPath%>/list.pro?page=<%=pi.getCurrentPage()+1%>"> > </a>
+	         	 	</li>
+						</ul>
 				</div>
 			</div>
 		</div>

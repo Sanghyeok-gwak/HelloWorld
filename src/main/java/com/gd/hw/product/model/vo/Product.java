@@ -6,7 +6,9 @@ public class Product {
 	 private String productName;
 	 private String productImg;
 	 private String regionName;
+	 private int regionId;
 	 private String categoryName;
+	 private int categoryId;
 	 private String startDate;
 	 private String endDate;
 	 private String status;
@@ -25,10 +27,43 @@ public class Product {
 	 public Product() {}
 
 
-	public Product(int productId, String productName, String productImg, String regionName, String categoryName,
-			String startDate, String endDate, String status, String stay, int aPrice, int cPrice, int amount,
-			String flight, String infoEditor, String scheduleEditor, String detailEditor, String registrationDate,
-			String modificationDate) {
+	public Product(String productName, String productImg, int regionId, int categoryId, String startDate,
+			String endDate,String stay, int aPrice, int cPrice, int amount, String flight, String infoEditor, String scheduleEditor,
+			String detailEditor) {
+		super();
+		this.productName = productName;
+		this.productImg = productImg;
+		this.regionId = regionId;
+		this.categoryId = categoryId;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.stay = stay;
+		this.aPrice = aPrice;
+		this.cPrice = cPrice;
+		this.amount = amount;
+		this.flight = flight;
+		this.infoEditor = infoEditor;
+		this.scheduleEditor = scheduleEditor;
+		this.detailEditor = detailEditor;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Product [productId=" + productId + ", productName=" + productName + ", productImg=" + productImg
+				+ ", regionName=" + regionName + ", regionId=" + regionId + ", categoryName=" + categoryName
+				+ ", categoryId=" + categoryId + ", startDate=" + startDate + ", endDate=" + endDate + ", status="
+				+ status + ", stay=" + stay + ", aPrice=" + aPrice + ", cPrice=" + cPrice + ", amount=" + amount
+				+ ", flight=" + flight + ", infoEditor=" + infoEditor + ", scheduleEditor=" + scheduleEditor
+				+ ", detailEditor=" + detailEditor + ", registrationDate=" + registrationDate + ", modificationDate="
+				+ modificationDate + "]";
+	}
+
+
+	public Product(int productId, String productName, String productImg, String regionName, 
+			String categoryName, String startDate, String endDate, String status, String stay,
+			int aPrice, int cPrice, int amount, String flight, String infoEditor, String scheduleEditor,
+			String detailEditor, String registrationDate, String modificationDate) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -48,18 +83,6 @@ public class Product {
 		this.detailEditor = detailEditor;
 		this.registrationDate = registrationDate;
 		this.modificationDate = modificationDate;
-	}
-	
-	
-
-
-	public String toString() {
-		return "Product [productId=" + productId + ", productName=" + productName + ", productImg=" + productImg
-				+ ", regionName=" + regionName + ", categoryName=" + categoryName + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", status=" + status + ", stay=" + stay + ", aPrice=" + aPrice + ", cPrice="
-				+ cPrice + ", amount=" + amount + ", flight=" + flight + ", infoEditor=" + infoEditor
-				+ ", scheduleEditor=" + scheduleEditor + ", detailEditor=" + detailEditor + ", registrationDate="
-				+ registrationDate + ", modificationDate=" + modificationDate + "]";
 	}
 
 
@@ -103,6 +126,16 @@ public class Product {
 	}
 
 
+	public int getRegionId() {
+		return regionId;
+	}
+
+
+	public void setRegionId(int regionId) {
+		this.regionId = regionId;
+	}
+
+
 	public String getCategoryName() {
 		return categoryName;
 	}
@@ -110,6 +143,16 @@ public class Product {
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+
+
+	public int getCategoryId() {
+		return categoryId;
+	}
+
+
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 
 
@@ -242,6 +285,8 @@ public class Product {
 		this.modificationDate = modificationDate;
 	}
 
+
+	
 
 	
 	 

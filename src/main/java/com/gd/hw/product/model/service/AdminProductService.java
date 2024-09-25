@@ -1,12 +1,13 @@
 package com.gd.hw.product.model.service;
 
-import static com.gd.hw.common.template.JDBCTemplate.close;
+import static com.gd.hw.common.template.JDBCTemplate.*;
 import static com.gd.hw.common.template.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gd.hw.category.model.vo.Region;
 import com.gd.hw.common.model.vo.PageInfo;
 import com.gd.hw.product.model.dao.AdminProductDao;
 import com.gd.hw.product.model.vo.Product;
@@ -26,13 +27,14 @@ public class AdminProductService {
 		Connection conn = getConnection();
 		int listCount =0;
 		if(selectFilterByCategory.equals("전체")) {
+			System.out.println("전체");
 			listCount = apDao.selectProductListCount(conn);
 		}else {
-			
+			System.out.println("그외");
 			listCount = apDao.selectProductListCount(conn,selectFilterByCategory);
 		}
 		
-		
+		System.out.println(listCount);
 		return listCount;
 	}
 	
@@ -65,6 +67,51 @@ public class AdminProductService {
 		
 	}
 	
+	public List<Region> selectSubList(String categoryEngName){
+		Connection conn = getConnection();
+		
+		List<Region> list = apDao.selectSubList(conn,categoryEngName);
+		
+		
+		
+		close(conn);
+		
+		return list;
+	}
 	
+	public int addProduct(Product p) {
+		Connection conn = getConnection();
+		
+		int result = apDao.addProduct(conn,p);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public int deleteProduct(String[] checkedValue) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		
+		for(int i =0; i<checkedValue.length; i++) {
+			result = apDao.deleteProduct(conn,checkedValue[i]);
+		}
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 	
 }

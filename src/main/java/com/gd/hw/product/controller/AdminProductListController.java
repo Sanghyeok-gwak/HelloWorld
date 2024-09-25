@@ -51,7 +51,7 @@ public class AdminProductListController extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		
+		System.out.println();
 		List<Product> list = new AdminProductService().selectProductList(pi);
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);

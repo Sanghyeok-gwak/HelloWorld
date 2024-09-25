@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+	<entry key="selectProductListCount">
+		SELECT
+		       COUNT(*) as COUNT
+		  FROM 
+		       PRODUCT
+	</entry>
+	<entry key="selectProductCategoryListCount">
+		SELECT
+		       COUNT(*) as COUNT
+		  FROM 
+		       PRODUCT P
+		  JOIN PRO_CATEGORY C ON C.CATEGORY_ID=P.CATEGORY_ID     
+		 WHERE C.CATEGORY_NAME = ?  
+		            
+	</entry>
+
+	<entry key="selectProductList">
+		SELECT *
+  		FROM(
+    SELECT 
+					 PRODUCT_ID,
+					 PRODUCT_NAME,
+					 PRODUCT_IMG,
+					 R.REGION_NAME AS REGION_NAME ,
+					 C.CATEGORY_NAME as CATEGORY_NAME,
+					 START_DATE,
+					 END_DATE,STATUS,STAY,A_PRICE,
+					 C_PRICE,AMOUNT,
+					 FLIGHT,INFO_EDITOR,
+					 SCHEDULE_EDITOR,
+					 DETAIL_EDITOR,
+					 REGISTRATION_DATE,
+					 MODIFICATION_DATE,
+					 ROW_NUMBER() OVER(ORDER BY PRODUCT_ID) as RNUM
+		  FROM PRODUCT P
+		  JOIN PRO_CATEGORY C ON C.CATEGORY_ID=P.CATEGORY_ID
+		  JOIN REGION R ON R.REGION_ID=P.REGION_ID)
+		 WHERE RNUM BETWEEN ? AND ? 
+			
+	</entry>
+	
+	<entry key="filterByCategory">
+		SELECT *
+		  FROM (
+		        SELECT 
+				        PRODUCT_ID,
+				        PRODUCT_NAME,
+				        PRODUCT_IMG,
+				        R.REGION_NAME AS REGION_NAME,
+				        C.CATEGORY_NAME AS CATEGORY_NAME,
+				        START_DATE,
+				        END_DATE,
+				        STATUS,
+				        STAY,
+				        A_PRICE,
+				        C_PRICE,
+				        AMOUNT,
+				        FLIGHT,
+				        INFO_EDITOR,
+				        SCHEDULE_EDITOR,
+				        DETAIL_EDITOR,
+				        REGISTRATION_DATE,
+				        MODIFICATION_DATE,
+						        ROW_NUMBER() OVER (ORDER BY PRODUCT_ID) AS RNUM
+			      FROM PRODUCT P
+			      JOIN PRO_CATEGORY C ON C.CATEGORY_ID = P.CATEGORY_ID
+			      JOIN REGION R ON R.REGION_ID = P.REGION_ID
+			     WHERE C.CATEGORY_NAME = ? 
+		) filtered_products  
+		WHERE RNUM BETWEEN ? AND ?
+           
+	</entry>
+	
+	
+	<entry key="selectSubList">
+		SELECT *
+		  FROM REGION
+		 WHERE REGION_ENG_NAME = ? 
+	
+	</entry>
+	
+	<entry key="addProduct">
+		INSERT
+		  INTO 
+		  			  PRODUCT 
+		  VALUES (
+		  				SEQ_PRODUCT.NEXTVAL
+		         ,?
+		         ,?
+		         ,?
+		         ,?
+		         ,?
+		         ,?
+		         ,'P'
+		         ,?
+		         ,?
+		         ,?
+		         ,?
+		         ,?
+		         ,?
+		         ,?
+		         ,?
+		         ,SYSDATE
+		         ,SYSDATE
+		         	)
+	</entry>
+
+	<entry key="deleteProduct">
+		DELETE
+		  FROM PRODUCT
+		 WHERE PRODUCT_ID = ? 
+		
+		
+	</entry>
+
+
+
+
+
+</properties>

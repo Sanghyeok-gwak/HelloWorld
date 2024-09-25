@@ -1,29 +1,39 @@
+<%@page import="com.gd.hw.product.model.vo.Product"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%
+	String contextPath = request.getContextPath();
+	List<Product> list = (List<Product>)request.getAttribute("list");
+	
+	
+	%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <!-- Bootstrap 사용을 위한 CDN -->
 <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+<!-- jQuery 로드 (slim 버전이 아닌 일반 버전 사용) -->
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- ------------------------- -->
+
 <!-- SummerNote -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-	crossorigin="anonymous"></script>
 <link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
-	rel="stylesheet">
+    href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
+    rel="stylesheet">
 <script
-	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <!-- ------------------------- -->
 
 
@@ -190,37 +200,43 @@ h5 {
 	<div class="admin-page">
 		<div class="admin-page-head">
 			<div class="admin-page-head-logo">
-				<img src="../../assets/image/logo.png" alt="logo" width="100%">
+				<img src="<%= contextPath %>/assets/image/logo.png" alt="logo" width="100%">
 			</div>
 			<div class="admin-page-head-gongback"></div>
 		</div>
 		<div class="admin-page-main">
 			<div class="admin-page-main-menu">
 				<div class="amdin-page-side-btn1">
-					<button id="btn-2" class="btn" onclick="location.href='#'">상품
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.pro'">
+						상품 관리
+					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">배너
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='#'">
+						배너 관리
+					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">리뷰
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='#'">
+						리뷰 관리
+					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">카테고리
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.cg'">
+						카테고리 관리
+					</button>
 				</div>
 				<div class="amdin-page-side-btn2">
-					<button id="btn-2" class="btn" onclick="location.href='#'">회원
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.us'">
+					회원 관리
+					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">블랙리스트
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='#'">
+					블랙리스트 관리
+					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">이벤트
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='#'">
+					이벤트 관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">결제
-						관리</button>
+					<button id="btn-2" class="btn" onclick="location.href='#'">
+					결제 관리</button>
 				</div>
 				<div class="amdin-page-side-btn3">
 					<button id="btn-2" class="btn" onclick="location.href='#'">FAQ</button>

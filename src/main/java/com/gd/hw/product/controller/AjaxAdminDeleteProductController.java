@@ -1,29 +1,25 @@
-package com.gd.hw.mainhome.controller;
+package com.gd.hw.product.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gd.hw.category.model.vo.ProCategory;
-import com.gd.hw.mainhome.model.service.MainService;
-import com.google.gson.Gson;
+import com.gd.hw.product.model.service.AdminProductService;
 
 /**
- * Servlet implementation class MainCategoryController
+ * Servlet implementation class AjaxAdminDeleteProductController
  */
-@WebServlet("/list.mcc")
-public class MainCategoryController extends HttpServlet {
+@WebServlet("/deleteProduct.pro")
+public class AjaxAdminDeleteProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainCategoryController() {
+    public AjaxAdminDeleteProductController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,15 +29,19 @@ public class MainCategoryController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		List<ProCategory> list = new MainService().selectList();
+		request.setCharacterEncoding("utf-8");
 		
-		if(!list.isEmpty()) {
-			response.setContentType("application/json; charset=UTF-8");
-			new Gson().toJson(list, response.getWriter());
+		String checkedValues[] = request.getParameterValues("checkedValues");
+		
+		int result = new AdminProductService().deleteProduct(checkedValues);
+		
+		if(result>0) {
+			response.setContentType("text/html; charset=UTF-8");
+			response.getWriter().print(result);
+			System.out.println("성공");
+		}else {
+			System.out.println("실패");
 		}
-		
-		
-		
 	}
 
 	/**
