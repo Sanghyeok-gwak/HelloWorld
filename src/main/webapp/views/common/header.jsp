@@ -175,5 +175,3 @@ h5 {
 			<hr>
 		</div>
 		<!-- Header, Nav end -->
-	</div>
-</body>
