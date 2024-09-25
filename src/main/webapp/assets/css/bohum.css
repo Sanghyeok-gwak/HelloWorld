@@ -1,0 +1,40 @@
+body {
+    width: 600px;
+    height: 400px;
+}
+.popup {
+    text-align: center;
+}
+.level {
+    background-color: #b0b0b0;
+    color: #fff;
+    padding: 20px 0;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+.level label {
+    padding: 0 15px;
+}
+.bohum-check {
+    margin-left: 30px;
+}
+.bohum-check input {
+    margin-right: 60px;
+    border-bottom: #b0b0b0;
+}
+.bohum-list li {
+    list-style-type: none;
+    border-bottom: #b0b0b0;
+    margin-bottom: 20px;
+}
+.bohum-list p {
+    color: rgb(255, 0, 0);
+    text-align: center;
+    font-size: 14px;
+}
+.bohum-choise {
+    text-align: center;
+}
+.margin-btn {
+ margin-left: 100px;
+}

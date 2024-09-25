@@ -1,0 +1,671 @@
+.helloworld-main {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.helloworld-main-sub {
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* header */
+header {
+  height: 150px
+}
+
+header a {
+  color: black;
+}
+
+.nav-link {
+  color: black;
+  width: 200px;
+  font-size: 20px;
+  text-align: center;
+  transition-property: background-color;
+  transition-duration: 1s;
+  border-radius: 10px;
+}
+
+.nav-link:hover {
+  color: white;
+  background-color: #007AFF;
+  border-radius: 10px;
+
+}
+
+#head-info {
+  display: flex;
+}
+
+#head-info li {
+  width: 90px;
+  list-style: none;
+  text-align: center;
+}
+
+#head-info li a {
+  text-decoration: none;
+}
+
+#head-info li a:hover {
+  text-decoration: none;
+  color: #007AFF;
+}
+
+/* footer */
+footer {
+  height: 200px;
+  border-top: 1px solid lightgray;
+}
+
+footer a {
+  color: black
+}
+
+.footer-info {
+  list-style: "-  ";
+  padding-left: 30px;
+}
+
+.footer-copyright {
+  text-align: center
+}
+
+.footer-top {
+  display: flex;
+  margin-top: 30px;
+
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+#footer-box {
+  margin-top: 200px !important;
+}
+
+/* 공통 스타일 */
+/* font */
+h1 {
+  font-size: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+h3 {
+  font-size: 24px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+h5 {
+  font-size: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+/* button */
+#btn-1 {
+  background-color: #007AFF;
+  color: white;
+}
+
+#btn-2 {
+  background-color: #ffffff;
+  border: 1px solid lightgray;
+  color: black;
+}
+
+
+
+.check-box {
+  display: flex;
+  flex-direction: column;
+  background-color: #ededed;
+  height: 180px;
+  border: 1px solid #696969;
+}
+
+#wrap2 {
+  display: inline-block;
+  border-bottom: 1px solid #696969;
+  padding: 30px;
+  height: 50%;
+  align-items: center;
+}
+
+#wrap2 label {
+  margin: 0;
+}
+
+#wrap2 label:first-of-type {
+  margin-right: 30px;
+}
+
+#wrap3 {
+  display: flex;
+  padding: 30px 20px;
+  height: 50%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#wrap3 label {
+  margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 예약 STEP 순서*/
+.product-name {
+  display: flex;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.product-name h1 {
+  width: 250px;
+  color: white;
+  text-align: center;
+}
+
+.product-name p {
+  width: auto;
+  color: white;
+  margin: 0;
+}
+
+.reservation {
+  width: 30%;
+  height: 100px;
+  display: flex;
+  background-color: #242262;
+  justify-content: center;
+  align-items: center;
+}
+
+.infoEnter {
+  width: 35%;
+  height: 100px;
+  display: flex;
+  background-color: #618fd3;
+  justify-content: center;
+  align-items: center;
+}
+
+.infoEnter h1 p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.infoCheck {
+  width: 35%;
+  height: 100px;
+  display: flex;
+  background-color: #4564b4;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 01 상품정보 및 01 ~ 공통 */
+.number {
+  display: inline-block;
+  color: blue;
+}
+
+.num-name {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.sub-num-name {
+  display: inline-block;
+  color: #d9d9d9;
+  font-size: 12px;
+}
+
+.one-table {
+  width: 100%;
+}
+
+.one-table thead {
+  background-color: #ededed;
+  font-weight: 900;
+}
+
+.one-table td {
+  border: 1px solid #b0b0b0;
+  padding: 8px;
+}
+
+.ow-all {
+  margin-bottom: 60px;
+}
+
+/* 02 약관동의 */
+.order-window-2-dt {
+  background-color: #b0b0b0;
+  width: 100%;
+  text-align: center;
+}
+
+.order-window-2-menu {
+  font-weight: bold;
+  padding: 5px 10px;
+  border: 2px solid #696969;
+  width: 20%;
+  font-size: 15px;
+}
+
+.cancle-provision-content {
+  border: 2px solid #696969;
+  padding: 15px 25px;
+}
+
+.cancle-provision-content p:first-of-type {
+  color: #b0b0b0;
+  font-weight: bold;
+}
+
+.content-all {
+  border: 2px solid #696969;
+  padding: 15px 25px;
+}
+
+.content-all p {
+  margin: 0;
+}
+
+.content-all p:first-of-type {
+  margin-bottom: 12px;
+}
+
+.travel-tern-content p {
+  margin-bottom: 3px;
+  margin-left: 10px;
+}
+
+.travel-title {
+  font-weight: bold;
+}
+
+.personal-information-content h5 {
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.personal-information-content th {
+  border: 1px solid #b0b0b0;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  width: 33%;
+}
+
+.personal-information-content td {
+  border: 1px solid #b0b0b0;
+  text-align: left;
+  padding: 10px;
+  font-size: 14px;
+  width: 33%;
+}
+
+.collect-unique-information-content h5 {
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.collect-unique-information-content th {
+  border: 1px solid #b0b0b0;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  width: 33%;
+}
+
+.collect-unique-information-content td {
+  border: 1px solid #b0b0b0;
+  text-align: left;
+  padding: 10px;
+  font-size: 14px;
+  width: 33%;
+}
+
+.collect-unique-information-content p:first-of-type {
+  font-weight: bold;
+  padding-top: 30px;
+  color: black;
+}
+
+.collect-unique-information-content p {
+  font-size: 12px;
+  color: #b0b0b0;
+}
+
+.personal-information-third h5 {
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.personal-information-third th {
+  border: 1px solid #b0b0b0;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  width: 25%;
+}
+
+.personal-information-third td {
+  border: 1px solid #b0b0b0;
+  text-align: left;
+  padding: 10px;
+  font-size: 14px;
+  width: 25%;
+}
+
+/* 03 여행자 정보 */
+.ow3-content {
+  display: flex;
+  flex-direction: row;
+  background-color: #ededed;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  min-width: 20%;
+  margin: 0;
+  align-items: center;
+  /* 수평 중앙 정렬 */
+  justify-content: center;
+  /* 수직 중앙 정렬 */
+}
+
+.form-group h3 {
+  margin: 0 auto;
+  padding: 20px 20px;
+}
+
+.form-group:nth-child(1) {
+  background-color: #b0b0b0;
+}
+
+.form-control {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.form-group label {
+  width: 30%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.form-group-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* 중앙에 수직 정렬 */
+  align-items: center;
+  /* 중앙에 수평 정렬 */
+  border: 1px solid #ccc;
+  padding: 30px 50px;
+  min-width: 20%;
+  align-items: flex-start;
+  background-color: #dcdcdc;
+}
+
+.form-group-description p {
+  font-size: 14px;
+}
+
+/* 여행자 정보 입력란 */
+.board-list02 colgroup {
+  border: 1px solid #ccc;
+}
+
+.board-list02 thead th {
+  background-color: #b0b0b0;
+  border: 1px solid gray;
+  text-align: center;
+  color: #fff;
+  padding: 10px;
+}
+
+.first {
+  width: 80px;
+}
+
+.rep-red::after {
+  content: ' *';
+  /* 별표 추가 */
+  color: red;
+  font-weight: bold;
+}
+
+.sub-mask table {
+  width: 100%;
+}
+
+.section-data1 {
+  margin-bottom: 60px;
+}
+
+/* 대표,성인,유아 입력란 */
+.cell {
+  padding: 7px 0 2px;
+  font-size: 11px;
+  color: rgb(90, 90, 90);
+  text-align: center;
+  letter-spacing: -0.025em;
+  border: 1px solid rgb(220, 220, 220);
+}
+
+.input-field {
+  height: 18px;
+  line-height: 18px;
+  border: 1px solid #dcdcdc;
+  position: relative;
+  top: -2px;
+  font-size: 11px;
+  font-family: dotum;
+}
+
+.sel-area {
+  display: inline-block;
+  position: relative;
+}
+
+.bsc1SelectWrapN {
+  width: 66px;
+}
+
+.bsc1SelectsN input {
+  width: 49px;
+}
+
+.bscOptionsN {
+  display: none;
+  width: 64px;
+}
+
+.bscOptionsN li {
+  width: 50px;
+}
+
+/* 04 결제금액 및 할인혜택 */
+.option-info {
+  border: 2px solid #666;
+  width: 100%;
+}
+
+.option-info-title {
+  border: 1px solid #666;
+  background-color: #ededed;
+  text-align: center;
+  padding: 0 30px;
+}
+
+.product-pay {
+  border: 1px solid #666;
+  padding: 40px 30px;
+  text-align: right;
+}
+
+.traffic-bohum label {
+  display: inline-block;
+}
+
+.form-control {
+  display: inline-block;
+}
+
+.traffic-bohum {
+  padding: 40px 30px;
+  text-align: center;
+}
+
+.traffic-bohum select {
+  width: 500px;
+  margin-left: 10px;
+}
+
+.traffic-bohum label {
+  font-weight: bold;
+}
+
+.main-bohum {
+  text-align: center;
+  padding-bottom: 60px;
+}
+
+
+.enabled {
+  background-color: #007AFF;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 20px;
+  font-weight: bold;
+}
+
+.disabled {
+  pointer-events: none;
+  color: #666;
+  background-color: #b0b0b0;
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 20px;
+  font-weight: bold;
+}
+.enabled:hover {
+  background-color: #007AFF;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 20px;
+  font-weight: bold;
+}
+
+.disabled:hover {
+  pointer-events: none;
+  color: #666;
+  background-color: #b0b0b0;
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 20px;
+  font-weight: bold;
+}
+.m-point {
+  border: 1px solid #666;
+  padding: 40px 30px;
+}
+
+.m-point label {
+  margin-right: 150px;
+}
+
+.m-point button {
+  margin-left: 130px;
+  width: 120px;
+}
+
+.pay-input {
+  width: 30%;
+  margin-right: 20px;
+}
+
+.point-precautions {
+  padding: 30px;
+  color: #696969;
+}
+
+/* 결제금액 box */
+.order-window-5 {
+  border: 1px solid #666;
+  display: inline-block;
+  width: 100%;
+  height: 85px;
+}
+
+.order-window-5-title {
+  background-color: #003366;
+  color: white;
+}
+
+.order-window-5 table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.order-window-5 table td {
+  padding: 10px;
+  text-align: left;
+  border: 1 0 0 1 solid #ccc;
+}
+
+.order-window-5 table td:first-child {
+  display: inline-block;
+  background-color: #003366;
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+
+/* 예약,취소 버튼 */
+.order-window-6-button {
+  text-align: center;
+}
+
+.order-window-6-button form {
+  display: inline-block;
+  margin-left: 100px;
+}
