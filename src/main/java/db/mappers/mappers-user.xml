@@ -99,6 +99,7 @@
 	  WHERE
 	  		USER_ID = ?
 	  	AND USER_PWD = ?
+	  	
 	</entry>
 	
 	<entry key="longincheck">
@@ -143,7 +144,7 @@
             USER_ID = ?
 	</entry>
 	
-	<entry key="DeleteUser">
+	<entry key="deleteUser">
 	UPDATE 
        	    "USER"
        SET 

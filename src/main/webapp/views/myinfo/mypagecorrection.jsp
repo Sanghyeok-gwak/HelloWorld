@@ -131,11 +131,11 @@
             <div class="edit">
                 <div class="edit-button">
                     <h3>회원정보 수정</h3>
-                    <button id="btn-4" class="btn" data-toggle="modal" data-target="#myModal-2">탈퇴</button>
+                    <button id="btn-2" class="btn" data-toggle="modal" data-target="#myModal-2">탈퇴</button>
                 </div>
                 <hr>
+              	<form action="<%= contextPath%>/myinfoch.us" method="post">
                 <table class="correction">
-               	<form action="<%= contextPath%>/myinfoCh.us" method="post">
                     <tr>
                         <th><h5>아이디</h5></th>
                         <td><input type="text" value="<%= loginUser.getUserId() %>" readonly id="userid" name="userId"></td>
@@ -160,17 +160,15 @@
                     <button type="button" id="btn-1" class="btn" data-toggle="modal" data-target="#myModal-1">비밀번호변경</button>
                     <button type="submit" id="btn-3" class="btn" >확인</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
-        </form>
         <script>
         <%-- 버튼 스크립트 --%>
       <%--  document.getElementById("btn-3").addEventListener("click",()=>{
         location.href="<%=contextPath%>/myinfoCh.us"}) --%>
         <%-- 버튼 스크립트 끝 --%>
-        document.getElementById("btn-4").addEventListener("click",()=>{
-        location.href="<%=contextPath%>/myinfoDe.us"})
         <%-- 전화번호 형식 스크립트 --%>
      	$(document).ready(function() {
 			
@@ -265,7 +263,10 @@
     </div>
     
   </div>
-  
+  <script>
+  document.getElementById("btn-4").addEventListener("click",()=>{
+      location.href="<%=contextPath%>/myinfode.us"})
+  </script>
       <%@ include file="/views/common/footer.jsp" %>
   
 </body>

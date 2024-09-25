@@ -16,7 +16,7 @@ import com.gd.hw.user.model.vo.User;
 /**
  * Servlet implementation class UserMyinfoChange
  */
-@WebServlet("/myinfoCh.us")
+@WebServlet("/myinfoch.us")
 public class UserMyinfoChange extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

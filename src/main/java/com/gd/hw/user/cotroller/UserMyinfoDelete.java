@@ -33,7 +33,7 @@ public class UserMyinfoDelete extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String userId = ((User)session.getAttribute("loginUser")).getUserId();
-
+		
 		int result = new UserService().deleteUser(userId);
 		
 		if(result > 0 ) {
@@ -42,7 +42,7 @@ public class UserMyinfoDelete extends HttpServlet {
 			response.sendRedirect(request.getContextPath());
 		}else {
 			session.setAttribute("alertMsg", "회원 탈퇴 실패");
-			response.sendRedirect(request.getContextPath() + "/myinfo.us");
+			response.sendRedirect(request.getContextPath());
 		}
 	}
 
