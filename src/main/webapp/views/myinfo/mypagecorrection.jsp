@@ -103,10 +103,7 @@
             background-color: #e8eaeb;
         		color: black;
         }
-        #btn-4{
-						background-color: #e8eaeb;
-        		color: black;
-        }
+
 
 </style>
 <body>
@@ -201,20 +198,22 @@
   
         <!-- Modal body -->
         <div class="modal-body">
+          <form action="<%= contextPath %>/myinfopwd.us" method="post">
+          	<input type="hidden" name="userId" value="<%= loginUser.getUserId() %>">
           <table class="table table-hover">
             <thead></thead>
             <tbody>
               <tr>
                 <td><h5>현재 비밀번호</h5></td>
-                <td><input type="password"></td>
+                <td><input type="password" name="userPwd" required></td>
               </tr>
               <tr>
                 <td><h5>변경 비밀번호</h5></td>
-                <td><input type="password" class="change-password"></td>
+                <td><input type="password" class="change-password" name="updatePwd" required></td>
               </tr>
               <tr>
                 <td><h5>변경 비밀번호 확인</h5></td>
-                <td><input type="password" class="change-password"></td>
+                <td><input type="password" class="change-password" required></td>
               </tr>
             </tbody>
           </table>
@@ -223,9 +222,10 @@
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn" id="btn-2" data-dismiss="modal">취소</button>
-          <button type="button" class="btn" id="btn-1" data-dismiss="modal">확인</button>
+          <button type="submit" class="btn" id="btn-1" >확인</button>
         </div>
   
+        </form>
       </div>
     </div>
   </div>
@@ -257,7 +257,6 @@
             <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn-4">확인</button>
             <button type="button" id="btn-1"class="btn" data-dismiss="modal">취소</button>
           </div>
-          
         </div>
       </div>
     </div>

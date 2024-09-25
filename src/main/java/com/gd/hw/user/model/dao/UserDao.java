@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import com.gd.hw.category.model.dao.CategoryDao;
@@ -308,10 +309,10 @@ public class UserDao {
 
 	
 	
-	public int updateU (Connection conn , User u) {
+	public int updateUser (Connection conn , User u) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("updateU");
+		String sql = prop.getProperty("updateUser");
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -380,5 +381,23 @@ public class UserDao {
 		return result;
 		
 	}
+	public int updateUserPwd(Connection conn,Map<String,String>map) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateUserPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, map.get("updatePwd"));
+			pstmt.setString(2, map.get("userId"));
+			pstmt.setString(3,map.get("userPwd"));
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		  return result;
+	} 
 
 }
