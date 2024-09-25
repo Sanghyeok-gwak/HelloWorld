@@ -53,13 +53,15 @@ header a {
 	width: 200px;
 	font-size: 20px;
 	text-align: center;
-	transition: background-color 1s;
+	transition-property: background-color;
+	transition-duration: 1s;
 	border-radius: 10px;
 }
 
 .nav-link:hover {
 	color: white;
 	background-color: #007AFF;
+	border-radius: 10px;
 }
 
 #head-info {
