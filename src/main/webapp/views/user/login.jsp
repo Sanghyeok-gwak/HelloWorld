@@ -1,26 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%
-	String contextPath = request.getContextPath();
-	String alertMsg = (String) request.getAttribute("alertMsg");
-
+    String contextPath = request.getContextPath();
+    String alertMsg = (String) request.getAttribute("alertMsg");
+    
+    // 쿠키에서 저장된 아이디를 불러오기
+    String savedUserId = "";
+    javax.servlet.http.Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+        for (javax.servlet.http.Cookie cookie : cookies) {
+            if ("savedUserId".equals(cookie.getName())) {
+                savedUserId = cookie.getValue();
+                break;
+            }
+        }
+    }
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<!-- Bootstrap 사용을 위한 CDN -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<!-- ------------------------- -->
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <!-- Bootstrap 사용을 위한 CDN -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- ------------------------- -->
 <style>
 h1 {
 	font-size: 30px;
@@ -113,6 +124,7 @@ label {
             <form action="<%=contextPath %>/login.me" method="post" class="was-validated">
                 <label for="id">아이디</label>
                 <input type="text" class="form-control" placeholder="아이디를 입력하세요." name="userId" id="id"
+                       value="<%= savedUserId %>"
                        style="width: 100%; height: 45px; border-radius: 5px; border: 1px solid rgb(181, 181, 181);" required>
                 
                 <label for="pwd">비밀번호</label>
@@ -125,17 +137,32 @@ label {
                 </div>
                 
                 <label class="form-check-label">
-                    <input name="rememberMe" type="checkbox"> 아이디 저장
+                    <input name="rememberMe" type="checkbox" id="rememberMe" <%= savedUserId.isEmpty() ? "" : "checked" %>> 아이디 저장
                 </label>
                 <button type="submit" id="btn-1" class="btn btn-primary">로그인</button>
                 <div class="AuthModule">
-                    <a href="<%=contextPath %>/views/user/signupStart.jsp">회원가입</a>&nbsp; |&nbsp; <a href="#">아이디찾기</a>&nbsp; |&nbsp; <a href="#">비밀번호찾기</a>
+                    <a href="<%=contextPath %>/views/user/signupStart.jsp">회원가입</a>&nbsp; |&nbsp; <a href="<%=contextPath %>/views/user/FindAccount.jsp">아이디찾기</a>&nbsp; |&nbsp; <a href="<%=contextPath %>/views/user/FindAccount.jsp">비밀번호찾기</a>
                 </div>
-
             </form>
         </div>
     </div>
 </section>
 <%@ include file="/views/common/footer.jsp" %>
+
+<script>
+// 쿠키 저장 및 삭제
+document.getElementById('btn-1').addEventListener('click', function() {
+    const rememberMe = document.getElementById('rememberMe').checked;
+    const userId = document.getElementById('id').value;
+
+    if (rememberMe) {
+        // 쿠키에 아이디 저장 (유효기간 7일)
+        document.cookie = "savedUserId=" + userId + "; path=/; max-age=" + (7 * 24 * 60 * 60);
+    } else {
+        // 쿠키 삭제
+        document.cookie = "savedUserId=; path=/; max-age=0";
+    }
+});
+</script>
 </body>
 </html>
