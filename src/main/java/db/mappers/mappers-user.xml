@@ -152,6 +152,22 @@
      WHERE 
            USER_ID  = ?
 	</entry>
+
+	<entry key = "SignupUser">
+		INSERT 
+		  INTO "USER" 
+		VALUES (
+		        SEQ_USER.NEXTVAL
+		      , ?
+		      , ?
+		      , ?
+		      , ?
+		      , ?
+		      , SYSDATE 
+		      , SYSDATE 
+		      ,'U'
+		      ,'U')
+	</entry>
 	
 	
 	

@@ -177,7 +177,20 @@ public class UserService {
 		 close(conn);
 		 return result;
 	 }
-
+	 
+	 public int SignupUser(User u) {
+		 Connection conn = getConnection();
+		 int result = uDao.SignupUser(conn, u);
+		 
+		 if(result > 0) {
+			 commit(conn);
+		 }else {
+			 rollback(conn);
+		 }
+		 close(conn);
+		 
+		 return result;
+	 }
 	
 
 	

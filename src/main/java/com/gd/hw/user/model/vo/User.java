@@ -46,7 +46,7 @@ public class User {
 		this.modifyDate = modifyDate;
 		this.status = status;
 	}
-	/*관리자 회원추가용 매개변수생성자*/
+	/*관리자 회원추가용 매개변수생성자*/ /*사용자 회원가입insert에도 사용중*/
 	public User(String userId, String userPwd, String userName, String email, String phone) {
 		super();
 		this.userId = userId;
@@ -74,6 +74,7 @@ public class User {
 		this.phone = phone;
 		this.modifyDate = modifyDate;
 	}
+		
 	public int getUserNo() {
 		return userNo;
 	}

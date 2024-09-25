@@ -380,5 +380,29 @@ public class UserDao {
 		return result;
 		
 	}
+	/* 사용자 페이지 회원가입*/
+	public int SignupUser(Connection conn, User u) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("SignupUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, u.getUserId());
+			pstmt.setString(2, u.getUserPwd());
+			pstmt.setString(3, u.getUserName());
+			pstmt.setString(4, u.getPhone());
+			pstmt.setString(5, u.getEmail());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 }
