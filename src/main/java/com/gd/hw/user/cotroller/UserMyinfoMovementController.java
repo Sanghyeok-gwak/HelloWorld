@@ -1,27 +1,23 @@
 package com.gd.hw.user.cotroller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.gd.hw.user.model.service.UserService;
 
 /**
- * Servlet implementation class UserMyinfoLogin
+ * Servlet implementation class UserMyinfomovement
  */
-@WebServlet("/myinfolo.us")
-public class UserMyinfoLogin extends HttpServlet {
+@WebServlet("/myinfom.us")
+public class UserMyinfoMovementController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserMyinfoLogin() {
+    public UserMyinfoMovementController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,30 +26,9 @@ public class UserMyinfoLogin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
-		String userId = request.getParameter("userId");
-		System.out.println(userId);
-		String userPwd = request.getParameter("userPwd");
-		System.out.println(userPwd);
-		
-		
-		String checkPwd = new UserService().longincheck(userId,userPwd);
-		
-		System.out.println(checkPwd);
-		
-		
-		if(checkPwd != null && userPwd.equals(checkPwd)) {
-			request.getRequestDispatcher("/views/myinfo/mypagecorrection.jsp").forward(request, response);
-		}else {
-			HttpSession session = request.getSession();
-			session.setAttribute("alertMsg", "비밀번호가 다릅니다");
-			response.sendRedirect(request.getContextPath() + "/myinfo.us");
-		}
-		                                                                   
-	
-		
-		
-		
+
+		request.getRequestDispatcher("/views/myinfo/mypage.jsp").forward(request, response);
+
 	}
 
 	/**

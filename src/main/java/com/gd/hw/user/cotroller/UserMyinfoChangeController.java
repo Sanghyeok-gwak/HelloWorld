@@ -17,13 +17,13 @@ import com.gd.hw.user.model.vo.User;
  * Servlet implementation class UserMyinfoChange
  */
 @WebServlet("/myinfoch.us")
-public class UserMyinfoChange extends HttpServlet {
+public class UserMyinfoChangeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserMyinfoChange() {
+    public UserMyinfoChangeController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,21 +42,21 @@ public class UserMyinfoChange extends HttpServlet {
 	
 	User u = new User(userNo,userId,userName,email,phone);
 	
-	User updateUn = new UserService().updateU(u);
+	User updateUn = new UserService().updateUser(u);
 	
 	System.out.println(updateUn);
 	System.out.println(u);
 	
 	HttpSession session = request.getSession();
 	if(updateUn == null) {
-	  session.setAttribute("alerMsg", "회원 정보 변경 실패");
+	  session.setAttribute("alertMsg", "회원 정보 변경 실패");
       request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
 
 	}else {
 		session.setAttribute("loginUser", updateUn);
 		
-		session.setAttribute("alerMsg", "성공적으로 회원정보를 수정");
-		response.sendRedirect(request.getContextPath()+"/myinfoCo.us");
+		session.setAttribute("alertMsg", "성공적으로 회원정보를 수정");
+		response.sendRedirect(request.getContextPath()+"/myinfoco.us");
 
 	}
 	
