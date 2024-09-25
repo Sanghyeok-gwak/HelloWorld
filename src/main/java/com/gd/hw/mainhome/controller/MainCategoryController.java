@@ -33,7 +33,7 @@ public class MainCategoryController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		// 여기다가 테스트!
 		List<ProCategory> list = new MainService().selectList();
 		
 		if(!list.isEmpty()) {
