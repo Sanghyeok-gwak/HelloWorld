@@ -277,8 +277,9 @@ public class UserDao {
 		return u;
 	}
 	// 마이페이지 로그인 확인
-	public int longincheck(Connection conn, String userId, String userPwd) {
-		int count = 0;
+	public String longincheck(Connection conn, String userId, String userPwd) {
+		
+		String userPwdCheck = null;
 		
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("longincheck");
@@ -291,17 +292,18 @@ public class UserDao {
 			result = pstmt.executeQuery();
 			
 			if(result.next()) {
-				count = result.getInt("user_id");
+				userPwdCheck = result.getString("USER_PWD");
 			}
 				
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
 		}finally {
+			close(result);
 			close(pstmt);
 		}
 			
-		return count;
+		return userPwdCheck;
 	}
 
 	

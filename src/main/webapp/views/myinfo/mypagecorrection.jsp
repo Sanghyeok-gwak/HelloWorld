@@ -137,11 +137,11 @@
                 <table class="correction">
                     <tr>
                         <th><h5>아이디</h5></th>
-                        <td><input type="text" value="user01" disabled id="userid"></td>
+                        <td><input type="text" value="<%= loginUser.getUserId() %>" disabled id="userid"></td>
                     </tr>
                     <tr>
                         <th><h5>이름</h5></th>
-                        <td><input type="text" id="name" value="이준"></td>
+                        <td><input type="text" id="name" value="<%= loginUser.getUserName() %>"></td>
                     </tr>
                     <tr>
                         <th><h5>이메일</h5></th>
