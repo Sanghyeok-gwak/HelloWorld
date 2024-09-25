@@ -1,4 +1,4 @@
-package com.gd.hw.user.cotroller;
+package com.gd.hw.myinfo.cotroller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

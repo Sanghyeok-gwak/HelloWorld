@@ -1,4 +1,4 @@
-package com.gd.hw.user.cotroller;
+package com.gd.hw.myinfo.cotroller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class UserMyinfomovement
+ * Servlet implementation class MyinfoCorrection
  */
-@WebServlet("/myinfom.us")
-public class UserMyinfoMovementController extends HttpServlet {
+@WebServlet("/myinfoco.us")
+public class UserMyinfoCorrectionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserMyinfoMovementController() {
+    public UserMyinfoCorrectionController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,9 +26,10 @@ public class UserMyinfoMovementController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		request.getRequestDispatcher("/views/myinfo/mypage.jsp").forward(request, response);
 
+		
 	}
 
 	/**

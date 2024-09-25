@@ -1,4 +1,4 @@
-package com.gd.hw.user.cotroller;
+package com.gd.hw.myinfo.cotroller;
 
 import java.io.IOException;
 
@@ -10,19 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.gd.hw.user.model.service.UserService;
-import com.gd.hw.user.model.vo.User;
 
 /**
- * Servlet implementation class UserMyinfoDelete
+ * Servlet implementation class UserMyinfoLogin
  */
-@WebServlet("/myinfode.us")
-public class UserMyinfoDeleteController extends HttpServlet {
+@WebServlet("/myinfolo.us")
+public class UserMyinfoLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserMyinfoDeleteController() {
+    public UserMyinfoLoginController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,19 +30,30 @@ public class UserMyinfoDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+				
+		String userId = request.getParameter("userId");
+		System.out.println(userId);
+		String userPwd = request.getParameter("userPwd");
+		System.out.println(userPwd);
 		
-		int result = new UserService().deleteUser(userId);
 		
-		if(result > 0 ) {
-			session.removeAttribute("loginUser");
-			session.setAttribute("alertMsg", "성공적으로 탈퇴되었습니다. 그동안 이용해 주셔서 감사합니다.");
-			response.sendRedirect(request.getContextPath());
+		String checkPwd = new UserService().longincheck(userId,userPwd);
+		
+		System.out.println(checkPwd);
+		
+		
+		if(checkPwd != null && userPwd.equals(checkPwd)) {
+			request.getRequestDispatcher("/views/myinfo/mypagecorrection.jsp").forward(request, response);
 		}else {
-			session.setAttribute("alertMsg", "회원 탈퇴 실패");
-			response.sendRedirect(request.getContextPath());
+			HttpSession session = request.getSession();
+			session.setAttribute("alertMsg", "비밀번호가 다릅니다");
+			response.sendRedirect(request.getContextPath() + "/myinfo.us");
 		}
+		                                                                   
+	
+		
+		
+		
 	}
 
 	/**

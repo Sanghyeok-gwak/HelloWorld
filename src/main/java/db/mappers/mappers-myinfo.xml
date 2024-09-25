@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<properties>
+
+<entry key="longincheck">
+  SELECT 
+  			 USER_PWD 
+    FROM 
+    		 "USER"
+   WHERE 
+   			 USER_ID = ?
+   	AND  USER_PWD= ?
+
+	</entry>
+	
+	<entry key ="updateUser" >
+	UPDATE 
+         "USER"
+   SET 
+          USER_NAME = ?
+         ,EMAIL = ?
+         ,PHONE = ? 
+         ,MODIFY_DATE = SYSDATE
+   WHERE
+   
+          USER_ID = ?
+	</entry>
+	
+	<entry key="SelectUserById" >
+	SELECT 
+     	    USER_NO
+      	   ,USER_ID
+           ,USER_PWD
+           ,USER_NAME
+           ,EMAIL
+           ,PHONE
+           ,ENROLL_DATE
+           ,MODIFY_DATE
+           ,ROLL
+           ,STATUS   
+     FROM
+           "USER"
+    WHERE 
+            USER_ID = ?
+	</entry>
+	
+	<entry key="deleteUser">
+	UPDATE 
+       	    "USER"
+       SET 
+            STATUS ='R'
+           ,MODIFY_DATE = SYSDATE
+     WHERE 
+           USER_ID  = ?
+	</entry>
+
+	<entry key = "SignupUser">
+		INSERT 
+		  INTO "USER" 
+		VALUES (
+		        SEQ_USER.NEXTVAL
+		      , ?
+		      , ?
+		      , ?
+		      , ?
+		      , ?
+		      , SYSDATE 
+		      , SYSDATE 
+		      ,'U'
+		      ,'U')
+	</entry>
+	<entry key="updateUserPwd">
+	
+		UPDATE 
+						"USER"
+   		 SET 	
+   		 			USER_PWD = ?
+           ,MODIFY_DATE = SYSDATE
+     WHERE 	
+     				USER_ID = ?
+        AND USER_PWD = ?
+	</entry>
+	</properties>

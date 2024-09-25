@@ -118,18 +118,7 @@ public class UserService {
 		close(conn);
 		return result;
 	}
-	/**
-	 * -마이페이지- 회원정보수정 들어가기전 로그인
-	 * 
-	 * @return 유저 아이디
-	 */
-	 public String longincheck(String userId, String userPwd ) {
-		 Connection conn = getConnection();
-		 String checkPwd = uDao.longincheck(conn, userId,userPwd);
-		 close(conn);
-		 
-		 return checkPwd;
-	 }
+	
 	 
 	 
 	 
@@ -144,43 +133,7 @@ public class UserService {
 		return loginUser;
 	}
 	
-	/*
-	 * 마이페이지 회원정보수정 
-	 */
-	public User updateUser(User u) {
-		Connection conn = getConnection();
-		
-		// 회원정보 변경
-		int result = uDao.updateUser(conn, u);
-		
-		User updateUn = null;
-		
-		if(result > 0) {
-			commit(conn);
-		// 조회
-			System.out.println("=======");
-			System.out.println(u.getUserId());
-			updateUn = uDao.selectUserById(conn, u.getUserId());	 
-			
-		}else {
-			rollback(conn);
-		}
-		close(conn);
-		
-		return updateUn;
-	}
-	 // 회원상태 탈퇴로 변경
-	 public int deleteUser(String userId) {
-		 Connection conn = getConnection();
-		 int result = uDao.deleteUser(conn, userId);
-		 if(result > 0) {
-			 commit(conn);
-		 }else {
-			 rollback(conn);
-		 }
-		 close(conn);
-		 return result;
-	 }
+	
 	 
 	 public int SignupUser(User u) {
 		 Connection conn = getConnection();
@@ -196,24 +149,7 @@ public class UserService {
 		 return result;
 	 }
 	
-	 // 회원 비밀번호 변경
-	 public User updateUserPwd(Map<String , String>map) {
-		 Connection conn = getConnection();
-		 
-		 int result = uDao.updateUserPwd(conn, map);
-		 
-		 User updateUn = null;
-		 if(result > 0) {
-			 commit(conn);
-			 
-			 updateUn = uDao.selectUserById(conn, map.get("userId"));
-		 }else {
-			 rollback(conn);
-		 }
-		 
-		 close(conn);
-		 return updateUn;
-	 }
+	
 	 	 
 
 	
