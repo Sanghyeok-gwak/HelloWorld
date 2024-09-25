@@ -398,6 +398,14 @@ public class UserDao {
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	
+
+		}
 			// TODO Auto-generated catch block
 	public int updateUserPwd(Connection conn,Map<String,String>map) {
 		int result = 0;
@@ -416,8 +424,7 @@ public class UserDao {
 			close(pstmt);
 		}
 		return result;
-	}
-		  return result;
+	
 	} 
 
 }
