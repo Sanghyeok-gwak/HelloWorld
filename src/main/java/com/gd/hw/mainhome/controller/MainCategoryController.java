@@ -35,6 +35,7 @@ public class MainCategoryController extends HttpServlet {
 		
 		// 여기다가 테스트!
 		// 여기다가 테스트2!
+		// 여기다가 테스트3!
 		List<ProCategory> list = new MainService().selectList();
 		
 		if(!list.isEmpty()) {
