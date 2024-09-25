@@ -99,6 +99,7 @@
 	  WHERE
 	  		USER_ID = ?
 	  	AND USER_PWD = ?
+	  	
 	</entry>
 	
 	<entry key="longincheck">
@@ -112,7 +113,7 @@
 
 	</entry>
 	
-	<entry key ="updateU" >
+	<entry key ="updateUser" >
 	UPDATE 
          "USER"
    SET 
@@ -143,7 +144,7 @@
             USER_ID = ?
 	</entry>
 	
-	<entry key="DeleteUser">
+	<entry key="deleteUser">
 	UPDATE 
        	    "USER"
        SET 
@@ -168,7 +169,17 @@
 		      ,'U'
 		      ,'U')
 	</entry>
+	<entry key="updateUserPwd">
 	
+		UPDATE 
+						"USER"
+   		 SET 	
+   		 			USER_PWD = ?
+           ,MODIFY_DATE = SYSDATE
+     WHERE 	
+     				USER_ID = ?
+        AND USER_PWD = ?
+	</entry>
 	
 	
 </properties>

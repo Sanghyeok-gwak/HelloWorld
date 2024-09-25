@@ -103,10 +103,7 @@
             background-color: #e8eaeb;
         		color: black;
         }
-        #btn-4{
-						background-color: #e8eaeb;
-        		color: black;
-        }
+
 
 </style>
 <body>
@@ -131,42 +128,44 @@
             <div class="edit">
                 <div class="edit-button">
                     <h3>회원정보 수정</h3>
-                    <button id="btn-4" class="btn" data-toggle="modal" data-target="#myModal-2">탈퇴</button>
+                    <button id="btn-2" class="btn" data-toggle="modal" data-target="#myModal-2">탈퇴</button>
                 </div>
                 <hr>
+              	<form action="<%= contextPath%>/myinfoch.us" method="post">
                 <table class="correction">
                     <tr>
                         <th><h5>아이디</h5></th>
-                        <td><input type="text" value="<%= loginUser.getUserId() %>" disabled id="userid"></td>
+                        <td><input type="text" value="<%= loginUser.getUserId() %>" readonly id="userid" name="userId"></td>
+                        <input type="hidden" value="<%= loginUser.getUserNo() %>" name="userNo" id="userNo">        
+                    
                     </tr>
                     <tr>
                         <th><h5>이름</h5></th>
-                        <td><input type="text" id="name" value="<%= loginUser.getUserName() %>"></td>
+                        <td><input type="text" id="name" value="<%= loginUser.getUserName() %>" name="userName"></td>
                     </tr>
                     <tr>
                         <th><h5>이메일</h5></th>
-                        <td><input type="email" id="email" value="wwww@naver.com"></td>
+                        <td><input type="email" id="email" value="<%= loginUser.getEmail() %>" name="email"></td>
                     </tr>
                     <tr>
                         <th><h5>전화번호</h5></th>
-                        <td><input type="tel" id="phone" value="010-1111-2222"></td>
+                        <td><input type="tel" id="phone" value="<%= loginUser.getPhone() %>" name="phone"></td>
                     </tr>
                 </table>
                 <div class="buttons">
                     <button id="btn-2" class="btn" onclick="history.back();">취소</button>
-                    <button id="btn-1" class="btn" data-toggle="modal" data-target="#myModal-1">비밀번호변경</button>
-                    <button type="button" id="btn-3" class="btn" >확인</button>
+                    <button type="button" id="btn-1" class="btn" data-toggle="modal" data-target="#myModal-1">비밀번호변경</button>
+                    <button type="submit" id="btn-3" class="btn" >확인</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
         <script>
         <%-- 버튼 스크립트 --%>
-        document.getElementById("btn-3").addEventListener("click",()=>{
-        location.href="<%=contextPath%>/myinfoCh.us"})
+      <%--  document.getElementById("btn-3").addEventListener("click",()=>{
+        location.href="<%=contextPath%>/myinfoCh.us"}) --%>
         <%-- 버튼 스크립트 끝 --%>
-        document.getElementById("btn-4").addEventListener("click",()=>{
-        location.href="<%=contextPath%>/myinfoDe.us"})
         <%-- 전화번호 형식 스크립트 --%>
      	$(document).ready(function() {
 			
@@ -199,20 +198,22 @@
   
         <!-- Modal body -->
         <div class="modal-body">
+          <form action="<%= contextPath %>/myinfopwd.us" method="post">
+          	<input type="hidden" name="userId" value="<%= loginUser.getUserId() %>">
           <table class="table table-hover">
             <thead></thead>
             <tbody>
               <tr>
                 <td><h5>현재 비밀번호</h5></td>
-                <td><input type="password"></td>
+                <td><input type="password" name="userPwd" required></td>
               </tr>
               <tr>
                 <td><h5>변경 비밀번호</h5></td>
-                <td><input type="password" class="change-password"></td>
+                <td><input type="password" class="change-password" name="updatePwd" required></td>
               </tr>
               <tr>
                 <td><h5>변경 비밀번호 확인</h5></td>
-                <td><input type="password" class="change-password"></td>
+                <td><input type="password" class="change-password" required></td>
               </tr>
             </tbody>
           </table>
@@ -221,9 +222,10 @@
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn" id="btn-2" data-dismiss="modal">취소</button>
-          <button type="button" class="btn" id="btn-1" data-dismiss="modal">확인</button>
+          <button type="submit" class="btn" id="btn-1" >확인</button>
         </div>
   
+        </form>
       </div>
     </div>
   </div>
@@ -255,13 +257,15 @@
             <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn-4">확인</button>
             <button type="button" id="btn-1"class="btn" data-dismiss="modal">취소</button>
           </div>
-          
         </div>
       </div>
     </div>
     
   </div>
-  
+  <script>
+  document.getElementById("btn-4").addEventListener("click",()=>{
+      location.href="<%=contextPath%>/myinfode.us"})
+  </script>
       <%@ include file="/views/common/footer.jsp" %>
   
 </body>

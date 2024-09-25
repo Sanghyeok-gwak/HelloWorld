@@ -10,7 +10,14 @@ public class ProductService {
 
     private ProductDao productDao = new ProductDao();
 
+    // 카테고리 클릭시 지역에 맞는 상품리스트 조회
     public List<Product> getProductList(Connection conn, String categoryName) {
         return productDao.selectProductList(conn, categoryName);
     }
+    
+    
+    
+    
+    
+    
 }

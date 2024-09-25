@@ -66,13 +66,13 @@ public class User {
 		this.phone = phone;
 	}
 	/*사용자 회원정보수정용 매개변수생성자*/
-	public User(String userId, String userName, String email, String phone , Date modifyDate) {
+	public User(int userNo, String userId, String userName, String email, String phone ) {
 		super();
+		this.userNo = userNo;
 		this.userId = userId;
 		this.userName = userName;
 		this.email = email;
 		this.phone = phone;
-		this.modifyDate = modifyDate;
 	}
 		
 	public int getUserNo() {

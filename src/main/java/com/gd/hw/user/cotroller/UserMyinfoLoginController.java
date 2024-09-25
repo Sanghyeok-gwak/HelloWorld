@@ -1,23 +1,27 @@
 package com.gd.hw.user.cotroller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.gd.hw.user.model.service.UserService;
 
 /**
- * Servlet implementation class UserMyinfo
+ * Servlet implementation class UserMyinfoLogin
  */
-@WebServlet("/myinfo.us")
-public class UserMyinfo extends HttpServlet {
+@WebServlet("/myinfolo.us")
+public class UserMyinfoLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserMyinfo() {
+    public UserMyinfoLoginController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,10 +30,30 @@ public class UserMyinfo extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.getRequestDispatcher("/views/myinfo/mypageLogin.jsp").forward(request, response);
+				
+		String userId = request.getParameter("userId");
+		System.out.println(userId);
+		String userPwd = request.getParameter("userPwd");
+		System.out.println(userPwd);
 		
-
+		
+		String checkPwd = new UserService().longincheck(userId,userPwd);
+		
+		System.out.println(checkPwd);
+		
+		
+		if(checkPwd != null && userPwd.equals(checkPwd)) {
+			request.getRequestDispatcher("/views/myinfo/mypagecorrection.jsp").forward(request, response);
+		}else {
+			HttpSession session = request.getSession();
+			session.setAttribute("alertMsg", "비밀번호가 다릅니다");
+			response.sendRedirect(request.getContextPath() + "/myinfo.us");
+		}
+		                                                                   
+	
+		
+		
+		
 	}
 
 	/**

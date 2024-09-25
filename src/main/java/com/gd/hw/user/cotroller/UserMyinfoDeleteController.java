@@ -1,7 +1,6 @@
 package com.gd.hw.user.cotroller;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,16 +13,16 @@ import com.gd.hw.user.model.service.UserService;
 import com.gd.hw.user.model.vo.User;
 
 /**
- * Servlet implementation class UserMyinfoChange
+ * Servlet implementation class UserMyinfoDelete
  */
-@WebServlet("/myinfoCh.us")
-public class UserMyinfoChange extends HttpServlet {
+@WebServlet("/myinfode.us")
+public class UserMyinfoDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserMyinfoChange() {
+    public UserMyinfoDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,31 +31,19 @@ public class UserMyinfoChange extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-	request.setCharacterEncoding("utf-8");
-	String userId = request.getParameter("userId");
-	String userName = request.getParameter("userName");
-	String email = request.getParameter("email");
-	String phone = request.getParameter("phone");
-	String modifyDate = request.getParameter("modify_date");
-	
-	User u = new User(userId,userName,email,phone,modifyDate);
-	
-	User updateU = new UserService().updateU(u);
-	
-	if(updateU == null) {
-	  request.setAttribute("alerMsg", "회원 정보 변경 실패");
-	  
-	}else {
 		HttpSession session = request.getSession();
-		session.setAttribute("loginUser", updateU);
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
 		
-		session.setAttribute("alerMsg", "성공적으로 회원정보를 수정");
-		response.sendRedirect(request.getContextPath()+"/myinfo.us");
-	}
-	
-	
-	
+		int result = new UserService().deleteUser(userId);
+		
+		if(result > 0 ) {
+			session.removeAttribute("loginUser");
+			session.setAttribute("alertMsg", "성공적으로 탈퇴되었습니다. 그동안 이용해 주셔서 감사합니다.");
+			response.sendRedirect(request.getContextPath());
+		}else {
+			session.setAttribute("alertMsg", "회원 탈퇴 실패");
+			response.sendRedirect(request.getContextPath());
+		}
 	}
 
 	/**

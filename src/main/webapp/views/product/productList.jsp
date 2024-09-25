@@ -89,10 +89,12 @@
         }
 				
         .heart-icon {
+        		display: flex;
             color: red;
-            font-size: 24px;
+            font-size: 32px;
             cursor: pointer;
             margin-right: 10px;
+            align-self: flex-end;
         }
     
     </style>

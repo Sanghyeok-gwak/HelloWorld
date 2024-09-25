@@ -7,6 +7,7 @@ import static com.gd.hw.common.template.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 
 import com.gd.hw.common.model.vo.PageInfo;
 import com.gd.hw.product.model.vo.Product;
@@ -146,24 +147,27 @@ public class UserService {
 	/*
 	 * 마이페이지 회원정보수정 
 	 */
-	public User updateU(User u) {
+	public User updateUser(User u) {
 		Connection conn = getConnection();
 		
 		// 회원정보 변경
-		int result = uDao.updateU(conn, u);
+		int result = uDao.updateUser(conn, u);
 		
-		User updateU = null;
+		User updateUn = null;
 		
 		if(result > 0) {
 			commit(conn);
 		// 조회
-			updateU = uDao.selectUserById(conn, u.getUserId());	 
+			System.out.println("=======");
+			System.out.println(u.getUserId());
+			updateUn = uDao.selectUserById(conn, u.getUserId());	 
+			
 		}else {
 			rollback(conn);
 		}
 		close(conn);
 		
-		return updateU;
+		return updateUn;
 	}
 	 // 회원상태 탈퇴로 변경
 	 public int deleteUser(String userId) {
@@ -192,6 +196,25 @@ public class UserService {
 		 return result;
 	 }
 	
+	 // 회원 비밀번호 변경
+	 public User updateUserPwd(Map<String , String>map) {
+		 Connection conn = getConnection();
+		 
+		 int result = uDao.updateUserPwd(conn, map);
+		 
+		 User updateUn = null;
+		 if(result > 0) {
+			 commit(conn);
+			 
+			 updateUn = uDao.selectUserById(conn, map.get("userId"));
+		 }else {
+			 rollback(conn);
+		 }
+		 
+		 close(conn);
+		 return updateUn;
+	 }
+	 	 
 
 	
 	
