@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.gd.hw.myinfo.model.service.MyinfoService;
 import com.gd.hw.user.model.service.UserService;
 import com.gd.hw.user.model.vo.User;
 
@@ -42,7 +43,7 @@ public class UserMyinfoChangeController extends HttpServlet {
 	
 	User u = new User(userNo,userId,userName,email,phone);
 	
-	User updateUn = new UserService().updateUser(u);
+	User updateUn = new MyinfoService().updateUser(u);
 	
 	System.out.println(updateUn);
 	System.out.println(u);

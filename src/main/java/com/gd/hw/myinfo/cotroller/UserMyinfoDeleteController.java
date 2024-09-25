@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.gd.hw.myinfo.model.service.MyinfoService;
 import com.gd.hw.user.model.service.UserService;
 import com.gd.hw.user.model.vo.User;
 
@@ -34,7 +35,7 @@ public class UserMyinfoDeleteController extends HttpServlet {
 		HttpSession session = request.getSession();
 		String userId = ((User)session.getAttribute("loginUser")).getUserId();
 		
-		int result = new UserService().deleteUser(userId);
+		int result = new MyinfoService().deleteUser(userId);
 		
 		if(result > 0 ) {
 			session.removeAttribute("loginUser");

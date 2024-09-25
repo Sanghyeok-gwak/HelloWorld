@@ -133,7 +133,7 @@ h5 {
 				<div>
 					<ul id="head-info">
 						<li class="nav-item"><a href="#"><h5><%= loginUser.getUserName() %>님</h5></a></li>
-						<li class="nav-item"><a href="#"><h5>마이페이지</h5></a></li>
+						<li class="nav-item"><a href="<%= contextPath %>/myinfom.us"><h5>마이페이지</h5></a></li>
 						<li class="nav-item dropdown">
 							<a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
 								<h5>고객센터</h5>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.gd.hw.myinfo.model.service.MyinfoService;
 import com.gd.hw.user.model.service.UserService;
 import com.gd.hw.user.model.vo.User;
 
@@ -39,7 +40,7 @@ public class UserMyinfoPwdCotroller extends HttpServlet {
 		map.put("userPwd",request.getParameter("userPwd"));
 		map.put("updatePwd", request.getParameter("updatePwd"));
 		
-		User updateUn = new UserService().updateUserPwd(map);
+		User updateUn = new MyinfoService().updateUserPwd(map);
 		
 		HttpSession session = request.getSession();
 		

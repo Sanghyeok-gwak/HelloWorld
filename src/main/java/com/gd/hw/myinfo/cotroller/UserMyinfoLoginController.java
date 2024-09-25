@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.gd.hw.myinfo.model.service.MyinfoService;
 import com.gd.hw.user.model.service.UserService;
 
 /**
@@ -37,7 +38,7 @@ public class UserMyinfoLoginController extends HttpServlet {
 		System.out.println(userPwd);
 		
 		
-		String checkPwd = new UserService().longincheck(userId,userPwd);
+		String checkPwd = new MyinfoService().longincheck(userId,userPwd);
 		
 		System.out.println(checkPwd);
 		
