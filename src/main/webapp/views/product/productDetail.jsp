@@ -288,7 +288,6 @@ button:hover {
 
 	<section>
 		<%
-		// 오류알아내기 위해서 사용한 부분 없으면 안됨 
 		Product product = (Product) request.getAttribute("product");
 		if (product == null) {
 			out.println("<p>상품 정보를 불러오지 못했습니다.</p>");
@@ -296,14 +295,12 @@ button:hover {
 		%>
 
 		<div class="main-img">
-			<img class="product-img" src="<%=product.getProductImg()%>"
-				alt="Product Image">
+			<img class="product-img" src="<%=product.getProductImg()%>" alt="Product Image">
 			<!-- 하트 및 공유 아이콘을 이미지 위에 배치 -->
 		</div>
 		<br>
 
-		<div class="row"
-			style="display: flex; justify-content: space-between; margin: 20px; margin-left: 45px;">
+		<div class="row" style="display: flex; justify-content: space-between; margin: 20px; margin-left: 45px;">
 			<div class="col-md-6 left-div">
 				<div class="col-md-12">
 					<button class="btn btn-primary">예약 가능</button>
@@ -317,21 +314,24 @@ button:hover {
 				<br>
 
 				<div class="col-md-12 Rating">
-					<span class="fa fa-star"></span> <span class="fa fa-star"
-						data-value="2"></span> <span class="fa fa-star" data-value="3"></span>
-					<span class="fa fa-star" data-value="4"></span> <span
-						class="fa fa-star" data-value="5"></span> <a href="#"
-						style="color: black;"> (4.9) 리뷰 (4)추후에 함수식나오면 적용 </a>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star" data-value="2"></span>
+					<span class="fa fa-star" data-value="3"></span>
+					<span class="fa fa-star" data-value="4"></span>
+					<span class="fa fa-star" data-value="5"></span>
+					<a href="#" style="color: black;"> (4.9) 리뷰 (4) 추후에 함수식 나오면 적용 </a>
 				</div>
 
 				<br>
 
 				<div class="col-md-12 d-flex justify-content-end align-items-center">
-					<h1 style="flex-grow: 1;"><%=product.getaPrice()%>원~
-					</h1>
+					<h1 style="flex-grow: 1;"><%=product.getaPrice()%>원~</h1>
+					
 					<i class="fas fa-share-alt share-icon" style="margin-right: 250px;"></i>
-					<i class="far fa-heart heart-icon" style="margin-right: 200px;"
-						onclick="toggleFavorite(<%=product.getProductId()%>, this)"></i>
+					
+					<i id="heart-icon-<%=product.getProductId()%>" class="far fa-heart heart-icon" style="margin-right: 200px;"
+					  onclick="toggleFavorite(<%=product.getProductId()%>, this)"></i>
+					
 
 				</div>
 
@@ -343,38 +343,30 @@ button:hover {
 					<h3>인원선택(필수)</h3>
 					<br>
 
-					<div
-						style="display: flex; justify-content: space-between; align-items: center;">
+					<div style="display: flex; justify-content: space-between; align-items: center;">
 						<div>
 							<h3>성인(만 12세 이상)</h3>
-							<h3><%=product.getaPrice()%>원
-							</h3>
+							<h3><%=product.getaPrice()%>원</h3>
 						</div>
 
 						<div style="float: right; display: flex; align-items: center;">
 							<i class="fas fa-minus minus" onclick="changeCount('adult', -1)"></i>
-							<h3>
-								&nbsp; <span id="adultCount">0</span> &nbsp;
-							</h3>
+							<h3>&nbsp; <span id="adultCount">0</span> &nbsp;</h3>
 							<i class="fas fa-plus plus" onclick="changeCount('adult', 1)"></i>
 						</div>
 					</div>
 
 					<br>
 
-					<div
-						style="display: flex; justify-content: space-between; align-items: center;">
+					<div style="display: flex; justify-content: space-between; align-items: center;">
 						<div>
 							<h3>유아 (만2세 미만)</h3>
-							<h3><%=product.getcPrice()%>원
-							</h3>
+							<h3><%=product.getcPrice()%>원</h3>
 						</div>
 
 						<div style="float: right; display: flex; align-items: center;">
 							<i class="fas fa-minus minus" onclick="changeCount('infant', -1)"></i>
-							<h3>
-								&nbsp; <span id="infantCount">0</span> &nbsp;
-							</h3>
+							<h3>&nbsp; <span id="infantCount">0</span> &nbsp;</h3>
 							<i class="fas fa-plus plus" onclick="changeCount('infant', 1)"></i>
 						</div>
 					</div>
@@ -393,10 +385,10 @@ button:hover {
 				</div>
 
 				<br>
-
-				<button class="btn btn-primary"
-					style="width: 83%; margin-left: 60px;">예약하기</button>
-
+				<!-- 나중에 어덜트 카운트 -->
+				<a href="orderPage.us?productId=<%= product.getProductId() %>&aNum=0&cNum=0" 이거 값넘겨서 받아야댐
+				  class="btn btn-primary" style="width: 83%; margin-left: 60px; ">예약</a>
+				
 				<br> <br>
 
 			</div>
@@ -405,11 +397,9 @@ button:hover {
 		<!-- 상품 소개, 일정표, 상세 정보, 리뷰 탭 -->
 		<div class="tabs">
 			<ul class="tabList">
-				<li><button class="tabBtn"
-						onclick="showContent('product-info')">상품 소개</button></li>
+				<li><button class="tabBtn" onclick="showContent('product-info')">상품 소개</button></li>
 				<li><button class="tabBtn" onclick="showContent('itinerary')">일정표</button></li>
-				<li><button class="tabBtn" onclick="showContent('details')">상세
-						정보</button></li>
+				<li><button class="tabBtn" onclick="showContent('details')">상세 정보</button></li>
 				<li><button class="tabBtn" onclick="showContent('reviews')">리뷰</button></li>
 			</ul>
 		</div>
@@ -439,73 +429,100 @@ button:hover {
 	</section>
 
 	<script>
-// 인원 선택 및 가격 계산
-const adultPrice = <%=product.getaPrice()%>; // A_PRICE 값으로 변경
-const infantPrice = <%=product.getcPrice()%>; // C_PRICE 값으로 변경
+    // 인원 선택 및 가격 계산
+    const adultPrice = <%=product.getaPrice()%>; // A_PRICE 값으로 변경
+    const infantPrice = <%=product.getcPrice()%>; // C_PRICE 값으로 변경
 
-function changeCount(type, delta) {
-    const adultCountElement = document.getElementById('adultCount');
-    const infantCountElement = document.getElementById('infantCount');
+    function changeCount(type, delta) {
+        const adultCountElement = document.getElementById('adultCount');
+        const infantCountElement = document.getElementById('infantCount');
 
-    let adultCount = parseInt(adultCountElement.textContent);
-    let infantCount = parseInt(infantCountElement.textContent);
+        let adultCount = parseInt(adultCountElement.textContent);
+        let infantCount = parseInt(infantCountElement.textContent);
 
-    if (type === 'adult') {
-        adultCount = Math.max(0, adultCount + delta);
-        adultCountElement.textContent = adultCount;
-    } else if (type === 'infant') {
-        infantCount = Math.max(0, infantCount + delta);
-        infantCountElement.textContent = infantCount;
+        if (type === 'adult') {
+            adultCount = Math.max(0, adultCount + delta);
+            adultCountElement.textContent = adultCount;
+        } else if (type === 'infant') {
+            infantCount = Math.max(0, infantCount + delta);
+            infantCountElement.textContent = infantCount;
+        }
+
+        updateTotalAmount(adultCount, infantCount);
     }
 
-    updateTotalAmount(adultCount, infantCount);
-}
+    function updateTotalAmount(adultCount, infantCount) {
+        const totalAmount = (adultCount * adultPrice) + (infantCount * infantPrice);
+        document.getElementById('totalAmount').textContent = totalAmount.toLocaleString() + "원";
+    }
 
-function updateTotalAmount(adultCount, infantCount) {
-    const totalAmount = (adultCount * adultPrice) + (infantCount * infantPrice);
-    document.getElementById('totalAmount').textContent = totalAmount.toLocaleString() + "원";
-}
+    function showContent(contentId) {
+        const contents = document.querySelectorAll('.tabContent');
+        contents.forEach(content => content.style.display = 'none');
+        document.getElementById(contentId).style.display = 'block';
+    }
 
-function showContent(contentId) {
-    const contents = document.querySelectorAll('.tabContent');
-    contents.forEach(content => content.style.display = 'none');
-    document.getElementById(contentId).style.display = 'block';
-}
-
-// 찜하기 및 URL 복사 기능
-
-function toggleFavorite(productId, iconElement) {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "/productDetail.pr"); // 서블릿 URL 확인
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            // 찜 상태에 따라 아이콘 변경
-            if (iconElement.classList.contains("far")) {
-                iconElement.classList.remove("far");
-                iconElement.classList.add("fas"); // 채워진 하트
-            } else {
-                iconElement.classList.remove("fas");
-                iconElement.classList.add("far"); // 빈 하트
-            }
+ // 찜하기
+    function toggleFavorite(productId, iconElement) {
+        if (iconElement.classList.contains("far")) {  // 빈 하트일 경우
+            $.ajax({
+                url: 'productDetailInsert.pr', // 찜 테이블에 insert
+                data: { productId: productId },
+                success: function(result) {
+                    if (result > 0) {  // 성공했을 경우
+                        iconElement.classList.remove("far");
+                        iconElement.classList.add("fas");  // 채워진 하트
+                    }
+                }
+            });
+        } else {  // 채워진 하트일 경우
+            $.ajax({
+                url: 'productDetailDelete.pr',  // 찜 테이블에서 delete
+                data: { productId: productId },
+                success: function(result) {
+                    if (result > 0) {  // 성공했을 경우
+                        iconElement.classList.remove("fas");
+                        iconElement.classList.add("far");  // 빈 하트
+                    }
+                }
+            });
         }
-    };
-    xhr.send("action=toggleFavorite&productId=" + productId);
-}
+    }
+ 
+ // 페이지가 로드되면 자동으로 찜한 상품 목록
+    function loadFavoriteList() {
+        $.ajax({
+            url: 'getFavoriteList.pr',  // 서버에서 찜한 상품 목록을 가져오는 경로
+            success: function(favoriteList) {
+                for (let i = 0; i < favoriteList.length; i++) {
+                    const productId = favoriteList[i];  // 찜한 상품의 ID를 가져옵니다.
 
+                    // 각 상품의 하트 아이콘을 찾아서 (빈 하트를) 채워진 하트로 변경합니다.
+                    const heartIcon = document.getElementById('heart-icon-' + productId);
+                    
+                    if (heartIcon) {  // 해당 상품에 맞는 하트 아이콘이 있을 경우
+                        heartIcon.classList.remove("far");  // 빈 하트 클래스 제거
+                        heartIcon.classList.add("fas");  // 채워진 하트 클래스 추가
+                    }
+                }
+            }
+        });
+    }
 
-$(document).ready(function () {
-    $('.heart-icon').click(function () {
-        $(this).toggleClass('fas far');
+    // 페이지가 로드시 하트가져오는구문
+    $(document).ready(function() {
+        loadFavoriteList();  // 페이지 로드 시 자동으로 호출
     });
 
-    $('.share-icon').click(function () {
-        navigator.clipboard.writeText(window.location.href).then(() => {
-            alert('URL이 복사되었습니다.');
+    // URL 복사하기
+    $(document).ready(function () {
+        $('.share-icon').click(function () {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('URL이 복사되었습니다.');
+            });
         });
     });
-});
-</script>
+	</script>
 
 	<%@ include file="/views/common/footer.jsp"%>
 

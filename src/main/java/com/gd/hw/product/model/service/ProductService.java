@@ -18,6 +18,15 @@ public class ProductService {
 	public List<Product> getProductList(Connection conn, String categoryName) {
 		return productDao.selectProductList(conn, categoryName);
 	}
+	
+	/* 추후에 위에 고칠수 있으면 고칠 코드
+	public List<Product> selectProductList( String categoryName) {
+		Connection conn = getConnection();
+		List<Product> product = productDao.selectProductList(conn, categoryName);
+		close(conn);
+		return product;
+	}
+	*/
 
 	// 상품 ID로 상세 정보를 조회하는 메서드
 	public Product getProductById(int productId) {
@@ -27,14 +36,4 @@ public class ProductService {
 		return product;
 	}
 
-	// 찜데이터 생성 삭제 조회
-	public void toggleFavorite(Connection conn, int userNo, int productId) throws SQLException {
-		
-		if (productDao.isFavorite(conn, userNo, productId)) {
-			productDao.removeFavorite(conn, userNo, productId);
-			
-		} else {
-			productDao.addFavorite(conn, userNo, productId);
-		}
-	}
 }

@@ -176,7 +176,7 @@
                                             </p>
                                             <div class="d-flex justify-content-end">
                                                 <i class="far fa-heart heart-icon"></i>
-                                                <a href="/reservation.pr?productId=<%= product.getProductId() %>" class="btn btn-primary">예약</a>
+                                                <a href="orderPage.us?productId=<%= product.getProductId() %>&aNum=0&cNum=0" class="btn btn-primary">예약</a>
                                             </div>
                                         </div>
                                     </div>

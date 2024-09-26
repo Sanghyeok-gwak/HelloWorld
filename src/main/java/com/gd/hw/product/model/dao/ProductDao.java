@@ -68,8 +68,7 @@ public class ProductDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		// SQL 쿼리: productId로 상품 정보를 조회
-		String sql = prop.getProperty("selectProductById"); // XML에서 쿼리 로드
+		String sql = prop.getProperty("selectProductById"); 
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -101,73 +100,79 @@ public class ProductDao {
 		return product;
 	}
 
-	public void addFavorite(Connection conn, int userNo, int productId) {
-		
+	// 찜하기 추가 부분
+	public int insertFavorite(Connection conn, int userNo, int productId) {
+		int result = 0;
 	    PreparedStatement pstmt = null;
+	    String sql = prop.getProperty("insertFavorite");
 	    
 	    try {
-	        String sql = prop.getProperty("insertFavorite");
-	        
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setInt(1, userNo);
 	        pstmt.setInt(2, productId);
 	        
-	        pstmt.executeUpdate();
+	         result = pstmt.executeUpdate();
 	        
 	    } catch (SQLException e) {
-	        e.printStackTrace(); // 예외 처리
+	        e.printStackTrace();
 	    } finally {
 	        close(pstmt);
 	    }
+	    
+	    return result;
 	}
-
-	public void removeFavorite(Connection conn, int userNo, int productId) {
-		
+	
+	
+	
+	// 찜하기 삭제부분
+	public int deleteFavorite(Connection conn, int userNo, int productId) {
+		int result = 0;
 	    PreparedStatement pstmt = null;
+	    String sql = prop.getProperty("deleteFavorite");
 	    
 	    try {
-
-	    	String sql = prop.getProperty("deleteFavorite");
-	        
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setInt(1, userNo);
 	        pstmt.setInt(2, productId);
 	        
-	        pstmt.executeUpdate();
+	        result = pstmt.executeUpdate();
 	        
 	    } catch (SQLException e) {
-	        e.printStackTrace(); // 예외 처리
+	        e.printStackTrace();
 	    } finally {
 	        close(pstmt);
 	    }
+	    
+	    return result;
 	}
 
-	public boolean isFavorite(Connection conn, int userNo, int productId) {
+	public List<Integer> getFavoriteList(Connection conn, int userNo){
 		
-	    PreparedStatement pstmt = null;
-	    
-	    ResultSet rset = null;
-	    
-	    try {
-
-	    	String sql = prop.getProperty("selectFavorite");
-	        
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setInt(1, userNo);
-	        pstmt.setInt(2, productId);
-	        
-	        rset = pstmt.executeQuery();
-	        
-	        return rset.next() && rset.getInt(1) > 0;
-	        
-	    } catch (SQLException e) {
-	        e.printStackTrace(); // 예외 처리
-	        
-	    } finally {
-	        close(rset);
-	        close(pstmt);
-	    }
-	    return false; // 기본값
+		List<Integer> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getFavoriteList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+                list.add(rset.getInt("PRODUCT_ID"));  // 각 상품 ID를 리스트에 추가
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(rset);
+            close(pstmt);
+        }
+        
+        return list;
+    }
+	
 	}
-
-}
+	
+	
+	

@@ -91,21 +91,21 @@
 		 WHERE PRODUCT_ID = ?
 		</entry>
 
-		<!-- 유저 찜하기 추가 삭제 조회용 -->		
+		<!-- 유저 찜하기 추가, 삭제, 불러오기-->		
 		<entry key="insertFavorite">
-        INSERT INTO FAVORITE (USER_NO, PRODUCT_ID, ADDED_DATE)
+        INSERT INTO FAVORITES (USER_NO, PRODUCT_ID, ADDED_DATE)
         VALUES (?, ?, SYSDATE)
     </entry>
 
     <entry key="deleteFavorite">
-        DELETE FROM FAVORITE
+        DELETE FROM FAVORITES
         WHERE USER_NO = ? AND PRODUCT_ID = ?
     </entry>
 
-    <entry key="selectFavorite">
-        SELECT COUNT(*) 
-        FROM FAVORITE 
-        WHERE USER_NO = ? AND PRODUCT_ID = ?
+    <entry key="getFavoriteList">
+        SELECT PRODUCT_ID 
+		      FROM FAVORITES
+         WHERE USER_NO = ?
     </entry>
 		<!-- 여기까지 찜하기 -->
 
