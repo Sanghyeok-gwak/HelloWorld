@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+<entry key="selectOrderLIst">
+	  SELECT USER_ID, MERCHANT_UID, PAY_DATE,FINAL_PAY,P.STATUS
+   	  FROM "ORDER"
+   	  JOIN "USER" USING(USER_NO)
+   	  JOIN PAYMENT P USING(IMP_UID)
+  	 ORDER BY PAY_DATE,  P.STATUS
+</entry>
+
+</properties>
