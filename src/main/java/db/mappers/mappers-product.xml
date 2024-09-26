@@ -70,22 +70,44 @@
 
 <!-- productList header.nav이용해 상품리스트 조회용   -->
 	 <entry key="selectProductListByCategory">
-       
-         SELECT P.PRODUCT_ID
-              , P.PRODUCT_NAME
-              , P.PRODUCT_IMG
-         		  , P.START_DATE
-        			, P.END_DATE
-       			  , P.A_PRICE
-         			, C.CATEGORY_NAME
-       		 FROM PRODUCT P
-           JOIN PRO_CATEGORY C ON P.CATEGORY_ID = C.CATEGORY_ID
-          WHERE C.CATEGORY_NAME = ? 
-          ORDER BY P.PRODUCT_ID DESC
+    SELECT P.PRODUCT_ID
+         , P.PRODUCT_NAME
+         , P.PRODUCT_IMG
+         , P.START_DATE
+         , P.END_DATE
+       	 , P.A_PRICE
+         , C.CATEGORY_NAME
+      FROM PRODUCT P
+      JOIN PRO_CATEGORY C ON P.CATEGORY_ID = C.CATEGORY_ID
+     WHERE C.CATEGORY_NAME = ? 
+     ORDER BY P.PRODUCT_ID DESC
        
     </entry>
 
+		<!-- productDetail 상세피이지 조회용 -->
+		<entry key="selectProductById">
+		SELECT * 
+		  FROM PRODUCT 
+		 WHERE PRODUCT_ID = ?
+		</entry>
 
+		<!-- 유저 찜하기 추가 삭제 조회용 -->		
+		<entry key="insertFavorite">
+        INSERT INTO FAVORITE (USER_NO, PRODUCT_ID, ADDED_DATE)
+        VALUES (?, ?, SYSDATE)
+    </entry>
+
+    <entry key="deleteFavorite">
+        DELETE FROM FAVORITE
+        WHERE USER_NO = ? AND PRODUCT_ID = ?
+    </entry>
+
+    <entry key="selectFavorite">
+        SELECT COUNT(*) 
+        FROM FAVORITE 
+        WHERE USER_NO = ? AND PRODUCT_ID = ?
+    </entry>
+		<!-- 여기까지 찜하기 -->
 
 
 </properties>

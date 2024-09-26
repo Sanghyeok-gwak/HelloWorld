@@ -167,7 +167,7 @@
                                     <div class="product-card">
                                         <img src="<%= product.getProductImg() %>" alt="Product Image">
                                         <div class="card-body">
-                                            <a href="/productDetail.pr?productId=<%= product.getProductId() %>" class="product-font">
+                                            <a href="productDetail.pr?productId=<%= product.getProductId() %>" class="product-font">
                                                 <h3 class="card-title"><%= product.getProductName() %></h3>
                                             </a>
                                             <p class="card-text"><%= product.getStartDate() %> ~ <%= product.getEndDate() %></p>
