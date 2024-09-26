@@ -38,6 +38,8 @@
    		   SET STATUS = 'R'
  		 WHERE USER_NO = ? 
 	</entry>
+	
+	<!-- 사용자 회원가입페이지에서 재활용 -->
 	<entry key="idCheck">
 		SELECT COUNT(*) as cnt
 		  FROM "USER"
