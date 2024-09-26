@@ -114,7 +114,7 @@
             <div class="side">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h5 class="card-title">이준님<br>WELCOME</h5>
+                        <h5 class="card-title"><%= loginUser.getUserName() %>님<br>WELCOME</h5>
                         <p class="card-text">
                         <h5><a href="<%= contextPath %>/myinfo.us" style="color: gray; text-decoration-line: none;">내정보 관리<i
                                     class="fa-solid fa-play"></i></a></h5>
@@ -153,7 +153,7 @@
                     </tr>
                 </table>
                 <div class="buttons">
-                    <button id="btn-2" class="btn" onclick="history.back();">취소</button>
+                    <button type="button" id="btn-2" class="btn" onclick="history.back();">취소</button>
                     <button type="button" id="btn-1" class="btn" data-toggle="modal" data-target="#myModal-1">비밀번호변경</button>
                     <button type="submit" id="btn-3" class="btn" >확인</button>
                 </div>

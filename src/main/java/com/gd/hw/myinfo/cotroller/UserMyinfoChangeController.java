@@ -45,8 +45,7 @@ public class UserMyinfoChangeController extends HttpServlet {
 	
 	User updateUn = new MyinfoService().updateUser(u);
 	
-	System.out.println(updateUn);
-	System.out.println(u);
+	request.setAttribute("no", userNo);
 	
 	HttpSession session = request.getSession();
 	if(updateUn == null) {
@@ -57,8 +56,8 @@ public class UserMyinfoChangeController extends HttpServlet {
 		session.setAttribute("loginUser", updateUn);
 		
 		session.setAttribute("alertMsg", "성공적으로 회원정보를 수정");
-		response.sendRedirect(request.getContextPath()+"/myinfoco.us");
-
+		response.sendRedirect(request.getContextPath()+"/myinfom.us?no=" + userNo );
+		
 	}
 	
 	
