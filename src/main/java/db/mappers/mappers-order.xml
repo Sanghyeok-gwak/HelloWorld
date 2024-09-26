@@ -3,7 +3,7 @@
 
 <properties>
 
-<entry key="selectCPrice">
+<entry key="selectProductById">
 SELECT 
 			 C_PRICE
 		 , A_PRICE
