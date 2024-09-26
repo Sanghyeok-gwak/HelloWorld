@@ -1,11 +1,11 @@
 <%@ page import="java.util.List"%>
 <%@page import="com.gd.hw.common.model.vo.PageInfo"%>
-<%@ page import="com.gd.hw.user.model.vo.User"%>
+<%@ page import="com.gd.hw.order.model.vo.OrderAd"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 String contextPath = request.getContextPath();
-List<User> list = (List<User>) request.getAttribute("list");
+List<OrderAd> list = (List<OrderAd>) request.getAttribute("list");
 String msg = (String)session.getAttribute("msg");
 PageInfo pi = (PageInfo)request.getAttribute("pi");
 %>
@@ -187,26 +187,26 @@ h5 {
 							%>
 							<!-- 데이터가 있을 경우 -->
 							<%
-							for (User u : list) {
+							for (OrderAd o : list) {
 							%>
 							<tr>
-								<td><%=u.getUserNo()%></td>
-								<td><%=u.getUserId()%></td>
-								<td><%=u.getUserPwd()%></td>
-								<td><%=u.getUserName()%></td>
+								<td><%=o.getUserId()%></td>
+								<td><%=o.getMerUid()%></td>
+								<td><%=o.getPayDate()%></td>
+								<td><%=o.getFinalPay()%></td>
 								<%
-								if (u.getStatus().equals("R")) {
+								if (o.getStatus().equals("R")) {
 								%>
 								<td style="color: red;">환불</td>
 								<%
-								} else if (u.getStatus().equals("C")) {
+								} else if (o.getStatus().equals("C")) {
 								%>
 								<td style="color: blue;">결제완료</td>
 								<%
 								} else 
 								%>
 								<td>
-									<a href="<%= contextPath %>/detail.or?no=<%=u.getUserNo()%>" 
+									<a href="<%= contextPath %>/detail.or?no=<%=o.getMerUid()%>" 
 									class="btn btn-primary btn-sm w-100" >상세정보</a>
 								</td>
 	

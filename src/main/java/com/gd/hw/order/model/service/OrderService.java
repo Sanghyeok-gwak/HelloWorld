@@ -1,12 +1,14 @@
 package com.gd.hw.order.model.service;
 
 import static com.gd.hw.common.template.JDBCTemplate.close;
-import static com.gd.hw.common.template.JDBCTemplate.commit;
 import static com.gd.hw.common.template.JDBCTemplate.getConnection;
-import static com.gd.hw.common.template.JDBCTemplate.rollback;
-import java.sql.Connection;
 
+import java.sql.Connection;
+import java.util.List;
+
+import com.gd.hw.common.model.vo.PageInfo;
 import com.gd.hw.order.model.dao.OrderDao;
+import com.gd.hw.order.model.vo.OrderAd;
 import com.gd.hw.product.model.vo.Product;
 
 public class OrderService {
@@ -21,7 +23,22 @@ public Product selectProductById(int productId) {
 	return p;
 }
 
+//-----------------------관리자파트--------------------------
+	public int selectUserListCount() {
+		Connection conn = getConnection();
+		int listCount = oDao.selectOrderListCount(conn);
+		close(conn);
+		return listCount;
+	}
 
+	public List<OrderAd> selectOrderLIst(PageInfo pi) {
+		Connection conn = getConnection();
+		List<OrderAd> list = oDao.selectOrderLIst(conn, pi);
+		close(conn);
+		return list;
+	}
+
+//-----------------------관리자파트 끝-----------------------
 
 
 
