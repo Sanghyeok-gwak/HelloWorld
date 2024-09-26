@@ -1,5 +1,4 @@
 package com.gd.hw.order.model.vo;
-
 import java.sql.Date;
 
 public class Order {
@@ -8,7 +7,7 @@ public class Order {
 	private int userNo;
 	private int productId;
 	private int bhNo;
-	private String impUid; // order payment 둘다
+	private String impUid; 	// order payment 둘다
 	private int adult;
 	private int child;
 	private String request;
