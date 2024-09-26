@@ -237,7 +237,7 @@ h5 {
 					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.pro'">상품
 						관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">배너
+					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.bn'">배너
 						관리</button>
 					<br>
 					<button id="btn-2" class="btn" onclick="location.href='#'">리뷰

@@ -1,5 +1,19 @@
+<%@page import="com.gd.hw.banner.model.vo.Banner"%>
+<%@page import="com.gd.hw.product.model.vo.Product"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="com.gd.hw.common.model.vo.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%
+		String contextPath = request.getContextPath();
+		PageInfo pi = (PageInfo)request.getAttribute("pi");
+		Map<String,Object> map = (Map<String,Object>)request.getAttribute("map");
+		List<Product> productList = (List<Product>)map.get("product");
+		List<Banner> bannerList = (List<Banner>)map.get("banner");
+		
+	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,10 +28,7 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<!-- ------------------------- -->
-<!-- 추 후 추가 버튼 클릭시 알럿 추가하기  -->
-<!-- 1. 3가지 이상 일 경우 "3개이상 추가 하셨습니다. 삭제 후 다시요청해주세요." -->
-<!-- 2. 성공적으로 추가되었습니다. -->
+
 <style>
 .btn-add {
 	text-align: end;
@@ -84,9 +95,13 @@
 }
 
 #banner-top, #banner-sub-1, #banner-sub-2, #banner-sub-3,
-	#banner-sub-2-1, #banner-top2 {
+	#banner-sub-2-1  {
 	display: none;
 	/* 기본적으로 모든 배너 리스트 숨기기 */
+}
+.top-box1{
+	display: flex;
+	
 }
 
 /* 공통 스타일 */
@@ -156,27 +171,27 @@ h5 {
 	<div class="admin-page">
 		<div class="admin-page-head">
 			<div class="admin-page-head-logo">
-				<img src="../../assets/image/logo.png" alt="logo" width="100%">
+				<img src="<%= contextPath %>/assets/image/logo.png" alt="logo" width="100%">
 			</div>
 			<div class="admin-page-head-gongback"></div>
 		</div>
 		<div class="admin-page-main">
 			<div class="admin-page-main-menu">
 				<div class="amdin-page-side-btn1">
-					<button id="btn-2" class="btn" onclick="location.href='#'">상품
+					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.pro'">상품
 						관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">배너
+					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.bn">배너
 						관리</button>
 					<br>
 					<button id="btn-2" class="btn" onclick="location.href='#'">리뷰
 						관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">카테고리
+					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.cg'">카테고리
 						관리</button>
 				</div>
 				<div class="amdin-page-side-btn2">
-					<button id="btn-2" class="btn" onclick="location.href='#'">회원
+					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.us'">회원
 						관리</button>
 					<br>
 					<button id="btn-2" class="btn" onclick="location.href='#'">블랙리스트
@@ -208,7 +223,6 @@ h5 {
 							<option value="banner-top">상단배너</option>
 							<option value="banner-sub-1">서브배너1</option>
 							<option value="banner-sub-2">서브배너2</option>
-							<option value="banner-sub-3">서브배너3</option>
 						</select>
 					</div>
 					<div class="btn-add">
@@ -227,27 +241,31 @@ h5 {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td><input type="checkbox" name="deleteCheck"></td>
-									<td>3</td>
-									<td>상품</td>
-									<td>이미지URL</td>
-									<td>상품명</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="deleteCheck"></td>
-									<td>2</td>
-									<td>이벤트</td>
-									<td>이미지URL</td>
-									<td>상품명</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="deleteCheck"></td>
-									<td>1</td>
-									<td>상품</td>
-									<td>이미지URL</td>
-									<td>상품명</td>
-								</tr>
+								<% if(bannerList.isEmpty()){%>
+								                <tr>
+								                  <td colspan="7" style="text-align: center;">존재하는 게시글이 없습니다.</td>
+								                </tr>
+								<%}else{ %>	
+								<!-- case2. 조회된 게시글이 있을 경우 -->
+								<%int count =1; %>
+									<%for(int i=0; i<bannerList.size(); i++){ %>
+										<tr style="border-bottom: 1px solid lightgray;">
+											<td>
+												<input type="checkbox" class="banner-checkBox" name="list-checkBox" value="<%=bannerList.get(i).getBannerNo() %>">
+											</td>
+											<td><%=bannerList.get(i).getBannerNo() %></td>
+											<td><%=bannerList.get(i).getImg() %></td>
+											<td><%=bannerList.get(i).getTietle() %></td>
+											<td><%=bannerList.get(i).getContent()%></td>
+											<td><%=bannerList.get(i).getStatus()%></td>
+											<td>
+												<button id="btn-3" onclick="location.href='<%=contextPath%>/modify.pro?no=<%= bannerList.get(i).getBannerNo() %>'">
+													<h5>수정</h5>
+												</button>
+											</td>
+										</tr>
+									<%} %>
+							<%} %>
 							</tbody>
 						</table>
 					</div>
@@ -264,27 +282,31 @@ h5 {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td><input type="checkbox" name="deleteCheck"></td>
-									<td>3</td>
-									<td>상품</td>
-									<td>이미지URL</td>
-									<td>상품명</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="deleteCheck"></td>
-									<td>2</td>
-									<td>이벤트</td>
-									<td>이미지URL</td>
-									<td>상품명</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="deleteCheck"></td>
-									<td>1</td>
-									<td>상품</td>
-									<td>이미지URL</td>
-									<td>상품명</td>
-								</tr>
+								<% if(bannerList.isEmpty()){%>
+								                <tr>
+								                  <td colspan="7" style="text-align: center;">존재하는 게시글이 없습니다.</td>
+								                </tr>
+								<%}else{ %>	
+								<!-- case2. 조회된 게시글이 있을 경우 -->
+								<%int count =1; %>
+									<%for(int i=0; i<bannerList.size(); i++){ %>
+										<tr style="border-bottom: 1px solid lightgray;">
+											<td>
+												<input type="checkbox" class="banner-checkBox" name="list-checkBox" value="<%=bannerList.get(i).getBannerNo() %>">
+											</td>
+											<td><%=bannerList.get(i).getBannerNo() %></td>
+											<td><%=bannerList.get(i).getImg() %></td>
+											<td><%=bannerList.get(i).getTietle() %></td>
+											<td><%=bannerList.get(i).getContent()%></td>
+											<td><%=bannerList.get(i).getStatus()%></td>
+											<td>
+												<button id="btn-3" onclick="location.href='<%=contextPath%>/modify.pro?no=<%= bannerList.get(i).getBannerNo() %>'">
+													<h5>수정</h5>
+												</button>
+											</td>
+										</tr>
+									<%} %>
+							<%} %>
 							</tbody>
 						</table>
 					</div>
@@ -301,67 +323,35 @@ h5 {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td></td>
-									<td>3</td>
-									<td>상품</td>
-									<td>이미지URL</td>
-									<td>상품명</td>
-								</tr>
-								<tr>
-									<td></td>
-									<td>2</td>
-									<td>이벤트</td>
-									<td>이미지URL</td>
-									<td>상품명</td>
-								</tr>
-								<tr>
-									<td></td>
-									<td>1</td>
-									<td>상품</td>
-									<td>이미지URL</td>
-									<td>상품명</td>
-								</tr>
+								<% if(bannerList.isEmpty()){%>
+								                <tr>
+								                  <td colspan="7" style="text-align: center;">존재하는 게시글이 없습니다.</td>
+								                </tr>
+								<%}else{ %>	
+								<!-- case2. 조회된 게시글이 있을 경우 -->
+								<%int count =1; %>
+									<%for(int i=0; i<bannerList.size(); i++){ %>
+										<tr style="border-bottom: 1px solid lightgray;">
+											<td>
+												<input type="checkbox" class="banner-checkBox" name="list-checkBox" value="<%=bannerList.get(i).getBannerNo() %>">
+											</td>
+											<td><%=bannerList.get(i).getBannerNo() %></td>
+											<td><%=bannerList.get(i).getImg() %></td>
+											<td><%=bannerList.get(i).getTietle() %></td>
+											<td><%=bannerList.get(i).getContent()%></td>
+											<td><%=bannerList.get(i).getStatus()%></td>
+											<td>
+												<button id="btn-3" onclick="location.href='<%=contextPath%>/modify.pro?no=<%= bannerList.get(i).getBannerNo() %>'">
+													<h5>수정</h5>
+												</button>
+											</td>
+										</tr>
+									<%} %>
+							<%} %>
 							</tbody>
 						</table>
 					</div>
-					<!-- 서브배너3 -->
-					<div id="banner-sub-3" class="banner">
-						<table class="table" style="text-align: center;">
-							<thead>
-								<tr>
-									<th width="100px"></th>
-									<th width="100px">번호</th>
-									<th width="150px">분류</th>
-									<th width="400px">이미지</th>
-									<th width="400px">상품명</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td></td>
-									<td>3</td>
-									<td>상품</td>
-									<td>이미지URL</td>
-									<td>상품명</td>
-								</tr>
-								<tr>
-									<td></td>
-									<td>2</td>
-									<td>이벤트</td>
-									<td>이미지URL</td>
-									<td>상품명</td>
-								</tr>
-								<tr>
-									<td></td>
-									<td>1</td>
-									<td>상품</td>
-									<td>이미지URL</td>
-									<td>상품명</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+					
 				</div>
 				<hr>
 				<script>
@@ -387,18 +377,15 @@ h5 {
 
 
 				<div class="banner-item-list">
-					<h3>리스트</h3>
-					<hr>
-					<div class="banner-list2 mb-3">
-						<!-- 하단 옵션 -->
-						<select name="banner-name" id="bannerSelect2" class="form-control">
-							<option value="banner-top2">이벤트</option>
-							<option value="banner-sub-2-1">여행상품</option>
-						</select>
+					<div class="top-box1" style="justify-content: space-between;">
+						<div class="top-text">
+							<h3>리스트</h3>
+						</div>
+						<div class="btn-add" style="margin-top:5px;margin-bottom:5px;">
+							<button id="btn-1" ><h5>추가</h5></button>
+						</div>
 					</div>
-					<div class="btn-add">
-						<button id="btn-1">추가</button>
-					</div>
+							<hr style=" margin-bottom:50px;">
 					<!-- 상품 리스트 -->
 					<div id="banner-top2" class="banner2">
 						<table class="table" style="text-align: center;">
@@ -412,157 +399,66 @@ h5 {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td><input type="checkbox" name="addCheck"></td>
-									<td>5</td>
-									<td>남미</td>
-									<td>이미지URL</td>
-									<td>상품명</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="addCheck"></td>
-									<td>4</td>
-									<td>동남아</td>
-									<td>이미지URL</td>
-									<td>상품명</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="addCheck"></td>
-									<td>3</td>
-									<td>유럽</td>
-									<td>이미지URL</td>
-									<td>상품명</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="addCheck"></td>
-									<td>2</td>
-									<td>중국</td>
-									<td>이미지URL</td>
-									<td>상품명</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="addCheck"></td>
-									<td>1</td>
-									<td>미국</td>
-									<td>이미지URL</td>
-									<td>상품명</td>
-								</tr>
+								<!-- case1. 조회된 게시글이 없을 경우 -->
+							
+								<% if(productList.isEmpty()){%>
+								                <tr>
+								                  <td colspan="7" style="text-align: center;">존재하는 게시글이 없습니다.</td>
+								                </tr>
+								<%}else{ %>	
+								<!-- case2. 조회된 게시글이 있을 경우 -->
+								<%int count =1; %>
+									<%for(int i=0; i<productList.size(); i++){ %>
+										<tr style="border-bottom: 1px solid lightgray;">
+											<td>
+												<input type="checkbox" class="product-checkBox" name="list-checkBox" value="<%=productList.get(i).getProductId() %>">
+											</td>
+											<td><%=productList.get(i).getProductId()%></td>
+											<td><%=productList.get(i).getCategoryName() %></td>
+											<td><%=productList.get(i).getProductName() %></td>
+											<td><%=productList.get(i).getStartDate()%></td>
+											<td><%=productList.get(i).getEndDate()%></td>
+											<td>
+												
+											</td>
+										</tr>
+									<%} %>
+							<%} %>
+							
+						</tbody>
 							</tbody>
 						</table>
-						<ul class="pagination d-flex justify-content-center text-dark"
+						<ul id="pagination-product"
+							class="pagination d-flex justify-content-center text-dark"
 							style="margin-top: 80px;">
-							<li class="page-item disabled"><a class="page-link" href="">
-									<</a></li>
-							<li class="page-item active"><a class="page-link" href="">1</a></li>
-							<li class="page-item"><a class="page-link" href="">2</a></li>
-							<li class="page-item"><a class="page-link" href="">3</a></li>
-							<li class="page-item"><a class="page-link" href="">4</a></li>
-							<li class="page-item"><a class="page-link" href="">5</a></li>
-							<li class="page-item"><a class="page-link" href="">></a></li>
+							<li
+								class='page-item <%=pi.getCurrentPage() == 1 ? "disabled" : ""%>'>
+								<a class="page-link"
+								href="<%=contextPath%>/list.pro?page=<%=pi.getCurrentPage() - 1%>">
+									< </a>
+							</li>
+							<%
+							for (int p = pi.getStartPage(); p <= pi.getEndPage(); p++) {
+							%>
+							<li
+								class='page-item <%=p == pi.getCurrentPage() ? "active" : ""%>'>
+								<a class="page-link"
+								href="<%=contextPath%>/list.bn?page=<%=p%>"><%=p%></a>
+							</li>
+							<%
+							}
+							%>
+
+							<li
+								class='page-item <%=pi.getCurrentPage() == pi.getMaxPage() ? "disabled" : ""%>'>
+								<a class="page-link"
+								href="<%=contextPath%>/list.pro?page=<%=pi.getCurrentPage() + 1%>">
+									> </a>
+							</li>
 						</ul>
 					</div>
-					<!-- 이벤트 리스트 -->
-					<div id="banner-sub-2-1" class="banner2">
-						<table class="table" style="text-align: center;">
-							<thead>
-								<tr>
-									<th width="100px"></th>
-									<th width="100px">번호</th>
-									<th width="300px">이벤트 기간</th>
-									<th width="400px">제목</th>
-									<th width="400px">이미지 URL</th>
-									<th width="100px">상태</th>
-									<th width="100px">남은일수</th>
-									<th width="100px">조회</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><input type="checkbox" name="addCheck"></td>
-									<td>5</td>
-									<td>2020-04-01 - 2020-04-30</td>
-									<td>이벤트명</td>
-									<td>이미지 URL</td>
-									<td>상태</td>
-									<td>일수</td>
-									<td>조회</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="addCheck"></td>
-									<td>4</td>
-									<td>2020-04-01 - 2020-04-30</td>
-									<td>이벤트명</td>
-									<td>이미지 URL</td>
-									<td>상태</td>
-									<td>일수</td>
-									<td>조회</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="addCheck"></td>
-									<td>3</td>
-									<td>2020-04-01 - 2020-04-30</td>
-									<td>이벤트명</td>
-									<td>이미지 URL</td>
-									<td>상태</td>
-									<td>일수</td>
-									<td>조회</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="addCheck"></td>
-									<td>2</td>
-									<td>2020-04-01 - 2020-04-30</td>
-									<td>이벤트명</td>
-									<td>이미지 URL</td>
-									<td>상태</td>
-									<td>일수</td>
-									<td>조회</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="addCheck"></td>
-									<td>1</td>
-									<td>2020-04-01 - 2020-04-30</td>
-									<td>이벤트명</td>
-									<td>이미지 URL</td>
-									<td>상태</td>
-									<td>일수</td>
-									<td>조회</td>
-								</tr>
-
-							</tbody>
-						</table>
-						<!-- 페이지네이션 -->
-						<ul class="pagination d-flex justify-content-center text-dark"
-							style="margin-top: 80px;">
-							<li class="page-item disabled"><a class="page-link" href="">
-									<</a></li>
-							<li class="page-item active"><a class="page-link" href="">1</a></li>
-							<li class="page-item"><a class="page-link" href="">2</a></li>
-							<li class="page-item"><a class="page-link" href="">3</a></li>
-							<li class="page-item"><a class="page-link" href="">4</a></li>
-							<li class="page-item"><a class="page-link" href="">5</a></li>
-							<li class="page-item"><a class="page-link" href="">></a></li>
-						</ul>
-					</div>
-					<script>
-            // 옵션 선택시 영역바꾸는 스크립트 -하단
-            document.getElementById('bannerSelect2').addEventListener('change', function () {
-              const selectedValue = this.value;
-
-              // 모든 배너 리스트를 숨기기
-              document.querySelectorAll('.banner2').forEach(container => {
-                container.style.display = 'none';
-              });
-
-              // 선택된 배너 리스트만 표시하기
-              const selectedBanner = document.getElementById(selectedValue);
-              if (selectedBanner) {
-                selectedBanner.style.display = 'block';
-              }
-            });
-
-            // 페이지 로드 시 기본적으로 첫 번째 리스트를 보여주기
-            document.getElementById('bannerSelect2').dispatchEvent(new Event('change'));
-          </script>
+					
+					
 				</div>
 			</div>
 		</div>
