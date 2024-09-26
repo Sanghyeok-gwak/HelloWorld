@@ -85,6 +85,17 @@ public class Product {
 		this.modificationDate = modificationDate;
 	}
 
+	// 결제 페이지로 이동시 사용하는 매개변수 생성자
+	public Product(int productId, String productName, String startDate, String endDate, int aPrice, int cPrice) {
+		super();
+		this.productId = productId;
+		this.productName = productName;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.aPrice = aPrice;
+		this.cPrice = cPrice;
+	}
+
 
 	public int getProductId() {
 		return productId;
@@ -286,6 +297,7 @@ public class Product {
 	}
 
 
+	
 	
 
 	
