@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.gd.hw.common.model.vo.PageInfo;
 import com.gd.hw.product.model.service.AdminProductService;
@@ -55,6 +56,7 @@ public class AdminProductListController extends HttpServlet {
 		List<Product> list = new AdminProductService().selectProductList(pi);
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
+		
 		request.getRequestDispatcher("/views/admin/product-admin.jsp").forward(request, response);
 			
 		

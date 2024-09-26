@@ -117,7 +117,47 @@
 		
 	</entry>
 
-
+	<entry key="modifyProduct">
+	SELECT 
+				        PRODUCT_NAME,
+				        PRODUCT_IMG,
+				        R.REGION_NAME AS REGION_NAME,
+				        C.CATEGORY_NAME AS CATEGORY_NAME,
+				        START_DATE,
+				        END_DATE,
+				        A_PRICE,
+				        C_PRICE,
+				        AMOUNT,
+				        FLIGHT,
+				        INFO_EDITOR,
+				        SCHEDULE_EDITOR,
+				        DETAIL_EDITOR
+			      FROM PRODUCT P
+			      JOIN PRO_CATEGORY C ON C.CATEGORY_ID = P.CATEGORY_ID
+			      JOIN REGION R ON R.REGION_ID = P.REGION_ID
+			     WHERE PRODUCT_ID= ? 
+	
+	</entry>
+	<entry key="updateProduct">
+		UPDATE PRODUCT
+		   SET 
+		   	   PRODUCT_NAME=?,
+			   PRODUCT_IMG=?,
+			   START_DATE=?,
+			   END_DATE=?,
+			   STAY=?,
+			   A_PRICE=?,
+			   C_PRICE=?,
+			   AMOUNT=?,
+			   FLIGHT=?,
+			   INFO_EDITOR=?,
+			   SCHEDULE_EDITOR=?,
+			   DETAIL_EDITOR=?,
+			   MODIFICATION_DATE= SYSDATE
+		 WHERE
+		 	   PRODUCT_ID = ?	   
+	
+	</entry>
 
 
 

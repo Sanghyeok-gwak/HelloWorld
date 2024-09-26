@@ -302,7 +302,7 @@ h5 {
 							                    '<td>' + product.productName + '</td>' +
 							                    '<td>' + product.startDate + '</td>' +
 							                    '<td>' + product.endDate + '</td>' +
-							                    '<td><button id="btn-3"><h5>수정</h5></button></td>' +
+							                    '<td><button id="btn-3" onclick="location.href=\'/world/modify.pro?no=' + product.productId + '\'">수정</button></td>' +
 							                    '</tr>';
 							                tbody.append(row);
 							            });
@@ -387,7 +387,7 @@ h5 {
 											<td><%=list.get(i).getStartDate()%></td>
 											<td><%=list.get(i).getEndDate()%></td>
 											<td>
-												<button id="btn-3">
+												<button id="btn-3" onclick="location.href='<%=contextPath%>/modify.pro?no=<%= list.get(i).getProductId() %>'">
 													<h5>수정</h5>
 												</button>
 											</td>

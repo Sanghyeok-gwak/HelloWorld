@@ -113,5 +113,30 @@ public class AdminProductService {
 		
 		return result;
 	}
-	
+	public Product modifyProduct(int no){
+		Connection conn = getConnection();
+		
+		Product p = apDao.modifyProduct(conn,no);
+		
+		
+		close(conn);
+		
+		return p;
+	}
+	public int updateProduct(Product p , int no) {
+		
+		Connection conn = getConnection();
+		int result = apDao.updateProduct(conn,p,no);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		
+		return result;
+	}
 }

@@ -11,16 +11,16 @@ import com.gd.hw.product.model.service.AdminProductService;
 import com.gd.hw.product.model.vo.Product;
 
 /**
- * Servlet implementation class ProductListController
+ * Servlet implementation class AdminUpdateProductListController
  */
-@WebServlet("/productAdd.pro")
-public class AdminAddProductListController extends HttpServlet {
+@WebServlet("/updateProduct.pro")
+public class AdminUpdateProductListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminAddProductListController() {
+    public AdminUpdateProductListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,11 +30,9 @@ public class AdminAddProductListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
-		
-		
-		int category = Integer.parseInt(request.getParameter("categoryValue")); 
-		int subCategory = Integer.parseInt(request.getParameter("subCategoryValue")); 
+		//추후 변경
+//		int category = Integer.parseInt(request.getParameter("categoryValue")); 
+//		int subCategory = Integer.parseInt(request.getParameter("subCategoryValue")); 
 		
 		String productName = request.getParameter("productName");
 		String flight = request.getParameter("flight");
@@ -48,11 +46,7 @@ public class AdminAddProductListController extends HttpServlet {
 		String scheduleEditor = request.getParameter("summernote2");
 		String detailEditor = request.getParameter("summernote3");
 		String stay = "";
-		
-		
-		
-		
-		
+		int no = Integer.parseInt(request.getParameter("no"));
 		if((Integer.parseInt(endDate)-Integer.parseInt(startDate))==3) {
 			stay="T";
 		}
@@ -62,7 +56,7 @@ public class AdminAddProductListController extends HttpServlet {
 		else {
 			stay="E";
 		}
-		
+		System.out.println(no);
 		// 시작 일 .넣어서 추가하기
 		String day = startDate.substring(0, 2);    
 		String month = startDate.substring(2, 4);  
@@ -75,28 +69,21 @@ public class AdminAddProductListController extends HttpServlet {
 		year = endDate.substring(4, 6); 
 		endDate = day + "." + month + "." + year;
 		
-		
-		
 		Product p = new Product(
-								productName
-							   ,productImg
-							   ,subCategory
-							   ,category
-							   ,startDate
-							   ,endDate
-							   ,stay
-							   ,aPrice
-							   ,cPrice
-							   ,amount
-							   ,flight
-							   ,infoEditor
-							   ,scheduleEditor
-							   ,detailEditor
-							   );
-		
-		
-		
-		int result = new AdminProductService().addProduct(p);
+				productName
+			   ,productImg
+			   ,startDate
+			   ,endDate
+			   ,stay
+			   ,aPrice
+			   ,cPrice
+			   ,amount
+			   ,flight
+			   ,infoEditor
+			   ,scheduleEditor
+			   ,detailEditor
+			   );
+		int result = new AdminProductService().updateProduct(p ,no);
 		
 		if(result > 0) {
 			response.sendRedirect(request.getContextPath()+"/list.pro");
@@ -104,9 +91,6 @@ public class AdminAddProductListController extends HttpServlet {
 		}else {
 			System.out.println("실패");
 		}
-		
-		
-		
 	}
 
 	/**

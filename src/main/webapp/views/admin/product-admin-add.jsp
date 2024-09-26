@@ -7,6 +7,8 @@
 	
 	
 	%>
+	
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -202,6 +204,7 @@ h5 {
 </style>
 </head>
 <body>
+	
 	<div class="admin-page">
 		<div class="admin-page-head">
 			<div class="admin-page-head-logo">
@@ -245,7 +248,7 @@ h5 {
 					결제 관리</button>
 				</div>
 				<div class="amdin-page-side-btn3">
-					<button id="btn-2" class="btn" onclick="location.href='#'">FAQ</button>
+					<button id="btn-2" class="btn" onclick="location.href=''">FAQ</button>
 					<br>
 					<button id="btn-2" class="btn" onclick="location.href='#'">문의/신고</button>
 				</div>
@@ -344,12 +347,12 @@ h5 {
 						<div class="title-name">
 							<div class="title-name-1">
 								<span style="font-size: 15px;">여행 시작</span><br> 
-								<input type="text" name="startDate" id="startDate" required>
+								<input type="text" name="startDate" id="startDate" placeholder="YYMMDD" required>
 								<hr color="lightgray">
 							</div>
 							<div class="title-name-2">
 								<span style="font-size: 15px;">여행 끝</span><br> 
-								<input type="text" name="endDate" id="endDate" required>
+								<input type="text" name="endDate" id="endDate" placeholder="YYMMDD" required>
 								<hr color="lightgray">
 							</div>
 						</div>
@@ -391,7 +394,7 @@ h5 {
 					<button id="btn-4" type="submit">
 						<h5>등록</h5>
 					</button>
-					<button id="btn-1">
+					<button id="btn-1" onclick="location.href='<%= contextPath%>/list.pro'">
 						<h5>취소</h5>
 					</button>
 				</div>

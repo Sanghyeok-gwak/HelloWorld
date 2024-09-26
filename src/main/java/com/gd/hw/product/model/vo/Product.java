@@ -25,7 +25,23 @@ public class Product {
 	 
 	 
 	 public Product() {}
-
+	 public Product(String productName, String productImg, String startDate,
+				String endDate,String stay, int aPrice, int cPrice, int amount, String flight, String infoEditor, String scheduleEditor,
+				String detailEditor) {
+			super();
+			this.productName = productName;
+			this.productImg = productImg;
+			this.startDate = startDate;
+			this.endDate = endDate;
+			this.stay = stay;
+			this.aPrice = aPrice;
+			this.cPrice = cPrice;
+			this.amount = amount;
+			this.flight = flight;
+			this.infoEditor = infoEditor;
+			this.scheduleEditor = scheduleEditor;
+			this.detailEditor = detailEditor;
+		}
 
 	public Product(String productName, String productImg, int regionId, int categoryId, String startDate,
 			String endDate,String stay, int aPrice, int cPrice, int amount, String flight, String infoEditor, String scheduleEditor,

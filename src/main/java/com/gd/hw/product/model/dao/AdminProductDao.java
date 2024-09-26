@@ -271,5 +271,79 @@ private Properties prop = new Properties();
 		return result;
 	}
 	
+	public Product modifyProduct(Connection conn, int no){
+		Product p = new Product();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("modifyProduct");
+		
+		
+		try {
+			pstmt =conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				p.setProductName(rset.getString("PRODUCT_NAME"));
+				p.setProductImg(rset.getString("PRODUCT_IMG"));
+				p.setRegionName(rset.getString("REGION_NAME"));
+				p.setCategoryName(rset.getString("CATEGORY_NAME"));
+				p.setStartDate(rset.getString("START_DATE"));
+				p.setEndDate(rset.getString("END_DATE"));
+				p.setaPrice(rset.getInt("A_PRICE"));
+				p.setcPrice(rset.getInt("C_PRICE"));
+				p.setAmount(rset.getInt("AMOUNT"));
+				p.setFlight(rset.getString("FLIGHT"));
+				p.setInfoEditor(rset.getString("INFO_EDITOR"));
+				p.setScheduleEditor(rset.getString("SCHEDULE_EDITOR"));
+				p.setDetailEditor(rset.getString("DETAIL_EDITOR"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		 
+		
+		
+		return p;
+	}
+	
+	public int updateProduct (Connection conn ,Product p,int no) {
+		int result = 0;
+		PreparedStatement pstmt=null;
+		String sql = prop.getProperty("updateProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, p.getProductName());
+			pstmt.setString(2, p.getProductImg());
+			pstmt.setString(3, p.getStartDate());
+			pstmt.setString(4, p.getEndDate());
+			pstmt.setString(5, p.getStay());
+			pstmt.setInt(6, p.getaPrice());
+			pstmt.setInt(7, p.getcPrice());
+			pstmt.setInt(8, p.getAmount());
+			pstmt.setString(9, p.getFlight());
+			pstmt.setString(10, p.getInfoEditor());
+			pstmt.setString(11, p.getScheduleEditor());
+			pstmt.setString(12, p.getDetailEditor());
+			pstmt.setInt(13,no);
+			result= pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
 	
 }
+
