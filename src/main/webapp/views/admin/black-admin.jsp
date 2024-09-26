@@ -130,7 +130,7 @@ h5 {
 					<button id="btn-2" class="btn" onclick="location.href='#'">이벤트
 						관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">결제
+					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.or'">결제
 						관리</button>
 				</div>
 				<div class="amdin-page-side-btn3">

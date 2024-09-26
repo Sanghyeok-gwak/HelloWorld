@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.gd.hw.common.model.vo.PageInfo;
 import com.gd.hw.order.model.vo.OrderAd;
+import com.gd.hw.order.model.vo.Person;
 import com.gd.hw.product.model.vo.Product;
 
 public class OrderDao {
@@ -107,6 +108,59 @@ public class OrderDao {
 			while (rset.next()) {
 				list.add(new OrderAd(rset.getString("USER_ID"), rset.getString("MERCHANT_UID"),
 						rset.getDate("PAY_DATE"), rset.getInt("FINAL_PAY"), rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public OrderAd selectOrderByMerUid(Connection conn, String merUid) {
+		OrderAd order = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectOrderByMerUid");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, merUid);
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				order = new OrderAd(rset.getString("USER_NAME"), merUid,rset.getInt("FINAL_PAY"),rset.getString("STATUS")
+						,rset.getInt("PRODUCT_ID"),rset.getString("PRODUCT_NAME"), rset.getString("BH_CLASS"), rset.getInt("PRICE")
+						,rset.getInt("ADULT"),rset.getInt("CHILD"),rset.getInt("POINT_U"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return order;
+	}
+
+	public List<Person> selectAllPersonByMerUid(Connection conn, String merUid) {
+		List<Person> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAllPersonByMerUid");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, merUid);
+			rset = pstmt.executeQuery();
+
+			while(rset.next()) {
+				list.add(new Person(merUid,rset.getString("SURNAME"), rset.getString("ENG_NAME"),
+						rset.getString("BIRTHDAY"), rset.getString("PHONE"), rset.getString("GENDER"),
+						rset.getString("NATION"),rset.getString("PASSPORT"),rset.getString("PASSPROT_EX"),
+						rset.getString("STATUS"),rset.getString("DIV")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

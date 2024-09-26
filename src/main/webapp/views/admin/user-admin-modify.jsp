@@ -120,7 +120,7 @@ h5 {
 					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.bk'">블랙리스트
 						관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">이벤트
+					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.or'">이벤트
 						관리</button>
 					<br>
 					<button id="btn-2" class="btn" onclick="location.href='#'">결제

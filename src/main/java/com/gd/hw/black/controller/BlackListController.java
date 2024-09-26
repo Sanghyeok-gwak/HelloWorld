@@ -44,7 +44,7 @@ public class BlackListController extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		}
 		int pageLimit = 5;
-		int boardLimit = 10;
+		int boardLimit = 7;
 		
 		int maxPage = (int)Math.ceil( (double)listCount / boardLimit );
 		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;

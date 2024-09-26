@@ -6,8 +6,8 @@
 <%
 String contextPath = request.getContextPath();
 List<User> list = (List<User>) request.getAttribute("list");
-String msg = (String)session.getAttribute("msg");
-PageInfo pi = (PageInfo)request.getAttribute("pi");
+String msg = (String) session.getAttribute("msg");
+PageInfo pi = (PageInfo) request.getAttribute("pi");
 %>
 <!DOCTYPE html>
 <html>
@@ -22,11 +22,16 @@ PageInfo pi = (PageInfo)request.getAttribute("pi");
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<% if(msg != null) { %>
+<%
+if (msg != null) {
+%>
 <script>
 	alert('<%=msg%>');
 </script>
-<% session.removeAttribute("msg"); } %>
+<%
+session.removeAttribute("msg");
+}
+%>
 <style>
 .admin-page-head {
 	display: flex;
@@ -101,14 +106,16 @@ h5 {
 	<div class="admin-page">
 		<div class="admin-page-head">
 			<div class="admin-page-head-logo">
-				<img src="<%= contextPath %>/assets/image/logo.png" alt="logo" width="100%">
+				<img src="<%=contextPath%>/assets/image/logo.png" alt="logo"
+					width="100%">
 			</div>
 			<div class="admin-page-head-gongback"></div>
 		</div>
 		<div class="admin-page-main">
 			<div class="admin-page-main-menu">
 				<div class="amdin-page-side-btn1">
-					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.pro'">상품
+					<button id="btn-2" class="btn"
+						onclick="location.href='<%=contextPath%>/list.pro'">상품
 						관리</button>
 					<br>
 					<button id="btn-2" class="btn" onclick="location.href='#'">배너
@@ -117,21 +124,23 @@ h5 {
 					<button id="btn-2" class="btn" onclick="location.href='#'">리뷰
 						관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.cg'">카테고리
+					<button id="btn-2" class="btn"
+						onclick="location.href='<%=contextPath%>/list.cg'">카테고리
 						관리</button>
 				</div>
 				<div class="amdin-page-side-btn2">
 					<button id="btn-2" class="btn"
 						onclick="location.href='<%=contextPath%>/list.us'">회원 관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.bk'">블랙리스트
+					<button id="btn-2" class="btn"
+						onclick="location.href='<%=contextPath%>/list.bk'">블랙리스트
 						관리</button>
 					<br>
 					<button id="btn-2" class="btn" onclick="location.href='#'">이벤트
 						관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.py'">결제
-						관리</button>
+					<button id="btn-2" class="btn"
+						onclick="location.href='<%=contextPath%>/list.or'">결제 관리</button>
 				</div>
 				<div class="amdin-page-side-btn3">
 					<button id="btn-2" class="btn" onclick="location.href='#'">FAQ</button>
@@ -160,8 +169,10 @@ h5 {
 					</form>
 				</div>
 				<div id="buttons" class="d-flex justify-content-end pr-2 pb-2">
-					<button class="btn btn-primary btn-sm" style="width: 100px" id="addBtn">추가</button>
-					<button class="btn btn-danger btn-sm" style="width: 100px; display:none;" id="delBtn">탈퇴</button>
+					<button class="btn btn-primary btn-sm" style="width: 100px"
+						id="addBtn">추가</button>
+					<button class="btn btn-danger btn-sm"
+						style="width: 100px; display: none;" id="delBtn">탈퇴</button>
 				</div>
 				<div id="table-contain">
 					<table class="table table-bordered">
@@ -204,7 +215,8 @@ h5 {
 								<%
 								} else {
 								%>
-								<th><input type="checkbox" value=<%=u.getUserNo()%> class="chk"></th>
+								<th><input type="checkbox" value=<%=u.getUserNo()%>
+									class="chk"></th>
 								<%
 								}
 								%>
@@ -225,40 +237,55 @@ h5 {
 								} else if (u.getStatus().equals("B")) {
 								%>
 								<td style="color: blue;">블랙리스트</td>
-								<td>
-									<a href="<%= contextPath %>/modiAd.us?no=<%=u.getUserNo()%>" 
-									class="btn btn-primary btn-sm w-100" >수정</a>
-								</td>
+								<td><a
+									href="<%=contextPath%>/modiAd.us?no=<%=u.getUserNo()%>"
+									class="btn btn-primary btn-sm w-100">수정</a></td>
 								<%
 								} else {
 								%>
 								<td>일반</td>
-								<td>
-									<a href="<%= contextPath %>/modiAd.us?no=<%=u.getUserNo()%>"
-									 class="btn btn-primary btn-sm w-100">수정</a>
-								</td>
+								<td><a
+									href="<%=contextPath%>/modiAd.us?no=<%=u.getUserNo()%>"
+									class="btn btn-primary btn-sm w-100">수정</a></td>
 								<%
 								}
 								%>
 							</tr>
-							<%}}%>
+							<%
+							}
+							}
+							%>
 						</tbody>
 					</table>
 				</div>
 				<div id="paging-bar">
-						<ul id="pagination-user-admin" class="pagination d-flex justify-content-center text-dark" style="margin-top: 80px;">
-						<li class='page-item <%=pi.getCurrentPage() == 1 ? "disabled" : ""%>'>
-          		<a class="page-link" href="<%=contextPath%>/list.us?page=<%=pi.getCurrentPage()-1%>"> < </a>
-          	</li>
-						<% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++) { %>
-	          	<li class='page-item <%=p == pi.getCurrentPage() ? "active" : ""%>'>
-	          		<a class="page-link" href="<%= contextPath %>/list.us?page=<%=p%>"><%= p %></a>
-	          	</li>
-          	<% } %>
-          	 
-						<li class='page-item <%=pi.getCurrentPage() == pi.getMaxPage() ? "disabled" : ""%>'>
-          		<a class="page-link" href="<%=contextPath%>/list.us?page=<%=pi.getCurrentPage()+1%>"> > </a>
-         	 	</li>
+					<ul id="pagination-user-admin"
+						class="pagination d-flex justify-content-center text-dark"
+						style="margin-top: 80px;">
+						<li
+							class='page-item <%=pi.getCurrentPage() == 1 ? "disabled" : ""%>'>
+							<a class="page-link"
+							href="<%=contextPath%>/list.us?page=<%=pi.getCurrentPage() - 1%>">
+								< </a>
+						</li>
+						<%
+						for (int p = pi.getStartPage(); p <= pi.getEndPage(); p++) {
+						%>
+						<li
+							class='page-item <%=p == pi.getCurrentPage() ? "active" : ""%>'>
+							<a class="page-link"
+							href="<%=contextPath%>/list.us?page=<%=p%>"><%=p%></a>
+						</li>
+						<%
+						}
+						%>
+
+						<li
+							class='page-item <%=pi.getCurrentPage() == pi.getMaxPage() ? "disabled" : ""%>'>
+							<a class="page-link"
+							href="<%=contextPath%>/list.us?page=<%=pi.getCurrentPage() + 1%>">
+								> </a>
+						</li>
 					</ul>
 				</div>
 				<!-- 여기까지 -->

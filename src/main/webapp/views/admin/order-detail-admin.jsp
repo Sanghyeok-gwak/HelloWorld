@@ -1,9 +1,12 @@
-<%@ page import="com.gd.hw.user.model.vo.User"%>
+<%@ page import="com.gd.hw.order.model.vo.OrderAd"%>
+<%@ page import="java.util.List"%>
+<%@ page import="com.gd.hw.order.model.vo.Person"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 String contextPath = request.getContextPath();
-// Order객체 만들어서 가져와야됨
+OrderAd order = (OrderAd)request.getAttribute("order");
+List<Person> list = (List<Person>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -123,7 +126,7 @@ h5 {
 					<button id="btn-2" class="btn" onclick="location.href='#'">이벤트
 						관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">결제
+					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.or'">결제
 						관리</button>
 				</div>
 				<div class="amdin-page-side-btn3">
@@ -146,11 +149,11 @@ h5 {
             <table class="table pb-3">
               <tr>
                 <th>회원명</th>
-                <td>김길동</td>
+                <td><%=order.getUserId() %></td>
               </tr>
               <tr>
                 <th>상품명</th>
-                <td><a href="#">마감특가 유럽 2박3일 패키지</a></td>
+                <td><a href="productDetail.pr?productId=<%= order.getProductId() %>" ><%= order.getProductName() %></a></td>
               </tr>
             </table>
           </div>
@@ -160,17 +163,17 @@ h5 {
               <table class="table pb-3">
                 <tr>
                   <th>인원</th>
-                  <td colspan="2">성인 2명, 유아1명</td>
+                  <td colspan="2">성인 <%= order.getAdult()%>명, 유아<%= order.getChild()%>명</td>
                 </tr>
                 <tr>
                   <th>총 결제금액</th>
-                  <td>3명</td>
-                  <td>450000원</td>
+                  <td><%= order.getAdult()+order.getChild()%>명</td>
+                  <td><%= order.getFinalPay()+order.getPointU() %>원</td>
                 </tr>
                 <tr>
                   <th>보험</th>
-                  <td>실버(10000원)</td>
-                  <td>30000원</td>
+                  <td><%=order.getBhClass()%>/<%= order.getPrice()%>원</td>
+                  <td>총 보험금액 : <%= order.getPrice()*(order.getAdult()+order.getChild())%></td>
                 </tr>
               </table>
             </div>
@@ -178,15 +181,19 @@ h5 {
               <table class="table pb-3">
                 <tr>
                   <th>사용적립금</th>
-                  <td>500원</td>
+                  <td><%= order.getPointU()%>원</td>
                 </tr>
                 <tr>
                   <th>최종 결제금액</th>
-                  <td style="color: red;">309500원</td>
+                  <td style="color: red;"><%=order.getFinalPay() %>원</td>
                 </tr>
                 <tr>
                   <th>적립액</th>
-                  <td>250원</td>
+                  <%if(order.getPointU()>0){ %>
+                  <td>적립불가</td>
+                  <%}else{ %>
+                 <td><%=(int)Math.ceil(order.getFinalPay()*0.01)%>원</td>
+                  <%} %>
                 </tr>
               </table>
             </div>
@@ -205,47 +212,41 @@ h5 {
                   <th>여권번호</th>
                   <th>여권만료일</th>
                 </tr>
+                <%
+					for (Person p  : list) {
+			  	%>
                 <tr>
-                  <td>대표자</td>
-                  <td>KIM</td>
-                  <td>GONGGU</td>
-                  <td>2000-10-10</td>
-                  <td>010-1234-1111</td>
+                <%if(p.getStatus().equals("A")){ %>
+                  <td style="color: blue;">대표자</td>
+                <%}else{ %>
+               	  <td>일반</td>
+                <%} %>
+                  <td><%=p.getSurName() %></td>
+                  <td><%=p.getEngName() %></td>
+                  <td><%=p.getBirthday() %></td>
+                  <td><%=p.getPhone() %></td>
+                  <%if(p.getGender().equals("F")){ %>
                   <td>여</td>
-                  <td>외국인</td>
-                  <td>여권번호1</td>
-                  <td>2024-11-11</td>
+                  <%}else{ %>
+                  <td>남</td>
+                  <%} %>
+                  <td><%=p.getNation() %></td>
+                  <td><%=p.getPassport() %></td>
+                  <td><%=p.getPassportEx() %></td>
                 </tr>
-                <tr>
-                  <td>일반</td>
-                  <td>KIM</td>
-                  <td>GONGGONG</td>
-                  <td>2000-01-01</td>
-                  <td>010-1111-1111</td>
-                  <td>여자</td>
-                  <td>내국인</td>
-                  <td>여권번호2</td>
-                  <td>2024-10-10</td>
-                </tr>
-                <tr>
-                  <td>일반</td>
-                  <td>KIM</td>
-                  <td>GUGONG</td>
-                  <td>2014-12-12</td>
-                  <td>010-1234-1234</td>
-                  <td>남자</td>
-                  <td>내국인</td>
-                  <td>여권번호3</td>
-                  <td>2024-12-12</td>
-                </tr>
+                <%
+				    }
+				%>
               </table>
           </div>
         </div>
         <!--테이블 영역 끝-->
         <!--버튼 영역 시작-->
         <div align="center" class="pt-4">
+        <%if(order.getStatus().equals("C")){ %>
          <button class="btn btn-primary btn-sm" style="width:200px">환불하기</button>
-          <button class="btn btn-primary btn-sm" style="width:200px">목록으로</button>
+         <%} %>
+          <button class="btn btn-primary btn-sm" style="width:200px" onclick="history.back()">목록으로</button>
         </div>
       </div>
     </div>

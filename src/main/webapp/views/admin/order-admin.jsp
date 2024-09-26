@@ -6,8 +6,8 @@
 <%
 String contextPath = request.getContextPath();
 List<OrderAd> list = (List<OrderAd>) request.getAttribute("list");
-String msg = (String)session.getAttribute("msg");
-PageInfo pi = (PageInfo)request.getAttribute("pi");
+String msg = (String) session.getAttribute("msg");
+PageInfo pi = (PageInfo) request.getAttribute("pi");
 %>
 <!DOCTYPE html>
 <html>
@@ -22,11 +22,17 @@ PageInfo pi = (PageInfo)request.getAttribute("pi");
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<% if(msg != null) { %>
+<%
+if (msg != null) {
+%>
 <script>
-	alert('<%=msg%>');
+	alert('<%=msg%>
+	');
 </script>
-<% session.removeAttribute("msg"); } %>
+<%
+session.removeAttribute("msg");
+}
+%>
 <style>
 .admin-page-head {
 	display: flex;
@@ -101,14 +107,16 @@ h5 {
 	<div class="admin-page">
 		<div class="admin-page-head">
 			<div class="admin-page-head-logo">
-				<img src="<%= contextPath %>/assets/image/logo.png" alt="logo" width="100%">
+				<img src="<%=contextPath%>/assets/image/logo.png" alt="logo"
+					width="100%">
 			</div>
 			<div class="admin-page-head-gongback"></div>
 		</div>
 		<div class="admin-page-main">
 			<div class="admin-page-main-menu">
 				<div class="amdin-page-side-btn1">
-					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.pro'">상품
+					<button id="btn-2" class="btn"
+						onclick="location.href='<%=contextPath%>/list.pro'">상품
 						관리</button>
 					<br>
 					<button id="btn-2" class="btn" onclick="location.href='#'">배너
@@ -117,21 +125,23 @@ h5 {
 					<button id="btn-2" class="btn" onclick="location.href='#'">리뷰
 						관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.cg'">카테고리
+					<button id="btn-2" class="btn"
+						onclick="location.href='<%=contextPath%>/list.cg'">카테고리
 						관리</button>
 				</div>
 				<div class="amdin-page-side-btn2">
 					<button id="btn-2" class="btn"
 						onclick="location.href='<%=contextPath%>/list.us'">회원 관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.bk'">블랙리스트
+					<button id="btn-2" class="btn"
+						onclick="location.href='<%=contextPath%>/list.bk'">블랙리스트
 						관리</button>
 					<br>
 					<button id="btn-2" class="btn" onclick="location.href='#'">이벤트
 						관리</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.or'">결제
-						관리</button>
+					<button id="btn-2" class="btn"
+						onclick="location.href='<%=contextPath%>/list.or'">결제 관리</button>
 				</div>
 				<div class="amdin-page-side-btn3">
 					<button id="btn-2" class="btn" onclick="location.href='#'">FAQ</button>
@@ -148,7 +158,7 @@ h5 {
 				<div class="pb-5 ">
 					<h1>회원관리</h1>
 				</div>
-				
+
 				<div id="search-bar">
 					<form class="navbar-form pull-left">
 						<div class="input-group mb-3 w-50">
@@ -160,7 +170,7 @@ h5 {
 						</div>
 					</form>
 				</div>
-				
+
 				<div id="table-contain">
 					<table class="table table-bordered">
 						<thead>
@@ -179,7 +189,7 @@ h5 {
 							if (list != null && list.isEmpty()) {
 							%>
 							<tr>
-								<td colspan="11" style="text-align: center;">불러올 회원 정보가
+								<td colspan="11" style="text-align: center;">불러올 결제 정보가
 									없습니다.</td>
 							</tr>
 							<%
@@ -203,20 +213,48 @@ h5 {
 								%>
 								<td style="color: blue;">결제완료</td>
 								<%
-								} else 
+								} else
 								%>
-								<td>
-									<a href="<%= contextPath %>/detail.or?no=<%=o.getMerUid()%>" 
-									class="btn btn-primary btn-sm w-100" >상세정보</a>
-								</td>
-	
+								<td><a
+									href="<%=contextPath%>/detail.or?no=<%=o.getMerUid()%>"
+									class="btn btn-primary btn-sm w-100">상세정보</a></td>
+
 							</tr>
-							<%}}%>
+							<%
+							}
+							}
+							%>
 						</tbody>
 					</table>
 				</div>
 				<div id="paging-bar">
+					<ul id="pagination-order-admin"
+						class="pagination d-flex justify-content-center text-dark"
+						style="margin-top: 80px;">
+						<li
+							class='page-item <%=pi.getCurrentPage() == 1 ? "disabled" : ""%>'>
+							<a class="page-link"
+							href="<%=contextPath%>/list.or?page=<%=pi.getCurrentPage() - 1%>">
+								< </a>
+						</li>
+						<%
+						for (int p = pi.getStartPage(); p <= pi.getEndPage(); p++) {
+						%>
+						<li
+							class='page-item <%=p == pi.getCurrentPage() ? "active" : ""%>'>
+							<a class="page-link" href="<%=contextPath%>/list.or?page=<%=p%>"><%=p%></a>
+						</li>
+						<%
+						}
+						%>
 
+						<li
+							class='page-item <%=pi.getCurrentPage() == pi.getMaxPage() ? "disabled" : ""%>'>
+							<a class="page-link"
+							href="<%=contextPath%>/list.or?page=<%=pi.getCurrentPage() + 1%>">
+								> </a>
+						</li>
+					</ul>
 				</div>
 				<!-- 여기까지 -->
 			</div>

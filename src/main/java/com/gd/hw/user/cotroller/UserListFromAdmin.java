@@ -48,7 +48,7 @@ public class UserListFromAdmin extends HttpServlet {
 		
 		// 페이징바에 숫자 몇까지 보일지 , 한 페이지당 보일 행의 갯수
 		int pageLimit = 5;
-		int boardLimit = 10;
+		int boardLimit = 7;
 		
 		// 총 페이지수, 사용자에게 보여질 시작수, 사용자에게 보여질 마지막수 
 		int maxPage = (int)Math.ceil( (double)listCount / boardLimit );

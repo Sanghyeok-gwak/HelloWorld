@@ -43,7 +43,7 @@ public class OrderListFromAdminController extends HttpServlet {
 		}
 	
 		int pageLimit = 5;
-		int boardLimit = 10;
+		int boardLimit = 7;
 		
 
 		int maxPage = (int)Math.ceil( (double)listCount / boardLimit );
