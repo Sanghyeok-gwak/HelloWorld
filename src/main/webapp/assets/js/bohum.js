@@ -5,6 +5,7 @@ $(document).ready(function() {
         
         // 선택된 값에 따라 li의 색상 변경
         if ($('#bronze').is(':checked')) {
+						 $('.bohum-list li:eq(0)').addClass('active').css('color', 'black');
             $('.bohum-list li:eq(0)').addClass('active').css('color', 'black');
         } else if ($('#silver').is(':checked')) {
             $('.bohum-list li:lt(2)').addClass('active').css('color', 'black');

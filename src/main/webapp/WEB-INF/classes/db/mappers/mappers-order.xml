@@ -4,9 +4,18 @@
 <properties>
 
 <entry key="selectCPrice">
-	SELECT C_PRICE
-  	FROM "PRODUCT"
-   WHERE PRODUCT_ID = ? 
+SELECT 
+			 C_PRICE
+		 , A_PRICE
+		 , START_DATE
+		 , END_DATE
+		 , FLIGHT
+		 , PRODUCT_NAME
+  FROM 
+   		 PRODUCT
+ WHERE 
+  		 PRODUCT_ID = ?
+
 	</entry>
 	
 </properties>

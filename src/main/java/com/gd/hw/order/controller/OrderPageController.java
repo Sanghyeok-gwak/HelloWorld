@@ -33,14 +33,11 @@ public class OrderPageController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		// 상세페이지에서 결제창으로 넘길 페이지 -> 상품 정보 전달면 받으면 주석없앨 예정
-//		int productId = Integer.parseInt(request.getParameter("productId"));
-		String productName = request.getParameter("productName");
-		String startDate = request.getParameter("startDate");
-		String endtDate = request.getParameter("endDate");
-//		int aPrice = Integer.parseInt(request.getParameter("a_price"));
-//		int cPprice = Integer.parseInt(request.getParameter("c_price"));
+		int productId = Integer.parseInt(request.getParameter("productId"));
+		int aNum = Integer.parseInt(request.getParameter("aNum"));
+		int cNum = Integer.parseInt(request.getParameter("cNum"));
 		
-//		Product p = new Product(productId, productName, startDate, endtDate, aPrice, cPprice );
+
 		request.setCharacterEncoding("utf-8");
 //		request.setAttribute("p",p);
 		
