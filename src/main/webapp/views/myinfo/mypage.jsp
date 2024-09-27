@@ -243,10 +243,12 @@ List<Myinfo> list = (List<Myinfo>)request.getAttribute("list");
                     </h3>
                   </a>
                   <p class="card-text" style="font-size: 18px;"><%= m.getStart_Date() %>~<%= m.getEnd_Date() %></p>
-                  <a href="#" class="btn" id="btn-2" onclick="run();" style="width: 140px; ">환불하기</a>
+                  <dav style="display: flex; justify-content:end;">
+                  <button type="button" class="btn" id="btn-1" style="margin-right: 15px;  width: 140px;  ">결제내역</button>
+                  <a href="#" class="btn" id="btn-2" onclick="run();" style="width: 140px; ">환불하기</a></dav>
                 </div>
               </div>
-            </div>  
+            </div>         
             	<% } %>
             <% } %> 
               <!-- 2 -->
@@ -259,20 +261,19 @@ List<Myinfo> list = (List<Myinfo>)request.getAttribute("list");
                 
                        
               <!-- Pagination -->
-              List<Product> productList = (List<Product>) request.getAttribute("productList");
                <div aria-label="Page navigation">
               <ul class="pagination">
                 <li class='page-item active <%=pi.getCurrentPage() == 1 ? "disabled" : ""%>'>
                   <a class="page-link" href='<%=contextPath%>/myinfom.us?page=<%=pi.getCurrentPage()-1%>'> < </a>
 								</li>
-	      	  <%for (int p=pi.getStartPage(); p<=pi.getEndPage();  p++) { %>
+	      	  <%for (int p=pi.getStartPage(); p<=pi.getEndPage(); p++) { %>
 	        	  <li class ='page-item <%=p == pi.getCurrentPage() ? "active" : "" %>'>
   	       	<a class="page-link" href="<%=contextPath%>/myinfom.us?page=<%=p%>"><%=p%></a>  
     	      	</li>
       	  	<%}%>
 
         				<li class= 'page-item <%=pi.getCurrentPage() == pi.getMaxPage() ? "disabled" : ""%>'>
-          			  <a class="page-link" href="<%=contextPath%>/myinfom.us?page<%=pi.getCurrentPage()+1%>"> > </a>
+          			  <a class="page-link" href="<%=contextPath%>/myinfom.us?page=<%=pi.getCurrentPage()+1%>"> > </a>
                 </li>
               </ul>
             </div>  

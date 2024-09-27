@@ -100,9 +100,9 @@ public class MyinfoService {
 	 }
 	 	 
 	 // 마이페이지 페이징 
-	  public int selectMyinfoCount() {
+	  public int selectMyinfoCount( int userNo) {
 		  Connection conn = getConnection(); 
-		  int listCount = uDao.selectMyinfoCount(conn);
+		  int listCount = uDao.selectMyinfoCount(conn , userNo);
 		  close(conn);
 		  return listCount;
 	  } 

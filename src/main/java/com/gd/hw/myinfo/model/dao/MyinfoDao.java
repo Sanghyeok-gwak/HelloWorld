@@ -170,7 +170,7 @@ public class MyinfoDao {
 	
 	}
 
-	public int selectMyinfoCount(Connection conn) {
+	public int selectMyinfoCount(Connection conn , int userNo) {
 		
 		int listCount = 0;
 		PreparedStatement pstmt = null;
@@ -179,10 +179,11 @@ public class MyinfoDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				listCount = rset.getInt("userNo");
+				listCount = rset.getInt("COUNT");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
