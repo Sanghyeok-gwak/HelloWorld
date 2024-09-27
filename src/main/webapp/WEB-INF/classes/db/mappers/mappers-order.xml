@@ -39,10 +39,51 @@ SELECT
       WHERE RNUM BETWEEN ? AND ?
 </entry>
 <entry key="selectOrderListCount">
-  	 		SELECT
-		       	   COUNT(*) as COUNT
-		 		  FROM 
-		           "ORDER"
+  	 	SELECT
+		      COUNT(*) as COUNT
+		 FROM 
+		     "ORDER"
+</entry>
+<entry key="selectOrderByMerUid">
+  	 SELECT 
+  	 	    USER_NAME
+  	 	   ,P.PRODUCT_ID AS PRODUCT_ID
+  	 	   ,PRODUCT_NAME
+  	 	   ,Y.STATUS as STATUS
+  	 	   ,BH_CLASS
+  	 	   ,PRICE
+  	 	   ,ADULT
+  	 	   ,CHILD
+  	 	   ,POINT_U
+  	 	   ,FINAL_PAY
+      FROM "ORDER" O,
+           "USER" U,
+       	    PRODUCT P,
+       	    BOHUM B,
+       	    PAYMENT Y
+ 	 WHERE O.PRODUCT_ID=P.PRODUCT_ID
+  	   AND O.USER_NO=U.USER_NO
+  	   AND O.BH_NO=B.BH_NO
+  	   AND Y.IMP_UID = O.IMP_UID
+       AND MERCHANT_UID=?
+</entry>
+<entry key="selectAllPersonByMerUid">
+	SELECT 
+	  	   SURNAME
+	  	 , ENG_NAME
+	  	 , BIRTHDAY
+	  	 , PHONE
+	  	 , GENDER
+	  	 , NATION
+	  	 , PASSPORT
+	  	 , PASSPROT_EX
+	  	 , STATUS
+	  	 , DIV
+	FROM 
+		 PERSON
+   WHERE 
+   		 MERCHANT_UID = ?
+   ORDER BY STATUS
 </entry>
 <!-- 관리자에서 사용하는 파트 끝 -->
 </properties>
