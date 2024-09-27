@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gd.hw.product.model.service.ProductReviewService;
 import com.gd.hw.user.model.vo.User;
 
 /**
@@ -27,26 +28,28 @@ public class AjaxReviewInsertController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int userNo = ((User)request.getSession().getAttribute("loginUser")).getUserNo();
-		
-		
-		
-		
-		
-		
-		
-		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User loginUser = (User) request.getSession().getAttribute("loginUser");
+        
+        if (loginUser == null) {
+            response.getWriter().print("fail");
+            return;
+        }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+        int userNo = loginUser.getUserNo();
+        String content = request.getParameter("content");
+        int rating = Integer.parseInt(request.getParameter("rating"));
+        String merchantUid = request.getParameter("merchantUid");
+
+        ProductReviewService reviewService = new ProductReviewService();
+        int result = reviewService.insertReview(userNo, content, rating, merchantUid);
+
+        if (result > 0) {
+            response.getWriter().print("success");
+        } else {
+            response.getWriter().print("fail");
+        }
+    }
+	
 
 }

@@ -427,20 +427,6 @@ button:hover {
 			</ul>
 		</div>
 
-		<div id="content">
-			<div id="product-info" class="tabContent" style="display: block;">
-				<img src="<%=contextPath%>/assets/image/test.png" alt="상품 소개 이미지">
-			</div>
-
-			<div id="itinerary" class="tabContent" style="display: none;">
-				<img src="<%=contextPath%>/assets/image/test.png" alt="일정표 이미지">
-			</div>
-
-			<div id="details" class="tabContent" style="display: none;">
-				<img src="<%=contextPath%>/assets/image/test.png" alt="상세 정보 이미지">
-			</div>
-
-
 			<div id="reviews" class="tabContent" style="display: none;">
 				<h2>리뷰</h2>
 
@@ -539,25 +525,33 @@ button:hover {
     let reviews = [];
 
     // 리뷰 제출 및 서버로 전송
+    
     function submitReview() {
-      const reviewText = document.getElementById('reviewText').value;
-      const rating = document.querySelector('.Rating .fa.fa-star.selected');
+  const reviewText = document.getElementById('reviewText').value.trim();
+  const ratingElement = document.querySelector('.Rating .fa.selected');
+  
+  if (!reviewText) {
+    alert("리뷰 내용을 입력해주세요.");
+    return;
+  }
 
-      if (reviewText && rating) {
-        const review = {
-          text: reviewText,
-          rating: rating.dataset.value
-        };
+  if (!ratingElement) {
+    alert("별점을 선택해주세요.");
+    return;
+  }
+
+  const rating = ratingElement.dataset.value;
+  const merchantUid = '<%= product.getMerchantUid() != null ? product.getMerchantUid() : "" %>';
         
         // AJAX 요청으로 서버에 리뷰 전송
         $.ajax({
           type: 'POST',
           url: '<%=contextPath%>/insert.re', // 서버 측 URL 변경 필요
           data: {
-        	  review: {reviewNo},
-            userNo: {userNo},
-            con,
-            rating: review.rating
+        	  // 유저안써도 되는이유는 서블릿에서 세션으로 받을거라서
+        	  content: reviewText,     // 리뷰 내용
+            rating: rating,          // 별점
+            merchantUid: merchantUid // 결제 고유 번호
           },
           success: function(response) {
             // 성공적으로 서버에 전송된 경우, 화면에 리뷰 표시
@@ -570,9 +564,7 @@ button:hover {
             alert("리뷰 제출에 실패했습니다. 다시 시도해주세요.");
           }
         });
-      } else {
-        alert("리뷰와 평점을 모두 입력해주세요.");
-      }
+      
     }
 
     // 리뷰 목록을 화면에 표시

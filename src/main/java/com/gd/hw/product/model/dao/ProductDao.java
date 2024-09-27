@@ -68,7 +68,7 @@ public class ProductDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String sql = prop.getProperty("selectProductById"); 
+		String sql = prop.getProperty("selectProductById");
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -103,94 +103,98 @@ public class ProductDao {
 	// 찜하기 추가 부분
 	public int insertFavorite(Connection conn, int userNo, int productId) {
 		int result = 0;
-	    PreparedStatement pstmt = null;
-	    String sql = prop.getProperty("insertFavorite");
-	    
-	    try {
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setInt(1, userNo);
-	        pstmt.setInt(2, productId);
-	        
-	         result = pstmt.executeUpdate();
-	        
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    } finally {
-	        close(pstmt);
-	    }
-	    
-	    return result;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertFavorite");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, productId);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
-	
-	
-	
+
 	// 찜하기 삭제부분
 	public int deleteFavorite(Connection conn, int userNo, int productId) {
 		int result = 0;
-	    PreparedStatement pstmt = null;
-	    String sql = prop.getProperty("deleteFavorite");
-	    
-	    try {
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setInt(1, userNo);
-	        pstmt.setInt(2, productId);
-	        
-	        result = pstmt.executeUpdate();
-	        
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    } finally {
-	        close(pstmt);
-	    }
-	    
-	    return result;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteFavorite");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, productId);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
-	
+
 	// 찜하기 가져오기 부분
-	public List<Integer> getFavoriteList(Connection conn, int userNo){
-		
+	public List<Integer> getFavoriteList(Connection conn, int userNo) {
+
 		List<Integer> list = new ArrayList<>();
-		
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("getFavoriteList");
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userNo);
 			rset = pstmt.executeQuery();
-			
+
 			while (rset.next()) {
-                list.add(rset.getInt("PRODUCT_ID"));  // 각 상품 ID를 리스트에 추가
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            close(rset);
-            close(pstmt);
-        }
-        
-        return list;
-    }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+				list.add(rset.getInt("PRODUCT_ID")); // 각 상품 ID를 리스트에 추가
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+	}
+
+	// 리뷰 등록
+	public int insertReview(Connection conn, int userNo, String content, int rating, String merchantUid) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReview");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, rating);
+			pstmt.setString(4, merchantUid);
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		} finally {
+			close(pstmt);
+
+		}
+
+		return result;
+	}
+
 }
-	
-	
-	

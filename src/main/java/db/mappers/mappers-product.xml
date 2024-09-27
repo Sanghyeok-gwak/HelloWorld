@@ -109,6 +109,13 @@
     </entry>
 
 		<!-- 리뷰 추가 및 조회 -->
+		
+		<entry key="insertReview">
+		
+		INSERT INTO REVIEW (REVIEW_NO, USER_NO, CONTENT, RATING, WRITE_DATE, MER_UID)
+		VALUES (SEQ_REVIEW.NEXTVAL, ?, ?, ?, SYSDATE, ?)
+		</entry>
+		
 
 		<entry key="selectReview">
 		
@@ -119,7 +126,7 @@
        AND U.USER_NO=?
        AND O.MERCHANT_UID = (SELECT MERCHANT_UID 
        												 FROM REVIEW 
-       												WHERE MERCHANT_UID=?);
+       												WHERE MERCHANT_UID=?)
 		</entry>
 		
 		
