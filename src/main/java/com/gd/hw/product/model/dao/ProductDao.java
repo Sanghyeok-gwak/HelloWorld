@@ -145,7 +145,8 @@ public class ProductDao {
 	    
 	    return result;
 	}
-
+	
+	// 찜하기 가져오기 부분
 	public List<Integer> getFavoriteList(Connection conn, int userNo){
 		
 		List<Integer> list = new ArrayList<>();
@@ -172,7 +173,24 @@ public class ProductDao {
         return list;
     }
 	
-	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
 	
 	
 	
