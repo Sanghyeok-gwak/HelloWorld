@@ -1,4 +1,5 @@
 <%@ page import = "java.util.List" %>
+<%@ page import = "com.gd.hw.product.model.vo.Product" %>
 <%@ page import = "com.gd.hw.myinfo.model.vo.Myinfo" %>
 <%@ page import = "com.gd.hw.common.model.vo.PageInfo" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -6,6 +7,9 @@
 <% 
 PageInfo pi = (PageInfo)request.getAttribute("pi");
 List<Myinfo> list = (List<Myinfo>)request.getAttribute("list");
+
+
+
 %> 
 <!DOCTYPE html>
 <html>
@@ -234,7 +238,7 @@ List<Myinfo> list = (List<Myinfo>)request.getAttribute("list");
                 <img src="<%= m.getProduct_Img() %>"  alt="Product Image">
                 <div class="card-body">
                   <br>
-                  <a href="#" class="product-font">
+                  <a href="productDetail.pr?productId=<%= m.getProduct_Id() %>" class="product-font">
                     <h3 class="card-title"><%= m.getProduct_Name() %>
                     </h3>
                   </a>
@@ -255,7 +259,7 @@ List<Myinfo> list = (List<Myinfo>)request.getAttribute("list");
                 
                        
               <!-- Pagination -->
-              
+              List<Product> productList = (List<Product>) request.getAttribute("productList");
                <div aria-label="Page navigation">
               <ul class="pagination">
                 <li class='page-item active <%=pi.getCurrentPage() == 1 ? "disabled" : ""%>'>
