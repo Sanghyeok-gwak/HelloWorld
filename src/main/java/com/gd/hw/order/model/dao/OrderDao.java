@@ -89,6 +89,30 @@ public class OrderDao {
 		
 		return listCount;
 	}
+	public int selectOrderCountByKeyword(Connection conn, String keyword) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectOrderCountByKeyword");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
 	public List<OrderAd> selectOrderLIst(Connection conn, PageInfo pi) {
 
 		List<OrderAd> list = new ArrayList<>();
@@ -117,7 +141,34 @@ public class OrderDao {
 		}
 		return list;
 	}
-	
+	public List<OrderAd> selectOrderLIstByKeyword(Connection conn, PageInfo pi, String keyword) {
+		List<OrderAd> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectOrderLIstByKeyword");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, "%"+keyword+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				list.add(new OrderAd(rset.getString("USER_ID"), rset.getString("MERCHANT_UID"),
+						rset.getDate("PAY_DATE"), rset.getInt("FINAL_PAY"), rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	public OrderAd selectOrderByMerUid(Connection conn, String merUid) {
 		OrderAd order = null;
 		PreparedStatement pstmt = null;
@@ -171,5 +222,9 @@ public class OrderDao {
 		return list;
 	}
 //-----------------------관리자파트 끝-----------------------
+
+
+
+
 	
 }

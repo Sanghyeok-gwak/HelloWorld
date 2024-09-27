@@ -115,8 +115,7 @@ h5 {
 			<div class="admin-page-main-menu">
 				<div class="amdin-page-side-btn1">
 					<button id="btn-2" class="btn"
-						onclick="location.href='<%=contextPath%>/list.pro'">상품
-						관리</button>
+						onclick="location.href='<%=contextPath%>/list.pro'">상품 관리</button>
 					<br>
 					<button id="btn-2" class="btn" onclick="location.href='#'">배너
 						관리</button>
@@ -161,9 +160,9 @@ h5 {
 					<form class="navbar-form pull-left">
 						<div class="input-group mb-3 w-50">
 							<h3 class="pr-3">회원 ID</h3>
-							<input type="text" class="form-control">
+							<input type="text" class="form-control" name="keyword">
 							<div class="input-group-append">
-								<button class="btn btn-primary">검색</button>
+								<button class="btn btn-primary" id="serchBtn">검색</button>
 							</div>
 						</div>
 					</form>
@@ -175,7 +174,7 @@ h5 {
 						style="width: 100px; display: none;" id="delBtn">탈퇴</button>
 				</div>
 				<div id="table-contain">
-					<table class="table table-bordered">
+					<table class="table table-bordered" id="userTable">
 						<thead>
 							<tr>
 								<th></th>
@@ -204,6 +203,7 @@ h5 {
 							} else if (list != null) {
 							%>
 							<!-- 데이터가 있을 경우 -->
+
 							<%
 							for (User u : list) {
 							%>
@@ -273,8 +273,7 @@ h5 {
 						%>
 						<li
 							class='page-item <%=p == pi.getCurrentPage() ? "active" : ""%>'>
-							<a class="page-link"
-							href="<%=contextPath%>/list.us?page=<%=p%>"><%=p%></a>
+							<a class="page-link" href="<%=contextPath%>/list.us?page=<%=p%>"><%=p%></a>
 						</li>
 						<%
 						}
@@ -293,6 +292,13 @@ h5 {
 		</div>
 	</div>
 	<script>
+	
+	$('#serchBtn').click(function() {
+	    const keyword = $('#keyword').val();
+	    console.log(keyword);
+	    
+	});
+
 	$(document).ready(function () {
 		$(':checkbox').click(function (evt) {
 			if($(':checkbox:checked').length >= 1){

@@ -152,7 +152,7 @@ h5 {
 					<form class="navbar-form pull-left">
 						<div class="input-group mb-3 w-50">
 							<h3 class="pr-3">회원 ID</h3>
-							<input type="text" class="form-control">
+							<input type="text" class="form-control" name="keyword">
 							<div class="input-group-append">
 								<button class="btn btn-primary">검색</button>
 							</div>
@@ -299,6 +299,9 @@ h5 {
 				}
 			})
        });
+		  document.getElementById("addBtn").addEventListener("click", () => {
+		      	location.href = "<%=contextPath%>/add.us";
+		      })
 	})
 	
 	</script>

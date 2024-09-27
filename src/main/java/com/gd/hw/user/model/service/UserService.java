@@ -30,7 +30,12 @@ public class UserService {
 		close(conn);
 		return listCount;
 	}
-	
+	public int selectUserListByKeyword(String keyword) {
+		Connection conn = getConnection();
+		int listCount = uDao.selectUserListByKeyword(conn,keyword);
+		close(conn);
+		return listCount;
+	}
 	/**관리자 페이지-모든 회원정보 조회용 메소드
 	 * @return dao로부터 조회해온 list를 반환
 	 */
@@ -40,7 +45,12 @@ public class UserService {
 		close(conn);
 		return list;
 	}
-	
+	public List<User> selectUserByKeyword(PageInfo pi, String keyword) {
+		Connection conn = getConnection();
+		List<User> list = uDao.selectUserByKeyword(conn, pi,keyword);
+		close(conn);
+		return list;
+	}
 	/**관리자 페이지-체크박스로 다중 탈퇴처리용 메소드
 	 * @param arr 체크박스로 선택된 userNo이 들어있는 배열
 	 * @return 성공한 행의 총 갯수
@@ -148,6 +158,8 @@ public class UserService {
 		 
 		 return result;
 	 }
+
+
 	
 	
 	 	 
