@@ -16,6 +16,7 @@ import java.util.Properties;
 
 import com.gd.hw.category.model.dao.CategoryDao;
 import com.gd.hw.common.model.vo.PageInfo;
+import com.gd.hw.myinfo.model.vo.Myinfo;
 import com.gd.hw.product.model.vo.Product;
 import com.gd.hw.user.model.vo.User;
 
@@ -30,7 +31,7 @@ public class MyinfoDao {
 
 	public MyinfoDao() {
 
-		String filePath = MyinfoDao.class.getResource("/db/mappers/mappers-user.xml").getPath();
+		String filePath = MyinfoDao.class.getResource("/db/mappers/mappers-myinfo.xml").getPath();
 
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));
@@ -167,6 +168,70 @@ public class MyinfoDao {
 		}
 		return result;
 	
-	} 
+	}
 
-}
+	public int selectMyinfoCount(Connection conn) {
+		
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyinfoCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("userNo");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return listCount;
+	} 
+	public List<Myinfo> selectMyinfoList(Connection conn, PageInfo pi ,int userNo){
+		List<Myinfo> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+	
+		String sql = prop.getProperty("selectMyinfoList");
+		System.out.println("SQL Query: " + sql);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setInt(1, userNo);
+			System.out.print(userNo);
+			pstmt.setInt(2, startRow);
+			System.out.print(startRow);
+			pstmt.setInt(3, endRow);
+			System.out.print(endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				list.add(new Myinfo(rset.getInt("PRODUCT_ID"),
+									rset.getString("PRODUCT_NAME"),
+									rset.getString("PRODUCT_IMG"),
+									rset.getString("START_DATE"),
+									rset.getString("END_DATE"),
+									rset.getString("MERCHANT_UID"),
+									rset.getDate("PAY_DATE")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	
+		
+	}
+		
+		
+	}
+

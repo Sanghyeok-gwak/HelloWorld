@@ -6,9 +6,14 @@ import static com.gd.hw.common.template.JDBCTemplate.getConnection;
 import static com.gd.hw.common.template.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import com.gd.hw.common.model.vo.PageInfo;
 import com.gd.hw.myinfo.model.dao.MyinfoDao;
+import com.gd.hw.myinfo.model.vo.Myinfo;
+import com.gd.hw.order.model.vo.Order;
 import com.gd.hw.user.model.dao.UserDao;
 import com.gd.hw.user.model.vo.User;
 
@@ -94,8 +99,25 @@ public class MyinfoService {
 		 return updateUn;
 	 }
 	 	 
+	 // 마이페이지 페이징 
+	  public int selectMyinfoCount() {
+		  Connection conn = getConnection(); 
+		  int listCount = uDao.selectMyinfoCount(conn);
+		  close(conn);
+		  return listCount;
+	  } 
+
+	  public List<Myinfo> selectMyinfoList(PageInfo pi , int userNo){
+		  Connection conn = getConnection();
+		  List<Myinfo> list = uDao.selectMyinfoList(conn , pi , userNo);
+		  close(conn);
+		  return list; 
+	  }
+	  
 
 	
+	}
+	 
 	
-}
+
 

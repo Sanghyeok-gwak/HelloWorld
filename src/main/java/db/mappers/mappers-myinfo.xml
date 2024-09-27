@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 
 <properties>
 
@@ -50,25 +51,10 @@
        SET 
             STATUS ='R'
            ,MODIFY_DATE = SYSDATE
-     WHERE 
+     WHERE asasd
            USER_ID  = ?
 	</entry>
 
-	<entry key = "SignupUser">
-		INSERT 
-		  INTO "USER" 
-		VALUES (
-		        SEQ_USER.NEXTVAL
-		      , ?
-		      , ?
-		      , ?
-		      , ?
-		      , ?
-		      , SYSDATE 
-		      , SYSDATE 
-		      ,'U'
-		      ,'U')
-	</entry>
 	<entry key="updateUserPwd">
 	
 		UPDATE 
@@ -80,4 +66,43 @@
      				USER_ID = ?
         AND USER_PWD = ?
 	</entry>
-	</properties>
+
+	<entry key="selectMyinfoCount">
+	SELECT 
+       	 COUNT(*) as COUNT
+ 	 FROM 
+       	"ORDER" O
+	 JOIN 
+        PAYMENT USING(IMP_UID)
+   JOIN 
+        PRODUCT USING(PRODUCT_ID)
+  WHERE 
+        USER_NO = ?
+	</entry>
+	<entry key="selectMyinfoList">
+	SELECT *
+  FROM (
+   SELECT           
+       PRODUCT_ID,
+       PRODUCT_NAME,
+       PRODUCT_IMG,
+       START_DATE,
+       END_DATE,
+       MERCHANT_UID,
+       PAY_DATE,
+       ROW_NUMBER() OVER(ORDER BY O.MERCHANT_UID DESC) AS RNUM
+  FROM 
+       "ORDER" O
+  JOIN 
+       PAYMENT USING(IMP_UID)
+  JOIN 
+       PRODUCT USING(PRODUCT_ID)
+ WHERE 
+       USER_NO = ?)
+ WHERE RNUM BETWEEN ? AND ?
+	
+     
+	
+	</entry>
+
+</properties>

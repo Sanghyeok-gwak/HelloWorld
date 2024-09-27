@@ -1,9 +1,17 @@
+<%@ page import = "java.util.List" %>
+<%@ page import = "com.gd.hw.myinfo.model.vo.Myinfo" %>
+<%@ page import = "com.gd.hw.common.model.vo.PageInfo" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% 
+PageInfo pi = (PageInfo)request.getAttribute("pi");
+List<Myinfo> list = (List<Myinfo>)request.getAttribute("list");
+%> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>Insert title here</title>
 </head>
  <style>
@@ -204,124 +212,63 @@
           <hr>
           <div class="JJIMList-list-main-item">
             <!-- 여기채우세요 -->
-          <%--   <div class="list-main">
+          <%if( list.isEmpty()) { %> 
+              <div class="list-main">
               <div class="content">
                 <p>
                 <h5>예약 / 결제내역이 없습니다</h5>
                 </p>
                 <button id="btn-2" class="btn">상품둘러보기 <i class="fa-solid fa-arrow-right"></i></button>
-              </div>  --%>
-
-
+              </div>  
+              <% }else{ %>
+               
+               
+               
+               
               <!-- 1 -->
+              <% for(Myinfo m : list){ %>
                <div class="col-md-12 mb-3">
-              <h5>2023-11-20(수)</h5>
-              <h5 style="font-size: 13px; color: lightgray;">예약 번호 : 134562</h5>
+              <h5><%= m.getPay_Date() %></h5>
+              <h5 style="font-size: 13px; color: lightgray;">예약 번호 :<%= m.getMerchant_Uid() %> </h5>
               <div class="product-card">
-                <img src="<%=contextPath %>/assets/image/imgTest.jpeg" alt="Product Image">
+                <img src="<%= m.getProduct_Img() %>"  alt="Product Image">
                 <div class="card-body">
                   <br>
                   <a href="#" class="product-font">
-                    <h3 class="card-title">유럽4국, 대한항공, 프라하 시내호텔 2연박 포함 전일정 4성, 프라하 필스너 양조장 레스토랑
+                    <h3 class="card-title"><%= m.getProduct_Name() %>
                     </h3>
                   </a>
-                  <p class="card-text" style="font-size: 18px;">2024/01/01~2024/01/15</p>
+                  <p class="card-text" style="font-size: 18px;"><%= m.getStart_Date() %>~<%= m.getEnd_Date() %></p>
                   <a href="#" class="btn" id="btn-2" onclick="run();" style="width: 140px; ">환불하기</a>
                 </div>
               </div>
-            </div>   
+            </div>  
+            	<% } %>
+            <% } %> 
               <!-- 2 -->
-               <div class="col-md-12 mb-3">
-                <h5 style="font-size: 13px; color: lightgray;">예약 번호 : 134562</h5>
-              <h5>2023-11-20(수)</h5>
-              <div class="product-card">
-                <img src="<%=contextPath %>/assets/image/imgTest.jpeg" alt="Product Image">
-                <div class="card-body">
-                  <br>
-                  <a href="#" class="product-font">
-                    <h3 class="card-title">유럽4국, 대한항공, 프라하 시내호텔 2연박 포함 전일정 4성, 프라하 필스너 양조장 레스토랑
-                    </h3>
-                  </a>
-                  <p class="card-text" style="font-size: 18px;">2024/01/01~2024/01/15</p>
-                  <a href="#" class="btn" id="btn-2" onclick="run();"  style="width: 140px;">환불하기</a>
-                </div>
-              </div>
-            </div>  
+                
               <!-- 3 -->
-               <div class="col-md-12 mb-3">
-              <h5>2023-11-20(수)</h5>
-              <h5 style="font-size: 13px; color: lightgray;">예약 번호 : 134562</h5>
-              <div class="product-card">
-                <img src="<%=contextPath %>/assets/image/imgTest.jpeg" alt="Product Image">
-                <div class="card-body">
-                  <br>
-                  <a href="#" class="product-font">
-                    <h3 class="card-title">유럽4국, 대한항공, 프라하 시내호텔 2연박 포함 전일정 4성, 프라하 필스너 양조장 레스토랑
-                    </h3>
-                  </a>
-                  <p class="card-text" style="font-size: 18px;">2024/01/01~2024/01/15</p>
-                  <a href="#" class="btn" id="btn-2"  onclick="run();"  style="width: 140px;">환불하기</a>
-                </div>
-              </div>
-            </div>  
+              
               <!-- 4 -->
-               <div class="col-md-12 mb-3">
-              <h5>2023-11-20(수)</h5>
-              <h5 style="font-size: 13px; color: lightgray;">예약 번호 : 134562</h5>
-              <div class="product-card">
-                <img src="<%=contextPath %>/assets/image/imgTest.jpeg" alt="Product Image">
-                <div class="card-body">
-                  <br>
-                  <a href="#" class="product-font">
-                    <h3 class="card-title">유럽4국, 대한항공, 프라하 시내호텔 2연박 포함 전일정 4성, 프라하 필스너 양조장 레스토랑
-                    </h3>
-                  </a>
-                  <p class="card-text" style="font-size: 18px;">2024/01/01~2024/01/15</p>
-                  <a href="#" class="btn" id="btn-2" onclick="run();"  style="width: 140px;">환불하기</a>
-                </div>
-              </div>
-            </div> 
+               
               <!-- 5 -->
-               <div class="col-md-12 mb-3">
-              <h5>2023-11-20(수)</h5>
-              <h5 style="font-size: 13px; color: lightgray;">예약 번호 : 134562</h5>
-              <div class="product-card">
-                <img src="<%=contextPath %>/assets/image/imgTest.jpeg" alt="Product Image">
-                <div class="card-body">
-                  <br>
-                  <a href="#" class="product-font">
-                    <h3 class="card-title">유럽4국, 대한항공, 프라하 시내호텔 2연박 포함 전일정 4성, 프라하 필스너 양조장 레스토랑
-                    </h3>
-                  </a>
-                  <p class="card-text" style="font-size: 18px;">2024/01/01~2024/01/15</p>
-                  <a href="#" class="btn" id="btn-2"  onclick="run();"  style="width: 140px;">환불하기</a>
-                </div>
-              </div>
-            </div>  
+                
+                       
               <!-- Pagination -->
+              
                <div aria-label="Page navigation">
               <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item active">
-                  <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">4</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
+                <li class='page-item active <%=pi.getCurrentPage() == 1 ? "disabled" : ""%>'>
+                  <a class="page-link" href='<%=contextPath%>/myinfom.us?page=<%=pi.getCurrentPage()-1%>'> < </a>
+								</li>
+	      	  <%for (int p=pi.getStartPage(); p<=pi.getEndPage();  p++) { %>
+	        	  <li class ='page-item <%=p == pi.getCurrentPage() ? "active" : "" %>'>
+  	       	<a class="page-link" href="<%=contextPath%>/myinfom.us?page=<%=p%>"><%=p%></a>  
+    	      	</li>
+      	  	<%}%>
+
+        				<li class= 'page-item <%=pi.getCurrentPage() == pi.getMaxPage() ? "disabled" : ""%>'>
+          			  <a class="page-link" href="<%=contextPath%>/myinfom.us?page<%=pi.getCurrentPage()+1%>"> > </a>
                 </li>
               </ul>
             </div>  
