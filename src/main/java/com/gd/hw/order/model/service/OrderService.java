@@ -1,7 +1,9 @@
 package com.gd.hw.order.model.service;
 
 import static com.gd.hw.common.template.JDBCTemplate.close;
+import static com.gd.hw.common.template.JDBCTemplate.commit;
 import static com.gd.hw.common.template.JDBCTemplate.getConnection;
+import static com.gd.hw.common.template.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
@@ -63,6 +65,20 @@ public ProductOr selectProductById(int productId) {
 		List<Person> list = oDao.selectAllPersonByMerUid(conn, merUid);
 		close(conn);
 		return list;
+	}
+
+	public int DeleteOrderByMerUid(String delUid) {
+		Connection conn = getConnection();
+		
+		int result = oDao.DeleteOrderByMerUid(conn,delUid);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
 

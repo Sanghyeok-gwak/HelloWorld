@@ -244,14 +244,22 @@ h5 {
         <!--버튼 영역 시작-->
         <div align="center" class="pt-4">
         <%if(order.getStatus().equals("C")){ %>
-         <button class="btn btn-primary btn-sm" style="width:200px">환불하기</button>
+         <button class="btn btn-primary btn-sm" style="width:200px" id="delBtn">환불하기</button>
          <%} %>
           <button class="btn btn-primary btn-sm" style="width:200px" onclick="history.back()">목록으로</button>
         </div>
       </div>
     </div>
   </div>
-
+	<script>
+	$(document).ready(function () {
+		document.getElementById("delBtn").addEventListener("click", () => {
+		if(confirm('예약번호<'+'<%=order.getMerUid()%>'+'>에 대한 환불처리를 진행하시겠습니까?')){
+			location.href = "<%=contextPath%>/del.or?delUid=<%=order.getMerUid()%>";
+		}
+      });
+	})
+	</script>
 	<!-- Footer start -->
 	<%@ include file="/views/common/footer.jsp"%>
 	<!-- Footer end -->

@@ -1,7 +1,6 @@
 package com.gd.hw.order.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,20 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gd.hw.order.model.service.OrderService;
-import com.gd.hw.order.model.vo.OrderAd;
-import com.gd.hw.order.model.vo.Person;
 
 /**
- * Servlet implementation class OrderDetailFromAdminController
+ * Servlet implementation class OrderDeleteFromAdmin
  */
-@WebServlet("/detail.or")
-public class OrderDetailFromAdminController extends HttpServlet {
+@WebServlet("/del.or")
+public class OrderDeleteFromAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderDetailFromAdminController() {
+    public OrderDeleteFromAdmin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +29,15 @@ public class OrderDetailFromAdminController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String merUid = request.getParameter("no");
-		OrderAd order = new OrderService().selectOrderByMerUid(merUid);
-		List<Person> list = new OrderService().selectAllPersonByMerUid(merUid);
-		order.setMerUid(merUid);
-		request.setAttribute("order", order);
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("/views/admin/order-detail-admin.jsp").forward(request, response);
+		String delUid =  request.getParameter("delUid");
+		System.out.println(delUid);
+		int result =  new OrderService().DeleteOrderByMerUid(delUid);
+		if(result > 0) {
+			request.getSession().setAttribute("msg", "환불처리가 완료되었습니다.");
+		}else {
+			request.getSession().setAttribute("msg", "환불처리 실패");
+		}
+		response.sendRedirect(request.getContextPath() + "/list.or");
 	}
 
 	/**

@@ -26,8 +26,7 @@ PageInfo pi = (PageInfo) request.getAttribute("pi");
 if (msg != null) {
 %>
 <script>
-	alert('<%=msg%>
-	');
+	alert('<%=msg%>');
 </script>
 <%
 session.removeAttribute("msg");

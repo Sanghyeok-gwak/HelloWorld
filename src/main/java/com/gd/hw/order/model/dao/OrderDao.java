@@ -221,6 +221,23 @@ public class OrderDao {
 		}
 		return list;
 	}
+	public int DeleteOrderByMerUid(Connection conn, String delUid) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("DeleteOrderByMerUid");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,delUid);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
 //-----------------------관리자파트 끝-----------------------
 
 
