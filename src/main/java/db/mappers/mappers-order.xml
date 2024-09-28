@@ -13,8 +13,8 @@ SELECT
 		 , PRODUCT_NAME
   FROM 
    		 PRODUCT
- WHERE 
-  		 PRODUCT_ID = ?
+ WHERE <!-- 조건 : 상품번호 -->
+  		 PRODUCT_ID = ? 
 
 	</entry>
 

@@ -67,13 +67,13 @@
 					<table class="one-table">
 						<thead>
 							<tr>
-								<td>상품명</td>
-								<td>상품명</td>
+								<td>분류</td>
+								<td>상품정보</td>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>여행기간</td>
+								<td>상품명</td>
 								<td><a
 									href="https://travel.interpark.com/tour/goods?goodsCd=24100724852">비그랜드
 										리조트 왕복 픽업</a></td>
