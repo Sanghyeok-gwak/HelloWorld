@@ -4,17 +4,17 @@
 <properties>
 
 <entry key="selectProductById">
-SELECT 
-			 C_PRICE
-		 , A_PRICE
-		 , START_DATE
-		 , END_DATE
-		 , FLIGHT
-		 , PRODUCT_NAME
-  FROM 
-   		 PRODUCT
- WHERE 
-  		 PRODUCT_ID = ?
+	SELECT 
+			PRODUCT_ID
+		  , PRODUCT_NAME
+		  , START_DATE ||' ~ '||END_DATE DAY
+		  , A_PRICE
+		  , C_PRICE
+		  , FLIGHT
+  	 FROM 
+  	 		PRODUCT
+ 	WHERE 
+ 			PRODUCT_ID = ? 
 
 	</entry>
 
@@ -38,11 +38,39 @@ SELECT
          )
       WHERE RNUM BETWEEN ? AND ?
 </entry>
+<entry key="selectOrderLIstByKeyword">
+	  SELECT * 
+      FROM (
+            SELECT
+               USER_ID
+             , MERCHANT_UID
+             , PAY_DATE
+             , FINAL_PAY
+             , P.STATUS as STATUS
+             , ROW_NUMBER() OVER(ORDER BY PAY_DATE DESC) as RNUM
+          FROM 
+               "ORDER"
+          JOIN 
+               "USER" USING(USER_NO)
+          JOIN 
+               PAYMENT P USING(IMP_UID)
+         WHERE
+         	   MERCHANT_UID LIKE ? 			
+         )
+      WHERE RNUM BETWEEN ? AND ?
+</entry>
 <entry key="selectOrderListCount">
   	 	SELECT
 		      COUNT(*) as COUNT
 		 FROM 
 		     "ORDER"
+</entry>
+<entry key="selectOrderCountByKeyword">
+		SELECT
+		       COUNT(*) as COUNT
+		  FROM 
+		       "ORDER"
+		 WHERE MERCHANT_UID LIKE ?
 </entry>
 <entry key="selectOrderByMerUid">
   	 SELECT 

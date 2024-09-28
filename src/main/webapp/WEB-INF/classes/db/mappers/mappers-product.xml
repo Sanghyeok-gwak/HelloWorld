@@ -107,7 +107,33 @@
 		      FROM FAVORITES
          WHERE USER_NO = ?
     </entry>
-		<!-- 여기까지 찜하기 -->
+
+		<!-- 리뷰 추가 및 조회 -->
+		
+		<entry key="insertReview">
+		
+		INSERT INTO REVIEW (REVIEW_NO, USER_NO, CONTENT, RATING, WRITE_DATE, MER_UID)
+		VALUES (SEQ_REVIEW.NEXTVAL, ?, ?, ?, SYSDATE, ?)
+		</entry>
+		
+
+		<entry key="selectReview">
+		
+		SELECT COUNT(*)
+      FROM "ORDER" O
+          ,"USER" U
+     WHERE O.USER_NO = U.USER_NO
+       AND U.USER_NO=?
+       AND O.MERCHANT_UID = (SELECT MERCHANT_UID 
+       												 FROM REVIEW 
+       												WHERE MERCHANT_UID=?)
+		</entry>
+		
+		
+		
+		
+		
+		
 
 
 </properties>

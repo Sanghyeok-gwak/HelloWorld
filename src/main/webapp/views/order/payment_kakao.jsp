@@ -27,11 +27,6 @@
 <!-- ------------------------- -->
 </head>
 
-
-
-
-
-
 <!-- body -->
 <body>
 
@@ -39,21 +34,20 @@
 
 	<section>
 
-
-
 		<div class="product-name">
 			<div class="reservation">
-				<!-- 이미지 -->
-				<h1>예약하기</h1>
+				<!-- 예약과정 단계별 이미지표현-->
+				<p>STEP 01</p>
+				<h1>/ 예약하기</h1>
 			</div>
 
 			<div class="infoEnter">
-				<p>STEP 01</p>
+				<p>STEP 02</p>
 				<h1>/ 예약정보 입력</h1>
 			</div>
 
 			<div class="infoCheck">
-				<p>STEP 02</p>
+				<p>STEP 03</p>
 				<h1>/ 예약정보 확인</h1>
 			</div>
 		</div>
@@ -561,7 +555,7 @@
 			</div>
 
 			<div class="order-window-6-button ow-all">
-				<button id="btn-2" class="btn">예약하기</button>
+				<button id="btn-2" class="btn" onclick="console.log('Button clicked'); requestPay();">예약하기</button>
 				<form method="post" action="/kakaoPay">
 					<button id="btn-1" class="btn">취소</button>
 				</form>
@@ -569,9 +563,82 @@
 		</div>
 
 	</section>
+	    <!-- 결제 정보 -->
+        
+	
 
 	<%@ include file="/views/common/footer.jsp"%>
 
+	
+ 
+<!-- 카카오페이 api 연결 결제시도-->
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+
+
+<script>
+            
+           // 객체 초기화
+           var IMP = window.IMP;
+           IMP.init("imp02350258");
+         
+               // 결제 요청 함수
+               function requestPay() {
+                     
+                     
+                   IMP.request_pay({
+                       pg: 'kakaopay.TC0ONETIME',  
+                       pay_method: 'kakaopay',          // 결제 방식
+                       merchant_uid: 'merchant_' + new Date().getTime(),  // 주문 번호
+                       name: 'world',         // 상품 이름
+                       amount: 10,           // 결제 금액
+                       //buyer_email: 'EMAIL',  // 구매자 이메일
+                       //buyer_name: 'order_receiver',         // 구매자 이름
+                       //buyer_tel: 'ORDER_PHONE',  // 구매자 전화번호
+                       //buyer_addr: 'ORDER_ADDRESS', // 구매자 주소
+                       // buyer_postcode: '07171'      // 구매자 우편번호
+                       //m_redirect_url: // 추후에 결제완료 페이지로 리다이렉트하기
+                   }, function (rsp) { // callback 로직 - 리다이렉트로 할 시 callback 필요없음
+                       if (rsp.success) {
+                       
+
+								$.ajax({
+                     url:'<%= contextPath%>/pay.complete',
+                     data:{paymentCode: rsp.merchant_uid
+                       /*  , deliveryKind: getSelectedMethod()
+                        , paymentPrice: '10000'
+                        , paymentKind: '카카오페이'
+                        , orderPrice: '10000'
+                        , orderPoint: document.getElementById('points').value
+                        , orderAddr: document.getElementById('postcode').value + " " + document.getElementById('roadAddress').value + " " + document.getElementById('detailAddress').value
+                     , orderReceiver: document.getElementById('orderReceiver').value
+                     , orderRequest: document.getElementById('request').value
+                     , orderPhone: document.getElementById('phone1').value
+                     , detailPrice: '10000' */
+                        },
+                     success:function(res){
+                        alert(res);
+                        $('#payform').submit();
+                     
+                     },
+                     error:function(res){
+                        alert(res+'오류발생')
+                     }
+                     
+                  })
+                
+                  
+              } else {
+                  alert('결제에 실패하였습니다. 오류 내용: ' + rsp.error_msg);
+              }
+          });
+          
+      }
+</script>
+  
+<!-- section 끝 -->
+
+ 
 </body>
 
 </html>

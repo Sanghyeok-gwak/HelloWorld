@@ -10,15 +10,15 @@ import com.gd.hw.common.model.vo.PageInfo;
 import com.gd.hw.order.model.dao.OrderDao;
 import com.gd.hw.order.model.vo.OrderAd;
 import com.gd.hw.order.model.vo.Person;
-import com.gd.hw.product.model.vo.Product;
+import com.gd.hw.order.model.vo.ProductOr;
 
 public class OrderService {
 
 private OrderDao oDao = new OrderDao();	// 전역변수생성
 
-public Product selectProductById(int productId) {
+public ProductOr selectProductById(int productId) {
 	Connection conn = getConnection();
-	Product p = oDao.selectProductById(conn, productId);
+	ProductOr p = oDao.selectProductById(conn, productId);
 	close(conn);
 	
 	return p;

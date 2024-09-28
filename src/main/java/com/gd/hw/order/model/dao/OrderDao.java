@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.gd.hw.common.model.vo.PageInfo;
 import com.gd.hw.order.model.vo.OrderAd;
 import com.gd.hw.order.model.vo.Person;
+import com.gd.hw.order.model.vo.ProductOr;
 import com.gd.hw.product.model.vo.Product;
 
 public class OrderDao {
@@ -33,9 +34,9 @@ public class OrderDao {
 	
 	}
 
-	public Product selectProductById(Connection conn, int productId) {
+	public ProductOr selectProductById(Connection conn, int productId) {
 		
-		Product p = null;
+		ProductOr p = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectProductById");
@@ -47,12 +48,11 @@ public class OrderDao {
 			
 			// productId ->						
 			if(rset.next()) {
-				p = new Product (productId, rset.getString("PRODUCT_NAME")
-										   ,rset.getString("START_DATE")
-										   ,rset.getString("END_DATE")
+				p = new ProductOr (productId, rset.getString("PRODUCT_NAME")
+										   ,rset.getString("DAY")
+										   ,rset.getString("FLIGHT")
 										   ,rset.getInt("A_PRICE")
-										   ,rset.getInt("C_PRICE")
-										   ,rset.getString("FLIGHT"));
+										   ,rset.getInt("C_PRICE"));
 			}
 			
 		} catch (SQLException e) {

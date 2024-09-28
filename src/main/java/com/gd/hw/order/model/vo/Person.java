@@ -1,6 +1,7 @@
 package com.gd.hw.order.model.vo;
 
 public class Person {
+	// Person 테이블 관련
 	 private String merUid;
 	 private String surName;
 	 private String engName;

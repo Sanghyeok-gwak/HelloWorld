@@ -144,7 +144,7 @@ public class UserService {
 	}
 	
 	
-	 
+	 /**사용자 페이지 - 회원가입*/
 	 public int SignupUser(User u) {
 		 Connection conn = getConnection();
 		 int result = uDao.SignupUser(conn, u);
