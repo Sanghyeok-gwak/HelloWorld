@@ -555,7 +555,7 @@
 			</div>
 
 			<div class="order-window-6-button ow-all">
-				<button id="btn-2" class="btn">예약하기</button>
+				<button id="btn-2" class="btn" onclick="console.log('Button clicked'); requestPay();">예약하기</button>
 				<form method="post" action="/kakaoPay">
 					<button id="btn-1" class="btn">취소</button>
 				</form>
@@ -565,26 +565,6 @@
 	</section>
 	    <!-- 결제 정보 -->
         
-        <div class="payment-area">
-            <hr class="line2">
-            <table class="payment" style="margin-left:30px; margin-right:30px; margin-top: 30px; margin-bottom:30px; border: 1px solid lightgray;">
-                <tr>
-                    <th style="text-align: center; width:300px; color: #323232">총 상품금액<br>00,000원</th>
-                    <th style="text-align: center; width:300px; color: #323232">총 할인금액<br>0,000원</th>
-                    <th style="text-align: center; width:400px; color: rgb(77, 89, 255);">최종 결제금액<br>00,000원</th>
-                </tr>
-            </table>
-            <br>
-            <table class="pay" style="margin-left:30px; border: 1px solid lightgray;">
-                <tr>
-                    <td style="text-align: center; width:150px; padding:5px;"><img src="/카카오페이 로고 투명.png" style="width:80px; margin: 0 auto; padding:5px;"></td>
-                </tr>
-            </table>
-            <button type="button" onclick="console.log('Button clicked'); requestPay();" class="buy btn btn-primary" style="margin: 0 auto; width:150px; margin-top:50px; margin-left:300px;">결제하기</button>
-
-<!-- section 끝 -->
-
-        </div>
 	
 
 	<%@ include file="/views/common/footer.jsp"%>
@@ -594,8 +574,7 @@
 <!-- 카카오페이 api 연결 결제시도-->
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 
-<!-- 카카오페이 api 연결 결제시도-->
-<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
 
 <script>
             
@@ -611,12 +590,13 @@
                        pg: 'kakaopay.TC0ONETIME',  
                        pay_method: 'kakaopay',          // 결제 방식
                        merchant_uid: 'merchant_' + new Date().getTime(),  // 주문 번호
-                       name: '',         // 상품 이름 
-                       final_pay: 100,               // 결제 금액
-                       buyer_email: 'EMAIL',  // 구매자 이메일
-                       buyer_name: 'user_name',         // 구매자 이름
-                       buyer_tel: 'phone',  // 구매자 전화번호
-
+                       name: 'world',         // 상품 이름
+                       amount: 10,           // 결제 금액
+                       //buyer_email: 'EMAIL',  // 구매자 이메일
+                       //buyer_name: 'order_receiver',         // 구매자 이름
+                       //buyer_tel: 'ORDER_PHONE',  // 구매자 전화번호
+                       //buyer_addr: 'ORDER_ADDRESS', // 구매자 주소
+                       // buyer_postcode: '07171'      // 구매자 우편번호
                        //m_redirect_url: // 추후에 결제완료 페이지로 리다이렉트하기
                    }, function (rsp) { // callback 로직 - 리다이렉트로 할 시 callback 필요없음
                        if (rsp.success) {
@@ -625,7 +605,7 @@
 								$.ajax({
                      url:'<%= contextPath%>/pay.complete',
                      data:{paymentCode: rsp.merchant_uid
-                        , deliveryKind: getSelectedMethod()
+                       /*  , deliveryKind: getSelectedMethod()
                         , paymentPrice: '10000'
                         , paymentKind: '카카오페이'
                         , orderPrice: '10000'
@@ -634,7 +614,7 @@
                      , orderReceiver: document.getElementById('orderReceiver').value
                      , orderRequest: document.getElementById('request').value
                      , orderPhone: document.getElementById('phone1').value
-                     , detailPrice: '10000'
+                     , detailPrice: '10000' */
                         },
                      success:function(res){
                         alert(res);
@@ -653,41 +633,12 @@
               }
           });
           
-          
-          // 선택된 배송 방법을 가져오는 함수
-                  function getSelectedMethod() {
-                      const methods = document.getElementsByName("method");
-                      for (let i = 0; i < methods.length; i++) {
-                          if (methods[i].checked) {
-                              return methods[i].value; // 선택된 값을 반환
-                          }
-                      }          
-          
-         }
       }
 </script>
-   
-      <div class="payment-area">
-      <hr class="line2">
-      <table class="payment" style="margin-left:30px; margin-right:30px; margin-top: 30px; margin-bottom:30px; border: 1px solid lightgray;">
-          <tr>
-              <th style="text-align: center; width:300px; color: #323232">총 상품금액<br>00,000원</th>
-              <th style="text-align: center; width:300px; color: #323232">총 할인금액<br>0,000원</th>
-              <th style="text-align: center; width:400px; color: rgb(77, 89, 255);">최종 결제금액<br>00,000원</th>
-          </tr>
-      </table>
-      <br>
-      <table class="pay" style="margin-left:30px; border: 1px solid lightgray;">
-          <tr>
-              <td style="text-align: center; width:150px; padding:5px;"><img src="/카카오페이 로고 투명.png" style="width:80px; margin: 0 auto; padding:5px;"></td>
-          </tr>
-      </table>
-      <button type="button" onclick="console.log('Button clicked'); requestPay();" class="buy btn btn-primary" style="margin: 0 auto; width:150px; margin-top:50px; margin-left:300px;">결제하기</button>
-
+  
 <!-- section 끝 -->
 
-  </div>
-
+ 
 </body>
 
 </html>
