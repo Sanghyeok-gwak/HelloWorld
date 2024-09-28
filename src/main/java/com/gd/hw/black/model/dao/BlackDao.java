@@ -90,7 +90,35 @@ private Properties prop = new Properties();
 		}
 		return list;
 	}
-	
+	public List<BlackList> selectAllBlackByKeyword(Connection conn, PageInfo pi, String keyword) {
+		List<BlackList> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectAllBlackByKeyword");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, "%"+keyword+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				list.add(new BlackList(rset.getInt("USER_NO"), rset.getString("USER_ID"), rset.getString("REASON")
+						 ,rset.getString("TREATMENT"), rset.getDate("BLACK_DATE"), rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	/**
 	 * 관리자 페이지-특정 블랙리스트 회원 조회용 메소드
 	 * 
@@ -203,7 +231,30 @@ private Properties prop = new Properties();
 		
 		return listCount;
 	}
-
+	public int selectBlackCountByKeyword(Connection conn, String keyword) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectBlackCountByKeyword");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
 	public int delBlackList(Connection conn, String[] arr) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -246,6 +297,12 @@ private Properties prop = new Properties();
 		}
 		return status;
 	}
+
+
+
+
+
+
 
 
 }

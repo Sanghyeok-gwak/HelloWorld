@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.gd.hw.common.model.vo.PageInfo;
 import com.gd.hw.order.model.service.OrderService;
 import com.gd.hw.order.model.vo.OrderAd;
+import com.gd.hw.user.model.service.UserService;
+import com.gd.hw.user.model.vo.User;
 
 /**
  * Servlet implementation class OrderListFromAdminController
@@ -32,10 +34,13 @@ public class OrderListFromAdminController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("order-admin 서블릿 호출됨");
-		
-		int listCount = new OrderService().selectUserListCount();
-		System.out.println("결제내역 갯수 : "+listCount);
+		int listCount =0;
+		String keyword = request.getParameter("keyword");
+		if(keyword != null) {
+			listCount = new OrderService().selectOrderCountByKeyword(keyword);
+		}else {
+			listCount = new OrderService().selectUserListCount();
+		}
 		
 		int currentPage = 1;
 		if(request.getParameter("page") != null) {
@@ -56,7 +61,18 @@ public class OrderListFromAdminController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		List<OrderAd> list = new OrderService().selectOrderLIst(pi);
+		List<OrderAd> list = null;
+		if(keyword != null) {
+			list = new OrderService().selectOrderLIstByKeyword(pi, keyword);
+			request.setAttribute("pi", pi);
+			request.setAttribute("list", list);
+
+		}else {
+			list = new OrderService().selectOrderLIst(pi);
+			request.setAttribute("pi", pi);
+			request.setAttribute("list", list);
+		}
+
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);

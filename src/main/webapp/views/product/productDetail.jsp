@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="com.gd.hw.product.model.vo.Product"%>
+<%@ page import="java.text.NumberFormat"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -285,7 +286,8 @@ button:hover {
 
 <body>
 	<%@ include file="/views/common/header.jsp"%>
-
+	<jsp:include page="productFavoritesfunction.jsp" />
+	<!-- 찜하기 기능 인클루드 -->
 	<section>
 		<%
 		Product product = (Product) request.getAttribute("product");
@@ -295,12 +297,14 @@ button:hover {
 		%>
 
 		<div class="main-img">
-			<img class="product-img" src="<%=product.getProductImg()%>" alt="Product Image">
+			<img class="product-img" src="<%=product.getProductImg()%>"
+				alt="Product Image">
 			<!-- 하트 및 공유 아이콘을 이미지 위에 배치 -->
 		</div>
 		<br>
 
-		<div class="row" style="display: flex; justify-content: space-between; margin: 20px; margin-left: 45px;">
+		<div class="row"
+			style="display: flex; justify-content: space-between; margin: 20px; margin-left: 45px;">
 			<div class="col-md-6 left-div">
 				<div class="col-md-12">
 					<button class="btn btn-primary">예약 가능</button>
@@ -314,25 +318,34 @@ button:hover {
 				<br>
 
 				<div class="col-md-12 Rating">
-					<span class="fa fa-star"></span>
-					<span class="fa fa-star" data-value="2"></span>
-					<span class="fa fa-star" data-value="3"></span>
-					<span class="fa fa-star" data-value="4"></span>
-					<span class="fa fa-star" data-value="5"></span>
-					<a href="#" style="color: black;"> (4.9) 리뷰 (4) 추후에 함수식 나오면 적용 </a>
+					<span class="fa fa-star"></span> <span class="fa fa-star"
+						data-value="2"></span> <span class="fa fa-star" data-value="3"></span>
+					<span class="fa fa-star" data-value="4"></span> <span
+						class="fa fa-star" data-value="5"></span> <a href="#"
+						style="color: black;"> (4.9) 리뷰 (4) 추후에 함수식 나오면 적용 </a>
 				</div>
 
 				<br>
 
-				<div class="col-md-12 d-flex justify-content-end align-items-center">
-					<h1 style="flex-grow: 1;"><%=product.getaPrice()%>원~</h1>
-					
-					<i class="fas fa-share-alt share-icon" style="margin-right: 250px;"></i>
-					
-					<i id="heart-icon-<%=product.getProductId()%>" class="far fa-heart heart-icon" style="margin-right: 200px;"
-					  onclick="toggleFavorite(<%=product.getProductId()%>, this)"></i>
-					
+				<%
+				// 성인과 유아 가격을 3자리마다 쉼표로 포맷
+				NumberFormat numberFormat = NumberFormat.getInstance();
+				String formattedAdultPrice = numberFormat.format(product.getaPrice());
+				String formattedInfantPrice = numberFormat.format(product.getcPrice());
+				%>
 
+
+
+				<!-- 상품 상세 페이지에서 가격 부분 -->
+				<div class="col-md-12 d-flex justify-content-end align-items-center">
+					<h1 style="flex-grow: 1;"><%=formattedAdultPrice%>원~
+					</h1>
+
+					<i class="fas fa-share-alt share-icon" style="margin-right: 250px;"></i>
+
+					<i id="heart-icon-<%=product.getProductId()%>"
+						class="far fa-heart heart-icon" style="margin-right: 200px;"
+						onclick="toggleFavorite(<%=product.getProductId()%>, this)"></i>
 				</div>
 
 			</div>
@@ -343,30 +356,39 @@ button:hover {
 					<h3>인원선택(필수)</h3>
 					<br>
 
-					<div style="display: flex; justify-content: space-between; align-items: center;">
+					<!-- 성인과 유아 가격 부분 -->
+					<div
+						style="display: flex; justify-content: space-between; align-items: center;">
 						<div>
 							<h3>성인(만 12세 이상)</h3>
-							<h3><%=product.getaPrice()%>원</h3>
+							<h3><%=formattedAdultPrice%>원
+							</h3>
 						</div>
 
 						<div style="float: right; display: flex; align-items: center;">
 							<i class="fas fa-minus minus" onclick="changeCount('adult', -1)"></i>
-							<h3>&nbsp; <span id="adultCount">0</span> &nbsp;</h3>
+							<h3>
+								&nbsp; <span id="adultCount">0</span> &nbsp;
+							</h3>
 							<i class="fas fa-plus plus" onclick="changeCount('adult', 1)"></i>
 						</div>
 					</div>
 
 					<br>
 
-					<div style="display: flex; justify-content: space-between; align-items: center;">
+					<div
+						style="display: flex; justify-content: space-between; align-items: center;">
 						<div>
 							<h3>유아 (만2세 미만)</h3>
-							<h3><%=product.getcPrice()%>원</h3>
+							<h3><%=formattedInfantPrice%>원
+							</h3>
 						</div>
 
 						<div style="float: right; display: flex; align-items: center;">
 							<i class="fas fa-minus minus" onclick="changeCount('infant', -1)"></i>
-							<h3>&nbsp; <span id="infantCount">0</span> &nbsp;</h3>
+							<h3>
+								&nbsp; <span id="infantCount">0</span> &nbsp;
+							</h3>
 							<i class="fas fa-plus plus" onclick="changeCount('infant', 1)"></i>
 						</div>
 					</div>
@@ -384,51 +406,65 @@ button:hover {
 					</h3>
 				</div>
 
+				<br> <a id="reservationLink" class="btn btn-primary"
+					style="width: 83%; margin-left: 60px;"
+					href="orderPage.us?productId=<%=product.getProductId()%>">예약</a> <br>
 				<br>
-				<!-- 나중에 어덜트 카운트 -->
-				<a href="orderPage.us?productId=<%= product.getProductId() %>&aNum=0&cNum=0" 이거 값넘겨서 받아야댐
-				  class="btn btn-primary" style="width: 83%; margin-left: 60px; ">예약</a>
-				
-				<br> <br>
 
 			</div>
 		</div>
+
 
 		<!-- 상품 소개, 일정표, 상세 정보, 리뷰 탭 -->
 		<div class="tabs">
 			<ul class="tabList">
-				<li><button class="tabBtn" onclick="showContent('product-info')">상품 소개</button></li>
+				<li><button class="tabBtn"
+						onclick="showContent('product-info')">상품 소개</button></li>
 				<li><button class="tabBtn" onclick="showContent('itinerary')">일정표</button></li>
-				<li><button class="tabBtn" onclick="showContent('details')">상세 정보</button></li>
+				<li><button class="tabBtn" onclick="showContent('details')">상세
+						정보</button></li>
 				<li><button class="tabBtn" onclick="showContent('reviews')">리뷰</button></li>
 			</ul>
 		</div>
 
-		<div id="content">
-			<div id="product-info" class="tabContent" style="display: block;">
-				<img src="<%=contextPath%>/assets/image/test.png" alt="상품 소개 이미지">
-			</div>
-			<div id="itinerary" class="tabContent" style="display: none;">
-				<img src="<%=contextPath%>/assets/image/test.png" alt="일정표 이미지">
-			</div>
-			<div id="details" class="tabContent" style="display: none;">
-				<img src="<%=contextPath%>/assets/image/test.png" alt="상세 정보 이미지">
-			</div>
 			<div id="reviews" class="tabContent" style="display: none;">
-				<h3>리뷰 목록</h3>
-				<ul id="reviewList">
-					<li>평점: 5, 내용: 좋은 여행이었습니다.</li>
-					<li>평점: 4, 내용: 만족스러웠습니다.</li>
-				</ul>
-				<!-- 리뷰 작성 기능은 추후 구현 예정입니다. -->
+				<h2>리뷰</h2>
+
+				<!-- 평점 선택 -->
+				<div class="rating-container">
+					<div class="col-md-12 Rating">
+						<span class="fa fa-star" data-value="1"></span> <span
+							class="fa fa-star" data-value="2"></span> <span
+							class="fa fa-star" data-value="3"></span> <span
+							class="fa fa-star" data-value="4"></span> <span
+							class="fa fa-star" data-value="5"></span> <a href="#"
+							style="color: black;"></a>
+					</div>
+				</div>
+
+				<!-- 리뷰 작성 텍스트 상자 -->
+				<div class="review-form">
+					<textarea id="reviewText" rows="4" placeholder="리뷰를 작성하세요."></textarea>
+					<button onclick="submitReview()">등록</button>
+				</div>
+
+				<!-- 이전 리뷰 표시 -->
+				<div id="userReviews">
+					<h3>이전 리뷰가 나올곳</h3>
+					<ul id="reviewList">
+						<!-- 여기에 이전 리뷰가 추가됩니다 -->
+					</ul>
+				</div>
 			</div>
-		</div>
-		<%
-		}
-		%>
+
+			<%
+			}
+			%>
+		
 	</section>
 
 	<script>
+	
     // 인원 선택 및 가격 계산
     const adultPrice = <%=product.getaPrice()%>; // A_PRICE 값으로 변경
     const infantPrice = <%=product.getcPrice()%>; // C_PRICE 값으로 변경
@@ -447,72 +483,32 @@ button:hover {
             infantCount = Math.max(0, infantCount + delta);
             infantCountElement.textContent = infantCount;
         }
-
+		
         updateTotalAmount(adultCount, infantCount);
+        
+     // 인원수를 URL로 넘겨주기 위한 예약 링크 업데이트
+        updateReservationLink(adultCount, infantCount);
     }
 
+    // 성인,유아 가격 더해서 결과값 조회
     function updateTotalAmount(adultCount, infantCount) {
         const totalAmount = (adultCount * adultPrice) + (infantCount * infantPrice);
         document.getElementById('totalAmount').textContent = totalAmount.toLocaleString() + "원";
     }
-
+    
+    function updateReservationLink(adultCount, infantCount) {
+        const reservationLink = document.getElementById('reservationLink');
+        const productId = <%=product.getProductId()%>;  // 현재 상품의 ID
+        reservationLink.href = `orderPage.us?productId=${productId}&aNum=${adultCount}&cNum=${infantCount}`;
+    }
+    
+    
+    // 하단 상세정보등 탭 클릭시 변하는
     function showContent(contentId) {
         const contents = document.querySelectorAll('.tabContent');
         contents.forEach(content => content.style.display = 'none');
         document.getElementById(contentId).style.display = 'block';
     }
-
- // 찜하기
-    function toggleFavorite(productId, iconElement) {
-        if (iconElement.classList.contains("far")) {  // 빈 하트일 경우
-            $.ajax({
-                url: 'productDetailInsert.pr', // 찜 테이블에 insert
-                data: { productId: productId },
-                success: function(result) {
-                    if (result > 0) {  // 성공했을 경우
-                        iconElement.classList.remove("far");
-                        iconElement.classList.add("fas");  // 채워진 하트
-                    }
-                }
-            });
-        } else {  // 채워진 하트일 경우
-            $.ajax({
-                url: 'productDetailDelete.pr',  // 찜 테이블에서 delete
-                data: { productId: productId },
-                success: function(result) {
-                    if (result > 0) {  // 성공했을 경우
-                        iconElement.classList.remove("fas");
-                        iconElement.classList.add("far");  // 빈 하트
-                    }
-                }
-            });
-        }
-    }
- 
- // 페이지가 로드되면 자동으로 찜한 상품 목록
-    function loadFavoriteList() {
-        $.ajax({
-            url: 'getFavoriteList.pr',  // 서버에서 찜한 상품 목록을 가져오는 경로
-            success: function(favoriteList) {
-                for (let i = 0; i < favoriteList.length; i++) {
-                    const productId = favoriteList[i];  // 찜한 상품의 ID를 가져옵니다.
-
-                    // 각 상품의 하트 아이콘을 찾아서 (빈 하트를) 채워진 하트로 변경합니다.
-                    const heartIcon = document.getElementById('heart-icon-' + productId);
-                    
-                    if (heartIcon) {  // 해당 상품에 맞는 하트 아이콘이 있을 경우
-                        heartIcon.classList.remove("far");  // 빈 하트 클래스 제거
-                        heartIcon.classList.add("fas");  // 채워진 하트 클래스 추가
-                    }
-                }
-            }
-        });
-    }
-
-    // 페이지가 로드시 하트가져오는구문
-    $(document).ready(function() {
-        loadFavoriteList();  // 페이지 로드 시 자동으로 호출
-    });
 
     // URL 복사하기
     $(document).ready(function () {
@@ -522,6 +518,89 @@ button:hover {
             });
         });
     });
+    
+    
+    
+ // 리뷰 관리 목록
+    let reviews = [];
+
+    // 리뷰 제출 및 서버로 전송
+    
+    function submitReview() {
+  const reviewText = document.getElementById('reviewText').value.trim();
+  const ratingElement = document.querySelector('.Rating .fa.selected');
+  
+  if (!reviewText) {
+    alert("리뷰 내용을 입력해주세요.");
+    return;
+  }
+
+  if (!ratingElement) {
+    alert("별점을 선택해주세요.");
+    return;
+  }
+
+  const rating = ratingElement.dataset.value;
+  const merchantUid = '<%= product.getMerchantUid() != null ? product.getMerchantUid() : "" %>';
+        
+        // AJAX 요청으로 서버에 리뷰 전송
+        $.ajax({
+          type: 'POST',
+          url: '<%=contextPath%>/insert.re', // 서버 측 URL 변경 필요
+          data: {
+        	  // 유저안써도 되는이유는 서블릿에서 세션으로 받을거라서
+        	  content: reviewText,     // 리뷰 내용
+            rating: rating,          // 별점
+            merchantUid: merchantUid // 결제 고유 번호
+          },
+          success: function(response) {
+            // 성공적으로 서버에 전송된 경우, 화면에 리뷰 표시
+            reviews.push(review);
+            displayReviews();
+            document.getElementById('reviewText').value = ''; // 텍스트 상자 초기화
+            resetRating(); // 별 초기화
+          },
+          error: function() {
+            alert("리뷰 제출에 실패했습니다. 다시 시도해주세요.");
+          }
+        });
+      
+    }
+
+    // 리뷰 목록을 화면에 표시
+    function displayReviews() {
+      const reviewList = document.getElementById('reviewList');
+      reviewList.innerHTML = ''; // 이전 리뷰 초기화
+
+      reviews.forEach(review => {
+        const li = document.createElement('li');
+        li.textContent = `평점: ${review.rating}, 내용: ${review.text}`;
+        reviewList.appendChild(li);
+      });
+    }
+
+    // 평점 초기화
+    function resetRating() {
+      const stars = document.querySelectorAll('.Rating .fa');
+      stars.forEach(star => {
+        star.classList.remove('selected');
+      });
+    }
+
+    // 평점 클릭 시 처리
+    document.querySelectorAll('.Rating .fa').forEach(star => {
+      star.addEventListener('click', function () {
+        const value = this.dataset.value;
+        resetRating(); // 이전 선택 초기화
+
+        for (let i = 0; i < value; i++) {
+          star.parentNode.children[i].classList.add('selected'); // 선택된 별 표시
+        }
+      });
+    });
+
+    
+    
 	</script>
 
 	<%@ include file="/views/common/footer.jsp"%>

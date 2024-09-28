@@ -30,15 +30,24 @@ public class OrderPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 문자열로 변환
-		request.setCharacterEncoding("utf-8");
 		
+		// 문자열로 
+		request.setCharacterEncoding("utf-8");
+		 
 		// 상세페이지에서 결제창으로 넘길 페이지 -> 상품 정보 전달면 받으면 주석없앨 예정
+		
 		int productId = Integer.parseInt(request.getParameter("productId"));
-		int aNum = Integer.parseInt(request.getParameter("aNum"));
-		int cNum = Integer.parseInt(request.getParameter("cNum"));
+		int aNum = 0;
+		int cNum = 0;
+		if(request.getParameter("aNum") != null) {
+			aNum = Integer.parseInt(request.getParameter("aNum"));
+		}
+		if(request.getParameter("cNum") != null) {
+			cNum = Integer.parseInt(request.getParameter("cNum"));
+		}
+	
 		Product p = new OrderService().selectProductById(productId);
-
+	    
 		request.setCharacterEncoding("utf-8");
 		request.setAttribute("p",p);
 		request.setAttribute("aNum",aNum);

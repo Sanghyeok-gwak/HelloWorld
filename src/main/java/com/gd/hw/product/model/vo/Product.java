@@ -22,7 +22,7 @@ public class Product {
 	 private String detailEditor;
 	 private String registrationDate;
 	 private String modificationDate;
-	 
+	 private String merchantUid; // 결제 고유 번호
 	 
 	 public Product() {}
 	 public Product(String productName, String productImg, String startDate,
@@ -114,13 +114,18 @@ public class Product {
 		this.flight = flight;
 	}
 
+	 public String getMerchantUid() {
+	        return merchantUid;
+	    }
 
+	    public void setMerchantUid(String merchantUid) {
+	        this.merchantUid = merchantUid;
+	    }
+	
+	
 	public int getProductId() {
 		return productId;
 	}
-
-
-	
 
 	public void setProductId(int productId) {
 		this.productId = productId;

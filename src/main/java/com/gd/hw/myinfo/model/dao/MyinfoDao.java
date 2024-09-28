@@ -16,6 +16,7 @@ import java.util.Properties;
 
 import com.gd.hw.category.model.dao.CategoryDao;
 import com.gd.hw.common.model.vo.PageInfo;
+import com.gd.hw.myinfo.model.vo.MyOrderDt;
 import com.gd.hw.myinfo.model.vo.Myinfo;
 import com.gd.hw.product.model.vo.Product;
 import com.gd.hw.user.model.vo.User;
@@ -170,7 +171,7 @@ public class MyinfoDao {
 	
 	}
 
-	public int selectMyinfoCount(Connection conn) {
+	public int selectMyinfoCount(Connection conn , int userNo) {
 		
 		int listCount = 0;
 		PreparedStatement pstmt = null;
@@ -179,10 +180,11 @@ public class MyinfoDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				listCount = rset.getInt("userNo");
+				listCount = rset.getInt("COUNT");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -231,6 +233,60 @@ public class MyinfoDao {
 	
 		
 	}
+
+
+
+
+
+	public List<MyOrderDt> myinfoPaymentdetails(Connection conn, String userNo, String productNo) {
+       
+		List<MyOrderDt> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("myinfoPaymentdetails");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+		    pstmt.setString(1, userNo);
+            pstmt.setString(2, productNo);
+            rset = pstmt.executeQuery();
+            while (rset.next()) {
+            	list.add(new MyOrderDt(rset.getString("USER_NAME"),
+            						   rset.getInt("PRODUCT_ID"),
+            						   rset.getString("PRODUCT_NAME"),
+            						   rset.getString("START_DATE"),
+            						   rset.getString("END_DATE"),
+            						   rset.getString("STATUS"),
+            						   rset.getString("BH_CLASS"),
+            						   rset.getInt("PRICE"),
+            						   rset.getInt("A_PRICE"),
+            						   rset.getInt("CHILD"),
+            						   rset.getInt("POINT_U"),
+            						   rset.getInt("FINAL_PAY"),
+            						   rset.getString("FLIGHT"),
+            						   rset.getString("NAME"),
+            						   rset.getDate("BIRTHDAY"),
+            						   rset.getString("PASSPORT"),
+            						   rset.getString("PAY_OP"),
+            						   rset.getInt("TOTAL_PAY")
+            						   ));
+            }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		
+		return list;
+	}
+
+
+
+
+
+	
 		
 		
 	}

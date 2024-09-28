@@ -27,7 +27,14 @@ public class BlackService {
 
 		return list;
 	}
+	
+	public List<BlackList> selectAllBlackByKeyword(PageInfo pi, String keyword) {
+		Connection conn = getConnection();
+		List<BlackList> list = bDao.selectAllBlackByKeyword(conn, pi, keyword);
+		close(conn);
 
+		return list;
+	}
 	/**
 	 * 관리자 페이지-페이지네이션을 위한 행의 총 갯수
 	 * 
@@ -39,7 +46,12 @@ public class BlackService {
 		close(conn);
 		return listCount;
 	}
-
+	public int selectBlackCountByKeyword(String keyword) {
+		Connection conn = getConnection();
+		int listCount = bDao.selectBlackCountByKeyword(conn, keyword);
+		close(conn);
+		return listCount;
+	}
 	public int delBlackList(String[] arr) {
 		Connection conn = getConnection();
 
@@ -73,4 +85,12 @@ public class BlackService {
 		close(conn);
 		return result;
 	}
+
+
+
+
+
+
+
+
 }

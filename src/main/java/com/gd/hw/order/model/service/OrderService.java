@@ -31,10 +31,22 @@ public Product selectProductById(int productId) {
 		close(conn);
 		return listCount;
 	}
+	public int selectOrderCountByKeyword(String keyword) {
+		Connection conn = getConnection();
+		int listCount = oDao.selectOrderCountByKeyword(conn,keyword);
+		close(conn);
+		return listCount;
+	}
 
 	public List<OrderAd> selectOrderLIst(PageInfo pi) {
 		Connection conn = getConnection();
 		List<OrderAd> list = oDao.selectOrderLIst(conn, pi);
+		close(conn);
+		return list;
+	}
+	public List<OrderAd> selectOrderLIstByKeyword(PageInfo pi, String keyword) {
+		Connection conn = getConnection();
+		List<OrderAd> list = oDao.selectOrderLIstByKeyword(conn, pi,keyword);
 		close(conn);
 		return list;
 	}
@@ -52,6 +64,9 @@ public Product selectProductById(int productId) {
 		close(conn);
 		return list;
 	}
+
+
+
 
 //-----------------------관리자파트 끝-----------------------
 

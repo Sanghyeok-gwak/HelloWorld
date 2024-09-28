@@ -75,7 +75,35 @@ public class UserDao {
 		}
 		return list;
 	}
+	public List<User> selectUserByKeyword(Connection conn, PageInfo pi, String keyword) {
+		List<User> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectUserByKeyword");
 
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			pstmt.setString(1, "%"+keyword+"%");
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				list.add(new User(rset.getInt("USER_NO"), rset.getString("USER_ID"), rset.getString("USER_PWD"),
+						rset.getString("USER_NAME"), rset.getString("EMAIL"), rset.getString("PHONE"),
+						rset.getDate("ENROLL_DATE"), rset.getDate("MODIFY_DATE"), rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	/**관리자-페이지 페이징처리를 위한 User행 갯수 알아가는 매소드
 	 * @param conn
 	 * @return 
@@ -103,7 +131,31 @@ public class UserDao {
 		
 		return listCount;
 	}
-	
+	public int selectUserListByKeyword(Connection conn, String keyword) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectUserListByKeyword");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+
+	}
 	/**
 	 * 관리자 페이지-체크박스를 통한 다중 삭제 메소드
 	 * 
@@ -306,6 +358,10 @@ public class UserDao {
 	
 
 		}
+
+
+
+
 	
 
 }

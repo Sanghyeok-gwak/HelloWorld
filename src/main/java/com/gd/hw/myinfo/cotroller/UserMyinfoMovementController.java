@@ -38,9 +38,10 @@ public class UserMyinfoMovementController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	request.setCharacterEncoding("utf-8");
-	int listCount = new MyinfoService().selectMyinfoCount();
-	System.out.println(listCount);
 	int userNo = Integer.parseInt(request.getParameter("no")); 
+	int listCount = new MyinfoService().selectMyinfoCount( userNo );
+	System.out.println(userNo);
+	System.out.println(listCount);
 	System.out.println(userNo);
 	int currentPage = 1;
 	if(request.getParameter("page") != null) {

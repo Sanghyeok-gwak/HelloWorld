@@ -34,10 +34,14 @@ public class BlackListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("admin-blackList 서블릿 호출됨");
 		
-		
-		int listCount = new BlackService().selectBlackListCount();
+		int listCount =0;
+		String keyword = request.getParameter("keyword");
+		if(keyword != null) {
+			listCount = new BlackService().selectBlackCountByKeyword(keyword);
+		}else {
+			listCount = new BlackService().selectBlackListCount();
+		}
 		
 		int currentPage = 1;
 		if(request.getParameter("page") != null) {
@@ -56,11 +60,17 @@ public class BlackListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		List<BlackList> list = new BlackService().selectAllBlack(pi);
-		request.setAttribute("pi", pi);
-		
-		
-		request.setAttribute("list", list);
+		List<BlackList> list = null;
+		if(keyword != null) {
+			list= new BlackService().selectAllBlackByKeyword(pi,keyword);
+			System.out.println(list.toString());
+			request.setAttribute("pi", pi);
+			request.setAttribute("list", list);
+		}else {
+			list= new BlackService().selectAllBlack(pi);
+			request.setAttribute("pi", pi);
+			request.setAttribute("list", list);
+		}
 		request.getRequestDispatcher("/views/admin/black-admin.jsp").forward(request, response);
 	}
 
