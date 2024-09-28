@@ -1,5 +1,10 @@
+<%@ page import= "com.gd.hw.myinfo.model.vo.MyOrderDt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% 
+List<MyOrderDt> list = (List<MyOrderDt>)request.getAttribute("list");
+
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +48,7 @@
         <div class="side">
             <div class="card mb-4">
                 <div class="card-body">
-                    <h5 class="card-title">이준님<br>WELCOME</h5>
+                    <h5 class="card-title"><%= loginUser.getUserName() %>님<br>WELCOME</h5>
                     <p class="card-text"><h5><a href="#" style="color: gray; text-decoration-line: none;">내정보 관리<i class="fa-solid fa-play"> </h5></i></a></p>
                     <p><h5>적립금 0P</h5></p>
                 </div>
@@ -68,31 +73,34 @@
                 <br>
             </div>
             <table class="details">
+            
+            <% for(MyOrderDt m : list){%>
                 <tr>
                     <th><h5>여행자명</h3></th>
-                    <td><h5> JUN/LEE</h5></td>
+                    <td><h5><%= loginUser.getUserName() %></h5></td>
                 </tr>
                 <tr>
                     <th><h5>여권 정보</h5></th>
-                    <td><h5> M6713250 </h5></td>
+                    <td><h5><%= m.getPassport() %> </h5></td>
                 </tr>
                 <tr>
                     <th><h5>생년월일</h5></th>
-                    <td><h5> 1998.12.11</h5></td>
+                    <td><h5><%= m.getBirthday() %></h5></td>
                 </tr>
                 <tr>
                     <th><h5>보험 등급</h5></th>
-                    <td><h5>다이아</h5></td>
+                    <td><h5><%= m.getBhClass() %></h5></td>
                 </tr>
                 <tr>
                     <th><h5>보험 가격</h5></th>
-                    <td><h5>230,000원</h5></td>
+                    <td><h5><%= m.getPrice() %></h5></td>
                 </tr>
                 <tr>
                     <th><h5>적립금</h5></th>
-                    <td><h5>1305원 사용</h5></td>
+                    <td><h5><%= m.getPointUsed() %></h5></td>
                 </tr>
-                 
+              
+              
             </table>
             <br>
             <div class="Product">
@@ -102,34 +110,35 @@
             <table class="Product name">
                 <tr>
                     <th><h5><상품명></h3></th>
-                    <td><h5>[베스트셀러/W트립] 동유럽/발칸 5국9일,대한항공,전일4성,2대야경+자유시간,6대특식</h5></td>
+                    <td><h5><%= m.getProductName() %></h5></td>
                 </tr>
                 <tr>
                     <th><h5>여행 기간</h5></th>
-                    <td><h5> 3박 5일 2024-09-23(월)~2024-09-27(금)</h5></td>
+                    <td><h5><%= m.getStartDate() %> ~ <%= m.getEndDate() %></h5></td>
                 </tr>
                 <tr>
                     <th><h5>적립금</h5></th>
-                    <td><h5>1300원</h5></td>
+                    <td><h5><%= m.getTotalPay() * 0.01 %></h5></td>
                 </tr>
                 <tr>
                     <th><h5>교통/ 항공편</h5></th>
-                    <td><h5>비엣 항공 969 [왕복]</h5></td>
+                    <td><h5><%=m.getFlight() %></h5></td>
                 </tr>
                 <tr>
                     <th><h5>상품 가격</h5></th>
-                    <td><h5>1,354,000원</h5></td>
+                    <td><h5><%= m.getaPrice() %></h5></td>
                 </tr>
                 <tr>
                     <th><h5>결제정보</h5></th>
-                    <td><h5>카카오페이</h5></td>
+                    <td><h5><%= m.getPayOp() %></h5></td>
                 </tr>
                 <tr>
                     <th><h5>총금액 :</h5></th>
-                    <td><h5>1,354,000원</h5></td>
+                    <td><h5><%= m.getFinalPay() %></h5></td>
                 </tr>
+                <%} %> 
             </table>
-            <div><button id="btn-1" class="btn" style="float:right;width: 150px;"  >목록으로</button></div>
+            <div><a href="<%= contextPath %>/myinfom.us?no=<%= loginUser.getUserNo() %>" id="btn-1" class="btn" style="float:right;width: 150px;"  >목록으로</a></div>
         </main>
     </div>
               <%@ include file="/views/common/footer.jsp" %>

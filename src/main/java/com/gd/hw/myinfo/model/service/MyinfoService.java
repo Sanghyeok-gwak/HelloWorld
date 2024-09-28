@@ -12,6 +12,7 @@ import java.util.Map;
 
 import com.gd.hw.common.model.vo.PageInfo;
 import com.gd.hw.myinfo.model.dao.MyinfoDao;
+import com.gd.hw.myinfo.model.vo.MyOrderDt;
 import com.gd.hw.myinfo.model.vo.Myinfo;
 import com.gd.hw.order.model.vo.Order;
 import com.gd.hw.user.model.dao.UserDao;
@@ -113,7 +114,19 @@ public class MyinfoService {
 		  close(conn);
 		  return list; 
 	  }
-	  
+
+
+
+	public List<MyOrderDt> myinfoPaymentdetails(String userNo, String productNo) {
+		Connection conn = getConnection();
+		List<MyOrderDt> list = uDao.myinfoPaymentdetails(conn,userNo,productNo );
+		close(conn);
+		return list;
+	}
+
+
+
+
 
 	
 	}

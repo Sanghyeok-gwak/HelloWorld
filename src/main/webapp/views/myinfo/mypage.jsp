@@ -146,6 +146,10 @@ List<Myinfo> list = (List<Myinfo>)request.getAttribute("list");
       font-size: 16px;
       margin-bottom: 20px;
     }
+    #btn-4 {
+			background-color: #007AFF;
+			color: white;
+    }
  </style>
  <script>
  function run() {
@@ -234,6 +238,7 @@ List<Myinfo> list = (List<Myinfo>)request.getAttribute("list");
                <div class="col-md-12 mb-3">
               <h5><%= m.getPay_Date() %></h5>
               <h5 style="font-size: 13px; color: lightgray;">예약 번호 :<%= m.getMerchant_Uid() %> </h5>
+              <input type="hidden" value="<%= m.getMerchant_Uid() %>" id="merId" >
               <div class="product-card">
                 <img src="<%= m.getProduct_Img() %>"  alt="Product Image">
                 <div class="card-body">
@@ -244,7 +249,7 @@ List<Myinfo> list = (List<Myinfo>)request.getAttribute("list");
                   </a>
                   <p class="card-text" style="font-size: 18px;"><%= m.getStart_Date() %>~<%= m.getEnd_Date() %></p>
                   <dav style="display: flex; justify-content:end;">
-                  <button type="button" class="btn" id="btn-1" style="margin-right: 15px;  width: 140px;  ">결제내역</button>
+                  <a href="<%= contextPath %>/myinfodt.us?userNo=<%= loginUser.getUserNo() %>&productNo=<%=m.getProduct_Id() %>" type="button" class="btn" id="btn-4" style="margin-right: 15px;  width: 140px;  " onclick="fnPayListbtn();">결제내역</a>
                   <a href="#" class="btn" id="btn-2" onclick="run();" style="width: 140px; ">환불하기</a></dav>
                 </div>
               </div>
@@ -281,6 +286,13 @@ List<Myinfo> list = (List<Myinfo>)request.getAttribute("list");
           </div>
         </div>
     </section>
+      <script>
+      
+  
+      
+      
+      
+  </script>
     <%@ include file="/views/common/footer.jsp" %>
     
 </body>
