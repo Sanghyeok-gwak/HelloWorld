@@ -220,14 +220,18 @@ h5 {
 					<div class="banner-list mb-3">
 						<!-- 상단 옵션  -->
 						<select name="banner-name" id="bannerSelect" class="form-control">
-							<option value="banner-top">상단배너</option>
-							<option value="banner-sub-1">서브배너1</option>
-							<option value="banner-sub-2">서브배너2</option>
+							<option value="banner-top">메인배너</option>
+							<option value="banner-sub-1">인기상품</option>
+							<option value="banner-sub-2">마감임박</option>
 						</select>
 					</div>
 					<div class="btn-add">
-						<button id="btn-1">삭제</button>
+						<button id="btn-1" onclick="fnDeleteSelected();">삭제</button>
 					</div>
+					
+					
+					
+					
 					<!-- 상단배너 -->
 					<div id="banner-top" class="banner">
 						<table class="table" style="text-align: center;">
@@ -243,29 +247,25 @@ h5 {
 							<tbody>
 								<% if(bannerList.isEmpty()){%>
 								                <tr>
-								                  <td colspan="7" style="text-align: center;">존재하는 게시글이 없습니다.</td>
+								                  <td colspan="5" style="text-align: center;">존재하는 게시글이 없습니다.</td>
 								                </tr>
 								<%}else{ %>	
 								<!-- case2. 조회된 게시글이 있을 경우 -->
-								<%int count =1; %>
 									<%for(int i=0; i<bannerList.size(); i++){ %>
+										<%if(bannerList.get(i).getStatus().equals("M")){ %>
 										<tr style="border-bottom: 1px solid lightgray;">
 											<td>
 												<input type="checkbox" class="banner-checkBox" name="list-checkBox" value="<%=bannerList.get(i).getBannerNo() %>">
 											</td>
 											<td><%=bannerList.get(i).getBannerNo() %></td>
+											<td><%=bannerList.get(i).getStatus()%></td>
 											<td><%=bannerList.get(i).getImg() %></td>
 											<td><%=bannerList.get(i).getTietle() %></td>
-											<td><%=bannerList.get(i).getContent()%></td>
-											<td><%=bannerList.get(i).getStatus()%></td>
-											<td>
-												<button id="btn-3" onclick="location.href='<%=contextPath%>/modify.pro?no=<%= bannerList.get(i).getBannerNo() %>'">
-													<h5>수정</h5>
-												</button>
-											</td>
+											
 										</tr>
+										<%} %>
 									<%} %>
-							<%} %>
+								<%} %>
 							</tbody>
 						</table>
 					</div>
@@ -284,27 +284,23 @@ h5 {
 							<tbody>
 								<% if(bannerList.isEmpty()){%>
 								                <tr>
-								                  <td colspan="7" style="text-align: center;">존재하는 게시글이 없습니다.</td>
+								                  <td colspan="5" style="text-align: center;">존재하는 배너가 없습니다.</td>
 								                </tr>
 								<%}else{ %>	
 								<!-- case2. 조회된 게시글이 있을 경우 -->
-								<%int count =1; %>
 									<%for(int i=0; i<bannerList.size(); i++){ %>
+										<%if(bannerList.get(i).getStatus().equals("H")){ %>
 										<tr style="border-bottom: 1px solid lightgray;">
 											<td>
 												<input type="checkbox" class="banner-checkBox" name="list-checkBox" value="<%=bannerList.get(i).getBannerNo() %>">
 											</td>
 											<td><%=bannerList.get(i).getBannerNo() %></td>
+											<td><%=bannerList.get(i).getStatus()%></td>
 											<td><%=bannerList.get(i).getImg() %></td>
 											<td><%=bannerList.get(i).getTietle() %></td>
-											<td><%=bannerList.get(i).getContent()%></td>
-											<td><%=bannerList.get(i).getStatus()%></td>
-											<td>
-												<button id="btn-3" onclick="location.href='<%=contextPath%>/modify.pro?no=<%= bannerList.get(i).getBannerNo() %>'">
-													<h5>수정</h5>
-												</button>
-											</td>
+											
 										</tr>
+										<%} %>
 									<%} %>
 							<%} %>
 							</tbody>
@@ -325,27 +321,23 @@ h5 {
 							<tbody>
 								<% if(bannerList.isEmpty()){%>
 								                <tr>
-								                  <td colspan="7" style="text-align: center;">존재하는 게시글이 없습니다.</td>
+								                  <td colspan="5" style="text-align: center;">존재하는 배너가 없습니다.</td>
 								                </tr>
 								<%}else{ %>	
 								<!-- case2. 조회된 게시글이 있을 경우 -->
-								<%int count =1; %>
 									<%for(int i=0; i<bannerList.size(); i++){ %>
+										<%if(bannerList.get(i).getStatus().equals("D")){ %>
 										<tr style="border-bottom: 1px solid lightgray;">
 											<td>
 												<input type="checkbox" class="banner-checkBox" name="list-checkBox" value="<%=bannerList.get(i).getBannerNo() %>">
 											</td>
 											<td><%=bannerList.get(i).getBannerNo() %></td>
+											<td><%=bannerList.get(i).getStatus()%></td>
 											<td><%=bannerList.get(i).getImg() %></td>
 											<td><%=bannerList.get(i).getTietle() %></td>
-											<td><%=bannerList.get(i).getContent()%></td>
-											<td><%=bannerList.get(i).getStatus()%></td>
-											<td>
-												<button id="btn-3" onclick="location.href='<%=contextPath%>/modify.pro?no=<%= bannerList.get(i).getBannerNo() %>'">
-													<h5>수정</h5>
-												</button>
-											</td>
+											
 										</tr>
+										<%} %>
 									<%} %>
 							<%} %>
 							</tbody>
@@ -353,6 +345,43 @@ h5 {
 					</div>
 					
 				</div>
+				<script>
+					function fnDeleteSelected() {
+					    const checkboxes = document.querySelectorAll('.banner-checkBox:checked'); // 체크된 체크박스 선택
+					    const checkedValues = [];
+					    checkboxes.forEach(checkbox => {
+					        checkedValues.push(checkbox.value); // 체크된 체크박스의 value를 배열에 추가
+					    });
+
+					    if (checkedValues.length === 0) {
+					        alert('삭제할 상품을 선택해주세요.'); // 체크된 상품이 없으면 알림
+					        return;
+					    }
+
+					    const confirmation = confirm('선택한 상품을 삭제하시겠습니까?'); // 삭제 확인 다이얼로그
+					    if (confirmation) {
+
+					        $.ajax({
+			            		
+					        	url:'<%= contextPath%>/deleteBanner.pro',
+			            		traditional: true, 
+			            		data: { checkedValues: checkedValues }, // 선택한 카테고리 이름 전달
+			            		success: function(result) {
+			                        if (result>0) {
+			                            alert('상품이 삭제되었습니다.'); // 삭제 성공 시 알림
+			                            location.reload(); // 페이지 새로 고침
+			                        } else {
+			                            alert('삭제에 실패했습니다.'); // 삭제 실패 시 알림
+			                        }
+			                    },
+			                    
+			            		
+			            	});
+					    }
+					}
+
+					
+					</script>
 				<hr>
 				<script>
           // 옵션 선택시 영역바꾸는 스크립트 -상단
@@ -382,7 +411,7 @@ h5 {
 							<h3>리스트</h3>
 						</div>
 						<div class="btn-add" style="margin-top:5px;margin-bottom:5px;">
-							<button id="btn-1" ><h5>추가</h5></button>
+							<button id="btn-1" onclick="fnAddSelected();" ><h5>추가</h5></button>
 						</div>
 					</div>
 							<hr style=" margin-bottom:50px;">
@@ -394,8 +423,9 @@ h5 {
 									<th width="100px"></th>
 									<th width="100px">번호</th>
 									<th width="150px">카테고리</th>
-									<th width="400px">이미지</th>
 									<th width="400px">상품명</th>
+									<th width="150px">여행시작일</th>
+									<th width="150px">여행종료일</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -403,7 +433,7 @@ h5 {
 							
 								<% if(productList.isEmpty()){%>
 								                <tr>
-								                  <td colspan="7" style="text-align: center;">존재하는 게시글이 없습니다.</td>
+								                  <td colspan="6" style="text-align: center;">존재하는 게시글이 없습니다.</td>
 								                </tr>
 								<%}else{ %>	
 								<!-- case2. 조회된 게시글이 있을 경우 -->
@@ -412,29 +442,66 @@ h5 {
 										<tr style="border-bottom: 1px solid lightgray;">
 											<td>
 												<input type="checkbox" class="product-checkBox" name="list-checkBox" value="<%=productList.get(i).getProductId() %>">
+												<input type="hidden" value="<%=productList.get(i) %>">
 											</td>
 											<td><%=productList.get(i).getProductId()%></td>
 											<td><%=productList.get(i).getCategoryName() %></td>
 											<td><%=productList.get(i).getProductName() %></td>
 											<td><%=productList.get(i).getStartDate()%></td>
 											<td><%=productList.get(i).getEndDate()%></td>
-											<td>
-												
-											</td>
+											
 										</tr>
 									<%} %>
 							<%} %>
 							
 						</tbody>
-							</tbody>
 						</table>
+						
+						<script>
+							function fnAddSelected() {
+							    const checkboxes = document.querySelectorAll('.product-checkBox:checked'); // 체크된 체크박스 선택
+							    const checkedValues = [];
+							    const checkedBanner = document.querySelector('#bannerSelect').value;
+							    checkboxes.forEach(checkbox => {
+							        checkedValues.push(checkbox.value); // 체크된 체크박스의 value를 배열에 추가
+							    });
+		
+							    if (checkedValues.length === 0) {
+							        alert('추가할 상품을 선택해주세요.'); // 체크된 상품이 없으면 알림
+							        return;
+							    }
+		
+							    const confirmation = confirm('선택한 상품을 추가하시겠습니까?'); //추가 확인 다이얼로그
+							    if (confirmation) {
+		
+							        $.ajax({
+					            		
+							        	url:'<%= contextPath%>/addBannerProduct.pro',
+					            		traditional: true, 
+					            		data: { checkedValues: checkedValues,bannerSelect:checkedBanner }, // 선택한 카테고리 이름 전달
+					            		success: function(result) {
+					                        if (result>0) {
+					                            alert('상품이 추가되었습니다.'); // 삭제 성공 시 알림
+					                            location.reload(); // 페이지 새로 고침
+					                        } else {
+					                            alert('추가에 실패했습니다.'); // 삭제 실패 시 알림
+					                        }
+					                    },
+					                    
+					            		
+					            	});
+							    }
+							}
+		
+							
+						</script>
 						<ul id="pagination-product"
 							class="pagination d-flex justify-content-center text-dark"
 							style="margin-top: 80px;">
 							<li
 								class='page-item <%=pi.getCurrentPage() == 1 ? "disabled" : ""%>'>
 								<a class="page-link"
-								href="<%=contextPath%>/list.pro?page=<%=pi.getCurrentPage() - 1%>">
+								href="<%=contextPath%>/list.bn?page=<%=pi.getCurrentPage() - 1%>">
 									< </a>
 							</li>
 							<%
@@ -452,7 +519,7 @@ h5 {
 							<li
 								class='page-item <%=pi.getCurrentPage() == pi.getMaxPage() ? "disabled" : ""%>'>
 								<a class="page-link"
-								href="<%=contextPath%>/list.pro?page=<%=pi.getCurrentPage() + 1%>">
+								href="<%=contextPath%>/list.bn?page=<%=pi.getCurrentPage() + 1%>">
 									> </a>
 							</li>
 						</ul>

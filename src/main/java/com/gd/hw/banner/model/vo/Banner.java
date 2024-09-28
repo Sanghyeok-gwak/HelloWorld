@@ -23,6 +23,13 @@ public class Banner {
 		this.price = price;
 		this.content = content;
 	}
+	public Banner(String img, int proNo, String tietle, int price) {
+		super();
+		this.img = img;
+		this.proNo = proNo;
+		this.tietle = tietle;
+		this.price = price;
+	}
 	@Override
 	public String toString() {
 		return "Banner [bannerNo=" + bannerNo + ", img=" + img + ", stay=" + stay + ", status=" + status + ", proNo="

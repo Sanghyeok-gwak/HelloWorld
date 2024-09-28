@@ -29,5 +29,84 @@
 		SELECT *
 		  FROM BANNER
 	</entry>
+	
+	
+	<entry key = "selectProductLists">
+		SELECT *
+		  FROM PRODUCT
+		 WHERE PRODUCT_ID = ?
+	</entry>
+	
+	<entry key="addMainBannerProduct">
+		INSERT 
+		  INTO BANNER
+		  	   (BANNER_NO,
+		  	   IMG,
+		  	   STATUS,
+		  	   FK_PRO_NO,
+		  	   TITLE,
+		  	   PRICE
+		  	   )
+		VALUES (
+				SEQ_BANNER.NEXTVAL,
+				?,
+				'M',
+				?,
+				?,
+				?
+				) 
+	</entry>
+	
+	<entry key="addSub1BannerProduct">
+			INSERT 
+				  INTO BANNER
+				  	   (
+				  	   BANNER_NO,
+				  	   IMG,
+				  	   STATUS,
+				  	   FK_PRO_NO,
+				  	   TITLE,
+				  	   PRICE
+				  	   )
+				VALUES (
+						SEQ_BANNER.NEXTVAL,
+						?,
+						'H',
+						?,
+						?,
+						?
+						) 
+	</entry>
+	
+	<entry key="addSub2BannerMainProduct">
+			INSERT 
+				  INTO BANNER
+				  	   (BANNER_NO,
+				  	   IMG,
+				  	   STATUS,
+				  	   FK_PRO_NO,
+				  	   TITLE,
+				  	   PRICE
+				  	   )
+				VALUES (
+						SEQ_BANNER.NEXTVAL,
+						?,
+						'D',
+						?,
+						?,
+						?
+						) 
+	</entry>
+	
+	
+	<entry key="deleteBanner">
+		DELETE
+		  FROM BANNER
+		 WHERE BANNER_NO = ? 
+	</entry>
+	
+	
+	
+	
 
 </properties>
