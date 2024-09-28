@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gd.hw.order.model.service.OrderService;
-import com.gd.hw.product.model.vo.Product;
+import com.gd.hw.order.model.vo.ProductOr;
 
 /**
  * Servlet implementation class OrderPageController
@@ -46,13 +46,13 @@ public class OrderPageController extends HttpServlet {
 			cNum = Integer.parseInt(request.getParameter("cNum"));
 		}
 	
-		Product p = new OrderService().selectProductById(productId);
-	    
+		ProductOr p = new OrderService().selectProductById(productId);
+	    p.setaCount(aNum);
+	    p.setcCount(cNum);
+		
+	    System.err.println(p.toString());
 		request.setCharacterEncoding("utf-8");
 		request.setAttribute("p",p);
-		request.setAttribute("aNum",aNum);
-		request.setAttribute("cNum",cNum);
-		
 		
 		request.getRequestDispatcher("/views/order/payment.jsp").forward(request, response);
 		
