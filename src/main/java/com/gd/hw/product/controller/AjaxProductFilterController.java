@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class AjaxProductFilter
  */
-@WebServlet("/filterProducts.fp")
+@WebServlet("/world/filterProducts.fp")
 public class AjaxProductFilterController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

@@ -143,7 +143,7 @@
 		P.PRODUCT_ID = ?
 	</entry>
 
-	<entry key="filterProducts">
+<entry key="filterProducts">
     SELECT P.PRODUCT_ID, P.PRODUCT_NAME, P.PRODUCT_IMG, P.START_DATE,
     P.END_DATE, P.A_PRICE, P.C_PRICE, P.STATUS, P.STAY, C.CATEGORY_NAME
     FROM PRODUCT P

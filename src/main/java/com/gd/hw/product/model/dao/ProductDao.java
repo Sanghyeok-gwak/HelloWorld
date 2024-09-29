@@ -248,42 +248,7 @@ public class ProductDao {
 		return reviews;
 	}
 
-	/*
-	 * // 필터 조건에 맞는 상품 리스트를 조회하는 메서드 내버전 public List<Product>
-	 * filterProducts(Connection conn, String region, String status, String period)
-	 * { List<Product> list = new ArrayList<>(); PreparedStatement pstmt = null;
-	 * ResultSet rset = null;
-	 * 
-	 * String sql = prop.getProperty("filterProducts");
-	 * 
-	 * try { pstmt = conn.prepareStatement(sql); pstmt.setString(1, region); // 지역명
-	 * (카테고리 이름) pstmt.setString(2, region == null || region.isEmpty() ? null :
-	 * region); // 지역명 (NULL 처리용) pstmt.setString(3, status); // 예약 상태
-	 * pstmt.setString(4, status == null || status.isEmpty() ? null : status); // 예약
-	 * 상태 (NULL 처리용) pstmt.setString(5, period); // 여행 기간 pstmt.setString(6, period
-	 * == null || period.isEmpty() ? null : period); // 여행 기간 (NULL 처리용)
-	 * 
-	 * rset = pstmt.executeQuery();
-	 * 
-	 * while (rset.next()) { Product product = new Product();
-	 * product.setProductId(rset.getInt("PRODUCT_ID"));
-	 * product.setProductName(rset.getString("PRODUCT_NAME"));
-	 * product.setProductImg(rset.getString("PRODUCT_IMG"));
-	 * product.setStartDate(rset.getString("START_DATE"));
-	 * product.setEndDate(rset.getString("END_DATE"));
-	 * product.setaPrice(rset.getInt("A_PRICE"));
-	 * product.setcPrice(rset.getInt("C_PRICE"));
-	 * product.setStatus(rset.getString("STATUS"));
-	 * product.setStay(rset.getString("STAY"));
-	 * product.setCategoryName(rset.getString("CATEGORY_NAME")); // 카테고리 이름 추가
-	 * 
-	 * list.add(product); }
-	 * 
-	 * } catch (SQLException e) { e.printStackTrace(); } finally { close(rset);
-	 * close(pstmt); }
-	 * 
-	 * return list; }
-	 */
+	
 
 	public List<Product> filterProducts(Connection conn, String categoryName, String region, String status,
 			String stay) {

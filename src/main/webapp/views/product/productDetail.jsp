@@ -441,6 +441,8 @@ button:hover {
         updateReservationLink(adultCount, infantCount);
     }
 
+    
+    
     function updateTotalAmount(adultCount, infantCount) {
         const totalAmount = (adultCount * adultPrice) + (infantCount * infantPrice);
         document.getElementById('totalAmount').textContent = totalAmount.toLocaleString() + "원";
