@@ -32,9 +32,9 @@ public class AjaxAdminDeleteProductController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		String checkedValues[] = request.getParameterValues("checkedValues");
-		
+		System.out.println("delete");
 		int result = new AdminProductService().deleteProduct(checkedValues);
-		
+		System.out.println(result);
 		if(result>0) {
 			response.setContentType("text/html; charset=UTF-8");
 			response.getWriter().print(result);

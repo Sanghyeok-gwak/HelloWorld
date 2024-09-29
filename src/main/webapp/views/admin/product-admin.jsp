@@ -181,6 +181,13 @@ h5 {
 	border: 1px solid lightgray;
 	color: black;
 }
+.admin-page-main-menu{
+	border-right: 0px!important;
+}
+
+.admin-page-main-item{
+	border-left: 1px solid lightgray;
+}
 </style>
 
 </head>
@@ -199,12 +206,8 @@ h5 {
 						상품 관리
 					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">
+					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.bn'">
 						배너 관리
-					</button>
-					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">
-						리뷰 관리
 					</button>
 					<br>
 					<button id="btn-2" class="btn" onclick="location.href='<%= contextPath%>/list.cg'">
@@ -216,23 +219,16 @@ h5 {
 					회원 관리
 					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">
+					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.bk'">
 					블랙리스트 관리
 					</button>
 					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">
-					이벤트 관리</button>
-					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">
+					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>/list.or'">
 					결제 관리</button>
 				</div>
-				<div class="amdin-page-side-btn3">
-					<button id="btn-2" class="btn" onclick="location.href='#'">FAQ</button>
-					<br>
-					<button id="btn-2" class="btn" onclick="location.href='#'">문의/신고</button>
-				</div>
+			
 				<div class="amdin-page-side-btn4">
-					<button id="btn-2" class="btn" onclick="location.href='#'">메인
+					<button id="btn-2" class="btn" onclick="location.href='<%=contextPath%>'">메인
 						홈</button>
 				</div>
 			</div>

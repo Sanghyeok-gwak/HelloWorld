@@ -275,20 +275,20 @@
 							}
 						}
 						else if(res[i].status === 'H'){
-							sub1DivEl += '<div class="card" style="width: 250px; margin-left:10px; margin-right:10px;">'
-									   + '<img class="card-img-top" src="'+res[i].img+'" alt="Card image">'
+							sub1DivEl += '<div class="card" style="width: 250px; margin-left:10px; border-radius: 5px; margin-right:10px; cursor: pointer;" onclick="window.location.href=\'productDetail.pr?productId='+res[i].proNo+'\'">'
+									   + '<img class="card-img-top" src="'+res[i].img+'" alt="Card image" style="height: 180px;">'
 									   + '<div class="card-body">'
 									   + '<h4 class="card-title" >'+res[i].tietle+'</h4>'
-									   + '<p class="card-text"> <h5>'+res[i].price+'</h5> </p>'
+									   + '<p class="card-text"> <h5>'+parseInt(res[i].price).toLocaleString()+'원'+'</h5> </p>'
 									   + '</div>'
 									   + '</div>'
 						}
 						else if(res[i].status === 'D'){
-							sub2DivEl += '<div class="card" style="width: 250px; margin-left:10px; margin-right:10px;">'
-								   + '<img class="card-img-top" src="'+res[i].img+'" alt="Card image">'
+							sub2DivEl += '<div class="card" style="width: 250px; margin-left:10px; border-radius: 5px; margin-right:10px; cursor: pointer;" onclick="window.location.href=\'productDetail.pr?productId='+res[i].proNo+'\'">'
+								   + '<img class="card-img-top" src="'+res[i].img+'" alt="Card image"  style="height: 180px;">'
 								   + '<div class="card-body">'
 								   + '<h4 class="card-title" >'+res[i].tietle+'</h4>'
-								   + '<p class="card-text"> <h5>'+res[i].price+'</h5> </p>'
+								   + '<p class="card-text"> <h5>'+parseInt(res[i].price).toLocaleString()+'원'+'</h5> </p>'
 								   + '</div>'
 								   + '</div>'
 						}

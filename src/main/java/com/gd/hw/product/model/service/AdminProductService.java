@@ -99,6 +99,7 @@ public class AdminProductService {
 		Connection conn = getConnection();
 		int result = 0;
 		
+		System.out.println("service");
 		
 		for(int i =0; i<checkedValue.length; i++) {
 			result = apDao.deleteProduct(conn,checkedValue[i]);
