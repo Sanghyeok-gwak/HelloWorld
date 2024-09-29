@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.gd.hw.common.model.vo.PageInfo;
 import com.gd.hw.order.model.dao.OrderDao;
+import com.gd.hw.order.model.vo.Order;
 import com.gd.hw.order.model.vo.OrderAd;
 import com.gd.hw.order.model.vo.Person;
 import com.gd.hw.order.model.vo.ProductOr;
@@ -24,6 +25,29 @@ public ProductOr selectProductById(int productId) {
 	close(conn);
 	
 	return p;
+}
+
+public int insertOrder(Order o, List<Person> list) {
+	Connection conn = getConnection();
+	
+	int result = oDao.insertPayMent(conn,o);
+	if(result > 0) {
+		result += oDao.insertOrder(conn,o);
+		if(result > 1) {
+			result += oDao.insertPerSon(conn,list);
+			if(result > 2) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+		}else {
+			rollback(conn);
+		}
+	}else {
+		rollback(conn);
+	}
+	close(conn);
+	return result;
 }
 
 //-----------------------관리자파트--------------------------
@@ -80,8 +104,6 @@ public ProductOr selectProductById(int productId) {
 		close(conn);
 		return result;
 	}
-
-
 
 
 //-----------------------관리자파트 끝-----------------------

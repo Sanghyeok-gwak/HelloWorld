@@ -39,6 +39,22 @@ public class Order {
 		this.status = status;
 		this.totalPay = totalPay;
 	}
+	
+	
+	public Order(String merchantUid, int userNo, int productId, int bhNo, String impUid, int adult, int child,
+			String flight, int pointU, int totalPay) {
+		super();
+		this.merchantUid = merchantUid;
+		this.userNo = userNo;
+		this.productId = productId;
+		this.bhNo = bhNo;
+		this.impUid = impUid;
+		this.adult = adult;
+		this.child = child;
+		this.flight = flight;
+		this.pointU = pointU;
+		this.totalPay = totalPay;
+	}
 	public String getMerchantUid() {
 		return merchantUid;
 	}

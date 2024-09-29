@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Properties;
 
 import com.gd.hw.common.model.vo.PageInfo;
+import com.gd.hw.order.model.vo.Order;
 import com.gd.hw.order.model.vo.OrderAd;
 import com.gd.hw.order.model.vo.Person;
 import com.gd.hw.order.model.vo.ProductOr;
-import com.gd.hw.product.model.vo.Product;
 
 public class OrderDao {
 
@@ -64,7 +64,42 @@ public class OrderDao {
 		}
 		return p;
 	}
+	
+	public int insertPayMent(Connection conn, Order o) {
+		
+		return 0;
+	}
 
+	public int insertOrder(Connection conn, Order o) {
+		
+		return 0;
+	}
+	
+	public int insertPerSon(Connection conn, List<Person> list) {
+		int count = list.size();
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertPerSon");
+
+		try {
+			for (Person p : list) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, p.getGender()); // 어우많아 채우는건 이따가
+				result += pstmt.executeUpdate();
+			}
+			if(result == count) {
+				result = 1;
+			}else {
+				result = 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
 //-----------------------관리자파트--------------------------
 	public int selectOrderListCount(Connection conn) {
 		int listCount = 0;
@@ -239,7 +274,6 @@ public class OrderDao {
 		return result;
 	}
 //-----------------------관리자파트 끝-----------------------
-
 
 
 
