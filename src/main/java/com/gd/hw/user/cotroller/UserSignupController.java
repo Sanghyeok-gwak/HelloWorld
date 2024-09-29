@@ -47,28 +47,15 @@ public class UserSignupController extends HttpServlet {
 		if(result > 0) {
 			/*
 			 * * 회원가입 성공
-			 *   ㄴ 응답페이지 : 메인페이지
-			 *   ㄴ 응답데이터 : "성공적으로 회원가입 되었습니다." alert 메세지
+			 *   ㄴ 응답페이지 : 추가완료페이지
 			 */
 			
 			request.getRequestDispatcher("/views/common/addCompleted.jsp").forward(request, response);
 			
 //			request.getSession().setAttribute("alertMsg", "성공적으로 회원가입 되었습니다.");
 //			response.sendRedirect(request.getContextPath());
-		}else {
-			/*
-			 * * 회원가입 실패
-			 *   ㄴ 응답페이지 : 에러페이지 
-			 *   ㄴ 응답데이터 : "회원가입 실패" 메세지 (해당 응답페이지에서만 필요)
-			 */
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("alertMsg", "회원가입 실패");
-			
-//			request.setAttribute("alertMsg", "회원가입 실패");
-			request.getRequestDispatcher("/views/user/signup.jsp").forward(request, response);
-			
 		}
+
 	}
 
 	/**
