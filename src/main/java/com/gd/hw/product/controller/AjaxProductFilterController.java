@@ -2,21 +2,16 @@ package com.gd.hw.product.controller;
 
 import java.io.IOException;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.gd.hw.product.model.service.ProductService;
 import com.gd.hw.product.model.vo.Product;
 import com.google.gson.Gson;
 
-/**
- * Servlet implementation class AjaxProductFilter
- */
-@WebServlet("/world/filterProducts.fp")
+@WebServlet("/filterProducts.fp")
 public class AjaxProductFilterController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -25,22 +20,23 @@ public class AjaxProductFilterController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String categoryName = request.getParameter("categoryName");
-        String region = request.getParameter("region");
-        String status = request.getParameter("status");
-        String stay = request.getParameter("stay");
+        // 파라미터 받아오기
+        String productName = request.getParameter("productName");
+        String[] stay = request.getParameterValues("stay");
 
-        // ProductService를 호출하여 필터링된 상품 리스트를 가져옴
-        List<Product> filteredProducts = new ProductService().filterProducts(categoryName, region, status, stay);
+        // 필터링된 상품 목록 조회
+        ProductService productService = new ProductService();
+        List<Product> productList = productService.filterProducts(productName, stay);
 
-        response.setContentType("application/json; charset=UTF-8");
-        new Gson().toJson(filteredProducts, response.getWriter());
+        // 필터링된 상품 리스트를 request 객체에 저장하고 JSP로 전달
+        request.setAttribute("productList", productList);
+
+        // 결과 페이지로 포워딩
+        request.getRequestDispatcher("/views/product/productList.jsp").forward(request, response);
     }
 
-    /**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
 }

@@ -248,52 +248,66 @@ public class ProductDao {
 		return reviews;
 	}
 
+	// 필터링된 상품 목록을 가져오는 메서드 (SQL Mapper를 사용할수도있음)
+	// 필터링된 상품 목록 조회 메서드
+    public List<Product> filterProducts(Connection conn, String productName, String[] stay) {
+        List<Product> productList = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+
+        String sql = prop.getProperty("filterProducts");
+
+        try {
+            StringBuilder queryBuilder = new StringBuilder(sql);
+            if (stay != null && stay.length > 0) {
+                queryBuilder.append(" AND P.STAY IN (");
+                for (int i = 0; i < stay.length; i++) {
+                    queryBuilder.append("?");
+                    if (i < stay.length - 1) {
+                        queryBuilder.append(", ");
+                    }
+                }
+                queryBuilder.append(")");
+            }
+
+            pstmt = conn.prepareStatement(queryBuilder.toString());
+            pstmt.setString(1, "%" + productName + "%");
+
+            if (stay != null && stay.length > 0) {
+                for (int i = 0; i < stay.length; i++) {
+                    pstmt.setString(i + 2, stay[i]);
+                }
+            }
+
+            rset = pstmt.executeQuery();
+
+            while (rset.next()) {
+                Product product = new Product();
+                product.setProductId(rset.getInt("PRODUCT_ID"));
+                product.setProductName(rset.getString("PRODUCT_NAME"));
+                product.setProductImg(rset.getString("PRODUCT_IMG"));
+                product.setStartDate(rset.getString("START_DATE"));
+                product.setEndDate(rset.getString("END_DATE"));
+                product.setaPrice(rset.getInt("A_PRICE"));
+                productList.add(product);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(rset);
+            close(pstmt);
+        }
+
+        return productList;
+    }
+	
+	
+	
+	
+	
+	
 	
 
-	public List<Product> filterProducts(Connection conn, String categoryName, String region, String status,
-			String stay) {
-		List<Product> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-
-		String sql = prop.getProperty("filterProducts"); // SQL 쿼리 가져오기
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-			// '일본', 'E', 'T' 등 파라미터 값에 실제 값이나 NULL을 전달
-			pstmt.setString(1, categoryName); // '일본'이나 원하는 카테고리 이름
-			pstmt.setString(2, categoryName); // 동일한 카테고리 이름
-			pstmt.setString(3, status); // 'E'나 원하는 상태
-			pstmt.setString(4, status); // 동일한 상태
-			pstmt.setString(5, stay); // 'T'나 원하는 체류 기간
-			pstmt.setString(6, stay); // 동일한 체류 기간
-
-			rset = pstmt.executeQuery();
-
-			while (rset.next()) {
-				Product product = new Product();
-				product.setProductId(rset.getInt("PRODUCT_ID"));
-				product.setProductName(rset.getString("PRODUCT_NAME"));
-				product.setProductImg(rset.getString("PRODUCT_IMG"));
-				product.setStartDate(rset.getString("START_DATE"));
-				product.setEndDate(rset.getString("END_DATE"));
-				product.setaPrice(rset.getInt("A_PRICE"));
-				product.setcPrice(rset.getInt("C_PRICE"));
-				product.setStatus(rset.getString("STATUS"));
-				product.setStay(rset.getString("STAY"));
-				product.setCategoryName(rset.getString("CATEGORY_NAME"));
-
-				list.add(product);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-
-		return list;
-	}
-
+	
 }

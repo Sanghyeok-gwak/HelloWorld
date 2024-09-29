@@ -36,9 +36,10 @@ public class ProductService {
 
 	}
 
-	public List<Product> filterProducts(String category_name, String region, String status, String stay) {
+	 // 필터링된 상품 목록을 조회하는 메서드
+	public List<Product> filterProducts(String productName, String[] stay) {
         Connection conn = getConnection();
-        List<Product> productList = productDao.filterProducts(conn,  category_name, region, status, stay);
+        List<Product> productList = productDao.filterProducts(conn, productName, stay);
         close(conn);
         return productList;
     }
