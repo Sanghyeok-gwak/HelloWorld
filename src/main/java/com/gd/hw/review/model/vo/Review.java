@@ -1,17 +1,19 @@
 package com.gd.hw.review.model.vo;
 
+import java.sql.Date;
+
 public class Review {
 	
 	 private int reviewNo;
 	 private int userNo;
 	 private String content;
 	 private int rating;
-	 private String writeDate;
+	 private Date writeDate;
 	 private int orderNo;
 	 
 	 public Review() {}
 
-	public Review(int reviewNo, int userNo, String content, int rating, String writeDate, int orderNo) {
+	public Review(int reviewNo, int userNo, String content, int rating, Date writeDate, int orderNo) {
 		super();
 		this.reviewNo = reviewNo;
 		this.userNo = userNo;
@@ -59,12 +61,12 @@ public class Review {
 		this.rating = rating;
 	}
 
-	public String getWriteDate() {
+	public Date getWriteDate() {
 		return writeDate;
 	}
 
-	public void setWriteDate(String writeDate) {
-		this.writeDate = writeDate;
+	public void setWriteDate(Date date) {
+		this.writeDate = date;
 	}
 
 	public int getOrderNo() {

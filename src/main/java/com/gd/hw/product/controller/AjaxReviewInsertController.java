@@ -39,10 +39,9 @@ public class AjaxReviewInsertController extends HttpServlet {
         int userNo = loginUser.getUserNo();
         String content = request.getParameter("content");
         int rating = Integer.parseInt(request.getParameter("rating"));
-        String merchantUid = request.getParameter("merchantUid");
 
         ProductReviewService reviewService = new ProductReviewService();
-        int result = reviewService.insertReview(userNo, content, rating, merchantUid);
+        int result = reviewService.insertReview(userNo, content, rating);
 
         if (result > 0) {
             response.getWriter().print("success");

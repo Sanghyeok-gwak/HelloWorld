@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AjaxReviewDeleteController
+ * Servlet implementation class AjaxReviewGetController
  */
-@WebServlet("/AjaxReviewDeleteController")
-public class AjaxReviewDeleteController extends HttpServlet {
+@WebServlet("/AjaxReviewGetController")
+public class AjaxReviewGetController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxReviewDeleteController() {
+    public AjaxReviewGetController() {
         super();
         // TODO Auto-generated constructor stub
     }

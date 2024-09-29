@@ -88,7 +88,11 @@ h5 {
 	margin-bottom: 150px;
 }
 section {
-	padding-top: 50px;
+	display: flex;
+	justify-content: center;  /* 가로 방향 가운데 정렬 */
+	align-items: center;      /* 세로 방향 가운데 정렬 */
+	min-height: 100vh;        /* 화면 높이의 100% 설정 */
+	padding-top: 0;           /* 기존 padding-top 제거 */
 }
 
 </style>
@@ -110,6 +114,6 @@ section {
 			</div>
 		</div>
 	</section>
-	<%@ include file="/views/common/footer.jsp"%>
+
 </body>
 </html>

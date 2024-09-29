@@ -4,136 +4,151 @@
 <properties>
 	<entry key="selectProductListCount">
 		SELECT
-		       COUNT(*) as COUNT
-		  FROM 
-		       PRODUCT
+		COUNT(*) as COUNT
+		FROM
+		PRODUCT
 	</entry>
 	<entry key="selectProductCategoryListCount">
 		SELECT
-		       COUNT(*) as COUNT
-		  FROM 
-		       PRODUCT P
-		  JOIN PRO_CATEGORY C ON C.CATEGORY_ID=P.CATEGORY_ID     
-		 WHERE C.CATEGORY_NAME = ?  
-		            
+		COUNT(*) as COUNT
+		FROM
+		PRODUCT P
+		JOIN PRO_CATEGORY
+		C ON C.CATEGORY_ID=P.CATEGORY_ID
+		WHERE C.CATEGORY_NAME = ?
+
 	</entry>
 
 	<entry key="selectProductList">
 		SELECT *
-  		FROM(
-    		   SELECT 
-					 PRODUCT_ID,
-					 PRODUCT_NAME,
-					 PRODUCT_IMG,
-					 R.REGION_NAME AS REGION_NAME ,
-					 C.CATEGORY_NAME as CATEGORY_NAME,
-					 START_DATE,
-					 END_DATE,STATUS,STAY,A_PRICE,
-					 C_PRICE,AMOUNT,
-					 FLIGHT,INFO_EDITOR,
-					 SCHEDULE_EDITOR,
-					 DETAIL_EDITOR,
-					 REGISTRATION_DATE,
-					 MODIFICATION_DATE,
-					 ROW_NUMBER() OVER(ORDER BY PRODUCT_ID) as RNUM
-		  FROM PRODUCT P
-		  JOIN PRO_CATEGORY C ON C.CATEGORY_ID=P.CATEGORY_ID
-		  JOIN REGION R ON R.REGION_ID=P.REGION_ID)
-		 WHERE RNUM BETWEEN ? AND ? 
-			
+		FROM(
+		SELECT
+		PRODUCT_ID,
+		PRODUCT_NAME,
+		PRODUCT_IMG,
+		R.REGION_NAME AS REGION_NAME ,
+		C.CATEGORY_NAME as
+		CATEGORY_NAME,
+		START_DATE,
+		END_DATE,STATUS,STAY,A_PRICE,
+		C_PRICE,AMOUNT,
+		FLIGHT,INFO_EDITOR,
+		SCHEDULE_EDITOR,
+		DETAIL_EDITOR,
+		REGISTRATION_DATE,
+		MODIFICATION_DATE,
+		ROW_NUMBER() OVER(ORDER BY PRODUCT_ID) as RNUM
+		FROM
+		PRODUCT P
+		JOIN PRO_CATEGORY C ON C.CATEGORY_ID=P.CATEGORY_ID
+		JOIN REGION
+		R ON R.REGION_ID=P.REGION_ID)
+		WHERE RNUM BETWEEN ? AND ?
+
 	</entry>
-	
+
 	<entry key="filterByCategory">
 		SELECT *
-  		FROM(
-			     SELECT 
-								 PRODUCT_ID,
-								 PRODUCT_NAME,
-								 PRODUCT_IMG,
-								 R.REGION_NAME AS REGION_NAME ,
-								 C.CATEGORY_NAME as CATEGORY_NAME,
-								 START_DATE,
-								 END_DATE,STATUS,STAY,A_PRICE,
-								 C_PRICE,AMOUNT,
-								 FLIGHT,INFO_EDITOR,
-								 SCHEDULE_EDITOR,
-								 DETAIL_EDITOR,
-								 REGISTRATION_DATE,
-								 MODIFICATION_DATE,
-								 ROW_NUMBER() OVER(ORDER BY PRODUCT_ID) as RNUM
-		  FROM PRODUCT P
-		  JOIN PRO_CATEGORY C ON C.CATEGORY_ID=P.CATEGORY_ID
-		  JOIN REGION R ON R.REGION_ID=P.REGION_ID)
-		 WHERE RNUM BETWEEN ? AND ? 
-		 			 AND CATEGORY_NAME = ?
+		FROM(
+		SELECT
+		PRODUCT_ID,
+		PRODUCT_NAME,
+		PRODUCT_IMG,
+		R.REGION_NAME AS REGION_NAME ,
+		C.CATEGORY_NAME as
+		CATEGORY_NAME,
+		START_DATE,
+		END_DATE,STATUS,STAY,A_PRICE,
+		C_PRICE,AMOUNT,
+		FLIGHT,INFO_EDITOR,
+		SCHEDULE_EDITOR,
+		DETAIL_EDITOR,
+		REGISTRATION_DATE,
+		MODIFICATION_DATE,
+		ROW_NUMBER() OVER(ORDER BY PRODUCT_ID) as RNUM
+		FROM
+		PRODUCT P
+		JOIN PRO_CATEGORY C ON C.CATEGORY_ID=P.CATEGORY_ID
+		JOIN REGION
+		R ON R.REGION_ID=P.REGION_ID)
+		WHERE RNUM BETWEEN ? AND ?
+		AND
+		CATEGORY_NAME = ?
 	</entry>
 
-<!-- productList header.nav이용해 상품리스트 조회용   -->
-	 <entry key="selectProductListByCategory">
-    SELECT P.PRODUCT_ID
-         , P.PRODUCT_NAME
-         , P.PRODUCT_IMG
-         , P.START_DATE
-         , P.END_DATE
-       	 , P.A_PRICE
-         , C.CATEGORY_NAME
-      FROM PRODUCT P
-      JOIN PRO_CATEGORY C ON P.CATEGORY_ID = C.CATEGORY_ID
-     WHERE C.CATEGORY_NAME = ? 
-     ORDER BY P.PRODUCT_ID DESC
-       
+	<!-- productList header.nav이용해 상품리스트 조회용 -->
+	<entry key="selectProductListByCategory">
+		SELECT P.PRODUCT_ID
+		, P.PRODUCT_NAME
+		, P.PRODUCT_IMG
+		,
+		P.START_DATE
+		, P.END_DATE
+		, P.A_PRICE
+		, C.CATEGORY_NAME
+		FROM PRODUCT P
+		JOIN PRO_CATEGORY C ON P.CATEGORY_ID = C.CATEGORY_ID
+		WHERE
+		C.CATEGORY_NAME = ?
+		ORDER BY P.PRODUCT_ID DESC
+
+	</entry>
+
+	<!-- productDetail 상세피이지 조회용 -->
+	<entry key="selectProductById">
+		SELECT *
+		FROM PRODUCT
+		WHERE PRODUCT_ID = ?
+	</entry>
+
+	<!-- 유저 찜하기 추가, 삭제, 불러오기 -->
+	<entry key="insertFavorite">
+		INSERT INTO FAVORITES (USER_NO, PRODUCT_ID,
+		ADDED_DATE)
+		VALUES (?, ?, SYSDATE)
+	</entry>
+
+	<entry key="deleteFavorite">
+		DELETE FROM FAVORITES
+		WHERE USER_NO = ? AND PRODUCT_ID
+		= ?
+	</entry>
+
+	<entry key="getFavoriteList">
+		SELECT PRODUCT_ID
+		FROM FAVORITES
+		WHERE USER_NO = ?
+	</entry>
+
+	<!-- 리뷰 추가 및 조회 -->
+
+	<entry key="insertReview">
+		INSERT INTO REVIEW (REVIEW_NO, USER_NO, CONTENT,
+		RATING, WRITE_DATE,
+		MERCHANT_UID)
+		VALUES (SEQ_REVIEW.NEXTVAL, ?, ?, ?,
+		SYSDATE, 'MER_UID6')
+	</entry>
+
+
+	<entry key="selectReview">
+		SELECT R.REVIEW_NO, R.USER_NO, R.CONTENT, R.RATING,
+		R.WRITE_DATE,
+		P.PRODUCT_ID
+		FROM REVIEW R
+		JOIN "ORDER" O ON R.MERCHANT_UID
+		= O.MERCHANT_UID
+		JOIN PRODUCT P ON O.PRODUCT_ID = P.PRODUCT_ID
+		WHERE
+		P.PRODUCT_ID = ?
+	</entry>
+
+		<entry key="filterProducts">
+        SELECT P.PRODUCT_ID, P.PRODUCT_NAME, P.PRODUCT_IMG, P.START_DATE, P.END_DATE, P.A_PRICE
+        FROM PRODUCT P
+        WHERE P.PRODUCT_NAME LIKE ?
     </entry>
 
-		<!-- productDetail 상세피이지 조회용 -->
-		<entry key="selectProductById">
-		SELECT * 
-		  FROM PRODUCT 
-		 WHERE PRODUCT_ID = ?
-		</entry>
-
-		<!-- 유저 찜하기 추가, 삭제, 불러오기-->		
-		<entry key="insertFavorite">
-        INSERT INTO FAVORITES (USER_NO, PRODUCT_ID, ADDED_DATE)
-        VALUES (?, ?, SYSDATE)
-    </entry>
-
-    <entry key="deleteFavorite">
-        DELETE FROM FAVORITES
-        WHERE USER_NO = ? AND PRODUCT_ID = ?
-    </entry>
-
-    <entry key="getFavoriteList">
-        SELECT PRODUCT_ID 
-		      FROM FAVORITES
-         WHERE USER_NO = ?
-    </entry>
-
-		<!-- 리뷰 추가 및 조회 -->
-		
-		<entry key="insertReview">
-		
-		INSERT INTO REVIEW (REVIEW_NO, USER_NO, CONTENT, RATING, WRITE_DATE, MER_UID)
-		VALUES (SEQ_REVIEW.NEXTVAL, ?, ?, ?, SYSDATE, ?)
-		</entry>
-		
-
-		<entry key="selectReview">
-		
-		SELECT COUNT(*)
-      FROM "ORDER" O
-          ,"USER" U
-     WHERE O.USER_NO = U.USER_NO
-       AND U.USER_NO=?
-       AND O.MERCHANT_UID = (SELECT MERCHANT_UID 
-       												 FROM REVIEW 
-       												WHERE MERCHANT_UID=?)
-		</entry>
-		
-		
-		
-		
-		
-		
 
 
 </properties>

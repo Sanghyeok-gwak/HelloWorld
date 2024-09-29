@@ -7,16 +7,20 @@ import static com.gd.hw.common.template.JDBCTemplate.getConnection;
 import static com.gd.hw.common.template.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
 
+import com.gd.hw.common.template.JDBCTemplate;
 import com.gd.hw.product.model.dao.ProductDao;
+import com.gd.hw.review.model.vo.Review;
 
 public class ProductReviewService {
 
-	private ProductDao reviewDao = new ProductDao();
+	private ProductDao pDao = new ProductDao();
 
-    public int insertReview(int userNo, String content, int rating, String merchantUid) {
+	// 리뷰등록
+    public int insertReview(int userNo, String content, int rating) {
         Connection conn = getConnection();
-        int result = reviewDao.insertReview(conn, userNo, content, rating, merchantUid);
+        int result = pDao.insertReview(conn, userNo, content, rating);
         
         if (result > 0) {
             commit(conn);
@@ -27,6 +31,25 @@ public class ProductReviewService {
         close(conn);
         return result;
     }
+    
+    // 리뷰 조회
+    public List<Review> selectReview(int productId) {
+        Connection conn = getConnection();
+        List<Review> list = pDao.selectReviews(conn, productId);
+        close(conn);
+        return list;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 	
 	
 }

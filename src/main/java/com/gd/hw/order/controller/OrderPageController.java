@@ -36,15 +36,19 @@ public class OrderPageController extends HttpServlet {
 		 
 		// 상세페이지에서 결제창으로 넘길 페이지 -> 상품 정보 전달면 받으면 주석없앨 예정
 		
-		int productId = Integer.parseInt(request.getParameter("productId"));
-		int aNum = 0;
-		int cNum = 0;
-		if(request.getParameter("aNum") != null) {
-			aNum = Integer.parseInt(request.getParameter("aNum"));
-		}
-		if(request.getParameter("cNum") != null) {
-			cNum = Integer.parseInt(request.getParameter("cNum"));
-		}
+		// 클라이언트에서 전달받은 파라미터 (productId, aNum, cNum)를 문자열로 받아오기
+	    // 파라미터는 상세 페이지에서 인원 선택 후 넘겨받은 값들
+	    String productIdStr = request.getParameter("productId");
+	    String aNumStr = request.getParameter("aNum");
+	    String cNumStr = request.getParameter("cNum");
+
+		
+	    // 받아온 파라미터가 null이거나 빈 문자열일 경우를 확인하여 처리
+	    // null 또는 빈 값일 때 기본값 0을 할당하고, 정상적인 값일 때는 숫자로 변환
+	    int productId = (productIdStr != null && !productIdStr.isEmpty()) ? Integer.parseInt(productIdStr) : 0;
+	    int aNum = (aNumStr != null && !aNumStr.isEmpty()) ? Integer.parseInt(aNumStr) : 0;
+	    int cNum = (cNumStr != null && !cNumStr.isEmpty()) ? Integer.parseInt(cNumStr) : 0;
+
 	
 		ProductOr p = new OrderService().selectProductById(productId);
 	    p.setaCount(aNum);

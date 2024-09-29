@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.gd.hw.product.model.vo.Product;
+import com.gd.hw.review.model.vo.Review;
 
 public class ProductDao {
 
@@ -172,7 +173,7 @@ public class ProductDao {
 	}
 
 	// 리뷰 등록
-	public int insertReview(Connection conn, int userNo, String content, int rating, String merchantUid) {
+	public int insertReview(Connection conn, int userNo, String content, int rating) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertReview");
@@ -182,8 +183,7 @@ public class ProductDao {
 			pstmt.setInt(1, userNo);
 			pstmt.setString(2, content);
 			pstmt.setInt(3, rating);
-			pstmt.setString(4, merchantUid);
-			
+
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -196,5 +196,118 @@ public class ProductDao {
 
 		return result;
 	}
+	/*
+	 * public List<Review> selectReviews(Connection conn, int productId) {
+	 * List<Review> reviews = new ArrayList<>(); PreparedStatement pstmt = null;
+	 * ResultSet rs = null; String sql = prop.getProperty("selectReview");
+	 * 
+	 * try { pstmt = conn.prepareStatement(sql); pstmt.setInt(1, productId); rs =
+	 * pstmt.executeQuery();
+	 * 
+	 * while (rs.next()) { Review review = new Review();
+	 * review.setReviewNo(rs.getInt("REVIEW_NO"));
+	 * review.setUserNo(rs.getInt("USER_NO"));
+	 * review.setContent(rs.getString("CONTENT"));
+	 * review.setRating(rs.getInt("RATING"));
+	 * review.setWriteDate(rs.getDate("WRITE_DATE")); reviews.add(review); }
+	 * 
+	 * } catch (SQLException e) { e.printStackTrace(); } finally { close(rs);
+	 * close(pstmt); }
+	 * 
+	 * return reviews; }
+	 */
 
+	public List<Review> selectReviews(Connection conn, int productId) {
+		List<Review> reviews = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("selectReview");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, productId); // 조회할 productId를 바인딩
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Review review = new Review();
+				review.setReviewNo(rs.getInt("REVIEW_NO"));
+				review.setUserNo(rs.getInt("USER_NO"));
+				review.setContent(rs.getString("CONTENT"));
+				review.setRating(rs.getInt("RATING"));
+				review.setWriteDate(rs.getDate("WRITE_DATE"));
+				reviews.add(review);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return reviews;
+	}
+
+	// 필터링된 상품 목록을 가져오는 메서드 (SQL Mapper를 사용할수도있음)
+	// 필터링된 상품 목록 조회 메서드
+    public List<Product> filterProducts(Connection conn, String productName, String[] stay) {
+        List<Product> productList = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+
+        String sql = prop.getProperty("filterProducts");
+
+        try {
+            StringBuilder queryBuilder = new StringBuilder(sql);
+            if (stay != null && stay.length > 0) {
+                queryBuilder.append(" AND P.STAY IN (");
+                for (int i = 0; i < stay.length; i++) {
+                    queryBuilder.append("?");
+                    if (i < stay.length - 1) {
+                        queryBuilder.append(", ");
+                    }
+                }
+                queryBuilder.append(")");
+            }
+
+            pstmt = conn.prepareStatement(queryBuilder.toString());
+            pstmt.setString(1, "%" + productName + "%");
+
+            if (stay != null && stay.length > 0) {
+                for (int i = 0; i < stay.length; i++) {
+                    pstmt.setString(i + 2, stay[i]);
+                }
+            }
+
+            rset = pstmt.executeQuery();
+
+            while (rset.next()) {
+                Product product = new Product();
+                product.setProductId(rset.getInt("PRODUCT_ID"));
+                product.setProductName(rset.getString("PRODUCT_NAME"));
+                product.setProductImg(rset.getString("PRODUCT_IMG"));
+                product.setStartDate(rset.getString("START_DATE"));
+                product.setEndDate(rset.getString("END_DATE"));
+                product.setaPrice(rset.getInt("A_PRICE"));
+                productList.add(product);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(rset);
+            close(pstmt);
+        }
+
+        return productList;
+    }
+	
+	
+	
+	
+	
+	
+	
+
+	
 }
