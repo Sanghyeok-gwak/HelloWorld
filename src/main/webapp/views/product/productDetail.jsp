@@ -56,31 +56,22 @@ h5 {
 /* product-detail style */
 .main-img {
 	width: 100%;
-	/* 또는 원하는 너비로 설정 */
 	height: 550px;
-	/* 고정 높이 */
 	position: relative;
-	/* 절대 위치 지정 요소를 위한 기준 */
 }
 
 .product-img {
 	height: 100%;
-	/* 높이를 div에 맞춤 */
 	width: 1050px;
-	/* 비율을 유지하며 너비 조정 */
 	position: absolute;
-	/* 절대 위치 지정 */
 	left: 50%;
-	/* 가운데 정렬 */
 	transform: translateX(-50%);
-	/* 중앙으로 이동 */
 }
 
 .Rating {
 	color: gold;
 }
 
-/* Heart Icon Styles */
 .heart-icon {
 	position: absolute;
 	top: 10px;
@@ -114,79 +105,54 @@ h5 {
 	user-select: none;
 	cursor: pointer;
 	padding: 5px 10px;
-	/* 버튼 내부 여백 조정 */
 	border-radius: 5px;
-	/* 모서리 곡률 */
 	color: black;
-	/* 기본 글자 색상 */
 	transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-	/* 애니메이션 효과 */
 }
 
 .tabList {
 	display: flex;
 	justify-content: flex-start;
-	/* 공간을 균등하게 분배 */
 	list-style: none;
 	font-size: 22px;
 	border-bottom: 1px solid lightgray;
-	/* 회색 밑줄 추가 */
 	width: fit-content;
 	margin-left: 42px;
-	/* 왼쪽 여백 */
 }
 
 .tabList li {
 	margin: 0 85px;
-	/* 버튼 사이 간격 조정 */
 }
 
-/* hover 효과 */
 .tabBtn:hover {
 	color: white;
-	/* hover 시 글자 색상 변경 */
 	background-color: #007AFF;
-	/* hover 시 배경 색상 변경 */
 	border-color: #007AFF;
-	/* hover 시 테두리 색상 변경 */
 }
 
 .tabContent {
 	margin-top: 30px;
-	/* 콘텐츠와 버튼 사이 여백 */
 	font-size: 20px;
-	/* 기본 글자 크기 */
 	color: gray;
-	/* 기본 글자 색상 */
 	max-width: 900px;
-	/* 원하는 최대 너비 설정 */
 	margin-left: auto;
-	/* 자동 여백으로 중앙 정렬 */
 	margin-right: auto;
-	/* 자동 여백으로 중앙 정렬 */
 	text-align: center;
-	/* 텍스트 중앙 정렬 */
 }
 
 .rating-container {
 	margin-bottom: 20px;
-	/* 평점과 리뷰 입력 간 간격 */
 }
 
 .Rating .fa {
 	font-size: 30px;
-	/* 별 크기 */
 	color: gray;
-	/* 기본 별 색상 */
 	cursor: pointer;
-	/* 마우스 커서 변경 */
 	transition: color 0.2s;
-	/* 부드러운 색상 전환 */
 }
 
 .Rating .fa.selected {
 	color: #FFD700;
-	/* 선택된 별 색상 */
 }
 
 .review-form {
@@ -198,74 +164,52 @@ h5 {
 textarea {
 	width: 100%;
 	padding: 10px;
-	/* 텍스트 상자 안쪽 여백 */
 	border-radius: 5px;
-	/* 모서리 둥글게 */
 	border: 1px solid lightgray;
-	/* 테두리 */
 	resize: none;
-	/* 크기 조정 비활성화 */
 }
 
 button {
 	margin-top: 10px;
 	padding: 10px;
-	/* 버튼 안쪽 여백 */
 	border: none;
-	/* 테두리 제거 */
 	border-radius: 5px;
-	/* 모서리 둥글게 */
 	background-color: #007AFF;
-	/* 버튼 배경 색상 */
 	color: white;
-	/* 버튼 글자 색상 */
 	cursor: pointer;
-	/* 마우스 커서 변경 */
 	transition: background-color 0.3s;
-	/* 부드러운 배경색 전환 */
 }
 
 button:hover {
 	background-color: #0056b3;
-	/* hover 시 배경 색상 */
 }
 
 #userReviews {
 	margin-top: 20px;
-	/* 사용자 리뷰와 간격 */
 }
 
 #userReviews h3 {
 	margin-bottom: 10px;
-	/* 제목 아래 여백 */
 }
 
 #reviewList {
 	list-style: none;
-	/* 기본 리스트 스타일 제거 */
 	padding: 0;
-	/* 패딩 제거 */
 }
 
 #reviewList li {
 	margin-bottom: 10px;
-	/* 각 리뷰 사이 간격 */
 	padding: 10px;
-	/* 리뷰 항목 안쪽 여백 */
 	border: 1px solid lightgray;
-	/* 테두리 */
 	border-radius: 5px;
-	/* 모서리 둥글게 */
 	background-color: #f9f9f9;
-	/* 배경 색상 */
+	color: black;
 }
 
 .rating span {
 	font-size: 25px;
 	color: lightgray;
-	/* 비활성화된 색상 */
 	cursor: pointer;
-	/* 포인터 변경 */
 }
 
 .rating span:hover {
@@ -274,7 +218,6 @@ button:hover {
 
 .rating span.active {
 	color: gold;
-	/* 활성화된 색상 */
 }
 
 .rating {
@@ -299,7 +242,6 @@ button:hover {
 		<div class="main-img">
 			<img class="product-img" src="<%=product.getProductImg()%>"
 				alt="Product Image">
-			<!-- 하트 및 공유 아이콘을 이미지 위에 배치 -->
 		</div>
 		<br>
 
@@ -328,13 +270,10 @@ button:hover {
 				<br>
 
 				<%
-				// 성인과 유아 가격을 3자리마다 쉼표로 포맷
 				NumberFormat numberFormat = NumberFormat.getInstance();
 				String formattedAdultPrice = numberFormat.format(product.getaPrice());
 				String formattedInfantPrice = numberFormat.format(product.getcPrice());
 				%>
-
-
 
 				<!-- 상품 상세 페이지에서 가격 부분 -->
 				<div class="col-md-12 d-flex justify-content-end align-items-center">
@@ -410,10 +349,11 @@ button:hover {
 					style="width: 83%; margin-left: 60px;"
 					href="orderPage.us?productId=<%=product.getProductId()%>">예약</a> <br>
 				<br>
+				
+			
 
 			</div>
 		</div>
-
 
 		<!-- 상품 소개, 일정표, 상세 정보, 리뷰 탭 -->
 		<div class="tabs">
@@ -426,45 +366,58 @@ button:hover {
 				<li><button class="tabBtn" onclick="showContent('reviews')">리뷰</button></li>
 			</ul>
 		</div>
+		
+		<div id="product-info" class="tabContent" style="display: block;">
+				<img src="<%=contextPath%>/assets/image/test.png" alt="상품 소개 이미지">
+			</div>
 
-			<div id="reviews" class="tabContent" style="display: none;">
-				<h2>리뷰</h2>
+			<div id="itinerary" class="tabContent" style="display: none;">
+				<img src="<%=contextPath%>/assets/image/test.png" alt="일정표 이미지">
+			</div>
 
-				<!-- 평점 선택 -->
-				<div class="rating-container">
-					<div class="col-md-12 Rating">
-						<span class="fa fa-star" data-value="1"></span> <span
-							class="fa fa-star" data-value="2"></span> <span
-							class="fa fa-star" data-value="3"></span> <span
-							class="fa fa-star" data-value="4"></span> <span
-							class="fa fa-star" data-value="5"></span> <a href="#"
-							style="color: black;"></a>
-					</div>
-				</div>
+			<div id="details" class="tabContent" style="display: none;">
+				<img src="<%=contextPath%>/assets/image/test.png" alt="상세 정보 이미지">
+			</div>
+		
 
-				<!-- 리뷰 작성 텍스트 상자 -->
-				<div class="review-form">
-					<textarea id="reviewText" rows="4" placeholder="리뷰를 작성하세요."></textarea>
-					<button onclick="submitReview()">등록</button>
-				</div>
-
-				<!-- 이전 리뷰 표시 -->
-				<div id="userReviews">
-					<h3>이전 리뷰가 나올곳</h3>
-					<ul id="reviewList">
-						<!-- 여기에 이전 리뷰가 추가됩니다 -->
-					</ul>
+		<!-- 리뷰 탭 -->
+		<div id="reviews" class="tabContent" style="display: none;">
+			<h2>리뷰</h2>
+	
+			<!-- 평점 선택 -->
+			<div class="rating-container">
+				<div class="col-md-12 Rating">
+					<span class="fa fa-star" data-value="1"></span>
+					<span class="fa fa-star" data-value="2"></span>
+					<span class="fa fa-star" data-value="3"></span>
+					<span class="fa fa-star" data-value="4"></span>
+					<span class="fa fa-star" data-value="5"></span>
+					<a href="#" style="color: black;"></a>
 				</div>
 			</div>
 
-			<%
-			}
-			%>
-		
+			<!-- 리뷰 작성 텍스트 상자 -->
+			<div class="review-form">
+				<textarea id="reviewText" rows="4" placeholder="리뷰를 작성하세요."></textarea>
+				<button onclick="submitReview()">등록</button>
+			</div>
+
+			<!-- 이전 리뷰 표시 -->
+			<div id="userReviews">
+				<h3>이전 리뷰가 나올곳</h3>
+				<ul id="reviewList">
+					<!-- 여기에 이전 리뷰가 추가됩니다 -->
+				</ul>
+			</div>
+		</div>
+			
+
+		<%
+		}
+		%>
 	</section>
 
 	<script>
-	
     // 인원 선택 및 가격 계산
     const adultPrice = <%=product.getaPrice()%>; // A_PRICE 값으로 변경
     const infantPrice = <%=product.getcPrice()%>; // C_PRICE 값으로 변경
@@ -483,27 +436,22 @@ button:hover {
             infantCount = Math.max(0, infantCount + delta);
             infantCountElement.textContent = infantCount;
         }
-		
+
         updateTotalAmount(adultCount, infantCount);
-        
-     // 인원수를 URL로 넘겨주기 위한 예약 링크 업데이트
         updateReservationLink(adultCount, infantCount);
     }
 
-    // 성인,유아 가격 더해서 결과값 조회
     function updateTotalAmount(adultCount, infantCount) {
         const totalAmount = (adultCount * adultPrice) + (infantCount * infantPrice);
         document.getElementById('totalAmount').textContent = totalAmount.toLocaleString() + "원";
     }
-    
+
     function updateReservationLink(adultCount, infantCount) {
         const reservationLink = document.getElementById('reservationLink');
-        const productId = <%=product.getProductId()%>;  // 현재 상품의 ID
+        const productId = <%=product.getProductId()%>;
         reservationLink.href = `orderPage.us?productId=${productId}&aNum=${adultCount}&cNum=${infantCount}`;
     }
-    
-    
-    // 하단 상세정보등 탭 클릭시 변하는
+
     function showContent(contentId) {
         const contents = document.querySelectorAll('.tabContent');
         contents.forEach(content => content.style.display = 'none');
@@ -518,87 +466,141 @@ button:hover {
             });
         });
     });
-    
-    
-    
- // 리뷰 관리 목록
+
     let reviews = [];
 
-    // 리뷰 제출 및 서버로 전송
-    
     function submitReview() {
-  const reviewText = document.getElementById('reviewText').value.trim();
-  const ratingElement = document.querySelector('.Rating .fa.selected');
-  
-  if (!reviewText) {
-    alert("리뷰 내용을 입력해주세요.");
-    return;
-  }
+    	  const reviewText = document.getElementById('reviewText').value.trim();
+    	  const ratingElement = document.querySelector('.Rating .fa.selected');
+    	  
+    	  if (!reviewText) {
+    	    alert("리뷰 내용을 입력해주세요.");
+    	    return;
+    	  }
 
-  if (!ratingElement) {
-    alert("별점을 선택해주세요.");
-    return;
-  }
+    	  if (!ratingElement) {
+    	    alert("별점을 선택해주세요.");
+    	    return;
+    	  }
 
-  const rating = ratingElement.dataset.value;
-  const merchantUid = '<%= product.getMerchantUid() != null ? product.getMerchantUid() : "" %>';
-        
-        // AJAX 요청으로 서버에 리뷰 전송
+    	  const rating = ratingElement.dataset.value;
+
+    	  // db에 리뷰등록
+    	  $.ajax({
+    	    type: 'POST',
+    	    url: '/world/insert.re',
+    	    data: {
+    	      content: reviewText,
+    	      rating: rating,
+    	    },
+    	    success: function(response) {
+    	      if (response === "success") {
+    	        displayReviews(reviewText, rating);
+    	        document.getElementById('reviewText').value = '';
+    	        resetRating();
+    	      } else {
+    	        alert("리뷰 제출에 실패했습니다. 다시 시도해주세요.");
+    	      }
+    	    },
+    	    error: function() {
+    	      alert("리뷰 제출에 실패했습니다. 다시 시도해주세요.");
+    	    }
+    	  });
+    	}
+
+ // 화면에 리뷰 조회
+    function loadReviews() {
+        const productId = <%=product.getProductId()%>;
+
         $.ajax({
-          type: 'POST',
-          url: '<%=contextPath%>/insert.re', // 서버 측 URL 변경 필요
-          data: {
-        	  // 유저안써도 되는이유는 서블릿에서 세션으로 받을거라서
-        	  content: reviewText,     // 리뷰 내용
-            rating: rating,          // 별점
-            merchantUid: merchantUid // 결제 고유 번호
-          },
-          success: function(response) {
-            // 성공적으로 서버에 전송된 경우, 화면에 리뷰 표시
-            reviews.push(review);
-            displayReviews();
-            document.getElementById('reviewText').value = ''; // 텍스트 상자 초기화
-            resetRating(); // 별 초기화
-          },
-          error: function() {
-            alert("리뷰 제출에 실패했습니다. 다시 시도해주세요.");
-          }
+            type: 'GET',
+            url: '/world/select.re', // 리뷰 데이터를 가져오는 URL
+            data: { productId: productId },
+            dataType: 'json', // 서버에서 JSON 응답을 기대
+            success: function(response) {
+                const reviewList = document.getElementById('reviewList');
+                reviewList.innerHTML = ''; // 기존 리뷰 초기화
+
+                if (response.length > 0) {
+                    response.forEach(function(review) {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<strong>평점:</strong> ${review.rating} / 5<br><strong>내용:</strong> ${review.content}`;
+                        li.style.padding = "10px";
+                        li.style.borderBottom = "1px solid #ccc";
+                        reviewList.appendChild(li);
+                    });
+                } else {
+                    reviewList.innerHTML = '<li>등록된 리뷰가 없습니다.</li>';
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("리뷰 데이터를 불러오는 데 실패했습니다:", status, error);
+                alert("리뷰 데이터를 불러오는 데 실패했습니다.");
+            }
         });
-      
     }
 
-    // 리뷰 목록을 화면에 표시
-    function displayReviews() {
-      const reviewList = document.getElementById('reviewList');
-      reviewList.innerHTML = ''; // 이전 리뷰 초기화
-
-      reviews.forEach(review => {
-        const li = document.createElement('li');
-        li.textContent = `평점: ${review.rating}, 내용: ${review.text}`;
-        reviewList.appendChild(li);
-      });
-    }
-
-    // 평점 초기화
-    function resetRating() {
-      const stars = document.querySelectorAll('.Rating .fa');
-      stars.forEach(star => {
-        star.classList.remove('selected');
-      });
-    }
-
-    // 평점 클릭 시 처리
-    document.querySelectorAll('.Rating .fa').forEach(star => {
-      star.addEventListener('click', function () {
-        const value = this.dataset.value;
-        resetRating(); // 이전 선택 초기화
-
-        for (let i = 0; i < value; i++) {
-          star.parentNode.children[i].classList.add('selected'); // 선택된 별 표시
-        }
-      });
+    $(document).ready(function() {
+        loadReviews();
     });
 
+    function displayReviews(reviewText, rating) {
+        const reviewList = document.getElementById('reviewList');
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>평점:</strong> ${rating} / 5<br><strong>내용:</strong> ${reviewText}`;
+        reviewList.appendChild(li);
+    }
+
+    function resetRating() {
+        const stars = document.querySelectorAll('.Rating .fa');
+        stars.forEach(star => {
+            star.classList.remove('selected');
+        });
+    }
+
+    // 별점 클릭 이벤트
+    document.querySelectorAll('.Rating .fa').forEach(star => {
+        star.addEventListener('click', function () {
+            const value = this.dataset.value;
+            resetRating(); // 기존 선택한 별점 초기화
+
+            for (let i = 0; i < value; i++) {
+                star.parentNode.children[i].classList.add('selected');
+            }
+        });
+    });
+    
+
+    $(document).ready(function() {
+        loadReviews();
+    });
+
+    function displayReviews(reviewText, rating) {
+        const reviewList = document.getElementById('reviewList');
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>평점:</strong> ${rating} / 5<br><strong>내용:</strong> ${reviewText}`;
+        reviewList.appendChild(li);
+    } 
+    
+
+    function resetRating() {
+        const stars = document.querySelectorAll('.Rating .fa');
+        stars.forEach(star => {
+            star.classList.remove('selected');
+        });
+    }
+
+    document.querySelectorAll('.Rating .fa').forEach(star => {
+        star.addEventListener('click', function () {
+            const value = this.dataset.value;
+            resetRating();
+
+            for (let i = 0; i < value; i++) {
+                star.parentNode.children[i].classList.add('selected');
+            }
+        });
+    });
+    
     
     
 	</script>
