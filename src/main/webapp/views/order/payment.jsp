@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ page import="com.gd.hw.order.model.vo.ProductOr" %>
+<%	ProductOr p = (ProductOr) request.getAttribute("p"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,8 +76,8 @@
 							<tr>
 								<td>상품명</td>
 								<td><a
-									href="https://travel.interpark.com/tour/goods?goodsCd=24100724852">비그랜드
-										리조트 왕복 픽업</a></td>
+									href="productDetail.pr?productId=<%= p.getProductId() %>"><%=
+									p.getProductName()%></a></td>
 							</tr>
 							<tr>
 								<td>결제정보</td>
