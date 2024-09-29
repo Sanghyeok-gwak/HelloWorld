@@ -349,11 +349,11 @@
 						<label for="adult-select">성인</label> <select class="form-control"
 							id="adult-select" onchange="updateForm()">
 							<!-- <option value="0">0</option> -->
+							<option value="0">0</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
 							<option value="4">4</option>
-							<option value="5">5</option>
 						</select>
 
 					</div>
@@ -413,7 +413,8 @@
 							<tr>
 								<td
 									style="padding: 7px 0px 2px; font-size: 11px; color: rgb(90, 90, 90); text-align: center; letter-spacing: -0.025em; border: 1px solid rgb(220, 220, 220);"
-									class="rep rep-red">대표자 <input type="hidden"
+									class="rep rep-red">대표자 
+			<input type="hidden"
 									id="CustomerAge" name="CustomerAge" value="100"> <input
 									type="hidden" id="CustomerSeniorDCYN" name="CustomerSeniorDCYN"
 									value="N"> <input type="hidden"
@@ -459,8 +460,8 @@
 								</td>
 								<td
 									style="padding: 7px 0px 2px; font-size: 11px; color: rgb(90, 90, 90); text-align: center; letter-spacing: -0.025em; border: 1px solid rgb(220, 220, 220);">
-									<select class="bsc1" id="CustomerSex_${i}"
-									name="CustomerSex-${i}" title="성별" style="width: 66px;">
+									<select class="bsc1" id="Gender_${i}"
+									name="Gender-${i}" title="성별" style="width: 66px;">
 										<option value="" selected="selected">선택</option>
 										<option value="F">여</option>
 										<option value="M">남</option>
@@ -508,20 +509,15 @@
 					<tr>
 						<td rowspan="2" class="option-info-title">상품옵션</td>
 						<td class="main-bohum">
-							<div class="traffic-bohum">
-								<label for="transport">교통</label> <select class="form-control"
-									id="sel1">
-									<option>대한항공</option>
-									<option>아시아나</option>
-									<option>에어부산</option>
-									<option>에어프레미아</option>
-								</select>
-							</div> <label>보험 등급 </label> <input type="radio" id="select"
-							name="optionChoose" value="선택"> <label for="select">선택</label>
-							<input type="radio" id="deselect" name="optionChoose"
-							value="선택안함"> <label for="deselect"> 선택안함</label> <br>
-						<br> <a id="insurance-link" href="#"
-							onclick="window.open('bohum.html', 'bohum', 'width=600,height=400'); return false;"
+							<label>보험 등급 </label> 
+							<input type="radio" id="select" name="optionChoose" value="선택"> 
+							<label for="select">선택</label>
+							<input type="radio" id="deselect" name="optionChoose" value="선택안함"> 
+							<label for="deselect"> 선택안함</label> 
+							<br>
+							<br> 
+							<a id="insurance-link" href="#"
+							onclick="window.open('bohumCheck.jsp', 'bohum', 'width=600,height=400'); return false;"
 							class="disabled enabled"> 보험 등급 선택 </a>
 
 						</td>
@@ -562,16 +558,89 @@
 			</div>
 
 			<div class="order-window-6-button ow-all">
-				<button id="btn-2" class="btn">예약하기</button>
-				<form method="post" action="/kakaoPay">
+				 <button id="btn-2" class="btn" onclick="console.log('Button clicked'); requestPay();">예약하기</button>
+            <form method="post" action="/kakaoPay">
 					<button id="btn-1" class="btn">취소</button>
 				</form>
 			</div>
 		</div>
 
 	</section>
-
+	       <!-- 결제 정보 -->
 	<%@ include file="/views/common/footer.jsp"%>
+	
+   
+ 
+<!-- 카카오페이 api 연결 결제시도-->
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+
+
+<script>
+            
+           // 객체 초기화
+           var IMP = window.IMP;
+           IMP.init("imp02350258");
+         
+               // 결제 요청 함수
+               function requestPay() {
+                     
+                     
+                   IMP.request_pay({
+                       pg: 'kakaopay.TC0ONETIME',  
+                       pay_method: 'kakaopay',          // 결제 방식
+                       merchant_uid: 'merchant_' + new Date().getTime(),  // 주문 번호
+                       product_name: 'world',         // 상품 이름
+                       total_pay:10
+                      /* TOTAL_PAY(FINAL_PAY+POINT_U): 10,  */          // 결제 금액
+                       //buyer_email: 'EMAIL',  // 구매자 이메일
+                       //buyer_name: 'order_receiver',         // 구매자 이름
+                       //buyer_tel: 'ORDER_PHONE',  // 구매자 전화번호
+                       //buyer_addr: 'ORDER_ADDRESS', // 구매자 주소
+                       // buyer_postcode: '07171'      // 구매자 우편번호
+                       //m_redirect_url: // 추후에 결제완료 페이지로 리다이렉트하기
+                   }, function (rsp) { // callback 로직 - 리다이렉트로 할 시 callback 필요없음
+                       if (rsp.success) {
+                       
+
+                        $.ajax({
+                     url:'<%= contextPath%>/pay.complete',
+                     data:{merchant_uid: rsp.merchant_uid,
+                    	 	user_no: getUserNo,
+                    	 	product_id : getProductId
+                    	 	
+                       /*  , deliveryKind: getSelectedMethod()
+                        , paymentPrice: '10000'
+                        , paymentKind: '카카오페이'
+                        , orderPrice: '10000'
+                        , orderPoint: document.getElementById('points').value
+                        , orderAddr: document.getElementById('postcode').value + " " + document.getElementById('roadAddress').value + " " + document.getElementById('detailAddress').value
+                     , orderReceiver: document.getElementById('orderReceiver').value
+                     , orderRequest: document.getElementById('request').value
+                     , orderPhone: document.getElementById('phone1').value
+                     , detailPrice: '10000' */
+                        },
+                     success:function(res){
+                        alert(res);
+                        $('#payform').submit();
+                     
+                     },
+                     error:function(res){
+                        alert(res+'오류발생')
+                     }
+                     
+                  })
+                
+                  
+              } else {
+                  alert('결제에 실패하였습니다. 오류 내용: ' + rsp.error_msg);
+              }
+          });
+          
+      }
+               
+</script>
+  
 
 </body>
 
