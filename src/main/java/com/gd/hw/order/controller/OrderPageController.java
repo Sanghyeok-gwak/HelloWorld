@@ -50,7 +50,6 @@ public class OrderPageController extends HttpServlet {
 	    p.setaCount(aNum);
 	    p.setcCount(cNum);
 		
-	    System.out.println(p.toString());
 		request.setCharacterEncoding("utf-8");
 		request.setAttribute("p",p);
 		
