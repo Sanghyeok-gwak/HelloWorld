@@ -4,10 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>아이디/비밀번호 찾기</title>
 <style>
+/* 기존 스타일 유지 */
 body {
 	font-family: Arial, sans-serif;
+	background-color: #f4f4f9;
+	margin: 0;
+	padding: 0;
 }
 
 .container {
@@ -15,12 +19,21 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	min-height: 80vh; /* 화면 높이의 80%를 채우도록 설정 */
+	min-height: 80vh;
 	text-align: center;
+	background-color: #fff;
+	padding: 30px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	max-width: 400px; 
+	width: 100%;
+	margin: auto;
+	box-sizing: border-box;
 }
 
 h1 {
-	font-size: 2em;
+	font-size: 2.5em;
+	color: #333;
 	margin-bottom: 30px;
 }
 
@@ -28,16 +41,27 @@ h1 {
 	display: flex;
 	justify-content: center;
 	margin-bottom: 20px;
+	width: 100%;
+	max-width: 400px;
+	border-bottom: 1px solid #ccc;
 }
 
 .tab-menu div {
-	margin: 0 10px;
+	flex: 1;
+	padding: 10px 0;
 	cursor: pointer;
+	color: #333;
+	text-align: center;
+	transition: color 0.3s, border-bottom 0.3s;
+	border-bottom: 2px solid transparent;
 }
 
-.tab-menu div.active {
-	font-weight: bold;
-	border-bottom: 2px solid black;
+.tab-menu div.active h5 {
+	font-weight: bold; 
+}
+
+.tab-menu div:hover {
+	color: #555;
 }
 
 .form-container {
@@ -49,47 +73,74 @@ h1 {
 }
 
 input[type="text"], input[type="email"] {
-	width: 300px;
+	width: 100%;
+	max-width: 300px;
 	padding: 10px;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	box-sizing: border-box;
 }
 
-#btn-1 {
-	border: 1px solid #007AFF;
+#btn-1, #btn-2 {
+	border: none;
 	border-radius: 5px;
 	cursor: pointer;
 	padding: 10px 20px;
+	background-color: #333;
+	color: white;
+	font-size: 1.1em;
+	width: 100%;
+	max-width: 300px;
+	transition: background-color 0.3s;
 }
 
-#btn-1:hover {
-	background-color: #0056b3;
+
+<%--
+#btn-1:hover,#btn-2 :hover {
+	background-color: #555;
 	color: white;
+}
+--%>
+
+#form-btn button:hover{
+	background-color: #555;
+	color: white;
+}
+
+
+p {
+	font-size: 1em;
+	color: #555;
+	line-height: 1.5em;
+	margin-bottom: 20px;
+	max-width: 400px;
 }
 </style>
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
-			<form action="">
 	<div class="container">
-		<div class="tab-menu">
-			<div id="tab-id" class="active">아이디 찾기</div>
-			<div id="tab-password">비밀번호 찾기</div>
-		</div>
+		<form action="<%=contextPath%>/smtp.do" id="form-btn">
+			<h1>아이디/비밀번호 찾기</h1>
+			<div class="tab-menu">
+				<div id="tab-id" class="active"><h5>아이디 찾기</h5></div>
+				<div id="tab-password"><h5>비밀번호 찾기</h5></div>
+			</div>
 
-		<div id="id-form" class="form-container active">
-			<p>입력하신 이름과 이메일 주소가 회원 정보와 일치한 경우 아이디 찾기에 필요한 인증번호가 발송돼요.</p>
-			<input type="text" placeholder="이름" required><br>
-			<input type="email" placeholder="이메일주소" required><br>
-			<button id="btn-1" class="">인증번호 발송</button>
-		</div>
+			<div id="id-form" class="form-container active">
+				<p>입력하신 이름과 이메일 주소가 회원 정보와 일치할 경우 이메일로 아이디가 발송됩니다.</p>
+				<input type="text" name="name" placeholder="이름" required><br>
+				<input type="email" name="email" placeholder="이메일 주소" required><br>
+				<button type="button" id="btn-1" >아이디 전송</button>
+			</div>
 
-		<div id="password-form" class="form-container">
-			<p>입력하신 이름과 이메일 주소가 회원 정보와 일치한 경우 비밀번호 찾기에 필요한 인증번호가 발송돼요.</p>
-			<input type="text" placeholder="이름" required><br>
-			<input type="email" placeholder="이메일주소" required><br>
-			<button id="btn-1">인증번호 발송</button>
-		</div>
-	</div>
+			<div id="password-form" class="form-container">
+				<p>입력하신 아이디가 회원 정보와 일치할 경우 비밀번호가 발송됩니다.</p>
+				<input type="text" name="username" placeholder="아이디" required><br>
+				<input type="email" name="email" placeholder="이메일 주소" required><br>
+				<button type="button" id="btn-2"  style="background: #007AFF; color:white;">비밀번호 발송</button>
+			</div>
 		</form>
 	<script>
         // 각 탭을 클릭했을 때 폼을 변경하는 스크립트
@@ -111,7 +162,64 @@ input[type="text"], input[type="email"] {
           passwordForm.classList.add('active');
           idForm.classList.remove('active');
         });
+
+        // 아이디 찾기 버튼 클릭 시
+        document.getElementById('btn-1').addEventListener('click', function() {
+            var name = document.querySelector('input[name="name"]').value;
+            var email = document.querySelector('input[name="email"]').value;
+
+            if (!name || !email) {
+                alert('이름과 이메일을 입력하세요.');
+                return;
+            }
+
+            $.ajax({
+                url: '<%=contextPath%>/smtp.do',
+                type: 'POST',
+                data: { action: 'findId', nameOrId: name, email: email },
+                success: function(response) {
+                    if (response === 'send') {
+                        alert('아이디가 이메일로 발송되었습니다.');
+                    } else {
+                        alert('이름과 이메일이 일치하지 않습니다.');
+                    }
+                },
+                error: function() {
+                    alert('오류가 발생했습니다.');
+                }
+            });
+        });
+
+        // 비밀번호 찾기 버튼 클릭 시
+        document.getElementById('btn-2').addEventListener('click', function() {
+            var username = document.querySelector('input[placeholder="아이디"]').value;
+            var email = document.querySelector('input[name="email"]').value;
+
+            if (!username || !email) {
+                alert('아이디와 이메일을 입력하세요.');
+                return;
+            }
+
+            $.ajax({
+                url: '<%=contextPath%>/smtp.do',
+                type: 'POST',
+                data: { action: 'findPassword', nameOrId: username, email: email },
+                success: function(response) {
+                    if (response === 'send') {
+                        alert('비밀번호가 이메일로 발송되었습니다.');
+                    } else {
+                        alert('아이디와 이메일이 일치하지 않습니다.');
+                    }
+                },
+                error: function() {
+                    alert('오류가 발생했습니다.');
+                }
+            });
+        });
     </script>
+	</div>
+
+
 	<%@ include file="/views/common/footer.jsp"%>
 </body>
 </html>

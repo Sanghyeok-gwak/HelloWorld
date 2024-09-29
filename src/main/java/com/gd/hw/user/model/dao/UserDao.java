@@ -358,6 +358,66 @@ public class UserDao {
 	
 
 		}
+	
+	
+    public String findUserIdByNameAndEmail(Connection conn, String name, String email) {
+        String userId = null;
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+
+        String sql = prop.getProperty("findUserIdByNameAndEmail");
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, name);
+            pstmt.setString(2, email);
+            rset = pstmt.executeQuery();
+
+            if (rset.next()) {
+                userId = rset.getString("USER_ID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(rset);
+            close(pstmt);
+        }
+
+        return userId;
+    }
+
+    /**
+     * 사용자 아이디와 이메일로 비밀번호 찾기
+     * @param conn
+     * @param userId
+     * @param email
+     * @return 일치하는 사용자의 비밀번호
+     */
+    public String findUserPasswordByIdAndEmail(Connection conn, String username, String email) {
+        String userPwd = null;
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+
+        String sql = prop.getProperty("findUserPasswordByIdAndEmail");
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+            pstmt.setString(2, email);
+            rset = pstmt.executeQuery();
+
+            if (rset.next()) {
+                userPwd = rset.getString("USER_PWD");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(rset);
+            close(pstmt);
+        }
+
+        return userPwd;
+    }
 
 
 

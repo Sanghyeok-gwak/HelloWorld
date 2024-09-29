@@ -216,4 +216,29 @@
 	</entry>
 	
 	
+	<!-- 이름과 이메일로 아이디 찾기 -->
+	<entry key="findUserIdByNameAndEmail">
+		SELECT 
+		      USER_ID 
+		  FROM 
+		      "USER"
+		 WHERE 
+		       USER_NAME = ? 
+		   AND 
+		       EMAIL = ?
+	</entry>
+
+	<!-- 아이디와 이메일로 비밀번호 찾기 -->
+	<entry key="findUserPasswordByIdAndEmail">
+		SELECT 
+		      USER_PWD 
+		  FROM 
+		      "USER"
+		 WHERE 
+		       USER_ID = ? 
+		   AND 
+		       EMAIL = ?
+	</entry>
+	
+	
 </properties>

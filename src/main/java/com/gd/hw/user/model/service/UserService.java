@@ -160,6 +160,31 @@ public class UserService {
 	 }
 
 
+	    /** 
+	     * 아이디 찾기 - 이름과 이메일로 아이디 찾기
+	     * @param userName 입력받은 사용자 이름
+	     * @param email 입력받은 사용자 이메일
+	     * @return 일치하는 사용자의 아이디
+	     */
+	    public String findUserIdByNameAndEmail(String name, String email) {
+	        Connection conn = getConnection();
+	        String userId = uDao.findUserIdByNameAndEmail(conn, name, email);
+	        close(conn);
+	        return userId;
+	    }
+
+	    /**
+	     * 비밀번호 찾기 - 아이디와 이메일로 비밀번호 찾기
+	     * @param userId 입력받은 사용자 아이디
+	     * @param email 입력받은 사용자 이메일
+	     * @return 일치하는 사용자의 비밀번호
+	     */
+	    public String findUserPasswordByIdAndEmail(String username, String email) {
+	        Connection conn = getConnection();
+	        String userPwd = uDao.findUserPasswordByIdAndEmail(conn, username, email);
+	        close(conn);
+	        return userPwd;
+	    }
 	
 	
 	 	 

@@ -89,7 +89,7 @@
     <section class="signup-main-box">
         <h1 class="signup-main-title">회원정보입력</h1>
         <hr>
-        <form action="<%=contextPath%>/signup.me" method="post" id="form-btn">
+        <form action="<%=contextPath%>/signup.me" method="post" id="form-btn" class="was-validated">
             <!--아이디-->
             <div class="form-group" id="form-group">
                 <div>
@@ -98,7 +98,7 @@
                             <label for="userId">아이디</label>
                         </div>
                         <div style="width: 90%;">
-                            <input style="border: 0px;" type="text" class="form-control" placeholder="아이디를 입력하세요" name="userId" id="userId">
+                            <input style="border: 0px;" type="text" class="form-control" placeholder="아이디를 입력하세요" name="userId" id="userId" required>
                         </div>
                         <div class="check-availability">
                             <button type="button" id="check-id-btn" class="check-availability-button" style="height: 100%;">
@@ -165,7 +165,7 @@
                         </div>
                         <input type='hidden' id='hiddenPwd' name='hiddenPwd' value='no'>
                         <div style="width: 90%;">
-                            <input style="border: 0px;" type="password" class="form-control" placeholder="비밀번호를 입력하세요" name="userPwd" id="userPwd">
+                            <input style="border: 0px;" type="password" class="form-control" placeholder="비밀번호를 입력하세요" name="userPwd" id="userPwd" required>
                         </div>
                         <div>
                             <button id="toggle-password" type="button" class="hiding-btn2">
@@ -184,7 +184,7 @@
                             <label for="userConfirmPwd">비밀번호확인</label>
                         </div>
                         <div style="width: 85%;">
-                            <input style="border: 0px;" type="password" class="form-control" placeholder="비밀번호를 확인해주세요" name="userConfirmPwd" id="userConfirmPwd">
+                            <input style="border: 0px;" type="password" class="form-control" placeholder="비밀번호를 확인해주세요" name="userConfirmPwd" id="userConfirmPwd" required>
                         </div>
                         <div>
                             <button id="toggle-confirm-password" type="button" class="hiding-btn2">
@@ -244,7 +244,7 @@
                             <label for="name">이름</label>
                         </div>
                         <div style="width: 90%;">
-                            <input style="border: 0px;" type="text" class="form-control" name="userName" id="name">
+                            <input style="border: 0px;" type="text" class="form-control" name="userName" id="name" required>
                         </div>
                     </div>
                 </div>
@@ -262,6 +262,7 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
 
             <!-- 이메일 -->
@@ -272,7 +273,7 @@
                             <label for="email">이메일</label>
                         </div>
                         <div style="width: 85%;">
-                            <input style="border: 0px;" type="text" class="form-control" placeholder="이메일 아이디를 입력하세요" name="email" id="email">
+                            <input style="border: 0px;" type="text" class="form-control" placeholder="이메일 아이디를 입력하세요" name="email" id="email" required> 
                         </div>
                         <div class="email-domain" style="padding: .375rem .100rem; width: 15%;" id="email-domain">
                             <select class="form-select" title="이메일 도메인 주소 선택" onchange="setEmailDomain(this.value);return false;">

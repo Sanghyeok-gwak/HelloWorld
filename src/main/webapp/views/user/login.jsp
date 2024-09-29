@@ -68,6 +68,8 @@ h5 {
 	border: 1px solid rgb(216, 216, 216);
 	border-radius: 10px;
 	padding: 30px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	background-color: #fff;
 }
 
 .helloworld-login-logo {
