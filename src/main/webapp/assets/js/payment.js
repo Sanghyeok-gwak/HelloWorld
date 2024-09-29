@@ -91,7 +91,7 @@ function updateForm() {
     </td>
     <td
         style="padding: 7px 0px 2px; font-size: 11px; color: rgb(90, 90, 90); text-align: center; letter-spacing: -0.025em; border: 1px solid rgb(220, 220, 220);">
-        <select class="bsc1" id="CustomerSex_${i}" name="CustomerSex${i}" title="성별" style="width: 66px;">
+        <select class="bsc1" id="Gender_${i}" name="Gender{i}" title="성별" style="width: 66px;">
             <option value="" selected="selected">선택</option>
             <option value="F">여</option>
             <option value="M">남</option>

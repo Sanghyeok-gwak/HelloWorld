@@ -113,5 +113,20 @@
    		 MERCHANT_UID = ?
    ORDER BY STATUS
 </entry>
+<entry key="DeleteOrderByMerUid">
+	UPDATE 
+		  PAYMENT 
+	   SET 
+	   	  STATUS = 'R' 
+	 WHERE 
+	 	  IMP_UID =(
+	 	  			SELECT
+                          IMP_UID
+                      FROM
+                          "ORDER"
+                     WHERE
+                          MERCHANT_UID = ?
+                   )
+</entry>
 <!-- 관리자에서 사용하는 파트 끝 -->
 </properties>
