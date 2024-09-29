@@ -19,6 +19,7 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
 <style>
 /* 공통 스타일 */
@@ -98,46 +99,57 @@ h5 {
 	cursor: pointer;
 }
 
+/* 탭 버튼 스타일 */
 .tabBtn {
-	appearance: none;
-	border: none;
-	background: transparent;
-	user-select: none;
-	cursor: pointer;
-	padding: 5px 10px;
-	border-radius: 5px;
-	color: black;
-	transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    appearance: none; /* 기본 버튼 스타일 제거 */
+    border: none; /* 테두리 제거 */
+    background: transparent; /* 배경 투명 */
+    user-select: none; /* 텍스트 선택 방지 */
+    cursor: pointer; /* 마우스 커서 포인터로 변경 */
+    padding: 20px 40px; /* 패딩을 늘려 버튼 영역 확대 */
+    border-radius: 10px; /* 둥근 모서리 적용 */
+    color: black; /* 텍스트 색상 검정 */
+    font-size: 20px; /* 텍스트 크기 조절 */
+    transition: background-color 0.3s, color 0.3s, border-color s; /* 배경, 색상, 테두리 변화 시 애니메이션 적용 */
+    display: block; /* 버튼이 전체 영역을 차지하도록 설정 */
+    width: 100%; /* 버튼이 부모 요소의 전체 너비를 차지 */
+    text-align: center; /* 텍스트를 중앙 정렬 */
 }
 
 .tabList {
-	display: flex;
-	justify-content: flex-start;
-	list-style: none;
-	font-size: 22px;
-	border-bottom: 1px solid lightgray;
-	width: fit-content;
-	margin-left: 42px;
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    font-size: 22px;
+    border-bottom: 1px solid lightgray;
+    margin-left: 42px;
+    margin-top: 20px;
 }
 
 .tabList li {
-	margin: 0 85px;
+    flex: 1;
 }
 
 .tabBtn:hover {
-	color: white;
-	background-color: #007AFF;
-	border-color: #007AFF;
+    color: white;
+    background-color: #007AFF;
+    border-color: #007AFF;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.tabBtn.active {
+    color: white;
+    background-color: #007AFF;
 }
 
 .tabContent {
-	margin-top: 30px;
-	font-size: 20px;
-	color: gray;
-	max-width: 900px;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
+    margin-top: 30px;
+    font-size: 20px;
+    color: gray;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .rating-container {
@@ -146,7 +158,7 @@ h5 {
 
 .Rating .fa {
 	font-size: 30px;
-	color: gray;
+	color: gold;
 	cursor: pointer;
 	transition: color 0.2s;
 }
@@ -154,75 +166,35 @@ h5 {
 .Rating .fa.selected {
 	color: #FFD700;
 }
+.animation-container {
+      position: relative;
+      display: flex;
+      width: 100%;
+      height: 130px;
+      background-color: white;
+      overflow: hidden;
+      margin-left: 15px;
+      margin-bottom: 30px;
+    }
 
-.review-form {
-	display: flex;
-	flex-direction: column;
-	margin-top: 20px;
-}
+    .plane-icon {
+      position: absolute;
+      font-size: 50px;
+      color: #007bff;
+      top: 50%;
+      left: -50px;
+      transform: ;
+      animation: fly-plane 5s linear infinite;
+    }
 
-textarea {
-	width: 100%;
-	padding: 10px;
-	border-radius: 5px;
-	border: 1px solid lightgray;
-	resize: none;
-}
-
-button {
-	margin-top: 10px;
-	padding: 10px;
-	border: none;
-	border-radius: 5px;
-	background-color: #007AFF;
-	color: white;
-	cursor: pointer;
-	transition: background-color 0.3s;
-}
-
-button:hover {
-	background-color: #0056b3;
-}
-
-#userReviews {
-	margin-top: 20px;
-}
-
-#userReviews h3 {
-	margin-bottom: 10px;
-}
-
-#reviewList {
-	list-style: none;
-	padding: 0;
-}
-
-#reviewList li {
-	margin-bottom: 10px;
-	padding: 10px;
-	border: 1px solid lightgray;
-	border-radius: 5px;
-	background-color: #f9f9f9;
-	color: black;
-}
-
-.rating span {
-	font-size: 25px;
-	color: lightgray;
-	cursor: pointer;
-}
-
-.rating span:hover {
-	color: gold;
-}
-
-.rating span.active {
-	color: gold;
-}
-
-.rating {
-	color: gold;
-}
+    @keyframes fly-plane {
+      0% {
+        left: -50px;
+      }
+      100% {
+        left: 100%;
+      }
+    }	
 </style>
 
 </head>
@@ -260,11 +232,12 @@ button:hover {
 				<br>
 
 				<div class="col-md-12 Rating">
-					<span class="fa fa-star"></span> <span class="fa fa-star"
-						data-value="2"></span> <span class="fa fa-star" data-value="3"></span>
-					<span class="fa fa-star" data-value="4"></span> <span
-						class="fa fa-star" data-value="5"></span> <a href="#"
-						style="color: black;"> (4.9) 리뷰 (4) 추후에 함수식 나오면 적용 </a>
+					<span class="fa fa-star"></span> 
+					<span class="fa fa-star" data-value="2"></span> 
+					<span class="fa fa-star" data-value="3"></span>
+					<span class="fa fa-star" data-value="4"></span> 
+					<span class="fa fa-star" data-value="5"></span> 
+					<a href="#" style="color: black;" data-toggle="modal" data-target="#reviewModal"></a>
 				</div>
 
 				<br>
@@ -276,15 +249,21 @@ button:hover {
 				%>
 
 				<!-- 상품 상세 페이지에서 가격 부분 -->
+				<h5>&nbsp;&nbsp;&nbsp;&nbsp;성인 1명</h5>
 				<div class="col-md-12 d-flex justify-content-end align-items-center">
-					<h1 style="flex-grow: 1;"><%=formattedAdultPrice%>원~
-					</h1>
+					<h1 style="flex-grow: 1;"><%=formattedAdultPrice%>원~ </h1>
 
 					<i class="fas fa-share-alt share-icon" style="margin-right: 250px;"></i>
 
 					<i id="heart-icon-<%=product.getProductId()%>"
 						class="far fa-heart heart-icon" style="margin-right: 200px;"
 						onclick="toggleFavorite(<%=product.getProductId()%>, this)"></i>
+						
+						
+				</div>
+						<div class="animation-container">
+   					 <!-- 비행기 아이콘 -->
+   					 <i class="bi bi-airplane-fill plane-icon">Hello, World~</i>
 				</div>
 
 			</div>
@@ -315,7 +294,7 @@ button:hover {
 
 					<br>
 
-					<div
+						<div
 						style="display: flex; justify-content: space-between; align-items: center;">
 						<div>
 							<h3>유아 (만2세 미만)</h3>
@@ -347,77 +326,80 @@ button:hover {
 
 				<br> <a id="reservationLink" class="btn btn-primary"
 					style="width: 83%; margin-left: 60px;"
-					href="orderPage.us?productId=<%=product.getProductId()%>">예약</a> <br>
-				<br>
-				
-			
+					href="orderPage.us?productId=<%=product.getProductId()%>&aNum=0&cNum=0"">예약</a>
+				<br> <br>
 
 			</div>
 		</div>
 
-		<!-- 상품 소개, 일정표, 상세 정보, 리뷰 탭 -->
+		<!-- 상품 소개, 일정표, 상세 정보 탭 -->
 		<div class="tabs">
 			<ul class="tabList">
 				<li><button class="tabBtn"
 						onclick="showContent('product-info')">상품 소개</button></li>
 				<li><button class="tabBtn" onclick="showContent('itinerary')">일정표</button></li>
-				<li><button class="tabBtn" onclick="showContent('details')">상세
-						정보</button></li>
-				<li><button class="tabBtn" onclick="showContent('reviews')">리뷰</button></li>
+				<li><button class="tabBtn" onclick="showContent('details')">상세 정보</button></li>
 			</ul>
 		</div>
-		
+
 		<div id="product-info" class="tabContent" style="display: block;">
-				<img src="<%=contextPath%>/assets/image/test.png" alt="상품 소개 이미지">
-			</div>
-
-			<div id="itinerary" class="tabContent" style="display: none;">
-				<img src="<%=contextPath%>/assets/image/test.png" alt="일정표 이미지">
-			</div>
-
-			<div id="details" class="tabContent" style="display: none;">
-				<img src="<%=contextPath%>/assets/image/test.png" alt="상세 정보 이미지">
-			</div>
-		
-
-		<!-- 리뷰 탭 -->
-		<div id="reviews" class="tabContent" style="display: none;">
-			<h2>리뷰</h2>
-	
-			<!-- 평점 선택 -->
-			<div class="rating-container">
-				<div class="col-md-12 Rating">
-					<span class="fa fa-star" data-value="1"></span>
-					<span class="fa fa-star" data-value="2"></span>
-					<span class="fa fa-star" data-value="3"></span>
-					<span class="fa fa-star" data-value="4"></span>
-					<span class="fa fa-star" data-value="5"></span>
-					<a href="#" style="color: black;"></a>
-				</div>
-			</div>
-
-			<!-- 리뷰 작성 텍스트 상자 -->
-			<div class="review-form">
-				<textarea id="reviewText" rows="4" placeholder="리뷰를 작성하세요."></textarea>
-				<button onclick="submitReview()">등록</button>
-			</div>
-
-			<!-- 이전 리뷰 표시 -->
-			<div id="userReviews">
-				<h3>이전 리뷰가 나올곳</h3>
-				<ul id="reviewList">
-					<!-- 여기에 이전 리뷰가 추가됩니다 -->
-				</ul>
-			</div>
+			<img src="<%=contextPath%>/assets/image/test.png" alt="상품 소개 이미지">
 		</div>
-			
+
+		<div id="itinerary" class="tabContent" style="display: none;">
+			<img src="<%=contextPath%>/assets/image/test.png" alt="일정표 이미지">
+		</div>
+
+		<div id="details" class="tabContent" style="display: none;">
+			<img src="<%=contextPath%>/assets/image/test.png" alt="상세 정보 이미지">
+		</div>
 
 		<%
 		}
 		%>
 	</section>
 
+	<!--  리뷰 모달 부분
+	<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="reviewModalLabel">리뷰 작성 및 보기</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        평점 선택
+	        <div class="rating-container">
+	          <div id="Rating">
+	            <span class="fa fa-star" data-value="1"></span>
+	            <span class="fa fa-star" data-value="2"></span>
+	            <span class="fa fa-star" data-value="3"></span>
+	            <span class="fa fa-star" data-value="4"></span>
+	            <span class="fa fa-star" data-value="5"></span>
+	          </div>
+	        </div>
+	        리뷰 작성
+	        <div class="review-form">
+	          <textarea id="reviewText" rows="4" placeholder="리뷰를 작성하세요."></textarea>
+	          <button onclick="submitReview()">등록</button>
+	        </div>
+	        리뷰 목록
+	        <div id="userReviews">
+	          <h3>이전 리뷰</h3>
+	          <ul id="reviewList"></ul>
+	        </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div> -->
+
 	<script>
+	
     // 인원 선택 및 가격 계산
     const adultPrice = <%=product.getaPrice()%>; // A_PRICE 값으로 변경
     const infantPrice = <%=product.getcPrice()%>; // C_PRICE 값으로 변경
@@ -438,7 +420,6 @@ button:hover {
         }
 
         updateTotalAmount(adultCount, infantCount);
-        updateReservationLink(adultCount, infantCount);
     }
 
     function updateTotalAmount(adultCount, infantCount) {
@@ -446,19 +427,68 @@ button:hover {
         document.getElementById('totalAmount').textContent = totalAmount.toLocaleString() + "원";
     }
 
-    function updateReservationLink(adultCount, infantCount) {
-        const reservationLink = document.getElementById('reservationLink');
-        const productId = <%=product.getProductId()%>;
-        reservationLink.href = `orderPage.us?productId=${productId}&aNum=${adultCount}&cNum=${infantCount}`;
-    }
-
     function showContent(contentId) {
         const contents = document.querySelectorAll('.tabContent');
         contents.forEach(content => content.style.display = 'none');
         document.getElementById(contentId).style.display = 'block';
     }
+    
+    
+   /*  리뷰 등록 부분
+ // 별점 및 리뷰 관련 스크립트
+    let selectedRating = 0;
+    let reviews = [];
 
-    // URL 복사하기
+    // 별점 클릭 이벤트
+    document.querySelectorAll('#Rating .fa').forEach(star => {
+      star.addEventListener('click', function () {
+        const value = this.dataset.value;
+        selectedRating = parseInt(value);
+        resetRating();
+
+        for (let i = 0; i < selectedRating; i++) {
+          document.querySelectorAll('#Rating .fa')[i].classList.add('selected');
+        }
+      });
+    });
+
+    // 별점 초기화 함수
+    function resetRating() {
+      document.querySelectorAll('#Rating .fa').forEach(star => {
+        star.classList.remove('selected');
+      });
+    }
+
+    // 리뷰 제출 함수
+    function submitReview() {
+      const reviewText = document.getElementById('reviewText').value;
+      if (reviewText && selectedRating > 0) {
+        const review = { text: reviewText, rating: selectedRating };
+        reviews.push(review);
+        displayReviews();
+        document.getElementById('reviewText').value = ''; // 입력 초기화
+        resetRating(); // 별점 초기화
+        selectedRating = 0;
+      } else {
+        alert("리뷰와 평점을 모두 입력해주세요.");
+      }
+    }
+
+    // 리뷰 목록 표시 함수
+    function displayReviews() {
+      const reviewList = document.getElementById('reviewList');
+      reviewList.innerHTML = ''; // 기존 리뷰 초기화
+
+      reviews.forEach(review => {
+        const li = document.createElement('li');
+        li.textContent = `평점: ${review.rating}, 내용: ${review.text}`;
+        reviewList.appendChild(li);
+      });
+    }
+ */
+
+    
+ // URL 복사하기
     $(document).ready(function () {
         $('.share-icon').click(function () {
             navigator.clipboard.writeText(window.location.href).then(() => {
@@ -467,143 +497,7 @@ button:hover {
         });
     });
 
-    let reviews = [];
-
-    function submitReview() {
-    	  const reviewText = document.getElementById('reviewText').value.trim();
-    	  const ratingElement = document.querySelector('.Rating .fa.selected');
-    	  
-    	  if (!reviewText) {
-    	    alert("리뷰 내용을 입력해주세요.");
-    	    return;
-    	  }
-
-    	  if (!ratingElement) {
-    	    alert("별점을 선택해주세요.");
-    	    return;
-    	  }
-
-    	  const rating = ratingElement.dataset.value;
-
-    	  // db에 리뷰등록
-    	  $.ajax({
-    	    type: 'POST',
-    	    url: '/world/insert.re',
-    	    data: {
-    	      content: reviewText,
-    	      rating: rating,
-    	    },
-    	    success: function(response) {
-    	      if (response === "success") {
-    	        displayReviews(reviewText, rating);
-    	        document.getElementById('reviewText').value = '';
-    	        resetRating();
-    	      } else {
-    	        alert("리뷰 제출에 실패했습니다. 다시 시도해주세요.");
-    	      }
-    	    },
-    	    error: function() {
-    	      alert("리뷰 제출에 실패했습니다. 다시 시도해주세요.");
-    	    }
-    	  });
-    	}
-
- // 화면에 리뷰 조회
-    function loadReviews() {
-        const productId = <%=product.getProductId()%>;
-
-        $.ajax({
-            type: 'GET',
-            url: '/world/select.re', // 리뷰 데이터를 가져오는 URL
-            data: { productId: productId },
-            dataType: 'json', // 서버에서 JSON 응답을 기대
-            success: function(response) {
-                const reviewList = document.getElementById('reviewList');
-                reviewList.innerHTML = ''; // 기존 리뷰 초기화
-
-                if (response.length > 0) {
-                    response.forEach(function(review) {
-                        const li = document.createElement('li');
-                        li.innerHTML = `<strong>평점:</strong> ${review.rating} / 5<br><strong>내용:</strong> ${review.content}`;
-                        li.style.padding = "10px";
-                        li.style.borderBottom = "1px solid #ccc";
-                        reviewList.appendChild(li);
-                    });
-                } else {
-                    reviewList.innerHTML = '<li>등록된 리뷰가 없습니다.</li>';
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error("리뷰 데이터를 불러오는 데 실패했습니다:", status, error);
-                alert("리뷰 데이터를 불러오는 데 실패했습니다.");
-            }
-        });
-    }
-
-    $(document).ready(function() {
-        loadReviews();
-    });
-
-    function displayReviews(reviewText, rating) {
-        const reviewList = document.getElementById('reviewList');
-        const li = document.createElement('li');
-        li.innerHTML = `<strong>평점:</strong> ${rating} / 5<br><strong>내용:</strong> ${reviewText}`;
-        reviewList.appendChild(li);
-    }
-
-    function resetRating() {
-        const stars = document.querySelectorAll('.Rating .fa');
-        stars.forEach(star => {
-            star.classList.remove('selected');
-        });
-    }
-
-    // 별점 클릭 이벤트
-    document.querySelectorAll('.Rating .fa').forEach(star => {
-        star.addEventListener('click', function () {
-            const value = this.dataset.value;
-            resetRating(); // 기존 선택한 별점 초기화
-
-            for (let i = 0; i < value; i++) {
-                star.parentNode.children[i].classList.add('selected');
-            }
-        });
-    });
-    
-
-    $(document).ready(function() {
-        loadReviews();
-    });
-
-    function displayReviews(reviewText, rating) {
-        const reviewList = document.getElementById('reviewList');
-        const li = document.createElement('li');
-        li.innerHTML = `<strong>평점:</strong> ${rating} / 5<br><strong>내용:</strong> ${reviewText}`;
-        reviewList.appendChild(li);
-    } 
-    
-
-    function resetRating() {
-        const stars = document.querySelectorAll('.Rating .fa');
-        stars.forEach(star => {
-            star.classList.remove('selected');
-        });
-    }
-
-    document.querySelectorAll('.Rating .fa').forEach(star => {
-        star.addEventListener('click', function () {
-            const value = this.dataset.value;
-            resetRating();
-
-            for (let i = 0; i < value; i++) {
-                star.parentNode.children[i].classList.add('selected');
-            }
-        });
-    });
-    
-    
-    
-	</script>
+    </script>
 
 	<%@ include file="/views/common/footer.jsp"%>
 
