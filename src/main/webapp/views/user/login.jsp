@@ -141,7 +141,7 @@ label {
                 <label class="form-check-label">
                     <input name="rememberMe" type="checkbox" id="rememberMe" <%= savedUserId.isEmpty() ? "" : "checked" %>> 아이디 저장
                 </label>
-                <button type="submit" id="btn-1" class="btn btn-primary">로그인</button>
+                <button type="submit" id="btn-1" class="btn btn-primary" onclick="fnLoginCheck();">로그인</button>
                 <div class="AuthModule">
                     <a href="<%=contextPath %>/views/user/signupStart.jsp">회원가입</a>&nbsp; |&nbsp; <a href="<%=contextPath %>/views/user/FindAccount.jsp">아이디찾기</a>&nbsp; |&nbsp; <a href="<%=contextPath %>/views/user/FindAccount.jsp">비밀번호찾기</a>
                 </div>
@@ -165,6 +165,17 @@ document.getElementById('btn-1').addEventListener('click', function() {
         document.cookie = "savedUserId=; path=/; max-age=0";
     }
 });
+
+
+function fnLoginCheck(){
+	
+	console.log($('#id').val());
+	console.log($('#pwd').val());
+	
+}
+
+
+
 </script>
 </body>
 </html>
