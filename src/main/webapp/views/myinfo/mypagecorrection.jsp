@@ -97,13 +97,17 @@
             width: 611px;
         }
         #userid{
-            background-color: gainsboro;
+            background-color: lightgray;
         }
         #btn-3 {
             background-color: #e8eaeb;
         		color: black;
         }
-
+				#pwd-btn{
+    			background-color: #007AFF;
+    			color: white;
+    			
+				}
 
 </style>
 <body>
@@ -135,7 +139,7 @@
                 <table class="correction">
                     <tr>
                         <th><h5>아이디</h5></th>
-                        <td><input type="text" value="<%= loginUser.getUserId() %>" readonly id="userid" name="userId"></td>
+                        <td><input type="text" value="<%= loginUser.getUserId() %>" readonly id="userid" name="userId" disabled></td>
                         <input type="hidden" value="<%= loginUser.getUserNo() %>" name="userNo" id="userNo">        
                     
                     </tr>
@@ -186,7 +190,7 @@
    </script>
 
 <!-- The Modal -->
-<div class="modal" id="myModal-1">
+  <div class="modal" id="myModal-1">
     <div class="modal-dialog">
       <div class="modal-content">
   
@@ -197,39 +201,56 @@
         </div>
   
         <!-- Modal body -->
-        <div class="modal-body">
-          <form action="<%= contextPath %>/myinfopwd.us" method="post">
+        <div class="modal-body" >
+          <form action="<%= contextPath %>/myinfopwd.us" method="post" id="form-btn">
           	<input type="hidden" name="userId" value="<%= loginUser.getUserId() %>">
-          <table class="table table-hover">
-            <thead></thead>
-            <tbody>
+            <table align="center">
               <tr>
-                <td><h5>현재 비밀번호</h5></td>
-                <td><input type="password" name="userPwd" required></td>
+                <th><h5> 현재 비밀번호</h5></th>
+                <td><input type="password" class="form-control" name="userPwd" required></td>
               </tr>
               <tr>
-                <td><h5>변경 비밀번호</h5></td>
-                <td><input type="password" class="change-password" name="updatePwd" required></td>
+                <th><h5> 변경할 비밀번호</h5></th>
+                <td><input type="password" id="newPwd" class="form-control" name="updatePwd" required></td>
               </tr>
               <tr>
-                <td><h5>변경 비밀번호 확인</h5></td>
-                <td><input type="password" class="change-password" required></td>
+                <th><h5> 변경할 비밀번호 재입력</h5></th>
+                <td><input type="password" id="confirmPwd" class="form-control" required></td>
               </tr>
-            </tbody>
-          </table>
+              <tr>
+                <td colspan="2" style="text-align:center; padding-top: 10px;">
+                  <button type="button" class="btn" id="pwd-btn" onclick="fnPwd()" >비밀번호 변경</button>
+                </td>
+              </tr>
+            </table>
+          </form>
         </div>
   
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn" id="btn-2" data-dismiss="modal">취소</button>
-          <button type="submit" class="btn" id="btn-1" >확인</button>
-        </div>
-  
-        </form>
       </div>
     </div>
   </div>
+<script>
+function fnPwd() {
+    const password = document.getElementById('newPwd').value;
+    const confirmPassword = document.getElementById('confirmPwd').value;
 
+    // 빈 문자열 체크
+    if (password.trim() === '' || confirmPassword.trim() === '') {
+        alert('비밀번호와 비밀번호 확인을 입력해 주세요.');
+        $('#newPwd').focus(); // 포커스 
+        return; 
+    }
+
+    // 비밀번호 일치 체크
+    if (password !== confirmPassword) {
+        alert('변경 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+        $('#confirmPwd').focus(); //포커스
+    } else {
+        alert('비밀번호 변경이 완료되었습니다.');
+        $('#form-btn').submit(); 
+    }
+}
+</script>
 
   <div class="container">
     <!-- Button to Open the Modal -->

@@ -12,6 +12,7 @@ import java.util.Map;
 
 import com.gd.hw.common.model.vo.PageInfo;
 import com.gd.hw.myinfo.model.dao.MyinfoDao;
+import com.gd.hw.myinfo.model.vo.MyJjim;
 import com.gd.hw.myinfo.model.vo.MyOrderDt;
 import com.gd.hw.myinfo.model.vo.Myinfo;
 import com.gd.hw.order.model.vo.Order;
@@ -122,6 +123,66 @@ public class MyinfoService {
 		List<MyOrderDt> list = uDao.myinfoPaymentdetails(conn,userNo,productNo );
 		close(conn);
 		return list;
+	}
+
+
+	// 마이페이지 찜 페이징처리
+	public int selectMyinfoJJIMCount(int userNo) {
+		Connection conn = getConnection(); 
+		 int jjimCount = uDao.selectMyinfoJJIMCount(conn , userNo);
+		 close(conn);
+		
+		return jjimCount;
+	}
+
+
+
+	public List<MyJjim> myinfoJJIMListList(PageInfo pi, int userNo) {
+		   Connection conn = getConnection();
+		   List<MyJjim> list = uDao.myinfoJJIMListList(conn,pi,userNo);
+		   close(conn);
+		
+		   return list;
+	}
+
+
+
+	public int deleteJjimOut(int userNo, int productId) {
+		Connection conn = getConnection();
+		int result = uDao.deleteJjimOut(conn,userNo,productId);
+		if(result >  0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		} 
+		close(conn);
+		
+		return result;
+	}
+
+
+
+	public int allDeleteJjimOut(int userNo) {
+		Connection conn = getConnection();
+		int result = uDao.allDeleteJjimOut(conn , userNo);
+		if(result >  0) {
+			commit(conn);
+		} else {
+		    rollback(conn);
+		} 
+		close(conn);
+		
+		return result;
+	}
+
+
+
+	public int selectPoint(int userNo) {
+		Connection conn = getConnection();
+		int result = uDao.selectPoint(conn , userNo);
+		 close(conn);
+			
+		return result;
 	}
 
 

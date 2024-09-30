@@ -16,7 +16,7 @@ public class MyOrderDt {
     private int finalPay;
     private String flight;
     private String name;
-    private Date birthday;
+    private String birthday;
     private String passport;
     private String payOp;
     private int totalPay;
@@ -25,7 +25,7 @@ public class MyOrderDt {
 
 	public MyOrderDt(String userName, int productId, String productName, String startDate, String endDate,
 			String status, String bhClass, int price, int aPrice, int child, int pointUsed, int finalPay, String flight,
-			String name, Date birthday, String passport, String payOp, int totalPay) {
+			String name, String birthday, String passport, String payOp, int totalPay) {
 		super();
 		this.userName = userName;
 		this.productId = productId;
@@ -159,11 +159,11 @@ public class MyOrderDt {
 		this.name = name;
 	}
 
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 

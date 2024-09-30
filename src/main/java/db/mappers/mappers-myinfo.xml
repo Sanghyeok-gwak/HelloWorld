@@ -138,7 +138,66 @@
  AND P.PRODUCT_ID = ?
  AND PERSON.STATUS = 'A'
 	</entry>
+	<entry key="myinfoJJIMListList">
+	
+SELECT *
+  FROM (
+SELECT           
+       	F.PRODUCT_ID AS PRODUCT_ID ,  
+       	P.PRODUCT_NAME AS PRODUCT_NAME,  
+       	P.PRODUCT_IMG AS PRODUCT_IMG,  
+       	P.START_DATE AS START_DATE,  
+       	P.END_DATE AS END_DATE,  
+       	O.MERCHANT_UID AS MERCHANT_UID,  
+       	PM.PAY_DATE AS PAY_DATE, 
+       	F.ADDED_DATE AS ADDED_DATE,  
+       	U.USER_NAME AS USER_NAME, 
+  
+       	ROW_NUMBER() OVER(ORDER BY F.ADDED_DATE DESC) AS RNUM  
+   FROM 
+       	FAVORITES F 
+   JOIN 
+       	PRODUCT P ON F.PRODUCT_ID = P.PRODUCT_ID 
+   LEFT JOIN 
+       	"ORDER" O ON F.USER_NO = O.USER_NO AND F.PRODUCT_ID = O.PRODUCT_ID 
+   LEFT JOIN 
+       	PAYMENT PM ON O.IMP_UID = PM.IMP_UID  
+   JOIN 
+       	"USER" U ON F.USER_NO = U.USER_NO 
+   WHERE 
+       	F.USER_NO = ?  
+  )
+WHERE RNUM BETWEEN ? AND ?
+</entry>
 
+<entry key="selectMyinfoJJIMCount">
+ SELECT 
+    		COUNT(DISTINCT PRODUCT_ID) AS FAVORITE_COUNT  
+	 FROM 
+   		  FAVORITES 
+	WHERE 
+    		USER_NO = ? 
+</entry>
+<entry key="deleteJjimOut">
+	DELETE FROM FAVORITES
+	 WHERE USER_NO = ?
+		 AND PRODUCT_ID = ?
 
-
+	
+</entry>
+<entry key="allDeleteJjimOut">
+	DELETE FROM FAVORITES
+	 WHERE USER_NO = ?
+</entry>
+ 
+ <entry key="selectPoint">
+ 	SELECT 
+    SUM(CASE WHEN STATUS = 'P' THEN POINT ELSE 0 END) AS POINT_P,
+    SUM(CASE WHEN STATUS = 'U' THEN POINT ELSE 0 END) AS POINT_U
+		 ROM POINT
+	 WHERE USER_NO = ?
+ 
+ </entry>
+ 
+ 
 </properties>

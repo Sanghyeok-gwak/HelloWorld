@@ -8,27 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.gd.hw.common.model.vo.PageInfo;
 import com.gd.hw.myinfo.model.service.MyinfoService;
-import com.gd.hw.order.model.service.OrderService;
-import com.gd.hw.order.model.vo.Order;
-import com.gd.hw.order.model.vo.OrderAd;
-import com.gd.hw.user.model.vo.User;
-import com.gd.hw.myinfo.model.vo.Myinfo;
+import com.gd.hw.myinfo.model.vo.MyJjim;
 
 /**
- * Servlet implementation class UserMyinfomovement
+ * Servlet implementation class MyinfoJJIMListController
  */
-@WebServlet("/myinfom.us")
-public class UserMyinfoMovementController extends HttpServlet {
+@WebServlet("/myinfojj.us")
+public class MyinfoJJIMListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserMyinfoMovementController() {
+    public MyinfoJJIMListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,41 +32,38 @@ public class UserMyinfoMovementController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	request.setCharacterEncoding("utf-8");
 	int userNo = Integer.parseInt(request.getParameter("no")); 
-	int listCount = new MyinfoService().selectMyinfoCount( userNo );
-
+	int jjimCount = new MyinfoService().selectMyinfoJJIMCount(userNo);
+	System.out.println(userNo);
+	System.out.println(jjimCount);
+	
 	int currentPage = 1;
 	if(request.getParameter("page") != null) {
 		currentPage = Integer.parseInt(request.getParameter("page"));
 	}
-
+	
 	int pageLimit = 5;
 	int boardLimit = 5;
 	
-
-	int maxPage = (int)Math.ceil( (double)listCount / boardLimit );
+	int maxPage = (int)Math.ceil( (double)jjimCount / boardLimit );
 	int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 	int endPage = startPage + pageLimit - 1;
 	
 	if(endPage > maxPage) {
 		endPage = maxPage;
 	}
-	 
 	
-	PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-	
-	List<Myinfo> list = new MyinfoService().selectMyinfoList(pi , userNo);
+	PageInfo pi = new PageInfo(jjimCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+
+	List<MyJjim> list = new MyinfoService().myinfoJJIMListList(pi, userNo);
 	
 	request.setAttribute("no", userNo);
 	request.setAttribute("pi", pi);
-	request.setAttribute("list", list);
-
-	request.getRequestDispatcher("/views/myinfo/mypage.jsp").forward(request, response);
+	request.setAttribute("JJlist", list);
 	
+	request.getRequestDispatcher("/views/myinfo/JJIMList.jsp").forward(request, response);
 	}
-	
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

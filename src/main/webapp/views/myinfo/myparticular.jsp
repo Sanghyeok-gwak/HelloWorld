@@ -1,10 +1,14 @@
+<%@ page import="com.gd.hw.order.model.vo.OrderAd"%>
 <%@ page import= "com.gd.hw.myinfo.model.vo.MyOrderDt" %>
+<%@ page import="com.gd.hw.order.model.vo.Person"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% 
-List<MyOrderDt> list = (List<MyOrderDt>)request.getAttribute("list");
+<%
+    OrderAd order = (OrderAd)request.getAttribute("order");
+    List<Person> list = (List<Person>)request.getAttribute("list");
+	
+%>
 
-%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,9 +44,14 @@ List<MyOrderDt> list = (List<MyOrderDt>)request.getAttribute("list");
             color: black;
             text-decoration-line: none;
         }
+        .inventory{
+       		 display: flex;
+    			 justify-content: center;
+        }
 </style>
 <body>
-<%@ include file="/views/common/header.jsp" %>
+ <%@ include file="/views/common/header.jsp" %>
+
 
 	<div class="helloworld-main layout">
         <div class="side">
@@ -56,10 +65,10 @@ List<MyOrderDt> list = (List<MyOrderDt>)request.getAttribute("list");
             <div class="card">
                 <div class="card-body">
                     <ul class="list-unstyled">
-                        <li class="mb-3"><a href="#"><h5>예약 / 결제</h5></a></li>
-                        <li class="mb-3"><a href="#"><h5>찜</h5></a></li>
-                        <li class="mb-3"><a href="#"><h5>리뷰</h5></a></li>
-                        <li><a href="#"><h5>고객센터</h5></a></li>
+                        <li class="mb-3"><a href="<%= contextPath %>/myinfom.us?no=<%= loginUser.getUserNo() %>"><h5>예약 / 결제</h5></a></li>
+                        <li class="mb-3"><a href="<%= contextPath %>/myinfojj.us?no=<%= loginUser.getUserNo() %>"><h5>찜</h5></a></li>
+                        
+                        
                     </ul>
                 </div>
             </div>
@@ -74,71 +83,78 @@ List<MyOrderDt> list = (List<MyOrderDt>)request.getAttribute("list");
             </div>
             <table class="details">
             
-            <% for(MyOrderDt m : list){%>
-                <tr>
-                    <th><h5>여행자명</h3></th>
-                    <td><h5><%= loginUser.getUserName() %></h5></td>
-                </tr>
-                <tr>
-                    <th><h5>여권 정보</h5></th>
-                    <td><h5><%= m.getPassport() %> </h5></td>
-                </tr>
-                <tr>
-                    <th><h5>생년월일</h5></th>
-                    <td><h5><%= m.getBirthday() %></h5></td>
-                </tr>
-                <tr>
-                    <th><h5>보험 등급</h5></th>
-                    <td><h5><%= m.getBhClass() %></h5></td>
-                </tr>
-                <tr>
-                    <th><h5>보험 가격</h5></th>
-                    <td><h5><%= m.getPrice() %></h5></td>
-                </tr>
-                <tr>
-                    <th><h5>적립금</h5></th>
-                    <td><h5><%= m.getPointUsed() %></h5></td>
-                </tr>
-              
-              
+            			<div class="admin-page-main-item w-75 m-auto">
+				        <!-- 여기부터 -->
+        <div class="mb-3">
+          <h1>결제관리</h1>
+        </div>
+        <div class="pt-3">
+          <div id="table1" >
+            <table class="table pb-3">
+              <tr>
+                <th>회원명</th>
+                <td><%=order.getUserId() %></td>
+              </tr>
+              <tr>
+                <th>상품명</th>
+                <td><a href="productDetail.pr?productId=<%= order.getProductId() %>" ><%= order.getProductName() %></a></td>
+              </tr>
             </table>
-            <br>
-            <div class="Product">
-                <h3>상품 정보</h3>
+          </div>
+          <div class="row  pt-3">
+            <hr>
+            <div id="table2" class="col">
+              
             </div>
-                <br>
-            <table class="Product name">
+          </div>
+          <div id="person" class="pt-4">
+            <div id="table4">
+              <table class="table pb-3">
                 <tr>
-                    <th><h5><상품명></h3></th>
-                    <td><h5><%= m.getProductName() %></h5></td>
+                  <th>분류</th>
+                  <th>영문성</th>
+                  <th>영문이름</th>
+                  <th>생년월일</th>
+                  <th>전화번호</th>
+                  <th>성별</th>
+                  <th>국적</th>
+                  <th>여권번호</th>
+                  <th>여권만료일</th>
                 </tr>
+                <%
+					for (Person p  : list) {
+			  	%>
                 <tr>
-                    <th><h5>여행 기간</h5></th>
-                    <td><h5><%= m.getStartDate() %> ~ <%= m.getEndDate() %></h5></td>
+                <%if(p.getStatus().equals("A")){ %>
+                  <td style="color: blue;">대표자</td>
+                <%}else{ %>
+               	  <td>일반</td>
+                <%} %>
+                  <td><%=p.getSurName() %></td>
+                  <td><%=p.getEngName() %></td>
+                  <td><%=p.getBirthday() %></td>
+                  <td><%=p.getPhone() %></td>
+                  <%if(p.getGender().equals("F")){ %>
+                  <td>여</td>
+                  <%}else{ %>
+                  <td>남</td>
+                  <%} %>
+                  <td><%=p.getNation() %></td>
+                  <td><%=p.getPassport() %></td>
+                  <td><%=p.getPassportEx() %></td>
                 </tr>
-                <tr>
-                    <th><h5>적립금</h5></th>
-                    <td><h5><%= m.getTotalPay() * 0.01 %></h5></td>
-                </tr>
-                <tr>
-                    <th><h5>교통/ 항공편</h5></th>
-                    <td><h5><%=m.getFlight() %></h5></td>
-                </tr>
-                <tr>
-                    <th><h5>상품 가격</h5></th>
-                    <td><h5><%= m.getaPrice() %></h5></td>
-                </tr>
-                <tr>
-                    <th><h5>결제정보</h5></th>
-                    <td><h5><%= m.getPayOp() %></h5></td>
-                </tr>
-                <tr>
-                    <th><h5>총금액 :</h5></th>
-                    <td><h5><%= m.getFinalPay() %></h5></td>
-                </tr>
+                
+              </table>
+          </div>
+        </div>
+        <!--테이블 영역 끝-->
+        <!--버튼 영역 시작-->
+
+      </div>
+    </div>
                 <%} %> 
             </table>
-            <div><a href="<%= contextPath %>/myinfom.us?no=<%= loginUser.getUserNo() %>" id="btn-1" class="btn" style="float:right;width: 150px;"  >목록으로</a></div>
+            <div class="inventory" ><a href="<%= contextPath %>/myinfom.us?no=<%= loginUser.getUserNo() %>" id="btn-1" class="btn" style="float:right;width: 150px;"  >목록으로</a></div>
         </main>
     </div>
               <%@ include file="/views/common/footer.jsp" %>

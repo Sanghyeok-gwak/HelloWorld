@@ -1,89 +1,89 @@
 package com.gd.hw.myinfo.model.vo;
 import java.sql.Date;
 public class Myinfo {
-	private int product_Id;
-	private String product_Name;
-	private String product_Img;
-	private String start_Date;
-	private String end_Date;
-	private String merchant_Uid;
-	private Date pay_Date;
+	private int productId;
+	private String productName;
+	private String productImg;
+	private String startDate;
+	private String endDate;
+	private String merchantUid;
+	private Date payDate;
 	
 	public Myinfo() {}
 	// 마이페이지 예약목록 페이징처리 
-	public Myinfo(int product_Id, String product_Name, String product_Img, String start_Date, String end_Date,
-			String merchant_Uid, Date pay_Date) {
+	public Myinfo(int productId, String productName, String productImg, String startDate, String endDate,
+			String merchantUid, Date payDate) {
 		super();
-		this.product_Id = product_Id;
-		this.product_Name = product_Name;
-		this.product_Img = product_Img;
-		this.start_Date = start_Date;
-		this.end_Date = end_Date;
-		this.merchant_Uid = merchant_Uid;
-		this.pay_Date = pay_Date;
+		this.productId = productId;
+		this.productName = productName;
+		this.productImg = productImg;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.merchantUid = merchantUid;
+		this.payDate = payDate;
 	}
 
-	public int getProduct_Id() {
-		return product_Id;
+	public int getProductId() {
+		return productId;
 	}
 
-	public void setProduct_Id(int product_Id) {
-		this.product_Id = product_Id;
+	public void setProduct_Id(int productId) {
+		this.productId = productId;
 	}
 
-	public String getProduct_Name() {
-		return product_Name;
+	public String getProductName() {
+		return productName;
 	}
 
-	public void setProduct_Name(String product_Name) {
-		this.product_Name = product_Name;
+	public void setProduct_Name(String productName) {
+		this.productName = productName;
 	}
 
 	public String getProduct_Img() {
-		return product_Img;
+		return productImg;
 	}
 
-	public void setProduct_Img(String product_Img) {
-		this.product_Img = product_Img;
+	public void setProduct_Img(String productImg) {
+		this.productImg = productImg;
 	}
 
-	public String getStart_Date() {
-		return start_Date;
+	public String getStartDate() {
+		return startDate;
 	}
 
-	public void setStart_Date(String start_Date) {
-		this.start_Date = start_Date;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
 	}
 
-	public String getEnd_Date() {
-		return end_Date;
+	public String getEndDate() {
+		return endDate;
 	}
 
-	public void setEnd_Date(String end_Date) {
-		this.end_Date = end_Date;
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
-	public String getMerchant_Uid() {
-		return merchant_Uid;
+	public String getMerchantUid() {
+		return merchantUid;
 	}
 
-	public void setMerchant_Uid(String merchant_Uid) {
-		this.merchant_Uid = merchant_Uid;
+	public void setMerchant_Uid(String merchantUid) {
+		this.merchantUid = merchantUid;
 	}
 
-	public Date getPay_Date() {
-		return pay_Date;
+	public Date getPayDate() {
+		return payDate;
 	}
 
-	public void setPay_Date(Date pay_Date) {
-		this.pay_Date = pay_Date;
+	public void setPay_Date(Date payDate) {
+		this.payDate = payDate;
 	}
 
 	@Override
 	public String toString() {
-		return "Myinfo [product_Id=" + product_Id + ", product_Name=" + product_Name + ", product_Img=" + product_Img
-				+ ", start_Date=" + start_Date + ", end_Date=" + end_Date + ", merchant_Uid=" + merchant_Uid
-				+ ", pay_Date=" + pay_Date + "]";
+		return "Myinfo [product_Id=" + productId + ", product_Name=" + productName + ", product_Img=" + productImg
+				+ ", start_Date=" + startDate + ", end_Date=" + endDate + ", merchant_Uid=" + merchantUid
+				+ ", pay_Date=" + payDate + "]";
 	}
 
 	

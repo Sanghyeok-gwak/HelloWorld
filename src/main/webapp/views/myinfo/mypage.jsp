@@ -1,4 +1,5 @@
 <%@ page import = "java.util.List" %>
+<%@ page import = "com.gd.hw.myinfo.model.vo.MyPoint" %>
 <%@ page import = "com.gd.hw.product.model.vo.Product" %>
 <%@ page import = "com.gd.hw.myinfo.model.vo.Myinfo" %>
 <%@ page import = "com.gd.hw.common.model.vo.PageInfo" %>
@@ -7,10 +8,7 @@
 <% 
 PageInfo pi = (PageInfo)request.getAttribute("pi");
 List<Myinfo> list = (List<Myinfo>)request.getAttribute("list");
-
-
-
-%> 
+int result = (Integer) request.getAttribute("re");%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -106,14 +104,14 @@ List<Myinfo> list = (List<Myinfo>)request.getAttribute("list");
     .pagination .page-item.active .page-link {
       background-color: #007AFF;
       /* 활성화된 버튼 배경색 */
-      border-color: #007AFF;
+      /*border-color: #007AFF;*/
       /* 활성화된 버튼 테두리 색상 */
       color: white;
       /* 활성화된 버튼의 텍스트 색상 */
     }
 
     .pagination .page-link:hover {
-      background-color: #0056b3;
+      background-color: #007AFF;
       /* 버튼 호버 시 배경색 */
       color: white;
       /* 버튼 호버 시 텍스트 색상 */
@@ -175,7 +173,7 @@ List<Myinfo> list = (List<Myinfo>)request.getAttribute("list");
                 <h5><a href="<%= contextPath %>/myinfo.us" style="color: gray; text-decoration-line: none;">내정보 관리<i class="fa-solid fa-play">
                 </h5></i></a></p>
                 <p>
-                <h5>적립금 0P</h5>
+                <h5>적립금 <%= result %>P</h5>
                 </p>
               </div>
             </div>
@@ -185,25 +183,17 @@ List<Myinfo> list = (List<Myinfo>)request.getAttribute("list");
               <div class="card-body" style="padding-bottom: 5px;">
                 <ul class="list-unstyled">
                   <li class="mb-3">
-                    <a href="#">
+                    <a href="<%= contextPath %>/myinfom.us?no=<%= loginUser.getUserNo() %>">
                       <h5>예약 / 결제</h5>
                     </a>
                   </li>
                   <li class="mb-3">
-                    <a href="#">
+                    <a href="<%= contextPath %>/myinfojj.us?no=<%= loginUser.getUserNo() %>">
                       <h5>찜</h5>
                     </a>
                   </li>
-                  <li class="mb-3">
-                    <a href="#">
-                      <h5>리뷰</h5>
-                    </a>
-                  </li>
-                  <li class="mb-3">
-                    <a href="#">
-                      <h5>고객센터</h5>
-                    </a>
-                  </li>
+
+
                 </ul>
               </div>
             </div>
@@ -236,20 +226,20 @@ List<Myinfo> list = (List<Myinfo>)request.getAttribute("list");
               <!-- 1 -->
               <% for(Myinfo m : list){ %>
                <div class="col-md-12 mb-3">
-              <h5><%= m.getPay_Date() %></h5>
-              <h5 style="font-size: 13px; color: lightgray;">예약 번호 :<%= m.getMerchant_Uid() %> </h5>
-              <input type="hidden" value="<%= m.getMerchant_Uid() %>" id="merId" >
+              <h5><%= m.getPayDate() %></h5>
+              <h5 style="font-size: 13px; color: lightgray;">예약 번호 :<%= m.getMerchantUid() %> </h5>
+              <input type="hidden" value="<%= m.getMerchantUid() %>" id="merId" >
               <div class="product-card">
                 <img src="<%= m.getProduct_Img() %>"  alt="Product Image">
                 <div class="card-body">
                   <br>
-                  <a href="productDetail.pr?productId=<%= m.getProduct_Id() %>" class="product-font">
-                    <h3 class="card-title"><%= m.getProduct_Name() %>
+                  <a href="productDetail.pr?productId=<%= m.getProductId() %>" class="product-font">
+                    <h3 class="card-title"><%= m.getProductName() %>
                     </h3>
                   </a>
-                  <p class="card-text" style="font-size: 18px;"><%= m.getStart_Date() %>~<%= m.getEnd_Date() %></p>
+                  <p class="card-text" style="font-size: 18px;"><%= m.getStartDate() %>~<%= m.getEndDate() %></p>
                   <dav style="display: flex; justify-content:end;">
-                  <a href="<%= contextPath %>/myinfodt.us?userNo=<%= loginUser.getUserNo() %>&productNo=<%=m.getProduct_Id() %>" type="button" class="btn" id="btn-4" style="margin-right: 15px;  width: 140px;  " onclick="fnPayListbtn();">결제내역</a>
+                  <a href="<%= contextPath %>/myinfodt.us?userNo=<%= loginUser.getUserNo() %>&productNo=<%=m.getProductId() %>" type="button" class="btn" id="btn-4" style="margin-right: 15px;  width: 140px;  " onclick="fnPayListbtn();">결제내역</a>
                   <a href="#" class="btn" id="btn-2" onclick="run();" style="width: 140px; ">환불하기</a></dav>
                 </div>
               </div>
@@ -266,9 +256,9 @@ List<Myinfo> list = (List<Myinfo>)request.getAttribute("list");
                 
                        
               <!-- Pagination -->
-               <div aria-label="Page navigation">
+               <div aria-label="d-flex justify-content-center">
               <ul class="pagination">
-                <li class='page-item active <%=pi.getCurrentPage() == 1 ? "disabled" : ""%>'>
+                <li class='page-item  <%=pi.getCurrentPage() == 1 ? "disabled" : ""%>'>
                   <a class="page-link" href='<%=contextPath%>/myinfom.us?page=<%=pi.getCurrentPage()-1%>'> < </a>
 								</li>
 	      	  <%for (int p=pi.getStartPage(); p<=pi.getEndPage(); p++) { %>

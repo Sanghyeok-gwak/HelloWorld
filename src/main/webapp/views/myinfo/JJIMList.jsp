@@ -1,5 +1,13 @@
+<%@ page import = "java.util.List" %>
+<%@ page import = "com.gd.hw.product.model.vo.Product" %>
+<%@ page import = "com.gd.hw.myinfo.model.vo.MyJjim" %>
+<%@ page import = "com.gd.hw.common.model.vo.PageInfo" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% 
+PageInfo pi = (PageInfo)request.getAttribute("pi");
+List<MyJjim> JJlist = (List<MyJjim>)request.getAttribute("JJlist");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,17 +96,6 @@
         align-self: flex-end;
       }
 
-      /* Heart Icon Styles */
-      .heart {
-        position: absolute;
-        top: 10px;
-        /* Adjust as needed */
-        right: 10px;
-        /* Adjust as needed */
-        color: red;
-        font-size: 24px;
-        cursor: pointer;
-      }
 
       .pagination {
         justify-content: center;
@@ -112,14 +109,14 @@
       .pagination .page-item.active .page-link {
         background-color: #007AFF;
         /* 활성화된 버튼 배경색 */
-        border-color: #007AFF;
+        /*border-color: #007AFF;*/
         /* 활성화된 버튼 테두리 색상 */
         color: white;
         /* 활성화된 버튼의 텍스트 색상 */
       }
 
       .pagination .page-link:hover {
-        background-color: #0056b3;
+        background-color: #007AFF;
         /* 버튼 호버 시 배경색 */
         color: white;
         /* 버튼 호버 시 텍스트 색상 */
@@ -151,24 +148,17 @@
         font-size: 16px;
         margin-bottom: 20px;
       }
-    </style>
-    <!-- 찜하기(하트) 활성화 하는 부분 -->
-    <script>
-      $(document).ready(function () {
-        $('.heart').click(function () {
-          $(this).toggleClass('fas far-heart');
-          alert('찜 목록에서 해제 되었습니다.');
-        });
-      });
 
-      function run() {
-        if (confirm('전체 상품을 찜 목록에서 삭제하시겠습니까?') == true) {
-          document.run.submit();
-        } else {
-          return false;
+      .heart {
+            display: flex;
+            color: red;
+            font-size: 32px;
+            cursor: pointer;
+            margin-right: 10px;
+            align-self: flex-end;
         }
-      }
-    </script>
+    </style>
+
 <body>
 <%@ include file="/views/common/header.jsp" %>
 
@@ -179,9 +169,9 @@
           <div class="JJIMList-side-user">
             <div class="card mb-4">
               <div class="card-body">
-                <h5 class="card-title">이준님<br>WELCOME</h5>
+                <h5 class="card-title"><%= loginUser.getUserName() %>님<br>WELCOME</h5>
                 <p class="card-text">
-                <h5><a href="#" style="color: gray; text-decoration-line: none;">내정보 관리<i class="fa-solid fa-play">
+                <h5><a href="<%= contextPath %>/myinfo.us" style="color: gray; text-decoration-line: none;">내정보 관리<i class="fa-solid fa-play">
                 </h5></i></a></p>
                 <p>
                 <h5>적립금 0P</h5>
@@ -194,26 +184,15 @@
               <div class="card-body" style="padding-bottom: 5px;">
                 <ul class="list-unstyled">
                   <li class="mb-3">
-                    <a href="#">
+                    <a href="<%= contextPath %>/myinfom.us?no=<%= loginUser.getUserNo() %>">
                       <h5>예약 / 결제</h5>
                     </a>
                   </li>
                   <li class="mb-3">
-                    <a href="#">
+                    <a href="<%= contextPath %>/myinfojj.us?no=<%= loginUser.getUserNo() %>">
                       <h5>찜</h5>
                     </a>
                   </li>
-                  <li class="mb-3">
-                    <a href="#">
-                      <h5>리뷰</h5>
-                    </a>
-                  </li>
-                  <li class="mb-3">
-                    <a href="#">
-                      <h5>고객센터</h5>
-                    </a>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
@@ -224,137 +203,123 @@
               <span style="font-size: 24px;">찜 목록</span>
             </div>
             <div class="JJIMList-list-btn">
-              <button id="btn-2" class="btn" style="width: 140px;" onclick="run();"> 전체삭제 </button>
+              <button id="btn-2" class="btn" style="width: 140px;" onclick="allDel();"> 전체삭제 </button>
             </div>
           </div>
           <hr>
           <div class="JJIMList-list-main-item">
             <!-- 여기채우세요 -->
-            <!-- <div class="list-main">
+            <%if( JJlist.isEmpty()) { %> 
+             <div class="list-main">
               <div class="content">
                 <p>
                 <h5>찜에 담긴 상품이 없습니다.</h5>
                 </p>
                 <i class="fa-solid fa-circle-exclamation" style="font-size: 100px;"></i>
-              </div> -->
-
+              </div> 
+							<% }else{ %>
+							
               <!-- 1 -->
+              <% for(MyJjim j : JJlist){ %>
                <div class="col-md-12 mb-3">
-              <h5>2023-11-20(수)</h5>
+              <h5><%= j.getAddedDate() %></h5>
+              <input type="hidden" value="<%= j.getMerchantUid() %>" id="merId" >
               <div class="product-card">
-                <img src="<%=contextPath %>/assets/image/imgTest.jpeg" alt="Product Image">
-                <i class="fa-solid fa-heart heart"></i>
+                <img src="<%= j.getProductImg() %>"  alt="Product Image">
                 <div class="card-body">
                   <br>
-                  <a href="#" class="product-font">
-                    <h3 class="card-title">유럽4국, 대한항공, 프라하 시내호텔 2연박 포함 전일정 4성, 프라하 필스너 양조장 레스토랑
+                  <a href="productDetail.pr?productId=<%= j.getProdcutId() %>" class="product-font">
+                    <h3 class="card-title"><%= j.getProductName() %>
                     </h3>
                   </a>
-                  <p class="card-text" style="font-size: 18px;">2024/01/01~2024/01/15</p>
-                  <a href="#" class="btn" id="btn-1" style="width: 140px;">결제하기</a>
-                </div>
+                  <p class="card-text" style="font-size: 18px;"><%= j.getStartDate() %>~<%= j.getEndDate() %></p>
+									<div class="d-flex justify-content-end">
+                  <div id="heart-icon-<%=j.getProdcutId()%>" class="fa-solid fa-heart heart" onclick="run();"></div><!-- 찜하트 -->
+                  <input type="hidden" value="<%=j.getProdcutId()%>" id="hidden_id">
+                  <a href="orderPage.us?productId=<%=j.getProdcutId()%>&aNum=0&cNum=0" id="btn-1" class="btn" style="width: 140px;">예약</a>
+                 </div>
+                </div>               
               </div>
             </div> 
+            	<% } %>
+            <% } %>
               <!-- 2 -->
-               <div class="col-md-12 mb-3">
-              <h5>2023-11-20(수)</h5>
-              <div class="product-card">
-                <img src="<%=contextPath %>/assets/image/imgTest.jpeg" alt="Product Image">
-                <i class="fa-solid fa-heart heart"></i>
-                <div class="card-body">
-                  <br>
-                  <a href="#" class="product-font">
-                    <h3 class="card-title">유럽4국, 대한항공, 프라하 시내호텔 2연박 포함 전일정 4성, 프라하 필스너 양조장 레스토랑
-                    </h3>
-                  </a>
-                  <p class="card-text" style="font-size: 18px;">2024/01/01~2024/01/15</p>
-                  <a href="#" class="btn" id="btn-1" style="width: 140px;">결제하기</a>
-                </div>
-              </div>
-            </div> 
+
               <!-- 3 -->
-               <div class="col-md-12 mb-3">
-              <h5>2023-11-20(수)</h5>
-              <div class="product-card">
-                <img src="<%=contextPath %>/assets/image/imgTest.jpeg" alt="Product Image">
-                <i class="fa-solid fa-heart heart"></i>
-                <div class="card-body">
-                  <br>
-                  <a href="#" class="product-font">
-                    <h3 class="card-title">유럽4국, 대한항공, 프라하 시내호텔 2연박 포함 전일정 4성, 프라하 필스너 양조장 레스토랑
-                    </h3>
-                  </a>
-                  <p class="card-text" style="font-size: 18px;">2024/01/01~2024/01/15</p>
-                  <a href="#" class="btn" id="btn-1" style="width: 140px;">결제하기</a>
-                </div>
-              </div>
-            </div> 
+      
               <!-- 4 -->
-               <div class="col-md-12 mb-3">
-              <h5>2023-11-20(수)</h5>
-              <div class="product-card">
-                <img src="<%=contextPath %>/assets/image/imgTest.jpeg" alt="Product Image">
-                <i class="fa-solid fa-heart heart"></i>
-                <div class="card-body">
-                  <br>
-                  <a href="#" class="product-font">
-                    <h3 class="card-title">유럽4국, 대한항공, 프라하 시내호텔 2연박 포함 전일정 4성, 프라하 필스너 양조장 레스토랑
-                    </h3>
-                  </a>
-                  <p class="card-text" style="font-size: 18px;">2024/01/01~2024/01/15</p>
-                  <a href="#" class="btn" id="btn-1" style="width: 140px;">결제하기</a>
-                </div>
-              </div>
-            </div> 
+              
               <!-- 5 -->
-               <div class="col-md-12 mb-3">
-              <h5>2023-11-20(수)</h5>
-              <div class="product-card">
-                <img src="<%=contextPath %>/assets/image/imgTest.jpeg" alt="Product Image">
-                <i class="fa-solid fa-heart heart"></i>
-                <div class="card-body">
-                  <br>
-                  <a href="#" class="product-font">
-                    <h3 class="card-title">유럽4국, 대한항공, 프라하 시내호텔 2연박 포함 전일정 4성, 프라하 필스너 양조장 레스토랑
-                    </h3>
-                  </a>
-                  <p class="card-text" style="font-size: 18px;">2024/01/01~2024/01/15</p>
-                  <a href="#" class="btn" id="btn-1" style="width: 140px;">결제하기</a>
-                </div>
-              </div>
-            </div> 
+               
               <!-- Pagination -->
-               <div aria-label="Page navigation">
+						<div aria-label="d-flex justify-content-center">
               <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
+                <li class='page-item  <%=pi.getCurrentPage() == 1 ? "disabled" : ""%>'>
+                  <a class="page-link" href='<%=contextPath%>/myinfojj.us?page=<%=pi.getCurrentPage()-1%>&no=<%= loginUser.getUserNo() %>'> < </a>
+								</li>
+	      	  <%for (int p=pi.getStartPage(); p<=pi.getEndPage(); p++) { %>
+	        	  <li class ='page-item <%=p == pi.getCurrentPage() ? "active" : "" %>'>
+  	       <a class="page-link" href="<%=contextPath%>/myinfojj.us?page=<%=p%>&no=<%= loginUser.getUserNo() %> "><%=p%></a>   
+    	      	</li>
+      	  	<%}%>
+
+        				<li class= 'page-item <%=pi.getCurrentPage() == pi.getMaxPage() ? "disabled" : ""%>'>
+          			  <a class="page-link" href="<%=contextPath%>/myinfojj.us?page=<%=pi.getCurrentPage()+1%>&no=<%= loginUser.getUserNo() %> " > > </a>
                 </li>
-                <li class="page-item active">
-                  <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">4</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span> 
-              </a>
-              </li>
               </ul>
-            </div>
+            </div>  						
           </div>
         </div>
       </div>
     </section>
           <%@ include file="/views/common/footer.jsp" %>
-    
+        <script>
+      $(document).ready(function () {
+        $('.heart').click(function () {
+          $(this).toggleClass('fas far-heart');
+          alert('찜 목록에서 해제 되었습니다.');
+        });
+      });
+      
+      
+      function run(){
+    	  
+    	  $.ajax({
+    		  url:'<%= contextPath%>/myinfoJjd.us',
+    		  data:{
+    			  userNo: <%= loginUser.getUserNo() %>,
+    				productId: $('#hidden_id').val()
+    		  },
+    		  success:function(res){
+    			  console.log(res);
+    			  location.reload();
+    			  
+    		  }
+    		  
+    	  })
+    	  
+    	  
+      }
+      
+     function allDel(){
+    	 $.ajax({
+    		 url:'<%= contextPath%>/myinfoall.us',
+    		 data:{
+    			 userNo: <%= loginUser.getUserNo() %>
+    		 },
+    		 success:function(res){
+    			 
+    			 if(confirm("전체삭제 하시겠습니까?")){
+    				 
+    				 console.log(res);
+    				 	alert('전체삭제 되었습니다');
+        			 location.reload(); 
+    			 }
+    			 
+    		 }
+    	 })
+     } 
+			
+    </script>
 </body>
 </html>

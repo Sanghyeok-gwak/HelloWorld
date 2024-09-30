@@ -101,7 +101,8 @@
           <tr>
             <th><h3>ID</h3></th>
             <td>
-              <input type="text" class="form-control" value="<%= loginUser.getUserId() %>" readonly id="userId" name="userId">
+              <input type="text" class="form-control" value="<%= loginUser.getUserId() %>" readonly id="userId" name="userId" disabled>
+ 							 <input type="hidden" value="<%= loginUser.getUserId() %>" name="userId" id="userId">       
             </td>
           </tr>
           <tr>

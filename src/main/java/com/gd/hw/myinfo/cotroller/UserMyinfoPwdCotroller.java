@@ -34,23 +34,33 @@ public class UserMyinfoPwdCotroller extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		Map<String, String>map = new HashMap<>();
-		map.put("userId",request.getParameter("userId"));
-		map.put("userPwd",request.getParameter("userPwd"));
+
+		Map<String, String> map = new HashMap<>();
+		map.put("userId", request.getParameter("userId"));
+		map.put("userPwd", request.getParameter("userPwd"));
 		map.put("updatePwd", request.getParameter("updatePwd"));
 		
-		User updateUn = new MyinfoService().updateUserPwd(map);
+		User updateMem = new MyinfoService().updateUserPwd(map);
 		
+		// 2. 응답
 		HttpSession session = request.getSession();
 		
-		if(updateUn == null) {
-			session.setAttribute("alertMsg", "비밀번호 변경 실패");
-		}else {
-			session.setAttribute("loginUser", updateUn);
-			session.setAttribute("alertMsg","비밀번호 변경 완료.");
+		if(updateMem == null) { // 실패
+			// 응답페이지 : 마이페이지 
+			// 응답데이터 : "비밀번호 변경 실패" alert 메세지
+			session.setAttribute("alertMsg", "비밀번호 변경이 실패하였습니다.");
+		}else { // 성공
+			// session에 담겨있는 회원 객체 갱신 
+			session.setAttribute("loginUser", updateMem);
+			// 응답페이지 : 마이페이지 
+			// 응답데이터 : "성공적으로 비밀번호가 변경되었습니다." alert 메세지
+			session.setAttribute("alertMsg", "성공적으로 비밀번호가 변경되었습니다.");
 		}
-		response.sendRedirect(request.getContextPath());
+		
+		// 성공이든 실패든 /web/myinfo.me   url 재요청 => 마이페이지로 포워딩
+		response.sendRedirect(request.getContextPath() + "/myinfo.us");
+		
+
 	}
 
 	/**

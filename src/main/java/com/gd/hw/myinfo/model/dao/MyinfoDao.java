@@ -16,6 +16,7 @@ import java.util.Properties;
 
 import com.gd.hw.category.model.dao.CategoryDao;
 import com.gd.hw.common.model.vo.PageInfo;
+import com.gd.hw.myinfo.model.vo.MyJjim;
 import com.gd.hw.myinfo.model.vo.MyOrderDt;
 import com.gd.hw.myinfo.model.vo.Myinfo;
 import com.gd.hw.product.model.vo.Product;
@@ -160,7 +161,7 @@ public class MyinfoDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, map.get("updatePwd"));
 			pstmt.setString(2, map.get("userId"));
-			pstmt.setString(3,map.get("userPwd"));
+			pstmt.setString(3, map.get("userPwd"));
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -265,7 +266,7 @@ public class MyinfoDao {
             						   rset.getInt("FINAL_PAY"),
             						   rset.getString("FLIGHT"),
             						   rset.getString("NAME"),
-            						   rset.getDate("BIRTHDAY"),
+            						   rset.getString("BIRTHDAY"),
             						   rset.getString("PASSPORT"),
             						   rset.getString("PAY_OP"),
             						   rset.getInt("TOTAL_PAY")
@@ -283,6 +284,156 @@ public class MyinfoDao {
 	}
 
 
+
+
+
+	public int selectMyinfoJJIMCount(Connection conn, int userNo) {
+		int jjimCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyinfoJJIMCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+	        if (rset.next()) {
+	            jjimCount = rset.getInt("FAVORITE_COUNT");
+	        }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		
+		return jjimCount;
+	}
+
+
+
+
+
+	public List<MyJjim> myinfoJJIMListList(Connection conn,PageInfo pi,  int userNo) {
+		List<MyJjim> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("myinfoJJIMListList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setInt(1, userNo);
+			
+			pstmt.setInt(2, startRow);
+			
+			pstmt.setInt(3, endRow);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) { 
+				list.add(new MyJjim(rset.getInt("PRODUCT_ID"),
+									rset.getString("PRODUCT_NAME"),
+									rset.getString("PRODUCT_IMG"),
+									rset.getString("START_DATE"),
+									rset.getString("END_DATE"),
+									rset.getString("MERCHANT_UID"),
+									rset.getDate("PAY_DATE"),
+									rset.getDate("ADDED_DATE"),
+									rset.getString("USER_NAME")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		
+		
+		return list;
+	}
+
+
+
+
+
+	public int deleteJjimOut(Connection conn, int userNo, int productId) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("deleteJjimOut");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+		        pstmt.setInt(1, userNo);
+	            pstmt.setInt(2, productId);
+	            
+	            result = pstmt.executeUpdate(); 
+	            
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        } finally {
+	            close(pstmt);
+	        }
+	        
+	        return result;
+	    }
+	
+	public int allDeleteJjimOut(Connection conn ,int userNo ) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("allDeleteJjimOut");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		  return result;
+		
+	}
+
+
+
+
+
+	public int selectPoint(Connection conn, int userNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectPoint");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				int pointP = rset.getInt("POINT_P");
+                int pointU = rset.getInt("POINT_U");
+                
+                result = pointP - pointU;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		} 
+		return result;
+	}
 
 
 
