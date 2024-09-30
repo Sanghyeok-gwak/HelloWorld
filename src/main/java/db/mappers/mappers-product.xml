@@ -96,22 +96,32 @@
 
 	<!-- productDetail 상세피이지 조회용 -->
 	<entry key="selectProductById">
-		SELECT *
+	SELECT *
 		FROM PRODUCT
-		WHERE PRODUCT_ID = ?
+	 WHERE PRODUCT_ID = ?
 	</entry>
 
 	<!-- 유저 찜하기 추가, 삭제, 불러오기 -->
 	<entry key="insertFavorite">
-		INSERT INTO FAVORITES (USER_NO, PRODUCT_ID,
-		ADDED_DATE)
-		VALUES (?, ?, SYSDATE)
+		INSERT INTO FAVORITES 
+											(
+										  USER_NO
+									  , PRODUCT_ID
+									  , ADDED_DATE)
+							 VALUES 
+											(
+											?
+										, ?
+										, SYSDATE
+										  )
 	</entry>
 
 	<entry key="deleteFavorite">
-		DELETE FROM FAVORITES
-		WHERE USER_NO = ? AND PRODUCT_ID
-		= ?
+		DELETE 
+		  FROM FAVORITES
+     WHERE 
+		       USER_NO = ? 
+		   AND PRODUCT_ID = ?
 	</entry>
 
 	<entry key="getFavoriteList">
@@ -123,30 +133,52 @@
 	<!-- 리뷰 추가 및 조회 -->
 
 	<entry key="insertReview">
-		INSERT INTO REVIEW (REVIEW_NO, USER_NO, CONTENT,
-		RATING, WRITE_DATE,
-		MERCHANT_UID)
-		VALUES (SEQ_REVIEW.NEXTVAL, ?, ?, ?,
-		SYSDATE, 'MER_UID6')
+		INSERT INTO REVIEW 
+		                  (
+		                   REVIEW_NO
+		                 , USER_NO
+		                 , CONTENT
+		                 , RATING
+		                 , WRITE_DATE
+		                 , MERCHANT_UID
+		                   )
+		           VALUES (
+		           			  SEQ_REVIEW.NEXTVAL
+		           			, ?
+		           			, ?
+		           			, ?
+		           			, SYSDATE
+		           			, 'MER_UID6'
+				           		)
 	</entry>
 
 
 	<entry key="selectReview">
-		SELECT R.REVIEW_NO, R.USER_NO, R.CONTENT, R.RATING,
-		R.WRITE_DATE,
-		P.PRODUCT_ID
-		FROM REVIEW R
-		JOIN "ORDER" O ON R.MERCHANT_UID
-		= O.MERCHANT_UID
-		JOIN PRODUCT P ON O.PRODUCT_ID = P.PRODUCT_ID
-		WHERE
-		P.PRODUCT_ID = ?
+		SELECT 
+				   R.REVIEW_NO
+				 , R.USER_NO
+				 , R.CONTENT
+				 , R.RATING
+				 , R.WRITE_DATE
+				 , P.PRODUCT_ID
+		  FROM REVIEW R
+		  JOIN "ORDER" O ON R.MERCHANT_UID = O.MERCHANT_UID
+	  	JOIN PRODUCT P ON O.PRODUCT_ID = P.PRODUCT_ID
+	   WHERE
+	         P.PRODUCT_ID = ?
 	</entry>
 
+
 		<entry key="filterProducts">
-        SELECT P.PRODUCT_ID, P.PRODUCT_NAME, P.PRODUCT_IMG, P.START_DATE, P.END_DATE, P.A_PRICE
-        FROM PRODUCT P
-        WHERE P.PRODUCT_NAME LIKE ?
+        SELECT
+               P.PRODUCT_ID
+             , P.PRODUCT_NAME
+             , P.PRODUCT_IMG
+             , P.START_DATE
+             , P.END_DATE
+             , P.A_PRICE
+          FROM PRODUCT P
+         WHERE P.PRODUCT_NAME LIKE ?
     </entry>
 
 
