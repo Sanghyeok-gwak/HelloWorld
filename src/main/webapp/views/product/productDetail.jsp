@@ -74,20 +74,18 @@ h5 {
 }
 
 .heart-icon {
-	position: absolute;
-	top: 10px;
+	top: 5px;
 	right: 5px;
 	color: red;
-	font-size: 24px;
+	font-size: 29px;
 	cursor: pointer;
 }
 
 .share-icon {
-	position: absolute;
-	top: 10px;
+	top: 5px;
 	right: 5px;
 	color: black;
-	font-size: 24px;
+	font-size: 29px;
 	cursor: pointer;
 }
 
@@ -230,17 +228,7 @@ h5 {
 				<div class="col-md-12">
 					<h3><%=product.getProductName()%></h3>
 				</div>
-
-				<br>
-
-				<div class="col-md-12 Rating">
-					<span class="fa fa-star"></span> 
-					<span class="fa fa-star" data-value="2"></span> 
-					<span class="fa fa-star" data-value="3"></span>
-					<span class="fa fa-star" data-value="4"></span> 
-					<span class="fa fa-star" data-value="5"></span> 
-					<a href="#" style="color: black;" data-toggle="modal" data-target="#reviewModal"></a>
-				</div>
+			
 
 				<br>
 
@@ -251,15 +239,20 @@ h5 {
 				%>
 
 				<!-- 상품 상세 페이지에서 가격 부분 -->
+					<div class="col-md-12 d flex justify-content-end align-items-center">
+					<i class="fas fa-share-alt share-icon" style="margin-right: 20px;"></i>
+
+					<i id="heart-icon-<%=product.getProductId()%>"
+						class="far fa-heart heart-icon" style="margin-right: 90px;"
+						
+						onclick="toggleFavorite(<%=product.getProductId()%>, this)"></i>
+						
+					</div>
+					<br>
 				<h5>&nbsp;&nbsp;&nbsp;&nbsp;성인 1명</h5>
 				<div class="col-md-12 d-flex justify-content-end align-items-center">
 					<h1 style="flex-grow: 1;"><%=formattedAdultPrice%>원~ </h1>
 
-					<i class="fas fa-share-alt share-icon" style="margin-right: 250px;"></i>
-
-					<i id="heart-icon-<%=product.getProductId()%>"
-						class="far fa-heart heart-icon" style="margin-right: 200px;"
-						onclick="toggleFavorite(<%=product.getProductId()%>, this)"></i>
 						
 						
 				</div>
