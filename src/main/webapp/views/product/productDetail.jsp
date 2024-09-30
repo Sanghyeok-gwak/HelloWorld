@@ -110,7 +110,7 @@ h5 {
     border-radius: 10px; /* 둥근 모서리 적용 */
     color: black; /* 텍스트 색상 검정 */
     font-size: 20px; /* 텍스트 크기 조절 */
-    transition: background-color 0.3s, color 0.3s, border-color s; /* 배경, 색상, 테두리 변화 시 애니메이션 적용 */
+     transition: background-color 0.3s ease, color 0.3s ease; /* 배경, 텍스트 색상 변화 시 애니메이션 적용 */
     display: block; /* 버튼이 전체 영역을 차지하도록 설정 */
     width: 100%; /* 버튼이 부모 요소의 전체 너비를 차지 */
     text-align: center; /* 텍스트를 중앙 정렬 */
@@ -131,15 +131,16 @@ h5 {
 }
 
 .tabBtn:hover {
-    color: white;
-    background-color: #007AFF;
-    border-color: #007AFF;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    color: white; /* 호버 시 텍스트 색상 변경 */
+    background-color: #007AFF; /* 호버 시 배경색 변경 */
+    border-color: #007AFF; /* 호버 시 테두리 색상 변경 */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 추가 */
 }
 
+/* 활성화 상태 */
 .tabBtn.active {
-    color: white;
-    background-color: #007AFF;
+    color: white; /* 활성화 상태 텍스트 색상 */
+    background-color: #007AFF; /* 활성화 상태 배경색 */
 }
 
 .tabContent {
@@ -326,7 +327,7 @@ h5 {
 
 				<br> <a id="reservationLink" class="btn btn-primary"
 					style="width: 83%; margin-left: 60px;"
-					href="orderPage.us?productId=<%=product.getProductId()%>&aNum=0&cNum=0"">예약</a>
+					href="orderPage.us?productId=<%=product.getProductId()%>&aNum=0&cNum=0">예약</a>
 				<br> <br>
 
 			</div>
@@ -343,15 +344,15 @@ h5 {
 		</div>
 
 		<div id="product-info" class="tabContent" style="display: block;">
-			<img src="<%=contextPath%>/assets/image/test.png" alt="상품 소개 이미지">
+			<img src="<%=contextPath%>/assets/image/상품소개 유럽 스페인.png" alt="상품 소개 이미지">
 		</div>
 
 		<div id="itinerary" class="tabContent" style="display: none;">
-			<img src="<%=contextPath%>/assets/image/test.png" alt="일정표 이미지">
+			<img src="<%=contextPath%>/assets/image/일정표 수정본2.png" alt="일정표 이미지">
 		</div>
 
 		<div id="details" class="tabContent" style="display: none;">
-			<img src="<%=contextPath%>/assets/image/test.png" alt="상세 정보 이미지">
+			<img src="<%=contextPath%>/assets/image/상세정보 수정본1.png" alt="상세 정보 이미지">
 		</div>
 
 		<%
