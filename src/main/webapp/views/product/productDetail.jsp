@@ -110,7 +110,8 @@ h5 {
     border-radius: 10px; /* 둥근 모서리 적용 */
     color: black; /* 텍스트 색상 검정 */
     font-size: 20px; /* 텍스트 크기 조절 */
-     transition: background-color 0.3s ease, color 0.3s ease; /* 배경, 텍스트 색상 변화 시 애니메이션 적용 */
+    transition: background-color 1s;
+    /* transition: background-color 0.3s ease, color 0.3s ease; 배경, 텍스트 색상 변화 시 애니메이션 적용 */
     display: block; /* 버튼이 전체 영역을 차지하도록 설정 */
     width: 100%; /* 버튼이 부모 요소의 전체 너비를 차지 */
     text-align: center; /* 텍스트를 중앙 정렬 */
