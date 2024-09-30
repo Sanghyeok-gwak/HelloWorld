@@ -1,12 +1,13 @@
 <%@ page import="com.gd.hw.order.model.vo.OrderAd"%>
+<%@page import="com.gd.hw.common.model.vo.PageInfo"%>
 <%@ page import= "com.gd.hw.myinfo.model.vo.MyOrderDt" %>
 <%@ page import="com.gd.hw.order.model.vo.Person"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
     OrderAd order = (OrderAd)request.getAttribute("order");
-    List<Person> list = (List<Person>)request.getAttribute("list");
-	
+    List<Person> list = (List<Person>)request.getAttribute("plist");
+		
 %>
 
 <!DOCTYPE html>
@@ -50,8 +51,8 @@
         }
 </style>
 <body>
- <%@ include file="/views/common/header.jsp" %>
 
+ <%@ include file="/views/common/header.jsp" %>
 
 	<div class="helloworld-main layout">
         <div class="side">
@@ -67,8 +68,6 @@
                     <ul class="list-unstyled">
                         <li class="mb-3"><a href="<%= contextPath %>/myinfom.us?no=<%= loginUser.getUserNo() %>"><h5>예약 / 결제</h5></a></li>
                         <li class="mb-3"><a href="<%= contextPath %>/myinfojj.us?no=<%= loginUser.getUserNo() %>"><h5>찜</h5></a></li>
-                        
-                        
                     </ul>
                 </div>
             </div>
@@ -85,6 +84,7 @@
             
             			<div class="admin-page-main-item w-75 m-auto">
 				        <!-- 여기부터 -->
+				        
         <div class="mb-3">
           <h1>결제관리</h1>
         </div>
@@ -104,7 +104,41 @@
           <div class="row  pt-3">
             <hr>
             <div id="table2" class="col">
-              
+              <table class="table pb-3">
+                <tr>
+                  <th>인원</th>
+                  <td colspan="2">성인 <%= order.getAdult()%>명, 유아<%= order.getChild()%>명</td>
+                </tr>
+                <tr>
+                  <th>총 결제금액</th>
+                  <td><%= order.getAdult()+order.getChild()%>명</td>
+                  <td><%= order.getFinalPay()+order.getPointU() %>원</td>
+                </tr>
+                <tr>
+                  <th>보험</th>
+                  <td><%=order.getBhClass()%>/<%= order.getPrice()%>원</td>
+                  <td>총 보험금액 : <%= order.getPrice()*(order.getAdult()+order.getChild())%></td>
+                </tr>
+              </table>
+            </div>
+            <div id="table3" class="col">
+              <table class="table pb-3">
+                <tr>
+                  <th>사용적립금</th>
+                  <td><%= order.getPointU()%>원</td>
+                </tr>
+                <tr>
+                  <th>최종 결제금액</th>
+                  <td style="color: red;"><%=order.getFinalPay() %>원</td>
+                </tr>
+                <tr>
+                  <th>적립액</th>
+                  <%if(order.getPointU()>0){ %>
+                  <td>적립불가</td>
+                  <%}else{ %>
+                 <td><%=(int)Math.ceil(order.getFinalPay()*0.01)%>원</td>
+                </tr>
+              </table>
             </div>
           </div>
           <div id="person" class="pt-4">
@@ -143,21 +177,17 @@
                   <td><%=p.getPassport() %></td>
                   <td><%=p.getPassportEx() %></td>
                 </tr>
-                
-              </table>
-          </div>
-        </div>
-        <!--테이블 영역 끝-->
-        <!--버튼 영역 시작-->
-
-      </div>
-    </div>
-                <%} %> 
+                <%
+				    }
+				%>
+      					</div>
             </table>
-            <div class="inventory" ><a href="<%= contextPath %>/myinfom.us?no=<%= loginUser.getUserNo() %>" id="btn-1" class="btn" style="float:right;width: 150px;"  >목록으로</a></div>
+            <div class="inventory" ><a href="<%= contextPath%>/myinfom.us?no=<%=loginUser.getUserNo() %>" id="btn-1" class="btn" style="float:right;width: 150px;">목록으로</a></div>
         </main>
     </div>
-              <%@ include file="/views/common/footer.jsp" %>
+             
+             
+          <%@ include file="/views/common/footer.jsp" %>
     
 </body>
 </html>

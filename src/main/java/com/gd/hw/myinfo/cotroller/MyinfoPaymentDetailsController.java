@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gd.hw.myinfo.model.service.MyinfoService;
 import com.gd.hw.myinfo.model.vo.MyOrderDt;
+import com.gd.hw.order.model.service.OrderService;
+import com.gd.hw.order.model.vo.OrderAd;
+import com.gd.hw.order.model.vo.Person;
 
 /**
  * Servlet implementation class MyinfoPaymentDetailsController
@@ -38,6 +41,7 @@ public class MyinfoPaymentDetailsController extends HttpServlet {
 	    String productNo = request.getParameter("productNo");
 	    
 	   
+	    
 		
         List<MyOrderDt>list  = new MyinfoService().myinfoPaymentdetails(userNo, productNo);
         
@@ -45,13 +49,19 @@ public class MyinfoPaymentDetailsController extends HttpServlet {
 		
        	int userNum = Integer.parseInt(request.getParameter("userNo"));
         MyinfoService myinfoService = new MyinfoService();
-
         int result = myinfoService.selectPoint(userNum);
         
+        String mUid = request.getParameter("mUid");
+        
+        OrderAd order = new OrderService().selectOrderByMerUid(mUid);
+        List<Person> plist = new OrderService().selectAllPersonByMerUid(mUid);
+        
+        request.setAttribute("plist",plist );
+        request.setAttribute("order",order);
         request.setAttribute("result", result);
         
         
-        
+       
 		request.getRequestDispatcher("/views/myinfo/myparticular.jsp").forward(request, response);
         
 

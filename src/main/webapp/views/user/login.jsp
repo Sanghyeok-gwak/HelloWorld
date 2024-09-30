@@ -181,6 +181,17 @@ document.getElementById('btn-1').addEventListener('click', function() {
         document.cookie = "savedUserId=; path=/; max-age=0";
     }
 });
+
+
+function fnLoginCheck(){
+	
+	console.log($('#id').val());
+	console.log($('#pwd').val());
+	
+}
+
+
+
 </script>
 </body>
 </html>
