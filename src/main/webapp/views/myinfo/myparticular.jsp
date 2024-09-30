@@ -74,18 +74,8 @@
         </div>
 
         <main class="content-wrapper">
-            <h3>전체 예약내역</h3>
-            <hr>
-            <div class="information">
-                <h3>여행자 정보</h3>
-                <br>
-            </div>
-            <table class="details">
             
-            			<div class="admin-page-main-item w-75 m-auto">
-				        <!-- 여기부터 -->
-				        
-        <div class="mb-3">
+            <div class="mb-3">
           <h1>결제관리</h1>
         </div>
         <div class="pt-3">
@@ -137,6 +127,7 @@
                   <td>적립불가</td>
                   <%}else{ %>
                  <td><%=(int)Math.ceil(order.getFinalPay()*0.01)%>원</td>
+                  <%} %>
                 </tr>
               </table>
             </div>
@@ -180,9 +171,10 @@
                 <%
 				    }
 				%>
-      					</div>
-            </table>
-            <div class="inventory" ><a href="<%= contextPath%>/myinfom.us?no=<%=loginUser.getUserNo() %>" id="btn-1" class="btn" style="float:right;width: 150px;">목록으로</a></div>
+              </table>
+          </div>
+        </div>
+           <div> <button class="btn" id="btn-1" onclick="history.back()"> 목록으로 </button></div>
         </main>
     </div>
              

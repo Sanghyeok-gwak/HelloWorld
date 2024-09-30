@@ -148,6 +148,10 @@ int result = (Integer) request.getAttribute("re");%>
 			background-color: #007AFF;
 			color: white;
     }
+    #btn-2{
+    display: flex;
+    justify-content: center;
+    }
  </style>
  <script>
  function run() {
@@ -240,7 +244,7 @@ int result = (Integer) request.getAttribute("re");%>
                   <p class="card-text" style="font-size: 18px;"><%= m.getStartDate() %>~<%= m.getEndDate() %></p>
                   <dav style="display: flex; justify-content:end;">
                   <a href="<%= contextPath %>/myinfodt.us?userNo=<%= loginUser.getUserNo() %>&productNo=<%=m.getProductId() %>&mUid=<%=m.getMerchantUid() %>"type="button" class="btn" id="btn-4" style="margin-right: 15px;  width: 140px;  " onclick="fnPayListbtn();">결제내역</a>
-                  <a href="#" class="btn" id="btn-2" onclick="run();" style="width: 140px; ">환불하기</a></dav>
+                  <a href="#" class="btn" id="btn-2" onclick="run();" style="width: 140px display: none; ">환불하기</a></dav>
                 </div>
               </div>
             </div>         
