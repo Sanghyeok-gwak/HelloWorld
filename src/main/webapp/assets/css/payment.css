@@ -1,3 +1,4 @@
+
 .helloworld-main {
   max-width: 1200px;
   margin: auto;
@@ -286,16 +287,16 @@ h5 {
   border: 2px solid #696969;
   width: 20%;
   font-size: 15px;
-  	
+     
   
 }
 
 .order-window-2-menu:hover{
-	  cursor: pointer; 
+     cursor: pointer; 
 }
 
 .order-window-2-dt{
-	  mouseover: pointer; 
+     mouseover: pointer; 
 }
 .cancle-provision-content {
   border: 2px solid #696969;
@@ -428,6 +429,7 @@ h5 {
 
 .form-group h3 {
   margin: 0 auto;
+
   padding: 20px 20px;
 }
 
@@ -689,5 +691,5 @@ h5 {
 }
 
 order-window-2-dt {
-	  cursor: pointer; 
+     cursor: pointer; 
 }

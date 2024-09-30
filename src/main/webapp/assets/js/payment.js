@@ -56,8 +56,8 @@ function updateForm() {
 
     // 기존 입력 필드 삭제
     travelerForms.innerHTML = '';
-		
-		// 성인 입력값 수정예정
+      
+      // 성인 입력값 수정예정
     // 성인 입력 필드 추가
     for (let i = 2; i <= adultCount; i++) {
         const adultForm = `

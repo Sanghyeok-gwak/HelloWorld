@@ -34,187 +34,48 @@ public class OrderDao {
    
    }
 
-   public ProductOr selectProductById(Connection conn, int productId) {
-      
-      ProductOr p = null;
-      PreparedStatement pstmt = null;
-      ResultSet rset = null;
-      String sql = prop.getProperty("selectProductById");
-      
-      try {
-         pstmt = conn.prepareStatement(sql);
-         pstmt.setInt(1, productId);
-         rset = pstmt.executeQuery();
-         
-         // productId ->                  
-         if(rset.next()) {
-            p = new ProductOr (productId, rset.getString("PRODUCT_NAME")
-                                 ,rset.getString("DAY")
-                                 ,rset.getString("FLIGHT")
-                                 ,rset.getInt("A_PRICE")
-                                 ,rset.getInt("C_PRICE"));
-         }
-         
-      } catch (SQLException e) {
-         
-         e.printStackTrace();
-      }finally {
-         close(rset);
-         close(pstmt);
-      }
-      return p;
-   }
-   
-   public int insertPayMent(Connection conn, Order o) {
-      int result = 0;
-      PreparedStatement pstmt = null;
-      String sql = prop.getProperty("insertPayMent");
-
-      try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, o.getImpUid());
-            pstmt.setInt(2, o.getTotalPay());
-            result = pstmt.executeUpdate();
-      
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         close(pstmt);
-      }
-
-      return result;
-   }
-
-   public int insertOrder(Connection conn, Order o) {
-      int result = 0;
-      PreparedStatement pstmt = null;
-      String sql = prop.getProperty("insertOrder");
-
-      try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,o.getMerchantUid());
-            pstmt.setInt(2, o.getUserNo());
-            pstmt.setInt(3,o.getProductId());
-            pstmt.setInt(4, o.getBhNo());
-            pstmt.setString(5, o.getImpUid());
-            pstmt.setInt(6, o.getAdult());
-            pstmt.setInt(7, o.getChild());
-            pstmt.setInt(8, o.getPointU());
-            pstmt.setInt(9, o.getTotalPay() + o.getPointU());
-            pstmt.setString(10, o.getFlight());
-            result = pstmt.executeUpdate();
-      
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         close(pstmt);
-      }
-
-      return result;
-   }
-   
-   public int insertPerSon(Connection conn, Person p) {
-      int result = 0;
-      PreparedStatement pstmt = null;
-      String sql = prop.getProperty("insertPerSon");
-
-      try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, p.getMerUid());
-            pstmt.setString(2, p.getSurName());
-            pstmt.setString(3, p.getEngName());
-            pstmt.setString(4, p.getBirthday());
-            pstmt.setString(5, p.getPhone());
-            pstmt.setString(6, p.getGender());
-            pstmt.setString(7, p.getNation());
-            pstmt.setString(8, p.getPassport());
-            pstmt.setString(9, p.getPassportEx());
-            pstmt.setString(10, p.getStatus());
-            pstmt.setString(11, p.getDiv());
-            result = pstmt.executeUpdate();
-      
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         close(pstmt);
-      }
-
-      return result;
-   }
-   
-   public Person selectComletePerson(Connection conn, String merchantUid) {
-      Person p = new Person();
-      PreparedStatement pstmt = null;
-      ResultSet rset = null;
-      String sql = prop.getProperty("selectComletePerson");
-
-      try {
-         pstmt = conn.prepareStatement(sql);
-         
-         pstmt.setString(1, merchantUid);
-         rset = pstmt.executeQuery();
-
-         if (rset.next()) {
-            p.setEngName(rset.getString("NAME"));
-            p.setPhone(rset.getString("PHONE"));
-            p.setBirthday(rset.getString("BIRTHDAY"));
-         }
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         close(rset);
-         close(pstmt);
-      }
-      return p;
-   }
-   
-   public int selectMyPoint(Connection conn, int no) {
-      int result = 0;
-      PreparedStatement pstmt = null;
-      ResultSet rset = null;
-      String sql = prop.getProperty("selectMyPoint");
-      
-      
-      try {
-         pstmt = conn.prepareStatement(sql);
-         pstmt.setInt(1, no);
-         rset = pstmt.executeQuery();
-         
-         if(rset.next()) {
-            result = rset.getInt("POINT_P") - rset.getInt("POINT_U");
-         }
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         close(rset);
-         close(pstmt);
-      }
-      
-      return result;
-   }
-
-	public int insertOrder(Connection conn, Order o) {
+	public ProductOr selectProductById(Connection conn, int productId) {
 		
-		return 0;
+		ProductOr p = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectProductById");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, productId);
+			rset = pstmt.executeQuery();
+			
+			// productId ->						
+			if(rset.next()) {
+				p = new ProductOr (productId, rset.getString("PRODUCT_NAME")
+										   ,rset.getString("DAY")
+										   ,rset.getString("FLIGHT")
+										   ,rset.getInt("A_PRICE")
+										   ,rset.getInt("C_PRICE"));
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return p;
 	}
 	
-	public int insertPerSon(Connection conn, List<Person> list) {
-		int count = list.size();
+	public int insertPayMent(Connection conn, Order o) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertPerSon");
+		String sql = prop.getProperty("insertPayMent");
 
 		try {
-			for (Person p : list) {
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, p.getGender()); // 어우많아 채우는건 이따가
-				result += pstmt.executeUpdate();
-			}
-			if(result == count) {
-				result = 1;
-			}else {
-				result = 0;
-			}
+				pstmt.setString(1, o.getImpUid());
+				pstmt.setInt(2, o.getTotalPay());
+				result = pstmt.executeUpdate();
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -223,6 +84,115 @@ public class OrderDao {
 
 		return result;
 	}
+
+	public int insertOrder(Connection conn, Order o) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertOrder");
+
+		try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1,o.getMerchantUid());
+				pstmt.setInt(2, o.getUserNo());
+				pstmt.setInt(3,o.getProductId());
+				pstmt.setInt(4, o.getBhNo());
+				pstmt.setString(5, o.getImpUid());
+				pstmt.setInt(6, o.getAdult());
+				pstmt.setInt(7, o.getChild());
+				pstmt.setInt(8, o.getPointU());
+				pstmt.setInt(9, o.getTotalPay() + o.getPointU());
+				pstmt.setString(10, o.getFlight());
+				result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+	
+	public int insertPerSon(Connection conn, Person p) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertPerSon");
+
+		try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, p.getMerUid());
+				pstmt.setString(2, p.getSurName());
+				pstmt.setString(3, p.getEngName());
+				pstmt.setString(4, p.getBirthday());
+				pstmt.setString(5, p.getPhone());
+				pstmt.setString(6, p.getGender());
+				pstmt.setString(7, p.getNation());
+				pstmt.setString(8, p.getPassport());
+				pstmt.setString(9, p.getPassportEx());
+				pstmt.setString(10, p.getStatus());
+				pstmt.setString(11, p.getDiv());
+				result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+	
+	public Person selectComletePerson(Connection conn, String merchantUid) {
+		Person p = new Person();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectComletePerson");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, merchantUid);
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				p.setEngName(rset.getString("NAME"));
+				p.setPhone(rset.getString("PHONE"));
+				p.setBirthday(rset.getString("BIRTHDAY"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return p;
+	}
+	
+	public int selectMyPoint(Connection conn, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyPoint");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("POINT_P") - rset.getInt("POINT_U");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 //-----------------------관리자파트--------------------------
    public int selectOrderListCount(Connection conn) {
       int listCount = 0;

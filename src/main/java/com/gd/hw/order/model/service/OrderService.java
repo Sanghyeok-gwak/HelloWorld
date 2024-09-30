@@ -28,40 +28,40 @@ public ProductOr selectProductById(int productId) {
 }
 
 public int insertOrder(Order o, Person p) {
-   Connection conn = getConnection();
-   
-   int result = oDao.insertPayMent(conn,o);
-   if(result > 0) {
-      System.out.println("1단계성공");
-      result += oDao.insertOrder(conn,o);
-      if(result > 1) {
-         System.out.println("2단계성공");
-         result += oDao.insertPerSon(conn,p);
-         if(result > 2) {
-            commit(conn);
-         }else {
-            rollback(conn);
-         }
-      }else {
-         rollback(conn);
-      }
-   }else {
-      rollback(conn);
-   }
-   close(conn);
-   return result;
+	Connection conn = getConnection();
+	
+	int result = oDao.insertPayMent(conn,o);
+	if(result > 0) {
+		System.out.println("1단계성공");
+		result += oDao.insertOrder(conn,o);
+		if(result > 1) {
+			System.out.println("2단계성공");
+			result += oDao.insertPerSon(conn,p);
+			if(result > 2) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+		}else {
+			rollback(conn);
+		}
+	}else {
+		rollback(conn);
+	}
+	close(conn);
+	return result;
 }
 public Person selectComletePerson(String merchantUid) {
-   Connection conn = getConnection();
-   Person p = oDao.selectComletePerson(conn,merchantUid);
-   close(conn);
-   return p;
+	Connection conn = getConnection();
+	Person p = oDao.selectComletePerson(conn,merchantUid);
+	close(conn);
+	return p;
 }
 public int selectMyPoint(int id) {
-   Connection conn = getConnection();
-   int result = oDao.selectMyPoint(conn,id);
-   close(conn);
-   return result;
+	Connection conn = getConnection();
+	int result = oDao.selectMyPoint(conn,id);
+	close(conn);
+	return result;
 }
 
 
@@ -104,20 +104,6 @@ public int selectMyPoint(int id) {
       List<Person> list = oDao.selectAllPersonByMerUid(conn, merUid);
       close(conn);
       return list;
-   }
-
-   public int DeleteOrderByMerUid(String delUid) {
-      Connection conn = getConnection();
-      
-      int result = oDao.DeleteOrderByMerUid(conn,delUid);
-      
-      if(result>0) {
-         commit(conn);
-      }else {
-         rollback(conn);
-      }
-      close(conn);
-      return result;
    }
 
 //-----------------------관리자파트 끝-----------------------

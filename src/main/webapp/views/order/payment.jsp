@@ -2,7 +2,7 @@
    pageEncoding="UTF-8"%>
 <%@ page import="com.gd.hw.order.model.vo.ProductOr" %>
 <%   ProductOr p = (ProductOr) request.getAttribute("p"); 
-    int point = (int)request.getAttribute("point");
+	 int point = (int)request.getAttribute("point");
 %>
 <!DOCTYPE html>
 <html>
@@ -526,7 +526,7 @@
                   <td class="option-info-title">할인금액</td>
                   <td>
                      <div class="m-point">
-    
+ 	
                         <input type="text" value="0" class="pay-input"  id="usePoint" style="text-align:right"> 원 사용
                         <span style="margin-left:100px;">보유한 point : <%=point %></span>
                      </div>
@@ -559,15 +559,15 @@
             </form>
          </div>
       </div>
-   </section>
-   <!-- 결제 정보 -->
-   <%@ include file="/views/common/footer.jsp"%>
+	</section>
+	<!-- 결제 정보 -->
+	<%@ include file="/views/common/footer.jsp"%>
 
 
 
-   <!-- 카카오페이 api 연결 결제시도-->
-   <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-   <script>
+	<!-- 카카오페이 api 연결 결제시도-->
+	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+	<script>
             
            // 객체 초기화
            var IMP = window.IMP;

@@ -72,7 +72,7 @@
                     </tbody>
                 </table>
 
-         <div class="text-center mt-4">
+   	   <div class="text-center mt-4">
             <a href="<%=contextPath%>" id="mainPageBtn" class="btn btn-primary">메인 화면으로 돌아가기
               <!-- 페이지 넘기는걸로  -->
             </a>
