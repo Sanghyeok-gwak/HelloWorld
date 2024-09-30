@@ -105,6 +105,20 @@ public int selectMyPoint(int id) {
       close(conn);
       return list;
    }
+   
+   public int DeleteOrderByMerUid(String delUid) {
+	      Connection conn = getConnection();
+	      
+	      int result = oDao.DeleteOrderByMerUid(conn,delUid);
+	      
+	      if(result>0) {
+	         commit(conn);
+	      }else {
+	         rollback(conn);
+	      }
+	      close(conn);
+	      return result;
+	   }
 
 //-----------------------관리자파트 끝-----------------------
 
