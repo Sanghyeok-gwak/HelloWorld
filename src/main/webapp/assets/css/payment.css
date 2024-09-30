@@ -185,6 +185,7 @@ h5 {
   justify-content: center;
   align-items: center;
   margin-bottom: 60px;
+  cursor: pointer; 
 }
 
 .product-name h1 {
@@ -206,6 +207,7 @@ h5 {
   background-color: #242262;
   justify-content: center;
   align-items: center;
+  cursor: pointer; 
 }
 
 .infoEnter {
@@ -215,6 +217,7 @@ h5 {
   background-color: #618fd3;
   justify-content: center;
   align-items: center;
+  cursor: pointer; 
 }
 
 .infoEnter h1 p {
@@ -230,6 +233,7 @@ h5 {
   background-color: #4564b4;
   justify-content: center;
   align-items: center;
+  cursor: pointer; 
 }
 
 /* 01 상품정보 및 01 ~ 공통 */
@@ -273,6 +277,7 @@ h5 {
   background-color: #b0b0b0;
   width: 100%;
   text-align: center;
+  cursor: pointer; 
 }
 
 .order-window-2-menu {
@@ -281,11 +286,21 @@ h5 {
   border: 2px solid #696969;
   width: 20%;
   font-size: 15px;
+  	
+  
 }
 
+.order-window-2-menu:hover{
+	  cursor: pointer; 
+}
+
+.order-window-2-dt{
+	  mouseover: pointer; 
+}
 .cancle-provision-content {
   border: 2px solid #696969;
   padding: 15px 25px;
+  cursor: pointer; 
 }
 
 .cancle-provision-content p:first-of-type {
@@ -296,10 +311,13 @@ h5 {
 .content-all {
   border: 2px solid #696969;
   padding: 15px 25px;
+  cursor: pointer; 
+  dicsplay:none;
 }
 
 .content-all p {
   margin: 0;
+  cursor: pointer; 
 }
 
 .content-all p:first-of-type {
@@ -668,4 +686,8 @@ h5 {
 .order-window-6-button form {
   display: inline-block;
   margin-left: 100px;
+}
+
+order-window-2-dt {
+	  cursor: pointer; 
 }

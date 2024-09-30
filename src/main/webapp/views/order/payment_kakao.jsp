@@ -73,8 +73,8 @@
                               리조트 왕복 픽업</a></td>
                      </tr>
                      <tr>
-                        <td>결제정보</td>
-                        <td>예약금결제예약 (상품가의 일부를 바로 결제합니다.)</td>
+                        <td>여행기간</td>
+                        <td></td>
                      </tr>
                      <tr>
                         <td>예약금</td>
@@ -591,12 +591,7 @@
                        merchant_uid: 'merchant_' + new Date().getTime(),  // 주문 번호
                        name: 'world',         // 상품 이름
                        amount: 10,           // 결제 금액
-                       //buyer_email: 'EMAIL',  // 구매자 이메일
-                       //buyer_name: 'order_receiver',         // 구매자 이름
-                       //buyer_tel: 'ORDER_PHONE',  // 구매자 전화번호
-                       //buyer_addr: 'ORDER_ADDRESS', // 구매자 주소
-                       // buyer_postcode: '07171'      // 구매자 우편번호
-                       //m_redirect_url: // 추후에 결제완료 페이지로 리다이렉트하기
+                     
                    }, function (rsp) { // callback 로직 - 리다이렉트로 할 시 callback 필요없음
                        if (rsp.success) {
                        
@@ -628,7 +623,7 @@
                 
                   
               } else {
-                  alert('결제에 실패하였습니다. 오류 내용: ' + rsp.error_msg);
+                  alert('결제 실패하였습니다. 오류 내용: ' + rsp.error_msg);
               }
           });
           

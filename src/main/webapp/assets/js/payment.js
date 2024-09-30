@@ -34,6 +34,21 @@ $(document).ready(function() {
     }
 });
 
+
+  // 모든 order-window-2-menu 클래스를 가진 요소에 대해 이벤트 리스너 추가
+  document.querySelectorAll('.order-window-2-menu').forEach(function(element) {
+    element.addEventListener('mouseover', function() {
+      // 마우스를 올렸을 때 커서를 포인터로 변경
+      this.style.cursor = 'pointer';
+    });
+
+    element.addEventListener('mouseout', function() {
+      // 마우스를 벗어났을 때 커서를 기본값으로 변경
+      this.style.cursor = 'default';
+    });
+  });
+
+
 function updateForm() {
     const adultCount = document.getElementById('adult-select').value;
     const infantCount = document.getElementById('infant-select').value;
@@ -44,7 +59,7 @@ function updateForm() {
 		
 		// 성인 입력값 수정예정
     // 성인 입력 필드 추가
-    for (let i = 1; i <= adultCount; i++) {
+    for (let i = 2; i <= adultCount; i++) {
         const adultForm = `
       <tr>
     <td style="padding: 7px 0px 2px; font-size: 11px; color: rgb(90, 90, 90); text-align: center; letter-spacing: -0.025em; border: 1px solid rgb(220, 220, 220);"

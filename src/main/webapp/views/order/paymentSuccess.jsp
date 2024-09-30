@@ -1,5 +1,10 @@
+<%@ page import="com.gd.hw.order.model.vo.Person" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% String merchantUid = (String)request.getAttribute("merchantUid"); 
+   Person p = (Person)request.getAttribute("p");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +30,7 @@
 
 <section>
 
-  	  <div class="container mt-5">
+       <div class="container mt-5">
         <div class="text-center">
             <h2>예약이 완료되었습니다!</h2>
             <br>
@@ -35,14 +40,14 @@
         <div class="card mt-4">
             
             <div class="card-body">
-               	
+                  
                 <table class="table">
                    
-										<tbody>
+                              <tbody>
                         <tr>
                             <th>예약번호</th>
                             <!-- 예약번호 -->
-                            <td>20240920-537BDTQ12</td>  
+                            <td><%=merchantUid%></td>  
                         </tr>
                         <tr>
                             <th>상태</th>
@@ -59,21 +64,18 @@
                         <tr>
                             <th>예약자 정보</th>
                             <td>
-                                <p>이름: 박한나</p>
-                                <!-- 이름 -->
-                                <p>전화번호: 010-1234-1234</p>
-                                <!-- 전화번호 들어오게하기 -->
-                                <p>이메일: gimgil@naver.com</p>
-                                <!-- 이메일값 들어오게 하기 -->
+                                <p>이름: <%=p.getEngName() %></p>
+                                <p>전화번호: <%=p.getPhone() %></p>
+                                <p>생년월일: <%=p.getBirthday() %></p>
                             </td>
                         </tr>
                     </tbody>
                 </table>
 
-   	   <div class="text-center mt-4">
-            <button id="mainPageBtn" class="btn btn-primary">메인 화면으로 돌아가기
+         <div class="text-center mt-4">
+            <a href="<%=contextPath%>" id="mainPageBtn" class="btn btn-primary">메인 화면으로 돌아가기
               <!-- 페이지 넘기는걸로  -->
-            </button>
+            </a>
         </div>
     </div>
  </section>

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class bohum
  */
-@WebServlet("/Bohum")
+@WebServlet("/bohum.us")
 public class BohumController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

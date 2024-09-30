@@ -4,89 +4,102 @@
 <properties>
 
 <entry key="selectProductById">
-	SELECT 
-			PRODUCT_ID
-		  , PRODUCT_NAME
-		  , START_DATE ||' ~ '||END_DATE DAY
-		  , A_PRICE
-		  , C_PRICE
-		  , FLIGHT
-  	 FROM 
-  	 		PRODUCT
- 	WHERE 
- 			PRODUCT_ID = ? 
+   SELECT 
+         PRODUCT_ID
+        , PRODUCT_NAME
+        , START_DATE ||' ~ '||END_DATE DAY
+        , A_PRICE
+        , C_PRICE
+        , FLIGHT
+      FROM 
+            PRODUCT
+    WHERE 
+          PRODUCT_ID = ? 
 
 </entry>
-INSERT INTO PAYMENT (IMP_UID, PAY_OP, PAY_DATE, STATUS, TOTAL_PAY)
-VALUES('IMP_UID'||SEQ_UID.NEXTVAL,'KAKAOPAY',SYSDATE,'C',11798000);
-INSERT INTO "ORDER" (MERCHANT_UID, USER_NO, PRODUCT_ID, BH_NO, IMP_UID, ADULT, CHILD, REQUEST, POINT_U, FINAL_PAY, FLIGHT)
-VALUES ('MER_UID'||SEQ_UID.CURRVAL, 4, 2, 1, 'IMP_UID'||SEQ_UID.CURRVAL, 2, 0, '요청사항2.', 50000, 11748000, '대한항공');
-INSERT INTO PERSON VALUES('MER_UID'||SEQ_UID.CURRVAL,'KIM','GONGEE','2001-01-01','010-3333-1234','F','KOREA','1313','2026-02-02','A','A');
+<entry key="selectMyPoint">
+   SELECT 
+        SUM(CASE WHEN STATUS = 'P' THEN POINT ELSE 0 END) AS POINT_P,
+         SUM(CASE WHEN STATUS = 'U' THEN POINT ELSE 0 END) AS POINT_U
+     FROM POINT
+    WHERE USER_NO = ?
+
+</entry>
+
 <entry key="insertPayMent">
-	INSERT 
-	  INTO PAYMENT (
-	                 IMP_UID
-	               , PAY_OP
-	               , PAY_DATE
-	               , STATUS
-	               , TOTAL_PAY
-	               )
-		   VALUES ( 
-		   		     ?
-		   		   ,'KAKAOPAY'
-		   		   , SYSDATE
-		   		   ,'C'
-		   		   , ?
-		   		   )
+   INSERT 
+     INTO PAYMENT (
+                    IMP_UID
+                  , PAY_OP
+                  , PAY_DATE
+                  , STATUS
+                  , TOTAL_PAY
+                  )
+         VALUES ( 
+                    ?
+                  ,'KAKAOPAY'
+                  , SYSDATE
+                  ,'C'
+                  , ?
+                  )
 
 </entry>
 <entry key="insertOrder">
-	INSERT
-	  INTO "ORDER" (
-	                 MERCHANT_UID
-	               , USER_NO
-	               , PRODUCT_ID
-	               , BH_NO
-	               , IMP_UID
-	               , ADULT
-	               , CHILD
-	               , REQUEST
-	               , POINT_U
-	               , FINAL_PAY
-	               , FLIGHT
-	               )
-		   VALUES (
-		   			 ?
-		   		   , ?
-		   		   , ?
-		   		   , ?
-		   		   , ?
-		   		   , ?
-		   		   , ?
-		   		   , ''
-		   		   , ?
-		   		   , ?
-		   		   , ?)
+   INSERT
+     INTO "ORDER" (
+                    MERCHANT_UID
+                  , USER_NO
+                  , PRODUCT_ID
+                  , BH_NO
+                  , IMP_UID
+                  , ADULT
+                  , CHILD
+                  , REQUEST
+                  , POINT_U
+                  , FINAL_PAY
+                  , FLIGHT
+                  )
+         VALUES (
+                   ?
+                  , ?
+                  , ?
+                  , ?
+                  , ?
+                  , ?
+                  , ?
+                  , ''
+                  , ?
+                  , ?
+                  , ?)
 </entry>
 <entry key="insertPerSon">
-	INSERT 
-	  INTO PERSON VALUES(
-	    				  ?
-	    				, ?
-	    				, ?
-	    				, ?
-	    				, ?
-	    				, ?
-	    				, ?
-	    				, ?
-	    				, ?
-	    				, ?
-	    				, ?
-	    				)
+   INSERT 
+     INTO PERSON VALUES(
+                     ?
+                   , ?
+                   , ?
+                   , ?
+                   , ?
+                   , ?
+                   , ?
+                   , ?
+                   , ?
+                   , ?
+                   , ?
+                   )
+</entry>
+<entry key="selectComletePerson">
+      SELECT 
+            SURNAME||ENG_NAME AS NAME
+           ,PHONE
+           ,BIRTHDAY
+           FROM PERSON
+        WHERE STATUS = 'A'
+           AND MERCHANT_UID = ?
 </entry>
 <!-- 관리자에서 사용하는 파트 시작 -->
 <entry key="selectOrderLIst">
-	  SELECT * 
+     SELECT * 
       FROM (
             SELECT
                USER_ID
@@ -105,7 +118,7 @@ INSERT INTO PERSON VALUES('MER_UID'||SEQ_UID.CURRVAL,'KIM','GONGEE','2001-01-01'
       WHERE RNUM BETWEEN ? AND ?
 </entry>
 <entry key="selectOrderLIstByKeyword">
-	  SELECT * 
+     SELECT * 
       FROM (
             SELECT
                USER_ID
@@ -121,72 +134,72 @@ INSERT INTO PERSON VALUES('MER_UID'||SEQ_UID.CURRVAL,'KIM','GONGEE','2001-01-01'
           JOIN 
                PAYMENT P USING(IMP_UID)
          WHERE
-         	   MERCHANT_UID LIKE ? 			
+               MERCHANT_UID LIKE ?          
          )
       WHERE RNUM BETWEEN ? AND ?
 </entry>
 <entry key="selectOrderListCount">
-  	 	SELECT
-		      COUNT(*) as COUNT
-		 FROM 
-		     "ORDER"
+         SELECT
+            COUNT(*) as COUNT
+       FROM 
+           "ORDER"
 </entry>
 <entry key="selectOrderCountByKeyword">
-		SELECT
-		       COUNT(*) as COUNT
-		  FROM 
-		       "ORDER"
-		 WHERE MERCHANT_UID LIKE ?
+      SELECT
+             COUNT(*) as COUNT
+        FROM 
+             "ORDER"
+       WHERE MERCHANT_UID LIKE ?
 </entry>
 <entry key="selectOrderByMerUid">
-  	 SELECT 
-  	 	    USER_NAME
-  	 	   ,P.PRODUCT_ID AS PRODUCT_ID
-  	 	   ,PRODUCT_NAME
-  	 	   ,Y.STATUS as STATUS
-  	 	   ,BH_CLASS
-  	 	   ,PRICE
-  	 	   ,ADULT
-  	 	   ,CHILD
-  	 	   ,POINT_U
-  	 	   ,FINAL_PAY
+      SELECT 
+             USER_NAME
+            ,P.PRODUCT_ID AS PRODUCT_ID
+            ,PRODUCT_NAME
+            ,Y.STATUS as STATUS
+            ,BH_CLASS
+            ,PRICE
+            ,ADULT
+            ,CHILD
+            ,POINT_U
+            ,FINAL_PAY
       FROM "ORDER" O,
            "USER" U,
-       	    PRODUCT P,
-       	    BOHUM B,
-       	    PAYMENT Y
- 	 WHERE O.PRODUCT_ID=P.PRODUCT_ID
-  	   AND O.USER_NO=U.USER_NO
-  	   AND O.BH_NO=B.BH_NO
-  	   AND Y.IMP_UID = O.IMP_UID
+              PRODUCT P,
+              BOHUM B,
+              PAYMENT Y
+     WHERE O.PRODUCT_ID=P.PRODUCT_ID
+        AND O.USER_NO=U.USER_NO
+        AND O.BH_NO=B.BH_NO
+        AND Y.IMP_UID = O.IMP_UID
        AND MERCHANT_UID=?
 </entry>
 <entry key="selectAllPersonByMerUid">
-	SELECT 
-	  	   SURNAME
-	  	 , ENG_NAME
-	  	 , BIRTHDAY
-	  	 , PHONE
-	  	 , GENDER
-	  	 , NATION
-	  	 , PASSPORT
-	  	 , PASSPROT_EX
-	  	 , STATUS
-	  	 , DIV
-	FROM 
-		 PERSON
+   SELECT 
+           SURNAME
+         , ENG_NAME
+         , BIRTHDAY
+         , PHONE
+         , GENDER
+         , NATION
+         , PASSPORT
+         , PASSPROT_EX
+         , STATUS
+         , DIV
+   FROM 
+       PERSON
    WHERE 
-   		 MERCHANT_UID = ?
+          MERCHANT_UID = ?
    ORDER BY STATUS
 </entry>
 <entry key="DeleteOrderByMerUid">
-	UPDATE 
-		  PAYMENT 
-	   SET 
-	   	  STATUS = 'R' 
-	 WHERE 
-	 	  IMP_UID =(
-	 	  			SELECT
+   UPDATE 
+        PAYMENT 
+      SET 
+           STATUS = 'R' 
+    WHERE 
+         IMP_UID =(
+                  SELECT
                           IMP_UID
                       FROM
                           "ORDER"
