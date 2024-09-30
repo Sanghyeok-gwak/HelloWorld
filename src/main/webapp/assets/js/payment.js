@@ -59,7 +59,7 @@ function updateForm() {
       
       // 성인 입력값 수정예정
     // 성인 입력 필드 추가
-    for (let i = 2; i <= adultCount; i++) {
+    for (let i = 1; i <= adultCount; i++) {
         const adultForm = `
       <tr>
     <td style="padding: 7px 0px 2px; font-size: 11px; color: rgb(90, 90, 90); text-align: center; letter-spacing: -0.025em; border: 1px solid rgb(220, 220, 220);"

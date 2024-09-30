@@ -30,7 +30,6 @@ public class OrderDeleteFromAdmin extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String delUid =  request.getParameter("delUid");
-		System.out.println(delUid);
 		int result =  new OrderService().DeleteOrderByMerUid(delUid);
 		if(result > 0) {
 			request.getSession().setAttribute("msg", "환불처리가 완료되었습니다.");

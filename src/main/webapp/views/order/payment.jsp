@@ -41,16 +41,16 @@
       <div class="product-name">
          <div class="reservation">
             <!-- 이미지 -->
-            <h1>예약하기</h1>
+            <h1>STEP 01예약하기</h1>
          </div>
 
          <div class="infoEnter">
-            <p>STEP 01</p>
+            <p>STEP 02</p>
             <h1>/ 예약정보 입력</h1>
          </div>
 
          <div class="infoCheck">
-            <p>STEP 02</p>
+            <p>STEP 03</p>
             <h1>/ 예약정보 확인</h1>
          </div>
       </div>
@@ -92,7 +92,7 @@
                <h5 class="num-name">약관동의</h5>
             </div>
 
-              <table class="order-window-2-dt">
+              <table class="order-window-2-dt ">
                     <thead>
                       <tr>
                         <th class="order-window-2-menu cursor-pointer" >취소수수료 특약</th>
@@ -546,7 +546,7 @@
                      <td class="order-window-5-title">결제 금액</td>
                      <td>상품가격</td>
                      <td><input type="checkbox" disabled> 할인금액 원</td>
-                     <td><input type="checkbox" disabled> 총결제금액</td>
+                     <td><input type="checkbox" disabled> 총 결제금액</td>
                   </tr>
                </table>
             </div>
@@ -554,8 +554,9 @@
 
          <div class="order-window-6-button ow-all">
              <button id="btn-2" class="btn" onclick="console.log('Button clicked'); requestPay();">예약하기</button>
-            <form method="post" action="/kakaoPay">
-               <button id="btn-1" class="btn">취소</button>
+            	 <form method="post" action="/order.">
+            
+               <a href="<%=contextPath%>" id="mainPageBtn" class="btn btn-primary">취소</a>
             </form>
          </div>
       </div>
