@@ -195,6 +195,10 @@ h5 {
         left: 100%;
       }
     }	
+    
+    ul.tabList {
+    padding-left: 0px;
+}
 </style>
 
 </head>
@@ -338,15 +342,15 @@ h5 {
 		</div>
 
 		<div id="product-info" class="tabContent" style="display: block;">
-			<img src="<%=contextPath%>/assets/image/httpsi.ibb.coVggQDbM638618388739597095.png" alt="상품 소개 이미지">
+			<%=product.getInfoEditor() %>
 		</div>
 
 		<div id="itinerary" class="tabContent" style="display: none;">
-			<img src="<%=contextPath%>/assets/image/httpsi.ibb.cofqDcjZ7Kakao-Talk-20240912-162742565.png.png" alt="일정표 이미지">
+			<%=product.getScheduleEditor() %>
 		</div>
 
 		<div id="details" class="tabContent" style="display: none;">
-			<img src="<%=contextPath%>/assets/image/상세정보 수정본2.png" alt="상세 정보 이미지">
+			<img src="<%=contextPath%>/assets/image/상세정보 수정본1.png" alt="상세 정보 이미지">
 		</div>
 
 		<%
