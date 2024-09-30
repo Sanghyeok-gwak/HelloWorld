@@ -51,7 +51,7 @@ public class UserSMTPMailSendController extends HttpServlet {
            // DB에서 사용자 이름과 이메일이 일치하는 사용자의 아이디 찾기
            result = userService.findUserIdByNameAndEmail(nameOrId, userEmail); // 여기에 DB 조회 로직 추가 필요
            if (result != null) {
-               sendEmail(userEmail, "아이디 찾기 결과", "회원님의 아이디는: " + result);
+               sendEmail(userEmail, "[HELLO WORLD] 아이디 찾기 결과", "회원님의 아이디는: " + result + "입니다.");
                response.getWriter().write("send");
            } else {
                response.getWriter().write("fail");
@@ -60,7 +60,7 @@ public class UserSMTPMailSendController extends HttpServlet {
            // DB에서 사용자 아이디와 이메일이 일치하는 사용자의 비밀번호 찾기
            result = userService.findUserPasswordByIdAndEmail(nameOrId, userEmail); // 여기에 DB 조회 로직 추가 필요
            if (result != null) {
-               sendEmail(userEmail, "비밀번호 찾기 결과", "회원님의 비밀번호는: " + result);
+               sendEmail(userEmail, "[HELLO WORLD] 비밀번호 찾기 결과", "회원님의 비밀번호는: " + result + "입니다.");
                response.getWriter().write("send");
            } else {
                response.getWriter().write("fail");

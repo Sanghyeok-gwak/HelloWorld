@@ -1,118 +1,153 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>회원가입</title>
+<meta charset="UTF-8">
+<title>회원가입</title>
 
-    <style>
-        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css');
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-        .signup-main-box {
-            max-width: 800px;
-            margin: auto;
-        }
 
-        .check-availability-button {
-            border: 1px solid #007AFF;
-            border-radius: 5px;
-            width: 80px;
-        }
+<style>
+@import
+	url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css')
+	;
 
-        .signup-main-title {
-            text-align: center;
-            margin-top: 60px;
-            margin-bottom: 30px;
-        }
+.signup-main-box {
+	max-width: 800px;
+	margin: auto;
+}
 
-        label {
-            font-weight: bold;
-        }
+.check-availability-button {
+	border: 1px solid #007AFF;
+	border-radius: 5px;
+	width: 80px;
+}
 
-        .hiding-btn2 {
-            background-color: transparent;
-            border: 0px;
-        }
+#check-id-btn:hover {
+	background-color: #0062cc;
+	color: white;
+	transition: background-color 0.3s ease;
+}
 
-        .signup-button {
-            text-align: center;
-            margin-top: 50px;
-        }
+.signup-main-title {
+	text-align: center;
+	margin-top: 60px;
+	margin-bottom: 30px;
+}
 
-        .signup-button2 {
-            border: 1px solid #007AFF;
-            border-radius: 5px;
-            width: 50%;
-            height: 50px;
-            margin-bottom: 50px;
-        }
+label {
+	font-weight: bold;
+}
 
-        .textBox1 {
-            margin-bottom: 5px;
-        }
+.hiding-btn2 {
+	background-color: transparent;
+	border: 0px;
+}
 
-        .textBox2 {
-            margin-bottom: 5px;
-        }
+.signup-button {
+	text-align: center;
+	margin-top: 50px;
+}
 
-        #selectAll {
-            margin-top: 30px;
-        }
+.signup-button2 {
+	border-radius: 5px;
+	width: 50%;
+	height: 50px;
+	margin-bottom: 50px;
+}
 
-        .terms-Agree {
-            display: flex;
-            flex-direction: column;
-            margin: auto;
-        }
+.textBox1 {
+	margin-bottom: 5px;
+}
 
-        #check-id-btn {
-            background: #007AFF;
-            color: white;
-            border: 1px solid #007AFF;
-        }
+.textBox2 {
+	margin-bottom: 5px;
+}
 
-        #signupBtn {
-            background: #007AFF;
-            color: white;
-        }
+#selectAll {
+	margin-top: 30px;
+}
 
-        .signup-button2:disabled {
-            background-color: #cccccc;
-            color: #666666;
-            cursor: not-allowed;
-        }
-    </style>
+.terms-Agree {
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+}
+
+#check-id-btn {
+	background: #007AFF;
+	color: white;
+	border: 1px solid #007AFF;
+	height: 100%;
+}
+
+/* 가입하기 버튼 활성화 상태 */
+#signupBtn {
+    background: #007AFF;
+    color: white;
+    border-radius: 5px;
+    width: 50%;
+    height: 50px;
+    margin-bottom: 50px;
+    cursor: pointer;
+    border: 1px solid #007AFF;
+
+}
+
+
+/* 가입하기 버튼 비활성화 상태 */
+#signupBtn:disabled {
+    background-color: #cccccc; /* 비활성화 상태에서 회색 배경 */
+    color: #666666; /* 비활성화 상태에서 회색 글자 */
+    cursor: not-allowed; /* 비활성화 상태에서 마우스 커서를 '금지' 모양으로 변경 */
+        border: 1px solid #cccccc;
+}
+
+/* 가입하기 버튼 활성화 상태에서 hover */
+#signupBtn:hover:enabled {
+    background-color: rgb(50, 173, 255); /* 활성화 상태에서 hover 시 파란색 */
+    color: white;
+    transition: background-color 0.3s ease;
+
+
+</style>
 </head>
 <body>
-    <%@ include file="/views/common/header.jsp"%>
-    <section class="signup-main-box">
-        <h1 class="signup-main-title">회원정보입력</h1>
-        <hr>
-        <form action="<%=contextPath%>/signup.me" method="post" id="form-btn" class="was-validated">
-            <!--아이디-->
-            <div class="form-group" id="form-group">
-                <div>
-                    <div style="display: flex; padding: 10px; border-bottom: 1px solid black;">
-                        <div style="padding: .375rem .100rem; width: 10%;">
-                            <label for="userId">아이디</label>
-                        </div>
-                        <div style="width: 90%;">
-                            <input style="border: 0px;" type="text" class="form-control" placeholder="아이디를 입력하세요" name="userId" id="userId" required>
-                        </div>
-                        <div class="check-availability">
-                            <button type="button" id="check-id-btn" class="check-availability-button" style="height: 100%;">
-                                <h5>중복확인</h5>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- 중복확인 메시지를 표시할 요소 -->
-                    <div id="idCheckMsg" style="margin-top: 10px;"></div>
-                </div>
-            </div>
+	<%@ include file="/views/common/header.jsp"%>
+	<section class="signup-main-box">
+		<h1 class="signup-main-title">회원정보입력</h1>
+		<hr>
+		<form action="<%=contextPath%>/signup.me" method="post" id="form-btn"
+			class="was-validated">
+			<!--아이디-->
+			<div class="form-group" id="form-group">
+				<div>
+					<div
+						style="display: flex; padding: 10px; border-bottom: 1px solid black;">
+						<div style="padding: .375rem .100rem; width: 10%;">
+							<label for="userId">아이디</label>
+						</div>
+						<div style="width: 90%;">
+							<input style="border: 0px;" type="text" class="form-control"
+								placeholder="아이디를 입력하세요" name="userId" id="userId" required>
+						</div>
+						<div class="check-availability">
+							<button type="button" id="check-id-btn"
+								class="check-availability-button">
+								<h5>중복확인</h5>
+							</button>
+						</div>
+					</div>
+					<!-- 중복확인 메시지를 표시할 요소 -->
+					<div id="idCheckMsg" style="margin-top: 10px;"></div>
+				</div>
+			</div>
 
-            <!-- 중복확인 Ajax 스크립트 -->
-            <script>
+			<!-- 중복확인 Ajax 스크립트 -->
+			<script>
                 let isIdChecked = false;
                 $(document).ready(function() {
                     $("#check-id-btn").on("click", function() {
@@ -156,48 +191,54 @@
                 });
             </script>
 
-            <!--비밀번호-->
-            <div class="form-group">
-                <div>
-                    <div style="display: flex; padding: 10px; border-bottom: 1px solid black;">
-                        <div style="padding: .375rem .100rem; width: 10%;">
-                            <label for="userPwd">비밀번호</label>
-                        </div>
-                        <input type='hidden' id='hiddenPwd' name='hiddenPwd' value='no'>
-                        <div style="width: 90%;">
-                            <input style="border: 0px;" type="password" class="form-control" placeholder="비밀번호를 입력하세요" name="userPwd" id="userPwd" required>
-                        </div>
-                        <div>
-                            <button id="toggle-password" type="button" class="hiding-btn2">
-                                <i class="fa-regular fa-eye" style="cursor: pointer;"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<!--비밀번호-->
+			<div class="form-group">
+				<div>
+					<div
+						style="display: flex; padding: 10px; border-bottom: 1px solid black;">
+						<div style="padding: .375rem .100rem; width: 10%;">
+							<label for="userPwd">비밀번호</label>
+						</div>
+						<input type='hidden' id='hiddenPwd' name='hiddenPwd' value='no'>
+						<div style="width: 90%;">
+							<input style="border: 0px;" type="password" class="form-control"
+								placeholder="비밀번호를 입력하세요" name="userPwd" id="userPwd" required>
+						</div>
+						<div>
+							<button id="toggle-password" type="button" class="hiding-btn2">
+								<i class="fa-regular fa-eye" style="cursor: pointer;"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <!--비밀번호 확인-->
-            <div class="form-group">
-                <div>
-                    <div style="display: flex; padding: 10px; border-bottom: 1px solid black;">
-                        <div style="padding: .375rem .100rem; width: 15%;">
-                            <label for="userConfirmPwd">비밀번호확인</label>
-                        </div>
-                        <div style="width: 85%;">
-                            <input style="border: 0px;" type="password" class="form-control" placeholder="비밀번호를 확인해주세요" name="userConfirmPwd" id="userConfirmPwd" required>
-                        </div>
-                        <div>
-                            <button id="toggle-confirm-password" type="button" class="hiding-btn2">
-                                <i class="fa-regular fa-eye" style="cursor: pointer;"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div id="pwdCheckMsg" style="margin-top: 10px;"></div>
-                </div>
-            </div>
+			<!--비밀번호 확인-->
+			<div class="form-group">
+				<div>
+					<div
+						style="display: flex; padding: 10px; border-bottom: 1px solid black;">
+						<div style="padding: .375rem .100rem; width: 15%;">
+							<label for="userConfirmPwd">비밀번호확인</label>
+						</div>
+						<div style="width: 85%;">
+							<input style="border: 0px;" type="password" class="form-control"
+								placeholder="비밀번호를 확인해주세요" name="userConfirmPwd"
+								id="userConfirmPwd" required>
+						</div>
+						<div>
+							<button id="toggle-confirm-password" type="button"
+								class="hiding-btn2">
+								<i class="fa-regular fa-eye" style="cursor: pointer;"></i>
+							</button>
+						</div>
+					</div>
+					<div id="pwdCheckMsg" style="margin-top: 10px;"></div>
+				</div>
+			</div>
 
-            <!-- 비밀번호 보이기/숨기기 스크립트 -->
-            <script>
+			<!-- 비밀번호 보이기/숨기기 스크립트 -->
+			<script>
                 $(document).ready(function(){
                     // 비밀번호 보이기/숨기기
                     $('#toggle-password').on('click', function(){
@@ -236,56 +277,84 @@
                 });
             </script>
 
-            <!--이름-->
-            <div class="form-group">
-                <div>
-                    <div style="display: flex; padding: 10px; border-bottom: 1px solid black;">
-                        <div style="padding: .375rem .100rem; width: 10%;">
-                            <label for="name">이름</label>
-                        </div>
-                        <div style="width: 90%;">
-                            <input style="border: 0px;" type="text" class="form-control" name="userName" id="name" required>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<!--이름-->
+			<div class="form-group">
+				<div>
+					<div
+						style="display: flex; padding: 10px; border-bottom: 1px solid black;">
+						<div style="padding: .375rem .100rem; width: 10%;">
+							<label for="name">이름</label>
+						</div>
+						<div style="width: 90%;">
+							<input style="border: 0px;" type="text" class="form-control"
+								name="userName" id="name" placeholder="이름을 입력하세요" required>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <!--휴대폰 번호-->
-            <div class="form-group">
-                <div>
-                    <div style="display: flex; padding: 10px; border-bottom: 1px solid black;">
-                        <div style="padding: .375rem .100rem; width: 15%;">
-                            <label for="phone">휴대폰번호</label>
-                        </div>
-                        <div style="width: 85%;">
-                            <input style="border: 0px;" type="text" class="form-control" name="phone" id="phone" required>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
+			<!--휴대폰 번호-->
+			<div class="form-group">
+				<div>
+					<div
+						style="display: flex; padding: 10px; border-bottom: 1px solid black;">
+						<div style="padding: .375rem .100rem; width: 15%;">
+							<label for="phone">휴대폰번호</label>
+						</div>
+						<div style="width: 85%;">
+							<input style="border: 0px;" type="text" class="form-control"
+								name="phone" id="phone" maxlength="13" placeholder="-를 포함하여 입력해주세요" required>
+						</div>
+					</div>
+				</div>				
+			</div>
+				<script>
+				$(document).ready(function() {
+				    $("#phone").blur(function() {
+				        var phoneNumber = $("#phone").val();
+				        console.log(phoneNumber);
+				        if (phoneNumber) {
+				            // 전화번호 형식에 대한 정규 표현식
+				            var regex = /^01[0-9]{1}-[0-9]{4}-[0-9]{4}$/;
+				
+				            // 정규 표현식이 전화번호 형식에 맞는지 확인
+				            if (regex.test(phoneNumber)) {
+				                // 유효한 형식일 경우 추가 동작이 필요하면 여기에 작성
+				            } else {
+				                alert("잘못된 형식의 전화번호 입니다.");
+				                $("#phone").val(""); // 잘못된 형식이면 입력 필드를 비웁니다.
+				            }
+				        }
+				    });
+				});
+				</script>
 
-            <!-- 이메일 -->
-            <div class="form-group">
-                <div>
-                    <div style="display: flex; padding: 10px; border-bottom: 1px solid black;">
-                        <div style="padding: .375rem .100rem; width: 10%;">
-                            <label for="email">이메일</label>
-                        </div>
-                        <div style="width: 85%;">
-                            <input style="border: 0px;" type="text" class="form-control" placeholder="이메일 아이디를 입력하세요" name="email" id="email" required> 
-                        </div>
-                        <div class="email-domain" style="padding: .375rem .100rem; width: 15%;" id="email-domain">
-                            <select class="form-select" title="이메일 도메인 주소 선택" onchange="setEmailDomain(this.value);return false;">
-                                <option value="custom">직접입력</option>
-                                <option value="naver.com">naver.com</option>
-                                <option value="gmail.com">gmail.com</option>
-                                <option value="hanmail.net">hanmail.net</option>
-                                <option value="nate.com">nate.com</option>
-                                <option value="kakao.com">kakao.com</option>
-                            </select>
-                            <!-- 이메일 도메인 선택시 자동으로 -->
-                            <script>
+
+			<!-- 이메일 -->
+			<div class="form-group">
+				<div>
+					<div
+						style="display: flex; padding: 10px; border-bottom: 1px solid black;">
+						<div style="padding: .375rem .100rem; width: 10%;">
+							<label for="email">이메일</label>
+						</div>
+						<div style="width: 85%;">
+							<input style="border: 0px;" type="text" class="form-control"
+								placeholder="이메일 아이디를 입력하세요" name="email" id="email" required>
+						</div>
+						<div class="email-domain"
+							style="padding: .375rem .100rem; width: 15%;" id="email-domain">
+							<select class="form-select" title="이메일 도메인 주소 선택"
+								onchange="setEmailDomain(this.value);return false;">
+								<option value="custom">직접입력</option>
+								<option value="naver.com">naver.com</option>
+								<option value="gmail.com">gmail.com</option>
+								<option value="hanmail.net">hanmail.net</option>
+								<option value="nate.com">nate.com</option>
+								<option value="kakao.com">kakao.com</option>
+							</select>
+							<!-- 이메일 도메인 선택시 자동으로 -->
+							<script>
                                 function setEmailDomain(domain) {
                                     const emailInput = document.getElementById('email');
                                     let currentValue = emailInput.value.split('@')[0];
@@ -298,44 +367,47 @@
                                     }
                                 }
                             </script>
-                        </div>
-                        <div class="check-availability">
-                            <!-- Button to Open the Modal -->
-                            <button type="button" class="btn btn-primary" id="sendCodeButton" data-toggle="modal" data-target="#myModal">인증번호 발송</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+						</div>
+						<div class="check-availability">
+							<!-- Button to Open the Modal -->
+							<button type="button" class="btn btn-primary" id="sendCodeButton"
+								data-toggle="modal" data-target="#myModal">인증번호 발송</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <!-- The Modal -->
-            <div class="modal" id="myModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+			<!-- The Modal -->
+			<div class="modal" id="myModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
 
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">인증번호를 입력하세요</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<h4 class="modal-title">인증번호를 입력하세요</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
 
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            <input type="text" id="verificationCode" class="form-control" placeholder="인증번호 입력">
-                            <small id="errorMessage" style="color: red; display: none;">인증번호가 일치하지 않습니다.</small>
-                        </div>
+						<!-- Modal body -->
+						<div class="modal-body">
+							<input type="text" id="verificationCode" class="form-control"
+								placeholder="인증번호 입력" required> <small id="errorMessage"
+								style="color: red; display: none;">인증번호가 일치하지 않습니다.</small>
+						</div>
 
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success" id="verifyCodeButton">인증번호 확인</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
-                        </div>
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success"
+								id="verifyCodeButton">인증번호 확인</button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+						</div>
 
-                    </div>
-                </div>
-            </div>
+					</div>
+				</div>
+			</div>
 
-            <!-- 이메일 인증 스크립트 -->
-            <script>
+			<!-- 이메일 인증 스크립트 -->
+			<script>
                 let isEmailVerified = false;
 
                 $(document).ready(function() {
@@ -394,29 +466,32 @@
                 });
             </script>
 
-            <div class="terms-Agree">
-                <div class="textBox1">
-                    <input type="checkbox" id="selectAll">
-                    <label for="selectAll"><b>약관 전체 동의</b></label>
-                </div>
+			<div class="terms-Agree">
+				<div class="textBox1">
+					<input type="checkbox" id="selectAll"> <label
+						for="selectAll"><b>약관 전체 동의</b></label>
+				</div>
 
-                <div class="textBox2">
-                    <h5><b>필수 동의 항목</b></h5>
-                    <input type="checkbox" id="terms1" class="terms">
-                    <label for="terms1">[필수] 이용약관</label><br>
-                    <input type="checkbox" id="terms2" class="terms">
-                    <label for="terms2">[필수] 전자금융거래 이용약관</label><br>
-                    <input type="checkbox" id="terms3" class="terms">
-                    <label for="terms3">[필수] 개인정보 수집동의서</label>
-                </div>
+				<div class="textBox2">
+					<h5>
+						<b>필수 동의 항목</b>
+					</h5>
+					<input type="checkbox" id="terms1" class="terms"> <label
+						for="terms1">[필수] 이용약관</label><br> <input type="checkbox"
+						id="terms2" class="terms"> <label for="terms2">[필수]
+						전자금융거래 이용약관</label><br> <input type="checkbox" id="terms3"
+						class="terms"> <label for="terms3">[필수] 개인정보 수집동의서</label>
+				</div>
 
-                <div class="textBox3">
-                    <h5><b>선택 동의 항목</b></h5>
-                    <input type="checkbox" id="terms4" class="terms">
-                    <label for="terms4">[선택] 개인정보 수집동의서</label><br>
-                    <input type="checkbox" id="terms5" class="terms">
-                    <label for="terms5">[선택] 위치기반서비스 이용약관</label>
-                </div>
+				<div class="textBox3">
+					<h5>
+						<b>선택 동의 항목</b>
+					</h5>
+					<input type="checkbox" id="terms4" class="terms"> <label
+						for="terms4">[선택] 개인정보 수집동의서</label><br> <input
+						type="checkbox" id="terms5" class="terms"> <label
+						for="terms5">[선택] 위치기반서비스 이용약관</label>
+				</div>
 				<script>
 				    document.addEventListener('DOMContentLoaded', function () {
 				        const selectAll = document.getElementById('selectAll');
@@ -436,13 +511,15 @@
 				        });
 				    });
 				</script>
-            </div>
+			</div>
 
-            <div class="signup-button">
-                <button type="submit" class="signup-button2" id="signupBtn" disabled>가입하기</button>
-            </div>
+			<div class="signup-button">
+				<!-- 가입하기 버튼 -->
+				<button type="submit" class="signup-button2" id="signupBtn" disabled>가입하기</button>
 
-            <script>
+			</div>
+
+			<script>
                 function checkAllConditions() {
                     const userId = document.getElementById('userId').value.trim();
                     const userPwd = document.getElementById('userPwd').value.trim();
@@ -508,8 +585,8 @@
                     });
                 });
             </script>
-        </form>
-    </section>
-    <%@ include file="/views/common/footer.jsp"%>
+		</form>
+	</section>
+	<%@ include file="/views/common/footer.jsp"%>
 </body>
 </html>
