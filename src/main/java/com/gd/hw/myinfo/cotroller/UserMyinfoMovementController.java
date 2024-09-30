@@ -62,7 +62,11 @@ public class UserMyinfoMovementController extends HttpServlet {
 	PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 	
 	List<Myinfo> list = new MyinfoService().selectMyinfoList(pi , userNo);
+	int result = new MyinfoService().selectPoint(userNo);
 	
+	
+			
+	request.setAttribute("re", result);		
 	request.setAttribute("no", userNo);
 	request.setAttribute("pi", pi);
 	request.setAttribute("list", list);

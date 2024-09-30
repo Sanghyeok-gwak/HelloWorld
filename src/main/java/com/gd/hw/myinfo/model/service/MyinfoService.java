@@ -179,8 +179,11 @@ public class MyinfoService {
 
 	public int selectPoint(int userNo) {
 		Connection conn = getConnection();
+		
 		int result = uDao.selectPoint(conn , userNo);
-		 close(conn);
+		
+		
+		close(conn);
 			
 		return result;
 	}

@@ -31,7 +31,8 @@ public class MyinfoUserPoint extends HttpServlet {
 		
     	int userNo = Integer.parseInt(request.getParameter("userNo"));
         MyinfoService myinfoService = new MyinfoService();
-
+        
+        System.out.println(userNo);
         int result = myinfoService.selectPoint(userNo);
 
         request.setAttribute("re", result);
