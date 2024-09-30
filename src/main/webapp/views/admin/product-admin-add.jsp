@@ -401,29 +401,84 @@ h5 {
 	<%@ include file="/views/common/footer.jsp"%>
 </body>
 <script>
-  $('#summernote1').summernote({
-    minHeight: 200,						// 최소 높이
-    maxHeight: 200,						// 최대 높이
-    focus: false,							// 에디터 로딩후 포커스를 맞출지 여부
-    lang: "ko-KR",							// 한글 설정
-    placeholder: '내용을 작성하여 주십시요',	//placeholder 설정
+$('#summernote1').summernote({
+    minHeight: 200,     // 최소 높이
+    maxHeight: 200,     // 최대 높이
+    focus: false,       // 에디터 로딩 후 포커스를 맞출지 여부
+    lang: "ko-KR",      // 한글 설정
+    callbacks: {
+        onImageUpload: function(images) {
+            // 비동기 방식을 이용한 이미지 업로드
+            for(let i = 0; i < images.length; i++) {
+                let formData = new FormData();
+                formData.append('image', images[i]);
+
+                $.ajax({
+                	
+                    url: '<%= contextPath%>/imageUpload.pro',  
+                    type: "post",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    async: false,
+                    success: function(src) {
+                        // 서버에서 반환된 이미지 경로를 summernote 에디터에 삽입
+                        $('#summernote1').summernote('insertImage', src);
+                        console.log(src);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Image upload failed:', textStatus, errorThrown);
+                    }
+                });
+            }
+        }
+    },
+    placeholder: '내용을 작성하여 주십시요',   // placeholder 설정
     tabsize: 2,
     height: 200,              // 에디터 높이
     toolbar: [
-      ['style', ['style']],
-      ['font', ['bold', 'underline', 'clear']],
-      ['color', ['color']],
-      ['para', ['ul', 'ol', 'paragraph']],
-      ['table', ['table']],
-      ['insert', ['link', 'picture', 'video']],
-      ['view', ['codeview', 'help']]
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'clear']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['table', ['table']],
+        ['insert', ['link', 'picture', 'video']],
+        ['view', ['codeview', 'help']]
     ]
-  });
+});
+
   $('#summernote2').summernote({
     minHeight: 200,						// 최소 높이
     maxHeight: 200,						// 최대 높이
     focus: false,							// 에디터 로딩후 포커스를 맞출지 여부
     lang: "ko-KR",							// 한글 설정
+    callbacks: {
+        onImageUpload: function(images) {
+            // 비동기 방식을 이용한 이미지 업로드
+            for(let i = 0; i < images.length; i++) {
+                let formData = new FormData();
+                formData.append('image', images[i]);
+
+                $.ajax({
+                	
+                    url: '<%= contextPath%>/imageUpload.pro',  
+                    type: "post",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    async: false,
+                    success: function(src) {
+                        // 서버에서 반환된 이미지 경로를 summernote 에디터에 삽입
+                        $('#summernote2').summernote('insertImage', src);
+                        console.log(src);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Image upload failed:', textStatus, errorThrown);
+                    }
+                });
+            }
+        }
+    },
     placeholder: '내용을 작성하여 주십시요',	//placeholder 설정
     tabsize: 2,
     height: 200,              // 에디터 높이
@@ -442,6 +497,33 @@ h5 {
     maxHeight: 200,						// 최대 높이
     focus: false,							// 에디터 로딩후 포커스를 맞출지 여부
     lang: "ko-KR",							// 한글 설정
+    callbacks: {
+        onImageUpload: function(images) {
+            // 비동기 방식을 이용한 이미지 업로드
+            for(let i = 0; i < images.length; i++) {
+                let formData = new FormData();
+                formData.append('image', images[i]);
+
+                $.ajax({
+                	
+                    url: '<%= contextPath%>/imageUpload.pro',  
+                    type: "post",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    async: false,
+                    success: function(src) {
+                        // 서버에서 반환된 이미지 경로를 summernote 에디터에 삽입
+                        $('#summernote3').summernote('insertImage', src);
+                        console.log(src);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Image upload failed:', textStatus, errorThrown);
+                    }
+                });
+            }
+        }
+    },
     placeholder: '내용을 작성하여 주십시요',	//placeholder 설정
     tabsize: 2,
     height: 200,              // 에디터 높이
