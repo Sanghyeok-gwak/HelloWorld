@@ -82,31 +82,43 @@ input[type="text"], input[type="email"] {
 	box-sizing: border-box;
 }
 
-#btn-1, #btn-2 {
+#btn-1 {
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
 	padding: 10px 20px;
-	background-color: #333;
 	color: white;
 	font-size: 1.1em;
 	width: 100%;
 	max-width: 300px;
 	transition: background-color 0.3s;
 }
-
-
-<%--
-#btn-1:hover,#btn-2 :hover {
-	background-color: #555;
-	color: white;
+#btn-2 {
+	border: none !important;
+	border-radius: 5px !important;
+	cursor: pointer !important;
+	padding: 10px 20px !important;
+	background-color: #007AFF!important;
+	color: white !important;
+	font-size: 1.1em !important;
+	width: 100% !important;
+	max-width: 300px !important;
+	transition: background-color 0.3s !important;
 }
---%>
 
-#form-btn button:hover{
-	background-color: #555;
-	color: white;
+
+
+
+#form-btn #btn-1:hover {
+    background-color: rgb(50, 173, 255);
+    color: white;
 }
+
+#form-btn #btn-2:hover {
+    background-color: rgb(50, 173, 255) !important;
+    color: white !important;
+}
+
 
 
 p {
@@ -132,14 +144,14 @@ p {
 				<p>입력하신 이름과 이메일 주소가 회원 정보와 일치할 경우 이메일로 아이디가 발송됩니다.</p>
 				<input type="text" name="name" placeholder="이름" required><br>
 				<input type="email" name="email" placeholder="이메일 주소" required><br>
-				<button type="button" id="btn-1" >아이디 전송</button>
+				<button type="button" id="btn-1" >아이디 발송</button>
 			</div>
 
 			<div id="password-form" class="form-container">
 				<p>입력하신 아이디가 회원 정보와 일치할 경우 비밀번호가 발송됩니다.</p>
 				<input type="text" name="username" placeholder="아이디" required><br>
 				<input type="email" name="email" placeholder="이메일 주소" required><br>
-				<button type="button" id="btn-2"  style="background: #007AFF; color:white;">비밀번호 발송</button>
+				<button type="button" id="btn-2"  style="background: #007AFF; color:white; cursor: pointer;">비밀번호 발송</button>
 			</div>
 		</form>
 	<script>

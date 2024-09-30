@@ -27,13 +27,12 @@ public class UserPwdCheckController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("나식ㄹ행ㄹ");
 
 	        // 요청 파라미터 가져오기
 
 	        String userPwd = request.getParameter("userPwd");
 	        String userConfirmPwd = request.getParameter("userConfirmPwd");
-	        System.out.println(userPwd + userConfirmPwd);
+
 	        // 비밀번호 확인
 	        if (!userPwd.equals(userConfirmPwd)) {
 	        	

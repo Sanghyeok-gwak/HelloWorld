@@ -22,9 +22,8 @@ public class UserIdCheckController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	System.out.println("나실행ㄷ괵");
+
         String inputId = request.getParameter("userId");
-        System.out.println(inputId);
         int result = new UserService().idCheck(inputId);
 
         response.setContentType("text/html; charset=UTF-8");

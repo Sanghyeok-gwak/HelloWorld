@@ -77,10 +77,15 @@ h5 {
 #btn-1 {
 	background-color: #007AFF;
 	color: white;
-	border: 1px solid #007AFF;
+	border: none;
 	border-radius: 5px;
 	width: 300px;
 	height: 50px;
+	cursor: pointer;
+}
+#btn-1:hover {
+	background-color: rgb(50, 173, 255) !important;
+	color: white !important;
 }
 
 .helloworld-signup {
@@ -101,7 +106,7 @@ section {
 	<section>
 		<div class="signup-mian">
 			<div class="helloworld-login-logo">
-				<img src="<%=contextPath %>/assets/image/logo.png" " alt="로고이미지">
+				<a href="<%=contextPath %>"><img src="<%=contextPath %>/assets/image/logo.png"  alt="로고이미지"></a>
 			</div>
 			<div class="signup-text">
 				<h1>HELLO WORLD 회원가입</h1>
