@@ -126,7 +126,7 @@ h5 {
 					<ul id="head-info">
 						<li class="nav-item"><a href="<%=contextPath %>/views/user/login.jsp"><h5>로그인</h5></a></li>
 						<li class="nav-item"><a href="<%=contextPath %>/views/user/signupStart.jsp"><h5>회원가입</h5></a></li>
-						<li class="nav-item"><a href="#"><h5>고객센터</h5></a></li>
+						<li class="nav-item"><a href="<%=contextPath %>/list.no"><h5>공지사항</h5></a></li>
 					</ul>
 				</div>
 				<% } else if(loginUser.getRoll().equals("U")) { %>
@@ -134,16 +134,7 @@ h5 {
 					<ul id="head-info">
 						<li class="nav-item"><a href="#"><h5><%= loginUser.getUserName() %>님</h5></a></li>
 						<li class="nav-item" id="history"><a href="<%= contextPath %>/myinfom.us?no=<%= loginUser.getUserNo() %>"><h5>마이페이지</h5></a></li>
-						<li class="nav-item dropdown">
-							<a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-								<h5>고객센터</h5>
-							</a>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" href="#"><h5>이벤트</h5></a>
-								<a class="dropdown-item" href="#"><h5>문의/신고</h5></a>
-								<a class="dropdown-item" href="#"><h5>고객센터</h5></a>
-							</div>
-						</li>
+						<li class="nav-item"><a href="<%=contextPath %>/list.no"><h5>공지사항</h5></a></li>
 						<li class="nav-item"><a href="<%=contextPath%>/logout.me"><h5>로그아웃</h5></a></li>
 					</ul>
 				</div>
@@ -151,17 +142,8 @@ h5 {
 				<div>
 					<ul id="head-info">
 						<li class="nav-item"><h5><a href="#"><%= loginUser.getUserName() %>님</a></h5></li>
-						<li class="nav-item"><a href="#"><h5>관리자페이지</h5></a></li>
-						<li class="nav-item dropdown">
-							<a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-								<h5>고객센터</h5>
-							</a>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" href="#"><h5>이벤트</h5></a>
-								<a class="dropdown-item" href="#"><h5>문의/신고</h5></a>
-								<a class="dropdown-item" href="#"><h5>고객센터</h5></a>
-							</div>
-						</li>
+						<li class="nav-item"><a href="<%=contextPath%>/list.pro"><h5>관리자페이지</h5></a></li>
+						<li class="nav-item"><a href="<%=contextPath %>/list.no"><h5>공지사항</h5></a></li>
 						<li class="nav-item"><a href="<%=contextPath%>/logout.me"><h5>로그아웃</h5></a></li>
 					</ul>
 				</div>
