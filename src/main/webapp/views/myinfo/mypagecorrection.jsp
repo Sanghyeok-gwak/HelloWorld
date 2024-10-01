@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 
+<title>Insert title here</title>
 </head>
 <style>
         @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css');
@@ -122,10 +122,8 @@
                         <p class="card-text">
                         <h5><a href="<%= contextPath %>/myinfo.us" style="color: gray; text-decoration-line: none;">내정보 관리<i
                                     class="fa-solid fa-play"></i></a></h5>
-                        </p>
-                        <p>
-                        <h5>적립금 0P</h5>
-                        </p>
+
+
                     </div>
                 </div>
             </div>
@@ -139,9 +137,10 @@
                 <table class="correction">
                     <tr>
                         <th><h5>아이디</h5></th>
-                        <td><input type="text" value="<%= loginUser.getUserId() %>" readonly id="userid" name="userId" disabled></td>
+                        <td><input type="text" value="<%= loginUser.getUserId() %>" readonly id="userid" name="userId" >
+                                        
                         <input type="hidden" value="<%= loginUser.getUserNo() %>" name="userNo" id="userNo">        
-                    
+                    </td>
                     </tr>
                     <tr>
                         <th><h5>이름</h5></th>

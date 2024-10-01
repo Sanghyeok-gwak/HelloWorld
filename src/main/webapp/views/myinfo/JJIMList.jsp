@@ -1,4 +1,5 @@
 <%@ page import = "java.util.List" %>
+<%@ page import = "com.gd.hw.myinfo.model.vo.MyPoint" %>
 <%@ page import = "com.gd.hw.product.model.vo.Product" %>
 <%@ page import = "com.gd.hw.myinfo.model.vo.MyJjim" %>
 <%@ page import = "com.gd.hw.common.model.vo.PageInfo" %>
@@ -7,7 +8,9 @@
 <% 
 PageInfo pi = (PageInfo)request.getAttribute("pi");
 List<MyJjim> JJlist = (List<MyJjim>)request.getAttribute("JJlist");
-%>
+int result = (Integer) request.getAttribute("re");
+%> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -132,11 +135,7 @@ List<MyJjim> JJlist = (List<MyJjim>)request.getAttribute("JJlist");
         color: #007AFF;
       }
 
-      .list-main {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+
 
       .content {
         text-align: center;
@@ -174,7 +173,7 @@ List<MyJjim> JJlist = (List<MyJjim>)request.getAttribute("JJlist");
                 <h5><a href="<%= contextPath %>/myinfo.us" style="color: gray; text-decoration-line: none;">내정보 관리<i class="fa-solid fa-play">
                 </h5></i></a></p>
                 <p>
-                <h5>적립금 0P</h5>
+                <h5>적립금 <%= result %>P</h5>
                 </p>
               </div>
             </div>

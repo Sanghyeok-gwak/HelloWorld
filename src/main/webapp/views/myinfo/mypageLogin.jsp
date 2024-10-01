@@ -4,6 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<%
+int result = (Integer) request.getAttribute("re");
+
+%>
 <title>Insert title here</title>
 </head>
 <style>
@@ -77,7 +81,9 @@
   input {
     border: 1px solid lightgray;
   }
+ 
 </style>
+
 <body>
 <%@ include file="/views/common/header.jsp" %>
 

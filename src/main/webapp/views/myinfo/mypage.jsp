@@ -244,7 +244,7 @@ int result = (Integer) request.getAttribute("re");%>
                   <p class="card-text" style="font-size: 18px;"><%= m.getStartDate() %>~<%= m.getEndDate() %></p>
                   <dav style="display: flex; justify-content:end;">
                   <a href="<%= contextPath %>/myinfodt.us?userNo=<%= loginUser.getUserNo() %>&productNo=<%=m.getProductId() %>&mUid=<%=m.getMerchantUid() %>"type="button" class="btn" id="btn-4" style="margin-right: 15px;  width: 140px;  " onclick="fnPayListbtn();">결제내역</a>
-                  <a href="#" class="btn" id="btn-2" onclick="run();" style="width: 140px display: none; ">환불하기</a></dav>
+                  <a href="#" class="btn" id="btn-2" onclick="run();" style="width: 140px; display: none; ">환불하기</a></dav>
                 </div>
               </div>
             </div>         
@@ -263,16 +263,16 @@ int result = (Integer) request.getAttribute("re");%>
                <div aria-label="d-flex justify-content-center">
               <ul class="pagination">
                 <li class='page-item  <%=pi.getCurrentPage() == 1 ? "disabled" : ""%>'>
-                  <a class="page-link" href='<%=contextPath%>/myinfom.us?page=<%=pi.getCurrentPage()-1%>'> < </a>
+                  <a class="page-link" href='<%=contextPath%>/myinfom.us?page=<%=pi.getCurrentPage()-1%>&no=<%= loginUser.getUserNo() %> '> < </a>
 								</li>
 	      	  <%for (int p=pi.getStartPage(); p<=pi.getEndPage(); p++) { %>
 	        	  <li class ='page-item <%=p == pi.getCurrentPage() ? "active" : "" %>'>
-  	       	<a class="page-link" href="<%=contextPath%>/myinfom.us?page=<%=p%>"><%=p%></a>  
+  	       	<a class="page-link" href="<%=contextPath%>/myinfom.us?page=<%=p%>&no=<%= loginUser.getUserNo() %>"><%=p%></a>  
     	      	</li>
       	  	<%}%>
 
         				<li class= 'page-item <%=pi.getCurrentPage() == pi.getMaxPage() ? "disabled" : ""%>'>
-          			  <a class="page-link" href="<%=contextPath%>/myinfom.us?page=<%=pi.getCurrentPage()+1%>"> > </a>
+          			  <a class="page-link" href="<%=contextPath%>/myinfom.us?page=<%=pi.getCurrentPage()+1%>&no=<%= loginUser.getUserNo() %>  "> > </a>
                 </li>
               </ul>
             </div>  

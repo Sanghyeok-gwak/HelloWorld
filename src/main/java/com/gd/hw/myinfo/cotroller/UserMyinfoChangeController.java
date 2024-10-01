@@ -46,11 +46,15 @@ public class UserMyinfoChangeController extends HttpServlet {
 	User updateUn = new MyinfoService().updateUser(u);
 	
 	request.setAttribute("no", userNo);
+	request.getParameter("userId");
+	
+	
 	
 	HttpSession session = request.getSession();
 	if(updateUn == null) {
 	  session.setAttribute("alertMsg", "회원 정보 변경 실패");
       request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
+
 
 	}else {
 		session.setAttribute("loginUser", updateUn);

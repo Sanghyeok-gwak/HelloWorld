@@ -33,14 +33,11 @@ public class UserMyinfoLoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				
 		String userId = request.getParameter("userId");
-		System.out.println(userId);
 		String userPwd = request.getParameter("userPwd");
-		System.out.println(userPwd);
 		
 		
 		String checkPwd = new MyinfoService().longincheck(userId,userPwd);
 		
-		System.out.println(checkPwd);
 		
 		
 		if(checkPwd != null && userPwd.equals(checkPwd)) {

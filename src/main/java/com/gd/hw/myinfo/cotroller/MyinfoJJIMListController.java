@@ -34,8 +34,6 @@ public class MyinfoJJIMListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	int userNo = Integer.parseInt(request.getParameter("no")); 
 	int jjimCount = new MyinfoService().selectMyinfoJJIMCount(userNo);
-	System.out.println(userNo);
-	System.out.println(jjimCount);
 	
 	int currentPage = 1;
 	if(request.getParameter("page") != null) {
@@ -56,11 +54,14 @@ public class MyinfoJJIMListController extends HttpServlet {
 	PageInfo pi = new PageInfo(jjimCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 
 	List<MyJjim> list = new MyinfoService().myinfoJJIMListList(pi, userNo);
-	
+    MyinfoService myinfoService = new MyinfoService();
+	int result = myinfoService.selectPoint(userNo);
+
 	request.setAttribute("no", userNo);
 	request.setAttribute("pi", pi);
 	request.setAttribute("JJlist", list);
-	
+    request.setAttribute("re", result);
+
 	request.getRequestDispatcher("/views/myinfo/JJIMList.jsp").forward(request, response);
 	}
 
