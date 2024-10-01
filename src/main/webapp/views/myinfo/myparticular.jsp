@@ -170,7 +170,7 @@
                   <td><%=p.getPassportEx() %></td>
                 </tr>
                 <%
-				    }
+				    }}
 				%>
               </table>
           </div>
