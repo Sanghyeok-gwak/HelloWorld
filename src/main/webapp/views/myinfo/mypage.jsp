@@ -127,11 +127,6 @@ int result = (Integer) request.getAttribute("re");%>
       color: #007AFF;
     }
 
-    .list-main {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
 
     .content {
       text-align: center;
@@ -220,8 +215,7 @@ int result = (Integer) request.getAttribute("re");%>
                 <p>
                 <h5>예약 / 결제내역이 없습니다</h5>
                 </p>
-                <button id="btn-2" class="btn">상품둘러보기 <i class="fa-solid fa-arrow-right"></i></button>
-              </div>  
+								<i class="fa-solid fa-circle-exclamation" style="font-size: 100px;"></i>              </div>  
               <% }else{ %>
                
                
