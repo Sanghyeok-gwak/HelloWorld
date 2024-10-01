@@ -350,7 +350,7 @@ h5 {
 		</div>
 
 		<div id="details" class="tabContent" style="display: none;">
-			<img src="<%=contextPath%>/assets/image/상세정보 수정본1.png" alt="상세 정보 이미지">
+			<%=product.getDetailEditor() %>
 		</div>
 
 		<%
