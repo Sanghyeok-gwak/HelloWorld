@@ -243,16 +243,6 @@ int result = (Integer) request.getAttribute("re");%>
               </div>
             </div>         
             	<% } %>
-            <% } %> 
-              <!-- 2 -->
-                
-              <!-- 3 -->
-              
-              <!-- 4 -->
-               
-              <!-- 5 -->
-                
-                       
               <!-- Pagination -->
                <div aria-label="d-flex justify-content-center">
               <ul class="pagination">
@@ -270,6 +260,16 @@ int result = (Integer) request.getAttribute("re");%>
                 </li>
               </ul>
             </div>  
+            <% } %> 
+              <!-- 2 -->
+                
+              <!-- 3 -->
+              
+              <!-- 4 -->
+               
+              <!-- 5 -->
+                
+                       
             </div>
           </div>
         </div>
