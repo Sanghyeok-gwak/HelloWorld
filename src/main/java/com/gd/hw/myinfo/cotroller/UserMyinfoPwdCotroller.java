@@ -55,8 +55,8 @@ public class UserMyinfoPwdCotroller extends HttpServlet {
 			// 응답페이지 : 마이페이지 
 			// 응답데이터 : "성공적으로 비밀번호가 변경되었습니다." alert 메세지
 			session.setAttribute("alertMsg", "성공적으로 비밀번호가 변경되었습니다.");
-		}
-		
+		}			
+	
 		// 성공이든 실패든 /web/myinfo.me   url 재요청 => 마이페이지로 포워딩
 		response.sendRedirect(request.getContextPath() + "/myinfo.us");
 		

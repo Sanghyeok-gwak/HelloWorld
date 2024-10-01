@@ -57,8 +57,7 @@ public class MyinfoService {
 		if(result > 0) {
 			commit(conn);
 		// 조회
-			System.out.println("=======");
-			System.out.println(u.getUserId());
+		
 			updateUn = uDao.selectUserById(conn, u.getUserId());	 
 			
 		}else {

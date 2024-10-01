@@ -7,7 +7,8 @@
 <%
     OrderAd order = (OrderAd)request.getAttribute("order");
     List<Person> list = (List<Person>)request.getAttribute("plist");
-		
+    
+
 %>
 
 <!DOCTYPE html>
@@ -59,8 +60,8 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title"><%= loginUser.getUserName() %>님<br>WELCOME</h5>
-                    <p class="card-text"><h5><a href="#" style="color: gray; text-decoration-line: none;">내정보 관리<i class="fa-solid fa-play"> </h5></i></a></p>
-                    <p><h5>적립금 0P</h5></p>
+                    <p class="card-text"><h5><a href="<%= contextPath %>/myinfo.us" style="color: gray; text-decoration-line: none;">내정보 관리<i class="fa-solid fa-play"> </h5></i></a></p>
+                  
                 </div>
             </div>
             <div class="card">
@@ -169,12 +170,12 @@
                   <td><%=p.getPassportEx() %></td>
                 </tr>
                 <%
-				    }
+				    }}
 				%>
               </table>
           </div>
         </div>
-           <div> <button class="btn" id="btn-1" onclick="history.back()"> 목록으로 </button></div>
+           <div class="inventory"> <button class="btn" id="btn-1" onclick="history.back()"> 목록으로 </button></div>
         </main>
     </div>
              

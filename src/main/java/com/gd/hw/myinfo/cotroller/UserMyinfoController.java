@@ -29,7 +29,6 @@ public class UserMyinfoController extends HttpServlet {
 
 		request.getRequestDispatcher("/views/myinfo/mypageLogin.jsp").forward(request, response);
 		
-
 	}
 
 	/**

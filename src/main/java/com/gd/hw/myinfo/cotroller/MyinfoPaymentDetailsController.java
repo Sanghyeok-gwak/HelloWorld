@@ -56,10 +56,12 @@ public class MyinfoPaymentDetailsController extends HttpServlet {
         OrderAd order = new OrderService().selectOrderByMerUid(mUid);
         List<Person> plist = new OrderService().selectAllPersonByMerUid(mUid);
         
+    	request.setAttribute("no", userNo);
         request.setAttribute("plist",plist );
         request.setAttribute("order",order);
         request.setAttribute("result", result);
         
+
         
        
 		request.getRequestDispatcher("/views/myinfo/myparticular.jsp").forward(request, response);

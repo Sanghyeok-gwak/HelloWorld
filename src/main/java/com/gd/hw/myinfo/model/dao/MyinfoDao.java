@@ -113,16 +113,16 @@ public class MyinfoDao {
 				rset = pstmt.executeQuery();
 				
 				if(rset.next()) {
-					u = new User(rset.getInt("user_no")
-								,rset.getString("user_id")
-								,rset.getString("user_pwd")
-								,rset.getString("user_name")
-								,rset.getString("email")
-								,rset.getString("phone")
-								,rset.getDate("enroll_date")
-								,rset.getDate("modify_date")
-								,rset.getString("roll")
-								,rset.getString("status"));
+					u = new User(rset.getInt("USER_NO")
+								,rset.getString("USER_ID")
+								,rset.getString("USER_PWD")
+								,rset.getString("USER_NAME")
+								,rset.getString("EMAIL")
+								,rset.getString("PHONE")
+								,rset.getDate("ENROLL_DATE")
+								,rset.getDate("MODIFY_DATE")
+								,rset.getString("ROLL")
+								,rset.getString("STATUS"));
 				}
 			} catch (SQLException e) {
 				
@@ -199,7 +199,6 @@ public class MyinfoDao {
 		ResultSet rset = null;
 	
 		String sql = prop.getProperty("selectMyinfoList");
-		System.out.println("SQL Query: " + sql);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -207,11 +206,8 @@ public class MyinfoDao {
 			int endRow = startRow + pi.getBoardLimit() -1;
 			
 			pstmt.setInt(1, userNo);
-			System.out.print(userNo);
 			pstmt.setInt(2, startRow);
-			System.out.print(startRow);
 			pstmt.setInt(3, endRow);
-			System.out.print(endRow);
 			
 			rset = pstmt.executeQuery();
 			
