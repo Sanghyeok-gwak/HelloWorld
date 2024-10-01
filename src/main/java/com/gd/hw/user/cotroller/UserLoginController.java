@@ -53,7 +53,7 @@ public class UserLoginController extends HttpServlet {
             if ("R".equals(status)) {
                 // 탈퇴 회원일 경우
 
-                request.getRequestDispatcher("/views/user/login.jsp").forward(request, response);
+                request.getRequestDispatcher("/views/common/error.jsp").forward(request, response);
                 
             } else if ("B".equals(status)) {
                 // 블랙리스트 회원일 경우

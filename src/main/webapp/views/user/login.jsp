@@ -158,8 +158,7 @@ label {
 					<button type="submit" id="btn-1" class="login-btn">로그인</button>
 					<div class="AuthModule">
 						<a href="<%=contextPath %>/views/user/signupStart.jsp">회원가입</a>&nbsp;
-						|&nbsp; <a href="<%=contextPath %>/views/user/FindAccount.jsp">아이디찾기</a>&nbsp;
-						|&nbsp; <a href="<%=contextPath %>/views/user/FindAccount.jsp">비밀번호찾기</a>
+						|&nbsp; <a href="<%=contextPath %>/views/user/FindAccount.jsp">아이디찾기 / 비밀번호찾기</a>
 					</div>
 				</form>
 			</div>
