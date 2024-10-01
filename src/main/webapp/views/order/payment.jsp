@@ -4,9 +4,9 @@
    pageEncoding="UTF-8"%>
 <%@ page import="com.gd.hw.order.model.vo.ProductOr" %>
 <%  
-	ProductOr p = (ProductOr) request.getAttribute("p"); 
- 	int point = (int)request.getAttribute("point");
-	 
+   ProductOr p = (ProductOr) request.getAttribute("p"); 
+    int point = (int)request.getAttribute("point");
+    
 %>
 <!DOCTYPE html>
 <html>
@@ -130,7 +130,7 @@
 
             <div class="travel-tern-content content-all ">
                <h5 class="travel-title">1. 제1조(목적)</h5>
-               <p>이 약관은 (주)인터파크트리플(이하 ‘당사’라 함)과 여행자가 체결한 국외여행계약의 세부 이행 및 준수사항을
+               <p>이 약관은 (주)헬로우월드트리플(이하 ‘당사’라 함)과 여행자가 체결한 국외여행계약의 세부 이행 및 준수사항을
                   정함을 목적으로 합니다.</p>
                <h5 class="travel-title">2. 제2조(용어의 정의)</h5>
                <p>여행의 종류 및 정의, 해외여행수속대행업의 정의는 다음과 같습니다.</p>
@@ -340,8 +340,7 @@
             <div>
                <h1 class="number">03</h1>
                <h5 class="num-name">여행자 정보</h5>
-               <p class="sub-num-name">여행자 인원수를 확인해 주시기 바랍니다. 여행자 상세 정보는
-                  마이페이지에서 추후 입력 및 수정 가능합니다(단, 전액 결제 상품 제외)</p>
+               <p class="sub-num-name">여행자 인원수를 확인해 주시기 바랍니다.</p>
             </div>
 
             <div class="ow3-content">
@@ -375,10 +374,9 @@
          </div>
 
          <div class="form-group-description">
-            <p>-여행자 정보는 예약완료 단계 전까지 마이페이지를 통해 입력 및 수정 가능합니다.</p>
-            <p>-예약 후 일행 변경 시 옵션 및 가격 변동이 있을 수 있습니다. 변경사항이 있을 경우 담당자에게 문의 해
+            <p>-예약 후 일행 변경 시 옵션 및 가격 변동이 있을 수 있습니다. 변경사항이 있을 경우 고객센터로 문의 해
                주시기 바랍니다.</p>
-            <p>-성인,유아 기준 인원이 각 10명 이상일 경우 예약 후 담당자에게 초과 인원을 말씀해 주세요.</p>
+            <p>-성인,유아 기준 인원이 각 5명 이상일 경우 예약 후 담당자에게 초과 인원을 말씀해 주세요.</p>
          </div>
 
          <div class="section-data1">
@@ -404,7 +402,6 @@
                         <th class="first" >구분</th>
                         <th>한글명</th>
                         <th>영문성</th>
-                        
                         <th>영문이름</th>
                         <th>생년월일<span class="data"></span></th>
                         <th>휴대번호</th>
@@ -420,7 +417,7 @@
                         <td
                            style="padding: 7px 0px 2px; font-size: 11px; color: rgb(90, 90, 90); text-align: center; letter-spacing: -0.025em; border: 1px solid rgb(220, 220, 220);"
                            class="rep rep-red">대표자 
-        								<input type="hidden"
+                                <input type="hidden"
                            id="CustomerAge" name="CustomerAge" value="100"> <input
                            type="hidden" id="CustomerSeniorDCYN" name="CustomerSeniorDCYN"
                            value="N"> <input type="hidden"
@@ -540,7 +537,7 @@
                   <td class="option-info-title">적립금 금액</td>
                   <td>
                      <div class="m-point">
- 	
+    
                         <input type="text" value="0" class="pay-input"  id="usePoint" style="text-align:right"> 원 사용
                         <span style="margin-left:100px;">보유 적립금: <%=point %></span>
                      </div>
@@ -551,44 +548,40 @@
                </tr>
             </table>
          </div>
-
+		<!--  
          <div class="order-window-5 ow-all">
             <div>
                <table>
                   <tr>
-                  	<!-- 결제 금액 위치에 결제할 금액 보이게 해주기 -->
                      <td class="order-window-5-title">결제 금액</td>
                      
-                     <!-- 상품 금액 위치에 상품에 대한 금액 보이게 해주기 -->
                      <td><input type="checkbox" class="productPr" disabled>상품가격</td>
                      
-                     <!-- 포인드사용 위치에 상품에 대한 금액 보이게 해주기 -->
                      <td><input type="checkbox" class="m-point" disabled > 할인금액원</td>
                      
-                     <!-- 총 결제금액 보이게 해주기 -->
                      <td><input type="checkbox" class = "final_pay"  disabled> 총 결제금액</td>
                   </tr>
                </table>
             </div>
          </div>
-
+			-->
          <div class="order-window-6-button ow-all">
              <button id="btn-2" class="btn" onclick="console.log('Button clicked'); requestPay();">예약하기</button>
-            	 <form method="post" action="/order.">
+                <form method="post" action="/order.">
             
                <a href="<%=contextPath%>" id="mainPageBtn" class="btn btn-primary">취소</a>
             </form>
          </div>
       </div>
-	</section>
-	<!-- 결제 정보 -->
-	<%@ include file="/views/common/footer.jsp"%>
+   </section>
+   <!-- 결제 정보 -->
+   <%@ include file="/views/common/footer.jsp"%>
 
 
 
-	<!-- 카카오페이 api 연결 결제시도-->
-	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-	<script>
+   <!-- 카카오페이 api 연결 결제시도-->
+   <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+   <script>
             
            // 객체 초기화
            var IMP = window.IMP;

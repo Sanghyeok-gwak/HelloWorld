@@ -239,7 +239,9 @@ h5 {
         <!--버튼 영역 시작-->
         <div align="center" class="pt-4">
         <%if(order.getStatus().equals("C")){ %>
+        <!--  
          <button class="btn btn-primary btn-sm" style="width:200px" id="delBtn">환불하기</button>
+        -->
          <%} %>
           <button class="btn btn-primary btn-sm" style="width:200px" onclick="history.back()">목록으로</button>
         </div>
