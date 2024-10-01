@@ -181,31 +181,6 @@
          WHERE P.PRODUCT_NAME LIKE ?
     </entry>
 
-    <entry key="getFavoriteList">
-        SELECT PRODUCT_ID 
-		      FROM FAVORITES
-         WHERE USER_NO = ?
-    </entry>
-
-		<!-- 리뷰 추가 및 조회 -->
-
-		<entry key="selectReview">
-		
-		SELECT COUNT(*)
-      FROM "ORDER" O
-          ,"USER" U
-     WHERE O.USER_NO = U.USER_NO
-       AND U.USER_NO=?
-       AND O.MERCHANT_UID = (SELECT MERCHANT_UID 
-       												 FROM REVIEW 
-       												WHERE MERCHANT_UID=?);
-		</entry>
-		
-		
-		
-		
-		
-		
 
 
 </properties>

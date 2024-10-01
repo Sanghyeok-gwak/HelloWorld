@@ -1,8 +1,12 @@
+<%@ page import="com.gd.hw.order.model.vo.Person" %>
+<%@ page import="com.gd.hw.order.model.vo.ProductOr" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ page import="com.gd.hw.order.model.vo.ProductOr" %>
-<%   ProductOr p = (ProductOr) request.getAttribute("p"); 
-	 int point = (int)request.getAttribute("point");
+<%  
+	ProductOr p = (ProductOr) request.getAttribute("p"); 
+ 	int point = (int)request.getAttribute("point");
+	 
 %>
 <!DOCTYPE html>
 <html>
@@ -30,6 +34,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- ------------------------- -->
 </head>
+<style>
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css');
+</style>
 
 <!-- body -->
 <body>
@@ -41,7 +48,8 @@
       <div class="product-name">
          <div class="reservation">
             <!-- 이미지 -->
-            <h1>STEP 01예약하기</h1>
+              <p>STEP 01</p>
+            <h1>/ 예약정보 입력</h1>
          </div>
 
          <div class="infoEnter">
@@ -377,7 +385,7 @@
             <h4 class="invisible">여행자 정보 작성</h4>
             <div class="sub-mask">
                <table summary="여행자 정보확인란 입니다." class="board-list02"
-                  id="tblCustomer" name="tblCustomer">
+                  id="tblCustomer" name="tblCustomer" >
 
                   <colgroup>
                      <col width="43px;">
@@ -393,9 +401,10 @@
                   </colgroup>
                   <thead>
                      <tr>
-                        <th class="first">구분</th>
+                        <th class="first" >구분</th>
                         <th>한글명</th>
                         <th>영문성</th>
+                        
                         <th>영문이름</th>
                         <th>생년월일<span class="data"></span></th>
                         <th>휴대번호</th>
@@ -403,13 +412,15 @@
                         <th>국적</th>
                         <th>여권번호<span class="data"></span></th>
                         <th class="last">여권만료<span class="data"></span></th>
+                    
+                    
                      </tr>
                      <!-- 대표자 -->
                      <tr id="repInfo">
                         <td
                            style="padding: 7px 0px 2px; font-size: 11px; color: rgb(90, 90, 90); text-align: center; letter-spacing: -0.025em; border: 1px solid rgb(220, 220, 220);"
                            class="rep rep-red">대표자 
-         <input type="hidden"
+        								<input type="hidden"
                            id="CustomerAge" name="CustomerAge" value="100"> <input
                            type="hidden" id="CustomerSeniorDCYN" name="CustomerSeniorDCYN"
                            value="N"> <input type="hidden"
@@ -420,7 +431,7 @@
                         <td
                            style="padding: 7px 0px 2px; font-size: 11px; color: rgb(90, 90, 90); text-align: center; letter-spacing: -0.025em; border: 1px solid rgb(220, 220, 220);">
                            <input type="text" id="CustomerKrNM" name="CustomerKrNM"
-                           value="" maxlength="10"
+                           value="" maxlength="10" required
                            style="height: 18px; line-height: 18px; border: 1px solid #dcdcdc; position: relative; top: -2px; font-size: 11px; font-family: dotum;"
                            size="9" title="한글명">
                         </td>
@@ -457,8 +468,8 @@
                            style="padding: 7px 0px 2px; font-size: 11px; color: rgb(90, 90, 90); text-align: center; letter-spacing: -0.025em; border: 1px solid rgb(220, 220, 220);">
                            <select class="bsc1" id="Gender"
                            name="Gender" title="성별" style="width: 66px;">
-                              <option value="" selected="selected">선택</option>
-                              <option value="F">여</option>
+                             <!--  <option value="" >선택</option> -->
+                              <option value="F" selected="selected">여</option>
                               <option value="M">남</option>
                         </select>
                         </td>
@@ -498,7 +509,7 @@
          <div class="order-window-4 ow-all">
             <div>
                <h1 class="number">04</h1>
-               <h5 class="num-name">결제금액 및 할인혜택</h5>
+               <h5 class="num-name">결제금액 및 여행자보험선택 총 금액결제</h5>
             </div>
             
              <div class="order-window-4 ow-all">
@@ -509,30 +520,32 @@
             <td class="main-bohum">
               <div class="traffic-bohum">
                 <label for="transport">여행자 보험선택</label>
-                <select class="form-control" id="sel1" style = "text-align:center; margin:auto;">
-                  <option value="1">선택없음</option>
+                <select class="form-control" id="sel1" style ="text-align:center; margin:auto;">
+                  <option value="1">선택안함</option>
                   <option value="2">브론즈</option>
                   <option value="3">실버</option>
                   <option value="4">골드</option>
                   <option value="5">다이아</option>
                 </select>
               </div>
+              
+
+              
                <tr>
-                  <td class="product-pay"> 상품가격: <span id="totalPay"></span>
+                  <td class="product-pay" > 상품가격 <span id="totalPay"></span>
                      원
                   </td>
                </tr>
                <tr>
-                  <td class="option-info-title">할인금액</td>
+                  <td class="option-info-title">적립금 금액</td>
                   <td>
                      <div class="m-point">
  	
                         <input type="text" value="0" class="pay-input"  id="usePoint" style="text-align:right"> 원 사용
-                        <span style="margin-left:100px;">보유한 point : <%=point %></span>
+                        <span style="margin-left:100px;">보유 적립금: <%=point %></span>
                      </div>
                      <ul class="point-precautions">
-                        <li>일부 쿠폰을 I-Point와 동시 사용 불가합니다.</li>
-                        <li>I-Point로 결제 시, 결제금액에서 포인트 사용금액을 제외한 차액에 한해 포인트가 적립됩니다.</li>
+                        <li>보유하신 적립금은 즉시 사용 가능합니다.</li>
                      </ul>
                   </td>
                </tr>
@@ -543,10 +556,17 @@
             <div>
                <table>
                   <tr>
+                  	<!-- 결제 금액 위치에 결제할 금액 보이게 해주기 -->
                      <td class="order-window-5-title">결제 금액</td>
-                     <td>상품가격</td>
-                     <td><input type="checkbox" disabled> 할인금액 원</td>
-                     <td><input type="checkbox" disabled> 총 결제금액</td>
+                     
+                     <!-- 상품 금액 위치에 상품에 대한 금액 보이게 해주기 -->
+                     <td><input type="checkbox" class="productPr" disabled>상품가격</td>
+                     
+                     <!-- 포인드사용 위치에 상품에 대한 금액 보이게 해주기 -->
+                     <td><input type="checkbox" class="m-point" disabled > 할인금액원</td>
+                     
+                     <!-- 총 결제금액 보이게 해주기 -->
+                     <td><input type="checkbox" class = "final_pay"  disabled> 총 결제금액</td>
                   </tr>
                </table>
             </div>
@@ -582,16 +602,8 @@
                        merchant_uid: 'merchant_' + new Date().getTime(),  // 주문 번호
                        name: 'world',         // 상품 이름
                        amount: 10,  
-                      /* TOTAL_PAY(FINAL_PAY+POINT_U): 10,  */          // 결제 금액
-                       //buyer_email: 'EMAIL',  // 구매자 이메일
-                       //buyer_name: 'order_receiver',         // 구매자 이름
-                       //buyer_tel: 'ORDER_PHONE',  // 구매자 전화번호
-                       //buyer_addr: 'ORDER_ADDRESS', // 구매자 주소
-                       // buyer_postcode: '07171'      // 구매자 우편번호
-                       //m_redirect_url: // 추후에 결제완료 페이지로 리다이렉트하기
                    }, function (rsp) { // callback 로직 - 리다이렉트로 할 시 callback 필요없음
                        if (rsp.success) {
-                       console.log('됐다.');
 
                         $.ajax({
                         url:'<%=contextPath%>/insert.or',
@@ -642,13 +654,11 @@
                
         $('#sel1').change(function() {
            const sel1 = $(this).val();
-          console.log(sel1);
            const aPrice =Number(<%=p.getaPrice()%>)
            const cPrice =Number(<%=p.getcPrice()%>)
            const aNum = Number($('#adult-select').val())+1;
           const cNum = Number($('#infant-select').val());
            let result = (aPrice*aNum)+(cPrice*cNum);
-           console.log(result);
            if(sel1 == 1){
              $('#totalPay').html(result);
            }else if(sel1 == 2){
@@ -666,7 +676,7 @@
             var usePoint = $("#usePoint").val();
             if(usePoint > <%=point%>) {
              
-                    alert("보유한 포인트를  확인해주세요.");
+                    alert("보유한 적립금을 확인해주세요.");
                     $("#usePoint").val("");
             }
         });

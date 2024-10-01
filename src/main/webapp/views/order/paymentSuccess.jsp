@@ -1,17 +1,37 @@
 <%@ page import="com.gd.hw.order.model.vo.Person" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% String merchantUid = (String)request.getAttribute("merchantUid"); 
-   Person p = (Person)request.getAttribute("p");
+<% 
+	String merchantUid = (String)request.getAttribute("merchantUid"); 
+  Person p = (Person)request.getAttribute("p");
+   
 %>
+
+	
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>결제 완료 페이지</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
- <!-- css파일 -->
+
+	<!-- Bootstrap 사용을 위한 CDN -->
+	<link rel="stylesheet"
+	   href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+	<script
+	   src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script
+	   src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script
+	   src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript"
+	   src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript"
+	   src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- css파일 -->
   <link rel="stylesheet" href="/world/assets/css/payment.css">
   <!-- js파일 -->
   <script src="/world/assets/js/payment.js"></script>
@@ -43,7 +63,7 @@
                   
                 <table class="table">
                    
-                              <tbody>
+                      <tbody>
                         <tr>
                             <th>예약번호</th>
                             <!-- 예약번호 -->

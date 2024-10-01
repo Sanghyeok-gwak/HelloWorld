@@ -49,6 +49,7 @@ $(document).ready(function() {
   });
 
 
+// ow3-content 여행자정보관련 js
 function updateForm() {
     const adultCount = document.getElementById('adult-select').value;
     const infantCount = document.getElementById('infant-select').value;
@@ -213,12 +214,23 @@ function updateForm() {
     }
 };
 
+/* 여행자 정보 필드값  로그인된것 입력해서 나오게 해주기*/
+ $(function() {
+    $('#user_id_1, #user_pw_1').on('focus', // #user_id_1, #user_pw_1 에 on이벤트를 이용하여 focus 이벤트를 넣음
+    function() {
+        $(this).css({backgroundColor: 'pink'}); // this === #user_id_1, #user_pw_1 이므로 focus가 대상 요소로 이동하면 배경 핑크 이벤트 발생
+        }
+    );
+    $('#user_id_1, #user_pw_1').on('blur', 
+    function() {
+        $(this).css({backgroundColor: 'white'}); // focus가 blur이벤트로 인해 벗어나면 배경 white 이벤트 발생
+    });
+
 // 카카오 결제
 $("#check_module").click(function () {
-    var IMP = window.IMP; // 생략가능
+    var IMP = window.IMP; 
     IMP.init('imp02350258');
-    // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
-    // ''안에 띄어쓰기 없이 가맹점 식별코드를 붙여넣어주세요. 안그러면 결제창이 안뜹니다.
+    
     IMP.request_pay({
         pg: 'kakao.TC0ONETIME',
         pay_method: 'kakaopay',
@@ -228,14 +240,13 @@ $("#check_module").click(function () {
          *  https://docs.iamport.kr/implementation/payment
          *  위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
          */
-        name: '상품명 : 먼나라이웃나라탐방',
+        name: '상품명 : ',
         // 결제창에서 보여질 이름
         // name: '주문명 : ${auction.a_title}',
         // 위와같이 model에 담은 정보를 넣어 쓸수도 있습니다.
         amount: 100,
         // amount: ${bid.b_bid},
-        // 가격 
-        buyer_email: 'phn1389@naver.com',  // 구매자 이메일
+        buyer_email: 'user01@naver.com',  // 구매자 이메일
         buyer_name: 'NAME',
         // 구매자 이름, 구매자 정보도 model값으로 바꿀 수 있습니다.
         // 구매자 정보에 여러가지도 있으므로, 자세한 내용은 맨 위 링크를 참고해주세요.
@@ -254,5 +265,8 @@ $("#check_module").click(function () {
             msg += '에러내용 : ' + rsp.error_msg;
         }
         alert(msg);
+         });
+			});
     });
-});
+
+   
