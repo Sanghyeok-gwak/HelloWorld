@@ -33,11 +33,10 @@ public class MyinfoJJMListDetailsController extends HttpServlet {
     	   // 
     	int userNo = Integer.parseInt(request.getParameter("userNo"));
         int productId = Integer.parseInt(request.getParameter("productId"));
-       
+        
         MyinfoService myinfoService = new MyinfoService();
         int result = myinfoService.deleteJjimOut(userNo, productId);
 
-        
         
         
         response.setContentType("application/json; charset=UTF-8");

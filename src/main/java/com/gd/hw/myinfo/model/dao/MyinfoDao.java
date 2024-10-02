@@ -376,7 +376,6 @@ public class MyinfoDao {
 	        } finally {
 	            close(pstmt);
 	        }
-	        
 	        return result;
 	    }
 	

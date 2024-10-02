@@ -217,7 +217,6 @@ int result = (Integer) request.getAttribute("re");
                 <i class="fa-solid fa-circle-exclamation" style="font-size: 100px;"></i>
               </div> 
 							<% }else{ %>
-							
               <!-- 1 -->
               <% for(MyJjim j : JJlist){ %>
                <div class="col-md-12 mb-3">
@@ -231,10 +230,10 @@ int result = (Integer) request.getAttribute("re");
                     <h3 class="card-title"><%= j.getProductName() %>
                     </h3>
                   </a>
+                 	
                   <p class="card-text" style="font-size: 18px;"><%= j.getStartDate() %>~<%= j.getEndDate() %></p>
 									<div class="d-flex justify-content-end">
-                  <div id="heart-icon-<%=j.getProdcutId()%>" class="fa-solid fa-heart heart" onclick="run();"></div><!-- 찜하트 -->
-                  <input type="hidden" value="<%=j.getProdcutId()%>" id="hidden_id">
+                  <div id="heart-icon-<%=j.getProdcutId()%>" class="fa-solid fa-heart heart" data-productid="<%=j.getProdcutId()%>" onclick="run();"></div><!-- 찜하트 -->
                   <a href="orderPage.us?productId=<%=j.getProdcutId()%>&aNum=0&cNum=0" id="btn-1" class="btn" style="width: 140px;">예약</a>
                  </div>
                 </div>               
@@ -259,14 +258,7 @@ int result = (Integer) request.getAttribute("re");
               </ul>
             </div>  						
             <% } %>
-              <!-- 2 -->
-
-              <!-- 3 -->
-      
-              <!-- 4 -->
               
-              <!-- 5 -->
-               
           </div>
         </div>
       </div>
@@ -282,12 +274,13 @@ int result = (Integer) request.getAttribute("re");
       
       
       function run(){
-    	  
+    	  //const jjimValue= document.querySelector('#hidden_id').value;
+    	  const jjimValue= $(window.event.target).data("productid");
     	  $.ajax({
-    		  url:'<%= contextPath%>/myinfoJjd.us',
+    		  url:'<%=contextPath%>/myinfoJjd.us',
     		  data:{
     			  userNo: <%= loginUser.getUserNo() %>,
-    				productId: $('#hidden_id').val()
+    				productId: jjimValue
     		  },
     		  success:function(res){
     			  console.log(res);
