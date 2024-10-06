@@ -16,94 +16,156 @@
       height: 100%;
       font-family: 'Arial', sans-serif;
       scroll-behavior: smooth;
-      overflow: hidden; 
+      overflow: hidden;
     }
 
     .section {
-      height: 100vh; 
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative; 
-      background-size: cover; 
-      background-position: center; 
-      opacity: 0; 
-      transition: opacity 0.5s ease; 
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
 
     #section1 {
-      background-image: url('https://i.ibb.co/dtTfcBx/image.jpg'); 
-      flex-direction: row; 
+      background-image: url('https://i.ibb.co/dtTfcBx/image.jpg');
+      flex-direction: row;
     }
 
     #section2 {
-      background-image: url('https://i.ibb.co/2kqFZc5/seciton2img.jpg'); 
-      flex-direction: row-reverse; 
+      background-image: url('https://i.ibb.co/2kqFZc5/seciton2img.jpg');
+      flex-direction: row-reverse;
     }
 
     #section3 {
-      background-image: url('https://i.ibb.co/RD9XRZg/section3img.jpg'); 
-      flex-direction: row; 
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+      position: relative;
     }
 
-    #section4 {
-      background-image: url('https://i.ibb.co/RSW9j8W/section4img.jpg'); 
-      flex-direction: row-reverse; 
+    #section3 .img-container {
+      position: relative;
+      width: 25%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #section3 .img-container h1 {
+      position: absolute;
+      bottom: 55%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      transition: opacity 1s ease;
+      font-size: 2rem;
+    }
+
+    #section3 .img1 {
+      background-image: url('https://i.ibb.co/NNhV6SW/banner-mexico-004.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    #section3 .img2 {
+      background-image: url('https://i.ibb.co/VL5SnkF/ai-generative-image-of-a-bustling-japanese-street-food-market-free-photo.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    #section3 .img3 {
+      background-image: url('https://i.ibb.co/gZNn48k/asdff.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    #section3 .img4 {
+      background-image: url('https://i.ibb.co/nB0jdxs/asdf.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    #section3 p {
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.0rem;
+      color: white;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      transition: opacity 1s ease;
+      text-align: center;
+    }
+
+    #section5 {
+      background-image: url('https://i.ibb.co/RD9XRZg/section3img.jpg');
+      flex-direction: row;
+    }
+
+    #section6 {
+      background-image: url('https://i.ibb.co/RSW9j8W/section4img.jpg');
+      flex-direction: row-reverse;
     }
 
     .content {
-      width: 50%; 
-      text-align: center; 
-      padding: 20px; 
-      color: #fff; 
-      backdrop-filter: blur(3px); 
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); 
+      width: 50%;
+      text-align: center;
+      padding: 20px;
+      color: #fff;
+      backdrop-filter: blur(2px);
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
     }
 
     .left {
-      text-align: left; 
-      padding-left: 50px; 
+      text-align: left;
+      padding-left: 50px;
     }
 
     .right {
-      text-align: right; 
-      padding-right: 50px; 
+      text-align: right;
+      padding-right: 50px;
     }
-
-    h1 {
-      font-size: 3rem; 
-      margin-bottom: 10px; 
-      opacity: 0; 
-      transition: opacity 0.5s ease; 
+    h1{
+      font-size: 3rem;
     }
-
-    p {
-      font-size: 1.5rem; 
-      opacity: 0; 
-      transition: opacity 0.5s ease; 
+    p{
+      font-size: 1.5rem;
+    }
+    h1, p, .button {
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
 
     .button {
-      margin-top: 20px; 
+      margin-top: 20px;
       padding: 15px 30px;
-      background-color: #ff6f61; 
-      color: white; 
-      font-size: 1.5rem; 
-      border: none; 
-      border-radius: 5px; 
-      cursor: pointer; 
-      transition: background-color 0.3s ease, opacity 0.5s ease; 
-      opacity: 0; 
+      background-color: #ff6f61;
+      color: white;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, opacity 0.5s ease;
     }
 
     .button:hover {
-      background-color: #ff3b30; 
+      background-color: #ff3b30;
     }
- </style>
+  </style>
 
 </head>
 <body>
- <div class="section" id="section1">
+  <div class="section" id="section1">
     <div class="content left">
       <h1>여행의 시작</h1>
       <p>프로젝트 준비, 정말 수고 많으셨습니다.</p>
@@ -118,8 +180,24 @@
       <p>이제는 그동안의 스트레스를 잊고, 새로운 세계로의 초대를 받으세요.</p>
     </div>
   </div>
-
+  
   <div class="section" id="section3">
+    <div class="img-container img1">
+      <h1>액티비티</h1>
+    </div>
+    <div class="img-container img2">
+      <h1>음식</h1>
+    </div>
+    <div class="img-container img3">
+      <h1>가족</h1>
+    </div>
+    <div class="img-container img4">
+      <h1>힐링</h1>
+    </div>
+    <p>당신의 모든 취향이 이곳에 담겨있습니다.</p>
+  </div>
+
+  <div class="section" id="section5">
     <div class="content left">
       <h1>떠날 준비</h1>
       <p>여행을 위한 모든 준비가 완료되었습니다.</p>
@@ -127,7 +205,7 @@
     </div>
   </div>
 
-  <div class="section" id="section4">
+  <div class="section" id="section6">
     <div class="content right">
       <h1>잊지 못할 기억</h1>
       <p>여행 준비 다 하셨죠?</p>
@@ -143,12 +221,11 @@
 
     window.onload = () => {
       sections[0].style.opacity = 1;
-      scrollToSection(0);
+      animateSection(0);
     };
 
-    function scrollToSection(index) {
+    function animateSection(index) {
       sections[index].style.opacity = 1;
-      sections[index].scrollIntoView({ behavior: 'smooth' });
 
       const titles = sections[index].querySelectorAll('h1');
       const paragraphs = sections[index].querySelectorAll('p');
@@ -184,10 +261,13 @@
       isScrolling = true;
 
       if (event.deltaY > 0 && currentSectionIndex < totalSections - 1) {
-        scrollToSection(++currentSectionIndex);
+        currentSectionIndex++;
       } else if (event.deltaY < 0 && currentSectionIndex > 0) {
-        scrollToSection(--currentSectionIndex);
+        currentSectionIndex--;
       }
+      
+      animateSection(currentSectionIndex);
+      sections[currentSectionIndex].scrollIntoView({ behavior: 'smooth' });
 
       setTimeout(enableScroll, 1000);
     });
@@ -205,14 +285,17 @@
       let touchEndY = event.touches[0].clientY;
 
       if (touchStartY > touchEndY + 50 && currentSectionIndex < totalSections - 1) {
-        scrollToSection(++currentSectionIndex);
+        currentSectionIndex++;
       } else if (touchStartY < touchEndY - 50 && currentSectionIndex > 0) {
-        scrollToSection(--currentSectionIndex);
+        currentSectionIndex--;
       }
+      
+      animateSection(currentSectionIndex);
+      sections[currentSectionIndex].scrollIntoView({ behavior: 'smooth' });
 
       setTimeout(enableScroll, 1000);
     });
   </script>
-
 </body>
+
 </html>

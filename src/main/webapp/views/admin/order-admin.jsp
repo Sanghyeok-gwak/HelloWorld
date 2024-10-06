@@ -148,7 +148,7 @@ h5 {
 			<div class="admin-page-main-item w-75 m-auto">
 				<!-- 여기부터 -->
 				<div class="pb-5 ">
-					<h1>회원관리</h1>
+					<h1>결제관리</h1>
 				</div>
 
 				<div id="search-bar">

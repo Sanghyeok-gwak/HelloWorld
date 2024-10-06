@@ -253,6 +253,7 @@ private Properties prop = new Properties();
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteProduct");
 		System.out.println("dao");
+		System.out.println(checkedValue);
 		try {
 			pstmt =conn.prepareStatement(sql);
 			pstmt.setString(1, checkedValue);
@@ -262,7 +263,6 @@ private Properties prop = new Properties();
 		} finally {
 			close(pstmt);
 		}
-		
 		
 		
 		

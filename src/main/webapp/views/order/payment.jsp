@@ -49,7 +49,7 @@
          <div class="reservation">
             <!-- 이미지 -->
               <p>STEP 01</p>
-            <h1>/ 예약정보 입력</h1>
+            <h1>/ 예약하기</h1>
          </div>
 
          <div class="infoEnter">
